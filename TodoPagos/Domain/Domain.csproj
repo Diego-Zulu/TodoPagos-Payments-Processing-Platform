@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateField.cs" />
     <Compile Include="IField.cs" />
     <Compile Include="NumberField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

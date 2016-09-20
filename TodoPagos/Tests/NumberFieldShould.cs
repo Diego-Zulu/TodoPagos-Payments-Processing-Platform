@@ -37,5 +37,14 @@ namespace Tests
 
             Assert.AreNotSame(numberField, newNumberField);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void FailWhenDataToBeFilledWithIsNotNumericTest()
+        {
+            NumberField numberField = new NumberField();
+
+            IField newNumberField = numberField.FillAndClone("hello");
+        }
     }
 }

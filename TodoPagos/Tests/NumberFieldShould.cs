@@ -46,5 +46,15 @@ namespace Tests
 
             IField newNumberField = numberField.FillAndClone("hello");
         }
+
+        [TestMethod]
+        public void TellItIsValidWhenItStoresANumberGreaterThanZeroTest()
+        {
+            NumberField numberField = new NumberField();
+
+            IField newNumberField = numberField.FillAndClone("1");
+
+            Assert.IsTrue(newNumberField.IsValid());
+        }
     }
 }

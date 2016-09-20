@@ -8,12 +8,12 @@ namespace Domain
 {
     public class NumberField : IField
     {
-        public int Data { get; set; }
+        public long Data { get; set; }
 
         public override IField FillAndClone(string dataToFillWith)
         {
             NumberField newNumberField = new NumberField();
-            newNumberField.Data = Int32.Parse(dataToFillWith);
+            newNumberField.Data = long.Parse(dataToFillWith);
             return newNumberField;
         }
 

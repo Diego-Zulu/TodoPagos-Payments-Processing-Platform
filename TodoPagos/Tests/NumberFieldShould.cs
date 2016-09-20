@@ -56,5 +56,15 @@ namespace Tests
 
             Assert.IsTrue(newNumberField.IsValid());
         }
+
+        [TestMethod]
+        public void TellItIsNotValidWhenItStoresANumberSmallerOrEqualToZeroTest()
+        {
+            NumberField numberField = new NumberField();
+
+            IField newNumberField = numberField.FillAndClone("0");
+
+            Assert.IsFalse(newNumberField.IsValid());
+        }
     }
 }

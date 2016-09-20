@@ -12,7 +12,9 @@ namespace Domain
 
         public override IField FillAndClone(string dataToBeFilledWith)
         {
-            throw new NotImplementedException();
+            TextField newTextField = new TextField();
+            newTextField.Data = dataToBeFilledWith;
+            return newTextField;
         }
 
         public override string GetData()

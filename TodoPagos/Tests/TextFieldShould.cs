@@ -28,5 +28,15 @@ namespace Tests
 
             Assert.AreEqual(expectedResult, newTextField.GetData());
         }
+
+        [TestMethod]
+        public void ReturnANewTextFieldWhenFilledTest()
+        {
+            TextField textField = new TextField();
+
+            IField newTextField = textField.FillAndClone("hola");
+
+            Assert.AreNotSame(textField, newTextField);
+        }
     }
 }

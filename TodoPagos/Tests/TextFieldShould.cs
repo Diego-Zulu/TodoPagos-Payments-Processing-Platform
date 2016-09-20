@@ -68,5 +68,14 @@ namespace Tests
 
             Assert.IsFalse(newTextField.IsValid());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenDataToBeFilledWithIsNullTest()
+        {
+            TextField textField = new TextField();
+
+            IField newTextField = textField.FillAndClone(null);
+        }
     }
 }

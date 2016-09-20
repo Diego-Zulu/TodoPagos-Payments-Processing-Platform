@@ -39,7 +39,7 @@ namespace Domain
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return Data.Year > 2013;
         }
     }
 }

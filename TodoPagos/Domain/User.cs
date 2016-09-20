@@ -10,15 +10,31 @@ namespace Domain
     
     public class User
     {
-        string Name { get; set; }
-        string Email { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Email { get; set; }
+        public virtual ICollection<Role> UserRoles { get; set; }
 
-        public User(string newUserName, string newUserEmail)
+        private User()
+        {
+            UserRoles = new List<Role>();
+        }
+
+        public User(string newUserName, string newUserEmail, Role newUserRole)
         {
             CheckIfNameAndEmailAreCorrect(newUserName, newUserEmail);
+            CheckIfRoleIsNotNull(newUserRole);
             Name = newUserName;
             Email = newUserEmail;
+            UserRoles = new List<Role>();
+            UserRoles.Add(newUserRole);
+        }
 
+        private void CheckIfRoleIsNotNull(Role oneRole)
+        {
+            if (oneRole == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckIfNameAndEmailAreCorrect(string aName, string anEmail)
@@ -44,6 +60,11 @@ namespace Domain
             {
                 return true;
             }
+        }
+
+        public bool HasThisRole(Role oneRole)
+        {
+            return this.UserRoles.Contains(oneRole);
         }
     }
 }

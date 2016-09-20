@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    abstract class IField
+    public abstract class IField
     {
         public abstract bool IsValid();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain;
 
 namespace Tests
 {
@@ -11,8 +12,7 @@ namespace Tests
         {
             NumberField numberField = new NumberField();
 
-            numberField.data = 15;
-            string expectedResult = "15";
+            string expectedResult = "0";
 
             Assert.AreEqual(expectedResult, numberField.GetData());
         }

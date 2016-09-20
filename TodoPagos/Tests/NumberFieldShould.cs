@@ -40,12 +40,21 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailWhenDataToBeFilledWithIsNotNumericTest()
         {
             NumberField numberField = new NumberField();
 
             IField newNumberField = numberField.FillAndClone("hello");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenDataToBeFilledWithIsNullTest()
+        {
+            NumberField numberField = new NumberField();
+
+            IField newNumberField = numberField.FillAndClone(null);
         }
 
         [TestMethod]

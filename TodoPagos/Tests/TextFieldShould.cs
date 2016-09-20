@@ -12,7 +12,8 @@ namespace Tests
         {
             TextField textField = new TextField();
 
-            string expectedResult = "";
+            textField.Data = "hola";
+            string expectedResult = "hola";
 
             Assert.AreEqual(expectedResult, textField.GetData());
         }

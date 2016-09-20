@@ -17,7 +17,7 @@ namespace Domain
 
         public override string GetData()
         {
-            throw new NotImplementedException();
+            return Data;
         }
 
         public override bool IsValid()

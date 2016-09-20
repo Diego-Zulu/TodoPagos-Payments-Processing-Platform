@@ -10,17 +10,17 @@ namespace Domain
     
     public class User
     {
-        string name;
-        string email;
-       
+        string Name { get; set; }
+        string Email { get; set; }
+
         public User(string newUserName, string newUserEmail)
         {
             if (NotValidEmail(newUserEmail))
             {
                 throw new ArgumentException("Not valid Email");
             }
-            name = newUserName;
-            email = newUserEmail;
+            Name = newUserName;
+            Email = newUserEmail;
 
         }
 

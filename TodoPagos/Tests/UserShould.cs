@@ -32,7 +32,17 @@ namespace Tests
         public void NotHaveANullEmail()
         {
             string email = null;
-            string name = "Bruno";
+            string name = "Nacho";
+
+            User notValidUser = new User(name, email);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveAnEmptyName()
+        {
+            string email = "emptyMan@gmail.com";
+            string name = "";
 
             User notValidUser = new User(name, email);
         }

@@ -27,5 +27,15 @@ namespace Tests
 
             Assert.AreEqual(expectedResult, numberField.GetData());
         }
+
+        [TestMethod]
+        public void ReturnANewNumberFieldWhenFilledTest()
+        {
+            NumberField numberField = new NumberField();
+
+            IField newNumberField = numberField.FillAndClone("15");
+
+            Assert.AreNotSame(numberField, newNumberField);
+        }
     }
 }

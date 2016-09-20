@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NumberFieldShould.cs" />
     <Compile Include="TextFieldShould.cs" />
+    <Compile Include="DateFieldShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

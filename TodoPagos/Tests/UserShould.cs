@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain;
 
 namespace Tests
 {
@@ -13,7 +14,7 @@ namespace Tests
             string email = "invalid";
             string name = "Diego";
 
-            UserShould notValidUser = new UserShould(name, email);
+            User notValidUser = new User(name, email);
         }
     }
 }

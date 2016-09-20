@@ -48,5 +48,15 @@ namespace Tests
 
             Assert.IsTrue(newTextField.IsValid());
         }
+
+        [TestMethod]
+        public void TellItIsNotValidWhenItStoresAnEmptyTextTest()
+        {
+            TextField textField = new TextField();
+
+            IField newTextField = textField.FillAndClone("");
+
+            Assert.IsFalse(newTextField.IsValid());
+        }
     }
 }

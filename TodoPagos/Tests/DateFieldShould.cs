@@ -48,5 +48,14 @@ namespace Tests
 
             IField newDateField = dateField.FillAndClone(null);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenDataToBeFilledWithIsNotDateTimeTest()
+        {
+            DateField dateField = new DateField();
+
+            IField newDateField = dateField.FillAndClone("hola");
+        }
     }
 }

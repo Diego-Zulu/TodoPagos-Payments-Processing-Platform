@@ -12,12 +12,18 @@ namespace Domain
 
         public override IField FillAndClone(string dataToFillWith)
         {
-            if (dataToFillWith == null) throw new ArgumentException();
+            CheckForNullOrNotNumericArgument(dataToFillWith);
+            NumberField newNumberField = new NumberField();
+            newNumberField.Data = long.Parse(dataToFillWith);
+            return newNumberField;
+        }
+
+        private void CheckForNullOrNotNumericArgument(string dataToFillWith)
+        {
+            if (String.IsNullOrEmpty(dataToFillWith)) throw new ArgumentException();
             try
             {
-                NumberField newNumberField = new NumberField();
-                newNumberField.Data = long.Parse(dataToFillWith);
-                return newNumberField;
+                long.Parse(dataToFillWith);
             }
             catch (FormatException)
             {

@@ -16,5 +16,16 @@ namespace Tests
 
             Assert.AreEqual(expectedResult, numberField.GetData());
         }
+
+        [TestMethod]
+        public void AllowToBeFilledTest()
+        {
+            NumberField numberField = new NumberField();
+
+            numberField.FillAndClone("15");
+            string expectedResult = "15";
+
+            Assert.AreEqual(expectedResult, numberField.GetData());
+        }
     }
 }

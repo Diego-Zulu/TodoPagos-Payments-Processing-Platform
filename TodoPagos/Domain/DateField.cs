@@ -12,15 +12,24 @@ namespace Domain
 
         public override IField FillAndClone(string dataToBeFilledWith)
         {
-            CheckForNullArgument(dataToBeFilledWith);
+            CheckForNullOrNotValidDateTimeArgument(dataToBeFilledWith);
             DateField newDateField = new DateField();
             newDateField.Data = DateTime.ParseExact(dataToBeFilledWith, "d", null);
             return newDateField;
         }
 
-        private void CheckForNullArgument(string dataToBeFilledWith)
+        private void CheckForNullOrNotValidDateTimeArgument(string dataToBeFilledWith)
         {
             if (String.IsNullOrWhiteSpace(dataToBeFilledWith)) throw new ArgumentException();
+            try
+            {
+                DateTime.ParseExact(dataToBeFilledWith, "d", null);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException();
+            }
+
         }
 
         public override string GetData()

@@ -51,7 +51,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenDataToBeFilledWithIsNotDateTimeTest()
+        public void FailWhenDataToBeFilledWithIsNotValidDateTimeTest()
         {
             DateField dateField = new DateField();
 

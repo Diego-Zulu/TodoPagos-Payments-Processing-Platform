@@ -24,9 +24,20 @@ namespace Tests
         {
             DateField dateField = new DateField();
 
-            IField newDateField = dateField.FillAndClone("15/02/2015");
+            IField newDateField = dateField.FillAndClone("15/2/2015");
 
             Assert.AreNotSame(dateField, newDateField);
+        }
+
+        [TestMethod]
+        public void AllowToBeFilledTest()
+        {
+            DateField dateField = new DateField();
+
+            IField newDateField = dateField.FillAndClone("15/2/2015");
+            string expectedResult = "15/2/2015";
+
+            Assert.AreEqual(expectedResult, newDateField.GetData());
         }
     }
 }

@@ -66,5 +66,18 @@ namespace Tests
 
             User notValidUser = new User(name, email);
         }
+
+        [TestMethod]
+        public void KnowIfHeDoesntHaveAGivenRole()
+        {
+            IRole cashierRole = new CashierRole();
+            IRole adminRole = new AdminRole();
+            string userEmail = "BirdFriend@hotmail.com";
+            string userName = "Holly";
+            User newUser = new User(userName, userEmail, cashierRole);
+
+            Assert.IsFalse(newUser.HasThisRole(adminRole));
+
+        }
     }
 }

@@ -46,5 +46,25 @@ namespace Tests
 
             User notValidUser = new User(name, email);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveAWhiteSpaceName()
+        {
+            string email = "MrWhite@outlook.com";
+            string name = "          ";
+
+            User notValidUser = new User(name, email);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveANullName()
+        {
+            string email = "TheNuller@yahoo.com";
+            string name = null;
+
+            User notValidUser = new User(name, email);
+        }
     }
 }

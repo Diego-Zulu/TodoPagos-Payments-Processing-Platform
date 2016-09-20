@@ -25,7 +25,7 @@ namespace Domain
         {
             if (String.IsNullOrWhiteSpace(aName) || NotValidEmail(anEmail))
             {
-                throw new ArgumentException("Not valid Email");
+                throw new ArgumentException();
             }
         }
 

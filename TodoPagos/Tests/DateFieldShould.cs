@@ -39,5 +39,14 @@ namespace Tests
 
             Assert.AreEqual(expectedResult, newDateField.GetData());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenDataToBeFilledWithIsNullTest()
+        {
+            DateField dateField = new DateField();
+
+            IField newDateField = dateField.FillAndClone(null);
+        }
     }
 }

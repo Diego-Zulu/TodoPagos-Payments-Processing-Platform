@@ -24,7 +24,7 @@ namespace Domain
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return Data > 0;
         }
     }
 }

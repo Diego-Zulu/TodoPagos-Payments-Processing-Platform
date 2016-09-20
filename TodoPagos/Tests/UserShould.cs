@@ -16,5 +16,25 @@ namespace Tests
 
             User notValidUser = new User(name, email);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveAnEmptyEmail()
+        {
+            string email = "";
+            string name = "Bruno";
+
+            User notValidUser = new User(name, email);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveANullEmail()
+        {
+            string email = null;
+            string name = "Bruno";
+
+            User notValidUser = new User(name, email);
+        }
     }
 }

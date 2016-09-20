@@ -38,5 +38,15 @@ namespace Tests
 
             Assert.AreNotSame(textField, newTextField);
         }
+
+        [TestMethod]
+        public void TellItIsValidWhenItStoresANotEmptyTextTest()
+        {
+            TextField textField = new TextField();
+
+            IField newTextField = textField.FillAndClone("hola");
+
+            Assert.IsTrue(newTextField.IsValid());
+        }
     }
 }

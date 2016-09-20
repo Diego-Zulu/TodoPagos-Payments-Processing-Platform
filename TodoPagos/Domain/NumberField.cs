@@ -12,8 +12,9 @@ namespace Domain
 
         public override IField FillAndClone(string dataToFillWith)
         {
-            Data = Int32.Parse(dataToFillWith);
-            return new NumberField();
+            NumberField newNumberField = new NumberField();
+            newNumberField.Data = Int32.Parse(dataToFillWith);
+            return newNumberField;
         }
 
         public override string GetData()

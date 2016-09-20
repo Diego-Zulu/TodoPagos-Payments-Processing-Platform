@@ -22,10 +22,10 @@ namespace Tests
         {
             NumberField numberField = new NumberField();
 
-            numberField.FillAndClone("15");
+            IField newNumberField = numberField.FillAndClone("15");
             string expectedResult = "15";
 
-            Assert.AreEqual(expectedResult, numberField.GetData());
+            Assert.AreEqual(expectedResult, newNumberField.GetData());
         }
 
         [TestMethod]

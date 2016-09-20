@@ -10,7 +10,7 @@ namespace Domain
     {
         public abstract bool IsValid();
 
-        public abstract IField FillAndClone(string dataToFillWith);
+        public abstract IField FillAndClone(string dataToBeFilledWith);
 
         public abstract string GetData();
     }

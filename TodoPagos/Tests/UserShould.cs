@@ -85,5 +85,15 @@ namespace Tests
             Assert.IsFalse(newUser.HasThisRole(adminRole));
 
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveANullRole()
+        {
+            Role nullRole = null;
+            string userEmail = "TheNuller2_0@hotmail.com";
+            string userName = "Molly";
+            User newUser = new User(userName, userEmail, nullRole);
+        }
     }
 }

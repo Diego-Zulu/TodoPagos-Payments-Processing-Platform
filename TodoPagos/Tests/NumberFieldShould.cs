@@ -17,16 +17,6 @@ namespace Tests
             Assert.AreEqual(expectedResult, numberField.GetData());
         }
 
-        [TestMethod]
-        public void AllowToBeFilledTest()
-        {
-            NumberField numberField = new NumberField();
-
-            IField newNumberField = numberField.FillAndClone("15");
-            string expectedResult = "15";
-
-            Assert.AreEqual(expectedResult, newNumberField.GetData());
-        }
 
         [TestMethod]
         public void ReturnANewNumberFieldWhenFilledTest()
@@ -36,6 +26,17 @@ namespace Tests
             IField newNumberField = numberField.FillAndClone("15");
 
             Assert.AreNotSame(numberField, newNumberField);
+        }
+
+        [TestMethod]
+        public void AllowToBeFilledTest()
+        {
+            NumberField numberField = new NumberField();
+
+            IField newNumberField = numberField.FillAndClone("15");
+            string expectedResult = "15";
+
+            Assert.AreEqual(expectedResult, newNumberField.GetData());
         }
 
         [TestMethod]

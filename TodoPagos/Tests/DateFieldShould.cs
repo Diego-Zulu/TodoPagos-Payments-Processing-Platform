@@ -67,5 +67,15 @@ namespace Tests
 
             Assert.IsTrue(newDateField.IsValid());
         }
+
+        [TestMethod]
+        public void TellItIsNotValidWhenItStoresADateBeforeThan2014Test()
+        {
+            DateField dateField = new DateField();
+
+            IField newDateField = dateField.FillAndClone("31/12/2013");
+
+            Assert.IsFalse(newDateField.IsValid());
+        }
     }
 }

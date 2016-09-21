@@ -89,5 +89,15 @@ namespace Tests
 
             Assert.IsTrue(firstNewTextField.Equals(secondNewTextField));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToANullObjectTest()
+        {
+            TextField firstTextField = new TextField();
+
+            IField firstNewTextField = firstTextField.FillAndClone("hola");
+
+            Assert.IsFalse(firstNewTextField.Equals(null));
+        }
     }
 }

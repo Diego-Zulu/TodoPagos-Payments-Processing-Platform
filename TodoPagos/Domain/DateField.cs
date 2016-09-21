@@ -45,8 +45,15 @@ namespace Domain
         public override bool Equals(object otherIField)
         {
             if (IsNull(otherIField)) return false;
-            DateField otherDateField = (DateField) otherIField;
-            return GetData().Equals(otherDateField.GetData());
+            try
+            {
+                DateField otherDateField = (DateField)otherIField;
+                return GetData().Equals(otherDateField.GetData());
+            }
+            catch (InvalidCastException)
+            {
+                return false;
+            }
         }
 
         private bool IsNull(object anObject)

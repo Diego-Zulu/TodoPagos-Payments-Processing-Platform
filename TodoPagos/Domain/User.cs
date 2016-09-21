@@ -14,6 +14,8 @@ namespace Domain
         public virtual string Email { get; set; }
         public virtual ICollection<Role> UserRoles { get; set; }
 
+        private const int MINIMUM_ROLE_AMOUNT = 1;
+
         private User()
         {
             UserRoles = new List<Role>();
@@ -49,7 +51,7 @@ namespace Domain
         {
             try
             {
-                EmailAddress parsedAddress = new System.Net.Mail.MailAddress(anEmail);
+                EmailAddress parsedAddress = new EmailAddress(anEmail);
                 return !anEmail.Equals(parsedAddress.Address);
             }
             catch (FormatException)
@@ -65,6 +67,15 @@ namespace Domain
         public bool HasThisRole(Role oneRole)
         {
             return this.UserRoles.Contains(oneRole);
+        }
+
+        public void RemoveRole(Role oneRole)
+        {
+            if (UserRoles.Count == MINIMUM_ROLE_AMOUNT)
+            {
+                throw new InvalidOperationException();
+            }
+            UserRoles.Remove(oneRole);
         }
     }
 }

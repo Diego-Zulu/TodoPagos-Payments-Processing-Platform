@@ -107,5 +107,6 @@ namespace Tests
 
             newUser.RemoveRole(cashierRole);
         }
+
     }
 }

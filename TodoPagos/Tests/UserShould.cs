@@ -117,8 +117,11 @@ namespace Tests
             string userEmail = "DoubleCASHBABY@ort.com.uy";
             string userName = "Riki";
             User newUser = new User(userName, userEmail, firstCashierRole);
+            int roleAmountBeforeAddition = newUser.GetRoleNumber();
 
             newUser.AddRole(secondCashierRole);
+
+            Assert.Equals(roleAmountBeforeAddition, newUser.GetRoleNumber());
         }
     }
 }

@@ -77,5 +77,15 @@ namespace Domain
             }
             UserRoles.Remove(oneRole);
         }
+
+        public void AddRole(Role oneRole)
+        {
+
+        }
+
+        public int GetRoleNumber()
+        {
+            return 0;
+        }
     }
 }

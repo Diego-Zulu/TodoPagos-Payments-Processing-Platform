@@ -15,5 +15,7 @@ namespace Domain
         public abstract string GetData();
 
         public abstract override bool Equals(object otherIField);
+
+        public abstract override int GetHashCode();
     }
 }

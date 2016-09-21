@@ -59,5 +59,10 @@ namespace Domain
         {
             return anObject == null;
         }
+
+        public override int GetHashCode()
+        {
+            return Data.GetHashCode();
+        }
     }
 }

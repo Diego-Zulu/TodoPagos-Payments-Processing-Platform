@@ -51,5 +51,10 @@ namespace Domain
                 return false;
             }
         }
+
+        public override int GetHashCode()
+        {
+            return Data.GetHashCode();
+        }
     }
 }

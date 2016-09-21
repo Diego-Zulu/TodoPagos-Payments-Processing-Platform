@@ -40,6 +40,7 @@ namespace Domain
 
         public override bool Equals(object otherIField)
         {
+            if (otherIField == null) return false;
             TextField textField = (TextField) otherIField;
             return GetData().Equals(textField.GetData());
         }

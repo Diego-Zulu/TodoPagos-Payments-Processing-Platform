@@ -20,8 +20,13 @@ namespace Domain
 
         public void ChangeCommission(long newValue)
         {
-            if (newValue < 0) throw new ArgumentException();
+            CheckForNegativeCommission(newValue);
             Commission = newValue;
+        }
+
+        private void CheckForNegativeCommission(long newValue)
+        {
+            if (newValue < 0) throw new ArgumentException();
         }
     }
 }

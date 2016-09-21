@@ -18,5 +18,17 @@ namespace Tests
 
             Assert.AreEqual(moneyPayedWith - paymentTotal, change);
         }
+
+        [TestMethod]
+        public void KnowIfPaymentWasCompleted()
+        {
+            PayMethod payMethod = new CashPayMethod();
+            int paymentTotal = 1000;
+            int moneyPayedWith = 2500;
+
+            payMethod.PayAndReturnChange(moneyPayedWith, paymentTotal);
+
+            Assert.IsTrue(payMethod.IsComplete);
+        }
     }
 }

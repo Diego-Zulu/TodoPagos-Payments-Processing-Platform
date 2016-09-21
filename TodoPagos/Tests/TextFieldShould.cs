@@ -99,5 +99,15 @@ namespace Tests
 
             Assert.IsFalse(firstNewTextField.Equals(null));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
+        {
+            TextField aTextField = new TextField();
+
+            DateField aDateField = new DateField();
+
+            Assert.IsFalse(aTextField.Equals(aDateField));
+        }
     }
 }

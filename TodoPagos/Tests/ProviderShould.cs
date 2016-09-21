@@ -25,5 +25,12 @@ namespace Tests
 
             provider.ChangeCommission(-15);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenCreatingNewInstanceWithNegativeCommissionValueTest()
+        {
+            Provider provider = new Provider("Antel", -20);
+        }
     }
 }

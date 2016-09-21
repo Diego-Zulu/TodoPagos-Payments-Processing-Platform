@@ -43,7 +43,8 @@ namespace Domain
 
         public override bool Equals(object otherIField)
         {
-            throw new NotImplementedException();
+            NumberField numberField = (NumberField)otherIField;
+            return GetData().Equals(numberField.GetData());
         }
     }
 }

@@ -16,5 +16,14 @@ namespace Tests
 
             Assert.AreEqual(15, provider.Commission);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenChangingCommissionToANegativeValueTest()
+        {
+            Provider provider = new Provider("Antel", 20);
+
+            provider.ChangeCommission(-15);
+        }
     }
 }

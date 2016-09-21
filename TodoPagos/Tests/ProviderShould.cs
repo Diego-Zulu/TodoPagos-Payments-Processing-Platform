@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
+using System.Linq;
 
 namespace Tests
 {
@@ -31,6 +32,17 @@ namespace Tests
         public void FailWhenCreatingNewInstanceWithNegativeCommissionValueTest()
         {
             Provider provider = new Provider("Antel", -20);
+        }
+
+        [TestMethod]
+        public void BeAbleToAddNewFieldsTest()
+        {
+            Provider provider = new Provider("Antel", 20);
+            NumberField numericField = new NumberField();
+
+            provider.AddField(numericField);
+
+            Assert.IsTrue(provider.Fields.Contains(numericField));
         }
     }
 }

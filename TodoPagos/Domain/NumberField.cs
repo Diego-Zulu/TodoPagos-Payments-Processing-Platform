@@ -43,9 +43,14 @@ namespace Domain
 
         public override bool Equals(object otherIField)
         {
-            if (otherIField == null) return false;
+            if (IsNull(otherIField)) return false;
             NumberField numberField = (NumberField)otherIField;
             return GetData().Equals(numberField.GetData());
+        }
+
+        private bool IsNull(object anObject)
+        {
+            return anObject == null;
         }
     }
 }

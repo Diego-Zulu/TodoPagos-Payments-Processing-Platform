@@ -10,6 +10,7 @@ namespace Domain
     {
         public virtual int PayedWith { get; set; }
         public virtual int Change { get; set; }
+        public virtual bool PaymentComplete { get; set; }
 
         public abstract int PayAndReturnChange(int amountPayed, int total);
     }

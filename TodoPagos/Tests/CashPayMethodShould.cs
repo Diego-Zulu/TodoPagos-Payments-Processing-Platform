@@ -28,7 +28,7 @@ namespace Tests
 
             payMethod.PayAndReturnChange(moneyPayedWith, paymentTotal);
 
-            Assert.IsTrue(payMethod.IsComplete);
+            Assert.IsTrue(payMethod.PaymentComplete);
         }
     }
 }

@@ -12,12 +12,14 @@ namespace Domain
         {
             this.Change = 0;
             this.PayedWith = 0;
+            this.PaymentComplete = false;
         }
 
         public override int PayAndReturnChange(int amountPayed, int total)
         {
             PayedWith = amountPayed;
-            Change = total - amountPayed;
+            Change = amountPayed - total;
+            PaymentComplete = true;
 
             return Change;
         }

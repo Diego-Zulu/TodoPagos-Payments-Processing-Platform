@@ -95,5 +95,17 @@ namespace Tests
             string userName = "Molly";
             User newUser = new User(userName, userEmail, nullRole);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void NotRemoveLastRemainingRole()
+        {
+            Role cashierRole = new CashierRole();
+            string userEmail = "Mad_Cashier_404@ort.com.uy";
+            string userName = "Raul";
+            User newUser = new User(userName, userEmail, cashierRole);
+
+            newUser.RemoveRole(cashierRole);
+        }
     }
 }

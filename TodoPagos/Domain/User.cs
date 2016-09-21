@@ -23,12 +23,17 @@ namespace Domain
 
         public User(string newUserName, string newUserEmail, Role newUserRole)
         {
-            CheckIfNameAndEmailAreCorrect(newUserName, newUserEmail);
-            CheckIfRoleIsNotNull(newUserRole);
+            CheckAttributeCorrectness(newUserName, newUserEmail, newUserRole);
             Name = newUserName;
             Email = newUserEmail;
             UserRoles = new List<Role>();
             UserRoles.Add(newUserRole);
+        }
+
+        private void CheckAttributeCorrectness(string newUserName, string newUserEmail, Role newUserRole)
+        {
+            CheckIfNameAndEmailAreCorrect(newUserName, newUserEmail);
+            CheckIfRoleIsNotNull(newUserRole);
         }
 
         private void CheckIfRoleIsNotNull(Role oneRole)
@@ -80,12 +85,15 @@ namespace Domain
 
         public void AddRole(Role oneRole)
         {
-
+            if (!UserRoles.Contains(oneRole))
+            {
+                UserRoles.Add(oneRole);
+            }
         }
 
         public int GetRoleNumber()
         {
-            return 0;
+            return UserRoles.Count;
         }
     }
 }

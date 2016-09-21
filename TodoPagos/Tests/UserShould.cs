@@ -109,7 +109,6 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void NotAddDuplicateRoles()
         {
             Role firstCashierRole = new CashierRole();
@@ -121,7 +120,7 @@ namespace Tests
 
             newUser.AddRole(secondCashierRole);
 
-            Assert.Equals(roleAmountBeforeAddition, newUser.GetRoleNumber());
+            Assert.AreEqual(roleAmountBeforeAddition, newUser.GetRoleNumber());
         }
     }
 }

@@ -23,9 +23,9 @@ namespace Domain
             if (IsNull(dataToBeFilledWith)) throw new ArgumentException();
         }
 
-        private bool IsNull(string dataToBeFilledWith)
+        private bool IsNull(object anObject)
         {
-            return dataToBeFilledWith == null;
+            return anObject == null;
         }
 
         public override string GetData()
@@ -40,7 +40,7 @@ namespace Domain
 
         public override bool Equals(object otherIField)
         {
-            if (otherIField == null) return false;
+            if (IsNull(otherIField)) return false;
             TextField textField = (TextField) otherIField;
             return GetData().Equals(textField.GetData());
         }

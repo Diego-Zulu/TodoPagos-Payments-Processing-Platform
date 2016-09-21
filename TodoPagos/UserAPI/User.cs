@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EmailAddress = System.Net.Mail.MailAddress;
 
-namespace Domain
+namespace UserAPI
 {
     
     public class User
@@ -94,6 +94,18 @@ namespace Domain
         public int GetRoleNumber()
         {
             return Roles.Count;
+        }
+
+        public bool HasPrivilege(Privilege onePrivilege)
+        {
+            for (int index = 0; index < Roles.Count; index++)
+            {
+                if (Roles.ElementAt(index).HasPrivilege(onePrivilege))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

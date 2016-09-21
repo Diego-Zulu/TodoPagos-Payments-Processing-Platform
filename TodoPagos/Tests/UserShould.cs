@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain;
 using System.Collections.Generic;
 using System.Linq;
+using UserAPI;
 
 namespace Tests
 {
@@ -138,7 +138,8 @@ namespace Tests
             ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
             Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
 
-            Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
+            //Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
+            Assert.Fail();
         }
     }
 }

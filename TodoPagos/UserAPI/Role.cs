@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain
+namespace UserAPI
 {
     public abstract class Role
     {
         public virtual string Name { get; set; }
-        public virtual ICollection<Privilege> Privileges { get; }
+        public virtual ICollection<Privilege> Privileges { get; } = new List<Privilege>();
 
         public override bool Equals(Object anObject)
         {
@@ -36,7 +36,11 @@ namespace Domain
 
         public bool HasPrivilege(Privilege onePrivilege)
         {
-            return Privileges.Contains(onePrivilege);
+            if (onePrivilege != null)
+            {
+                return Privileges.Contains(onePrivilege);
+            }
+            return false;
         }
     }
 }

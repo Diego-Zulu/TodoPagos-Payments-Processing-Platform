@@ -30,5 +30,33 @@ namespace Tests
 
             Assert.IsTrue(adminRole.HasPrivilege(firstPrivilege));
         }
+
+        [TestMethod]
+        public void HaveItsNamesHashCode()
+        {
+            AdminRole adminRole = AdminRole.GetInstance();
+            int adminRoleHashCode = adminRole.GetHashCode();
+
+            Assert.AreEqual(adminRoleHashCode, adminRole.Name.GetHashCode());
+        }
+
+        [TestMethod]
+        public void ReturnFalseWhenComparedWithANonRoleObject()
+        {
+            AdminRole adminRole = AdminRole.GetInstance();
+            string nonRoleObject = "Hello World!";
+
+            Assert.AreNotEqual(adminRole, nonRoleObject);
+        }
+
+        [TestMethod]
+        public void HaveAtLeastOnePrivilege()
+        {
+            AdminRole adminRole = AdminRole.GetInstance();
+
+            int numberOfPrivileges = adminRole.GetPrivilegeCount();
+
+            Assert.IsTrue(numberOfPrivileges > 0);
+        }
     }
 }

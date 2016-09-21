@@ -36,11 +36,17 @@ namespace UserAPI
 
         public bool HasPrivilege(Privilege onePrivilege)
         {
+            bool hasPrivilege = false;
             if (onePrivilege != null)
             {
-                return Privileges.Contains(onePrivilege);
+                hasPrivilege = Privileges.Contains(onePrivilege);
             }
-            return false;
+            return hasPrivilege;
+        }
+
+        public int GetPrivilegeCount()
+        {
+            return this.Privileges.Count;
         }
     }
 }

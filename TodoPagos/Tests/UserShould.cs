@@ -120,11 +120,11 @@ namespace Tests
             string userEmail = "DoubleCASHBABY@ort.com.uy";
             string userName = "Riki";
             User newUser = new User(userName, userEmail, firstCashierRole);
-            int roleAmountBeforeAddition = newUser.GetRoleNumber();
+            int roleAmountBeforeAddition = newUser.GetRoleCount();
 
             newUser.AddRole(secondCashierRole);
 
-            Assert.AreEqual(roleAmountBeforeAddition, newUser.GetRoleNumber());
+            Assert.AreEqual(roleAmountBeforeAddition, newUser.GetRoleCount());
         }
 
         [TestMethod]
@@ -141,6 +141,33 @@ namespace Tests
             Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
         }
 
+        [TestMethod]
+        public void BeAbleToAddRoles()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            Role adminRole = AdminRole.GetInstance();
+            string userEmail = "MoneyMoneyMoney@gmail.com";
+            string userName = "Mani";
+            User newUser = new User(userName, userEmail, cashierRole);
 
+            newUser.AddRole(adminRole);
+
+            Assert.IsTrue(newUser.HasThisRole(adminRole) && newUser.HasThisRole(cashierRole));
+        }
+
+        [TestMethod]
+        public void BeAbleToRemoveRoles()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            Role adminRole = AdminRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            User newUser = new User(userName, userEmail, cashierRole);
+
+            newUser.AddRole(adminRole);
+            newUser.RemoveRole(cashierRole);
+
+            Assert.IsFalse(newUser.HasThisRole(cashierRole));
+        }
     }
 }

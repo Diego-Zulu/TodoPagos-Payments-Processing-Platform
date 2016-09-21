@@ -91,21 +91,22 @@ namespace UserAPI
             }
         }
 
-        public int GetRoleNumber()
+        public int GetRoleCount()
         {
             return Roles.Count;
         }
 
         public bool HasPrivilege(Privilege onePrivilege)
         {
-            for (int index = 0; index < Roles.Count; index++)
+            bool hasPrivilege = false;
+            for (int index = 0; index < Roles.Count && !hasPrivilege; index++)
             {
                 if (Roles.ElementAt(index).HasPrivilege(onePrivilege))
                 {
-                    return true;
+                    hasPrivilege = true;
                 }
             }
-            return false;
+            return hasPrivilege;
         }
     }
 }

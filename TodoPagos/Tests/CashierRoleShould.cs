@@ -30,5 +30,33 @@ namespace Tests
 
             Assert.IsTrue(cashierRole.HasPrivilege(firstPrivilege));
         }
+
+        [TestMethod]
+        public void HaveItsNamesHashCode()
+        {
+            CashierRole cashierRole = CashierRole.GetInstance();
+            int cashierRoleHashCode = cashierRole.GetHashCode();
+
+            Assert.AreEqual(cashierRoleHashCode, cashierRole.Name.GetHashCode());
+        }
+
+        [TestMethod]
+        public void ReturnFalseWhenComparedWithANonRoleObject()
+        {
+            CashierRole cashierRole = CashierRole.GetInstance();
+            string nonRoleObject = "Hello World!";
+
+            Assert.AreNotEqual(cashierRole, nonRoleObject);
+        }
+
+        [TestMethod]
+        public void HaveAtLeastOnePrivilege()
+        {
+            CashierRole cashierRole = CashierRole.GetInstance();
+
+            int numberOfPrivileges = cashierRole.GetPrivilegeCount();
+
+            Assert.IsTrue(numberOfPrivileges > 0);
+        }
     }
 }

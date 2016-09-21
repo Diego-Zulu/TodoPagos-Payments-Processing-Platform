@@ -38,5 +38,10 @@ namespace Domain
         {
             return Fields.Contains(aField);
         }
+
+        public void RemoveField(IField fieldToBeRemoved)
+        {
+            Fields.Remove(fieldToBeRemoved);
+        }
     }
 }

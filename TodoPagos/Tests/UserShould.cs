@@ -11,7 +11,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAnInvalidEmail()
         {
-            Role adminRole = new AdminRole();
+            Role adminRole = AdminRole.GetInstance();
             string email = "invalid";
             string name = "Diego";
 
@@ -22,7 +22,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAnEmptyEmail()
         {
-            Role adminRole = new AdminRole();
+            Role adminRole = AdminRole.GetInstance();
             string email = "";
             string name = "Bruno";
 
@@ -33,7 +33,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveANullEmail()
         {
-            Role adminRole = new AdminRole();
+            Role adminRole = AdminRole.GetInstance();
             string email = null;
             string name = "Nacho";
 
@@ -44,7 +44,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAnEmptyName()
         {
-            Role adminRole = new AdminRole();
+            Role adminRole = AdminRole.GetInstance();
             string email = "emptyMan@gmail.com";
             string name = "";
 
@@ -55,7 +55,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAWhiteSpaceName()
         {
-            Role adminRole = new AdminRole();
+            Role adminRole = AdminRole.GetInstance();
             string email = "MrWhite@outlook.com";
             string name = "          ";
 
@@ -66,7 +66,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveANullName()
         {
-            Role adminRole = new AdminRole();
+            Role adminRole = AdminRole.GetInstance();
             string email = "TheNuller@yahoo.com";
             string name = null;
 
@@ -76,8 +76,8 @@ namespace Tests
         [TestMethod]
         public void KnowIfHeDoesntHaveAGivenRole()
         {
-            Role cashierRole = new CashierRole();
-            Role adminRole = new AdminRole();
+            Role cashierRole = CashierRole.GetInstance();
+            Role adminRole = AdminRole.GetInstance();
             string userEmail = "BirdFriend@hotmail.com";
             string userName = "Holly";
             User newUser = new User(userName, userEmail, cashierRole);
@@ -100,7 +100,7 @@ namespace Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void NotRemoveLastRemainingRole()
         {
-            Role cashierRole = new CashierRole();
+            Role cashierRole = CashierRole.GetInstance();
             string userEmail = "Mad_Cashier_404@ort.com.uy";
             string userName = "Raul";
             User newUser = new User(userName, userEmail, cashierRole);
@@ -111,8 +111,8 @@ namespace Tests
         [TestMethod]
         public void NotAddDuplicateRoles()
         {
-            Role firstCashierRole = new CashierRole();
-            Role secondCashierRole = new CashierRole();
+            Role firstCashierRole = CashierRole.GetInstance();
+            Role secondCashierRole = CashierRole.GetInstance();
             string userEmail = "DoubleCASHBABY@ort.com.uy";
             string userName = "Riki";
             User newUser = new User(userName, userEmail, firstCashierRole);

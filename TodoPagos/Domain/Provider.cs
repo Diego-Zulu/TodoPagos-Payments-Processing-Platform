@@ -41,8 +41,13 @@ namespace Domain
 
         public void RemoveField(IField fieldToBeRemoved)
         {
-            if (!ContainsField(fieldToBeRemoved)) throw new ArgumentException();
+            CheckIfFieldIsContainedInFieldsList(fieldToBeRemoved);
             Fields.Remove(fieldToBeRemoved);
+        }
+
+        private void CheckIfFieldIsContainedInFieldsList(IField fieldToBeRemoved)
+        {
+            if (!ContainsField(fieldToBeRemoved)) throw new ArgumentException();
         }
     }
 }

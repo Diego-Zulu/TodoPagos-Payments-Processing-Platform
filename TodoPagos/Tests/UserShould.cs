@@ -138,8 +138,9 @@ namespace Tests
             ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
             Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
 
-            //Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
-            Assert.Fail();
+            Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
         }
+
+
     }
 }

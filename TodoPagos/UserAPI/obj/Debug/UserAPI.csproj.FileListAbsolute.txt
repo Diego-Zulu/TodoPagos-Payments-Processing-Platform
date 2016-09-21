@@ -2,3 +2,4 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\bin\Debug\UserAPI.d
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\bin\Debug\UserAPI.pdb
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.csprojResolveAssemblyReference.cache

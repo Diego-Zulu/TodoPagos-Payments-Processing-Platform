@@ -7,15 +7,15 @@ using UserAPI;
 namespace Tests
 {
     [TestClass]
-    public class RoleShould
+    public class CashierRoleShould
     {
         const int FIRST_POSITION = 0;
 
         [TestMethod]
         public void NotCreateMultipleInstancesOfSameRole()
         {
-            Role firstCashierRole = CashierRole.GetInstance();
-            Role secondCashierRole = CashierRole.GetInstance();
+            CashierRole firstCashierRole = CashierRole.GetInstance();
+            CashierRole secondCashierRole = CashierRole.GetInstance();
 
             Assert.AreSame(firstCashierRole, secondCashierRole);
         }
@@ -23,13 +23,12 @@ namespace Tests
         [TestMethod]
         public void KnowIfItHasACertainPrivilege()
         {
-            Role cashierRole = CashierRole.GetInstance();
+            CashierRole cashierRole = CashierRole.GetInstance();
 
             ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
             Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
 
-            // Assert.IsTrue(cashierRole.HasPrivilege(firstPrivilege));
-            Assert.Fail();
+            Assert.IsTrue(cashierRole.HasPrivilege(firstPrivilege));
         }
     }
 }

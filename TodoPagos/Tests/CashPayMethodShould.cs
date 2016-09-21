@@ -20,6 +20,17 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void RefusePaymentWhenTotalIsAboveAmountPayed()
+        {
+            PayMethod payMethod = new CashPayMethod();
+            int paymentTotal = 3000;
+            int moneyPayedWith = 2500;
+
+            payMethod.PayAndReturnChange(moneyPayedWith, paymentTotal);
+        }
+
+        [TestMethod]
         public void KnowIfPaymentWasCompleted()
         {
             PayMethod payMethod = new CashPayMethod();

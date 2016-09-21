@@ -44,5 +44,17 @@ namespace Tests
 
             Assert.IsTrue(provider.ContainsField(numericField));
         }
+
+        [TestMethod]
+        public void BeAbleToRemoveAFieldTest()
+        {
+            Provider provider = new Provider("Antel", 20);
+            NumberField numericField = new NumberField();
+
+            provider.AddField(numericField);
+            provider.RemoveField(numericField);
+
+            Assert.IsFalse(provider.ContainsField(numericField));
+        }
     }
 }

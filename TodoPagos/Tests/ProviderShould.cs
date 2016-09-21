@@ -56,5 +56,17 @@ namespace Tests
 
             Assert.IsFalse(provider.ContainsField(numericField));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfUserTriesToRemoveAFieldThatIsNotInFieldsListTest()
+        {
+            Provider provider = new Provider("Antel", 20);
+            NumberField numericField = new NumberField();
+            DateField dateField = new DateField();
+
+            provider.AddField(numericField);
+            provider.RemoveField(dateField);
+        }
     }
 }

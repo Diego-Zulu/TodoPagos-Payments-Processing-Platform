@@ -40,5 +40,10 @@ namespace Domain
         {
             return Data > 0;
         }
+
+        public override bool Equals(object otherIField)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

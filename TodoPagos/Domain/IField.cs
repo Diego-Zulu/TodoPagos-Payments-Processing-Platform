@@ -13,5 +13,7 @@ namespace Domain
         public abstract IField FillAndClone(string dataToBeFilledWith);
 
         public abstract string GetData();
+
+        public abstract override bool Equals(object otherIField);
     }
 }

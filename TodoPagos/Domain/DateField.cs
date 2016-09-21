@@ -41,5 +41,10 @@ namespace Domain
         {
             return Data.Year > 2013;
         }
+
+        public override bool Equals(object otherIField)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

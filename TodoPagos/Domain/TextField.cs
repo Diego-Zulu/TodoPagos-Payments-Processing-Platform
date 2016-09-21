@@ -37,5 +37,10 @@ namespace Domain
         {
             return !String.IsNullOrWhiteSpace(Data);
         }
+
+        public override bool Equals(object otherIField)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

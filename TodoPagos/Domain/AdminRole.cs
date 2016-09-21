@@ -13,9 +13,15 @@ namespace Domain
         private AdminRole()
         {
             this.Name = "Admin";
+            AddAdminPrivileges();
         }
 
-        public static Role GetInstance()
+        private void AddAdminPrivileges()
+        {
+            this.Privileges.Add(RegisterPaymentPrivilege.GetInstance());
+        }
+
+        public static AdminRole GetInstance()
         {
             if (instance == null)
             {

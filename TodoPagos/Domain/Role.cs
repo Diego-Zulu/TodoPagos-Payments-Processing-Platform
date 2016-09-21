@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
     public abstract class Role
     {
         public virtual string Name { get; set; }
+        public virtual ICollection<Privilege> Privileges { get; }
 
         public override bool Equals(Object anObject)
         {
@@ -21,7 +19,7 @@ namespace Domain
             }
         }
 
-        public virtual bool IsEqualRole(Role anotherRole)
+        private bool IsEqualRole(Role anotherRole)
         {
             bool isEqualRole = false;
             if (anotherRole != null)
@@ -34,6 +32,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
+        }
+
+        public bool HasPrivilege(Privilege onePrivilege)
+        {
+            return Privileges.Contains(onePrivilege);
         }
     }
 }

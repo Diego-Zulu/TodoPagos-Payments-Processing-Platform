@@ -13,9 +13,15 @@ namespace Domain
         private CashierRole()
         {
             this.Name = "Cashier";
+            AddCashierPrivileges();
         }
 
-        public static Role GetInstance()
+        private void AddCashierPrivileges()
+        {
+            this.Privileges.Add(RegisterPaymentPrivilege.GetInstance());
+        }
+
+        public static CashierRole GetInstance()
         {
             if (instance == null)
             {

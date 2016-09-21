@@ -1,12 +1,16 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tests
 {
     [TestClass]
     public class UserShould
     {
+        const int FIRST_POSITION = 0;
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAnInvalidEmail()
@@ -121,6 +125,20 @@ namespace Tests
             newUser.AddRole(secondCashierRole);
 
             Assert.AreEqual(roleAmountBeforeAddition, newUser.GetRoleNumber());
+        }
+
+        [TestMethod]
+        public void KnowIfItHasACertainPrivilege()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "DoubleCASHBABY@ort.com.uy";
+            string userName = "Riki";
+            User newUser = new User(userName, userEmail, cashierRole);
+
+            ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
+            Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
+
+            Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
         }
     }
 }

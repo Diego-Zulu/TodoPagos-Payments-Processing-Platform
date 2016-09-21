@@ -76,5 +76,17 @@ namespace Tests
 
             Assert.IsFalse(newNumberField.IsValid());
         }
+
+        [TestMethod]
+        public void BeAbleToTellIfItIsEqualToAnotherNumberFieldTest()
+        {
+            NumberField firstNumberField = new NumberField();
+            NumberField secondNumberField = new NumberField();
+
+            IField firstNewNumberField = firstNumberField.FillAndClone("2");
+            IField secondNewNumberField = secondNumberField.FillAndClone("2");
+
+            Assert.IsTrue(firstNewNumberField.Equals(secondNewNumberField));
+        }
     }
 }

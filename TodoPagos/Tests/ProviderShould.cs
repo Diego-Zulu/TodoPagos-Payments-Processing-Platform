@@ -6,6 +6,14 @@ namespace Tests
     [TestClass]
     public class ProviderShould
     {
+        [TestMethod]
+        public void BeAbleToModifyHisCommissionTest()
+        {
+            Provider provider = new Provider("Antel", 20);
 
+            provider.ChangeCommission(15);
+
+            Assert.AreEqual(15, provider.Commission);
+        }
     }
 }

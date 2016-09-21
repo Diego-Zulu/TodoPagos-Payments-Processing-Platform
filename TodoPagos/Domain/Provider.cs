@@ -14,7 +14,7 @@ namespace Domain
 
         public Provider(string aName, long aCommission)
         {
-            if (aCommission < 0) throw new ArgumentException();
+            CheckForNegativeCommission(aCommission);
             Commission = aCommission;
             Name = aName;
         }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
@@ -11,6 +8,8 @@ namespace Domain
         public long Commission { get; set; }
 
         public string Name { get; set; }
+
+        public List<IField> Fields { get; set; } = new List<IField>();
 
         public Provider(string aName, long aCommission)
         {
@@ -28,6 +27,11 @@ namespace Domain
         private void CheckForNegativeCommission(long newValue)
         {
             if (newValue < 0) throw new ArgumentException();
+        }
+
+        public void AddField(IField fieldToBeAdded)
+        {
+            Fields.Add(fieldToBeAdded);
         }
     }
 }

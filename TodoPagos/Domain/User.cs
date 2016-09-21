@@ -12,13 +12,13 @@ namespace Domain
     {
         public virtual string Name { get; set; }
         public virtual string Email { get; set; }
-        public virtual ICollection<Role> UserRoles { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
 
         private const int MINIMUM_ROLE_AMOUNT = 1;
 
         private User()
         {
-            UserRoles = new List<Role>();
+            Roles = new List<Role>();
         }
 
         public User(string newUserName, string newUserEmail, Role newUserRole)
@@ -26,8 +26,8 @@ namespace Domain
             CheckAttributeCorrectness(newUserName, newUserEmail, newUserRole);
             Name = newUserName;
             Email = newUserEmail;
-            UserRoles = new List<Role>();
-            UserRoles.Add(newUserRole);
+            Roles = new List<Role>();
+            Roles.Add(newUserRole);
         }
 
         private void CheckAttributeCorrectness(string newUserName, string newUserEmail, Role newUserRole)
@@ -71,29 +71,29 @@ namespace Domain
 
         public bool HasThisRole(Role oneRole)
         {
-            return this.UserRoles.Contains(oneRole);
+            return this.Roles.Contains(oneRole);
         }
 
         public void RemoveRole(Role oneRole)
         {
-            if (UserRoles.Count == MINIMUM_ROLE_AMOUNT)
+            if (Roles.Count == MINIMUM_ROLE_AMOUNT)
             {
                 throw new InvalidOperationException();
             }
-            UserRoles.Remove(oneRole);
+            Roles.Remove(oneRole);
         }
 
         public void AddRole(Role oneRole)
         {
-            if (!UserRoles.Contains(oneRole))
+            if (!Roles.Contains(oneRole))
             {
-                UserRoles.Add(oneRole);
+                Roles.Add(oneRole);
             }
         }
 
         public int GetRoleNumber()
         {
-            return UserRoles.Count;
+            return Roles.Count;
         }
     }
 }

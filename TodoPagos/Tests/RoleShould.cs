@@ -15,5 +15,15 @@ namespace Tests
 
             Assert.AreSame(firstCashierRole, secondCashierRole);
         }
+
+        [TestMethod]
+        public void KnowIfItHasACertainPrivilege()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+
+            ICollection<Privilege> cashierPrivileges = cashierRole.Privileges; 
+
+            Assert.IsTrue(cashierRole.HasPrivilege(cashierPrivileges.First()));
+        }
     }
 }

@@ -88,5 +88,15 @@ namespace Tests
 
             Assert.IsTrue(firstNewNumberField.Equals(secondNewNumberField));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToANullObjectTest()
+        {
+            NumberField firstNumberField = new NumberField();
+
+            IField firstNewNumberField = firstNumberField.FillAndClone("2");
+
+            Assert.IsFalse(firstNewNumberField.Equals(null));
+        }
     }
 }

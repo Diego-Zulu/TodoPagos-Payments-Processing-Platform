@@ -89,5 +89,15 @@ namespace Tests
 
             Assert.IsTrue(firstNewDateField.Equals(secondNewDateField));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToANullObjectTest()
+        {
+            DateField firstDateField = new DateField();
+
+            IField firstNewDateField = firstDateField.FillAndClone("31/12/2013");
+
+            Assert.IsFalse(firstNewDateField.Equals(null));
+        }
     }
 }

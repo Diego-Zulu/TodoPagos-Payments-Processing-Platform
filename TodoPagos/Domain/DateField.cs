@@ -44,6 +44,7 @@ namespace Domain
 
         public override bool Equals(object otherIField)
         {
+            if (otherIField == null) return false;
             DateField otherDateField = (DateField) otherIField;
             return GetData().Equals(otherDateField.GetData());
         }

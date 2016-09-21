@@ -108,5 +108,17 @@ namespace Tests
             newUser.RemoveRole(cashierRole);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void NotAddDuplicateRoles()
+        {
+            Role firstCashierRole = new CashierRole();
+            Role secondCashierRole = new CashierRole();
+            string userEmail = "DoubleCASHBABY@ort.com.uy";
+            string userName = "Riki";
+            User newUser = new User(userName, userEmail, firstCashierRole);
+
+            newUser.AddRole(secondCashierRole);
+        }
     }
 }

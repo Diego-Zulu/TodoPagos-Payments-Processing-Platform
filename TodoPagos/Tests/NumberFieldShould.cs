@@ -10,7 +10,7 @@ namespace Tests
         [TestMethod]
         public void BeAbleToReturnItsDataTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             string expectedResult = "0";
 
@@ -21,7 +21,7 @@ namespace Tests
         [TestMethod]
         public void ReturnANewNumberFieldWhenFilledTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             IField newNumberField = numberField.FillAndClone("15");
 
@@ -31,7 +31,7 @@ namespace Tests
         [TestMethod]
         public void AllowToBeFilledTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             IField newNumberField = numberField.FillAndClone("15");
             string expectedResult = "15";
@@ -43,7 +43,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenDataToBeFilledWithIsNotNumericTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             IField newNumberField = numberField.FillAndClone("hello");
         }
@@ -52,7 +52,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenDataToBeFilledWithIsNullTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             IField newNumberField = numberField.FillAndClone(null);
         }
@@ -60,7 +60,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsValidWhenItStoresANumberGreaterThanZeroTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             IField newNumberField = numberField.FillAndClone("1");
 
@@ -70,7 +70,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsNotValidWhenItStoresANumberSmallerOrEqualToZeroTest()
         {
-            NumberField numberField = new NumberField();
+            NumberField numberField = new NumberField("Monto");
 
             IField newNumberField = numberField.FillAndClone("0");
 
@@ -80,8 +80,8 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellIfItIsEqualToAnotherNumberFieldTest()
         {
-            NumberField firstNumberField = new NumberField();
-            NumberField secondNumberField = new NumberField();
+            NumberField firstNumberField = new NumberField("Monto");
+            NumberField secondNumberField = new NumberField("Monto");
 
             IField firstNewNumberField = firstNumberField.FillAndClone("2");
             IField secondNewNumberField = secondNumberField.FillAndClone("2");
@@ -92,7 +92,7 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToANullObjectTest()
         {
-            NumberField firstNumberField = new NumberField();
+            NumberField firstNumberField = new NumberField("Monto");
 
             IField firstNewNumberField = firstNumberField.FillAndClone("2");
 
@@ -102,9 +102,9 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
         {
-            NumberField aNumberField = new NumberField();
+            NumberField aNumberField = new NumberField("Monto");
 
-            DateField aDateField = new DateField();
+            DateField aDateField = new DateField("Fecha");
 
             Assert.IsFalse(aNumberField.Equals(aDateField));
         }

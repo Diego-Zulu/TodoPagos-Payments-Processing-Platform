@@ -10,10 +10,17 @@ namespace Domain
     {
         public DateTime Data { get; set; }
 
+        public string Name { get; set; }
+
+        public DateField(string aName)
+        {
+            Name = aName;
+        }
+
         public override IField FillAndClone(string dataToBeFilledWith)
         {
             CheckForNullOrNotValidDateTimeArgument(dataToBeFilledWith);
-            DateField newDateField = new DateField();
+            DateField newDateField = new DateField(Name);
             newDateField.Data = DateTime.ParseExact(dataToBeFilledWith, "d", null);
             return newDateField;
         }
@@ -48,7 +55,8 @@ namespace Domain
             try
             {
                 DateField otherDateField = (DateField)otherIField;
-                return GetData().Equals(otherDateField.GetData());
+                return GetData().Equals(otherDateField.GetData()) &&
+                    Name.Equals(otherDateField.Name);
             }
             catch (InvalidCastException)
             {

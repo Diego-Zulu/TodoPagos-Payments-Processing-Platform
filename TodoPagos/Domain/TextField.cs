@@ -10,10 +10,17 @@ namespace Domain
     {
         public string Data { get; set; }
 
+        public string Name { get; set; }
+
+        public TextField(string aName)
+        {
+            Name = aName;
+        }
+
         public override IField FillAndClone(string dataToBeFilledWith)
         {
             CheckForNullArgument(dataToBeFilledWith);
-            TextField newTextField = new TextField();
+            TextField newTextField = new TextField(Name);
             newTextField.Data = dataToBeFilledWith;
             return newTextField;
         }
@@ -43,8 +50,9 @@ namespace Domain
             if (IsNull(otherIField)) return false;
             try
             {
-                TextField textField = (TextField)otherIField;
-                return GetData().Equals(textField.GetData());
+                TextField otherTextField = (TextField)otherIField;
+                return GetData().Equals(otherTextField.GetData()) &&
+                    Name.Equals(otherTextField.Name);
             }
             catch (InvalidCastException)
             {

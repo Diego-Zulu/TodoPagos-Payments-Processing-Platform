@@ -10,10 +10,17 @@ namespace Domain
     {
         public long Data { get; set; }
 
+        public string Name { get; set; }
+
+        public NumberField(string aName)
+        {
+            Name = aName;
+        }
+
         public override IField FillAndClone(string dataToFillWith)
         {
             CheckForNullOrNotNumericArgument(dataToFillWith);
-            NumberField newNumberField = new NumberField();
+            NumberField newNumberField = new NumberField(Name);
             newNumberField.Data = long.Parse(dataToFillWith);
             return newNumberField;
         }
@@ -46,8 +53,9 @@ namespace Domain
             if (IsNull(otherIField)) return false;
             try
             {
-                NumberField numberField = (NumberField)otherIField;
-                return GetData().Equals(numberField.GetData());
+                NumberField otherNumberField = (NumberField)otherIField;
+                return GetData().Equals(otherNumberField.GetData()) &&
+                    Name.Equals(otherNumberField.Name);
             }
             catch (InvalidCastException)
             {

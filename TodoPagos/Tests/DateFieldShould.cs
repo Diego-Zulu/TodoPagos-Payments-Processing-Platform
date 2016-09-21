@@ -10,7 +10,7 @@ namespace Tests
         [TestMethod]
         public void BeAbleToReturnItsDataTest()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             DateTime date = DateTime.Today;
             dateField.Data = date;
@@ -22,7 +22,7 @@ namespace Tests
         [TestMethod]
         public void ReturnANewDateFieldWhenFilledTest()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             IField newDateField = dateField.FillAndClone("15/2/2015");
 
@@ -32,7 +32,7 @@ namespace Tests
         [TestMethod]
         public void AllowToBeFilledTest()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             IField newDateField = dateField.FillAndClone("15/2/2015");
             string expectedResult = "15/2/2015";
@@ -44,7 +44,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenDataToBeFilledWithIsNullTest()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             IField newDateField = dateField.FillAndClone(null);
         }
@@ -53,7 +53,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenDataToBeFilledWithIsNotValidDateTimeTest()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             IField newDateField = dateField.FillAndClone("hola");
         }
@@ -61,7 +61,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsValidWhenItStoresADateLaterThan2013Test()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             IField newDateField = dateField.FillAndClone("1/1/2014");
 
@@ -71,7 +71,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsNotValidWhenItStoresADateBeforeThan2014Test()
         {
-            DateField dateField = new DateField();
+            DateField dateField = new DateField("Fecha");
 
             IField newDateField = dateField.FillAndClone("31/12/2013");
 
@@ -81,8 +81,8 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellIfItIsEqualToAnotherDateFieldTest()
         {
-            DateField firstDateField = new DateField();
-            DateField secondDateField = new DateField();
+            DateField firstDateField = new DateField("Fecha");
+            DateField secondDateField = new DateField("Fecha");
 
             IField firstNewDateField = firstDateField.FillAndClone("31/12/2013");
             IField secondNewDateField = secondDateField.FillAndClone("31/12/2013");
@@ -93,7 +93,7 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToANullObjectTest()
         {
-            DateField firstDateField = new DateField();
+            DateField firstDateField = new DateField("Fecha");
 
             IField firstNewDateField = firstDateField.FillAndClone("31/12/2013");
 
@@ -103,11 +103,11 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
         {
-            DateField aDateField = new DateField();
+            DateField aDateField = new DateField("Fecha");
 
             IField aNewDateField = aDateField.FillAndClone("31/12/2013");
 
-            NumberField aNumberField = new NumberField();
+            NumberField aNumberField = new NumberField("Monto");
 
             Assert.IsFalse(aNewDateField.Equals(aNumberField));
         }

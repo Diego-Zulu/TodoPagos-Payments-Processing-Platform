@@ -10,7 +10,7 @@ namespace Tests
         [TestMethod]
         public void BeAbleToReturnItsDataTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             textField.Data = "hola";
             string expectedResult = "hola";
@@ -21,7 +21,7 @@ namespace Tests
         [TestMethod]
         public void AllowToBeFilledTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             IField newTextField = textField.FillAndClone("hola");
             string expectedResult = "hola";
@@ -32,7 +32,7 @@ namespace Tests
         [TestMethod]
         public void ReturnANewTextFieldWhenFilledTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             IField newTextField = textField.FillAndClone("hola");
 
@@ -42,7 +42,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsValidWhenItStoresANotEmptyTextTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             IField newTextField = textField.FillAndClone("hola");
 
@@ -52,7 +52,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsNotValidWhenItStoresAnEmptyTextTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             IField newTextField = textField.FillAndClone("");
 
@@ -62,7 +62,7 @@ namespace Tests
         [TestMethod]
         public void TellItIsNotValidWhenItStoresAFullWhiteSpaceTextTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             IField newTextField = textField.FillAndClone("      ");
 
@@ -73,7 +73,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenDataToBeFilledWithIsNullTest()
         {
-            TextField textField = new TextField();
+            TextField textField = new TextField("Nombre");
 
             IField newTextField = textField.FillAndClone(null);
         }
@@ -81,8 +81,8 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellIfItIsEqualToAnotherTextFieldTest()
         {
-            TextField firstTextField = new TextField();
-            TextField secondTextField = new TextField();
+            TextField firstTextField = new TextField("Nombre");
+            TextField secondTextField = new TextField("Nombre");
 
             IField firstNewTextField = firstTextField.FillAndClone("hola");
             IField secondNewTextField = secondTextField.FillAndClone("hola");
@@ -93,7 +93,7 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToANullObjectTest()
         {
-            TextField firstTextField = new TextField();
+            TextField firstTextField = new TextField("Nombre");
 
             IField firstNewTextField = firstTextField.FillAndClone("hola");
 
@@ -103,9 +103,9 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
         {
-            TextField aTextField = new TextField();
+            TextField aTextField = new TextField("Nombre");
 
-            DateField aDateField = new DateField();
+            DateField aDateField = new DateField("Fecha");
 
             Assert.IsFalse(aTextField.Equals(aDateField));
         }

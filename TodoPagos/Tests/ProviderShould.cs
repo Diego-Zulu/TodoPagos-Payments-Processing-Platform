@@ -38,7 +38,7 @@ namespace Tests
         public void BeAbleToAddNewFieldsTest()
         {
             Provider provider = new Provider("Antel", 20);
-            NumberField numericField = new NumberField();
+            NumberField numericField = new NumberField("Monto");
 
             provider.AddField(numericField);
 
@@ -49,7 +49,7 @@ namespace Tests
         public void BeAbleToRemoveAFieldTest()
         {
             Provider provider = new Provider("Antel", 20);
-            NumberField numericField = new NumberField();
+            NumberField numericField = new NumberField("Monto");
 
             provider.AddField(numericField);
             provider.RemoveField(numericField);
@@ -62,8 +62,8 @@ namespace Tests
         public void FailIfUserTriesToRemoveAFieldThatIsNotInFieldsListTest()
         {
             Provider provider = new Provider("Antel", 20);
-            NumberField numericField = new NumberField();
-            DateField dateField = new DateField();
+            NumberField numericField = new NumberField("Monto");
+            DateField dateField = new DateField("Fecha");
 
             provider.AddField(numericField);
             provider.RemoveField(dateField);

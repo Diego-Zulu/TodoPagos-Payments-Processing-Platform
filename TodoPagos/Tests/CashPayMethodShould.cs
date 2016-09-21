@@ -8,13 +8,15 @@ namespace Tests
     public class CashPayMethodShould
     {
         [TestMethod]
-        public void BeAbleToPay()
+        public void BeAbleToPayAndReturnChange()
         {
             PayMethod payMethod = new CashPayMethod();
             int paymentTotal = 1000;
             int moneyPayedWith = 2500;
 
-            Assert.AreEqual(moneyPayedWith - paymentTotal, payMethod.Change);
+            int change = payMethod.PayAndReturnChange(moneyPayedWith, paymentTotal);
+
+            Assert.AreEqual(moneyPayedWith - paymentTotal, change);
         }
     }
 }

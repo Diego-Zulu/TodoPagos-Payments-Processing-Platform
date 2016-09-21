@@ -99,5 +99,17 @@ namespace Tests
 
             Assert.IsFalse(firstNewDateField.Equals(null));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
+        {
+            DateField aDateField = new DateField();
+
+            IField aNewDateField = aDateField.FillAndClone("31/12/2013");
+
+            NumberField aNumberField = new NumberField();
+
+            Assert.IsFalse(aNewDateField.Equals(aNumberField));
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace Domain
 
         public void ChangeCommission(long newValue)
         {
+            if (newValue < 0) throw new ArgumentException();
             Commission = newValue;
         }
     }

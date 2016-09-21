@@ -42,7 +42,7 @@ namespace Tests
 
             provider.AddField(numericField);
 
-            Assert.IsTrue(provider.Fields.Contains(numericField));
+            Assert.IsTrue(provider.ContainsField(numericField));
         }
     }
 }

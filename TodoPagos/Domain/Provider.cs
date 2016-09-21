@@ -33,5 +33,10 @@ namespace Domain
         {
             Fields.Add(fieldToBeAdded);
         }
+
+        public bool ContainsField(IField aField)
+        {
+            return Fields.Contains(aField);
+        }
     }
 }

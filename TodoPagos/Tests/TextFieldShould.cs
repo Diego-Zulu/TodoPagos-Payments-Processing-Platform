@@ -77,5 +77,17 @@ namespace Tests
 
             IField newTextField = textField.FillAndClone(null);
         }
+
+        [TestMethod]
+        public void BeAbleToTellIfItIsEqualToAnotherTextFieldTest()
+        {
+            TextField firstTextField = new TextField();
+            TextField secondTextField = new TextField();
+
+            IField firstNewTextField = firstTextField.FillAndClone("hola");
+            IField secondNewTextField = secondTextField.FillAndClone("hola");
+
+            Assert.IsTrue(firstNewTextField.Equals(secondNewTextField));
+        }
     }
 }

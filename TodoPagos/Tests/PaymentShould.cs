@@ -11,8 +11,9 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveANullPaymentMethod()
         {
+            int amountPayed = 5000;
             PayMethod paymentMethod = null;
-            Payment newPayment = new Payment(paymentMethod);
+            Payment newPayment = new Payment(paymentMethod, amountPayed);
         }
 
         [TestMethod]

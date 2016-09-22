@@ -85,5 +85,15 @@ namespace Tests
 
             Assert.IsFalse(provider.Equals(null));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfObject()
+        {
+            Provider provider = new Provider("Antel", 20);
+
+            DateField aDateField = new DateField("Fecha");
+
+            Assert.IsFalse(provider.Equals(aDateField));
+        }
     }
 }

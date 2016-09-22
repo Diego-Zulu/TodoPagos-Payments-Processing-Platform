@@ -18,6 +18,7 @@ namespace Domain
         public override int PayAndReturnChange(int total)
         {
             CheckIfAmountPayedIsMoreThanOrEqualsTotal(PaidWith, total);
+            CheckIfTotalIsPositive(total);
             Change = PaidWith - total;
 
             return Change;
@@ -26,6 +27,14 @@ namespace Domain
         private void CheckIfAmountPayedIsMoreThanOrEqualsTotal(int amountPayed, int total)
         {
             if (amountPayed < total)
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private void CheckIfTotalIsPositive(int total)
+        {
+            if (total < 0)
             {
                 throw new InvalidOperationException();
             }

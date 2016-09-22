@@ -53,8 +53,15 @@ namespace Domain
         public override bool Equals(object anotherProvider)
         {
             if (IsNull(anotherProvider)) return false;
-            Provider otherProvider = (Provider) anotherProvider;
-            return Name.Equals(otherProvider.Name);
+            try
+            {
+                Provider otherProvider = (Provider)anotherProvider;
+                return Name.Equals(otherProvider.Name);
+            }
+            catch (InvalidCastException)
+            {
+                return false;
+            }
         }
 
         private bool IsNull(object anObject)

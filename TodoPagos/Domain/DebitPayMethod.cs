@@ -13,9 +13,18 @@ namespace Domain
 
         public DebitPayMethod(DateTime date)
         {
+            CheckIfDateIsNotInTheFuture(date);
             this.Change = 0;
             this.PaidWith = 0;
             this.payDate = date;
+        }
+
+        private void CheckIfDateIsNotInTheFuture(DateTime date)
+        {
+            if (DateTime.Now < date)
+            {
+                throw new ArgumentException();
+            }
         }
 
         public override int PayAndReturnChange(int total)

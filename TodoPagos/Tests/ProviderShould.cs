@@ -9,7 +9,7 @@ namespace Tests
     public class ProviderShould
     {
         [TestMethod]
-        public void BeAbleToModifyHisCommissionTest()
+        public void BeAbleToModifyHisCommission()
         {
             Provider provider = new Provider("Antel", 20);
 
@@ -20,7 +20,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenChangingCommissionToANegativeValueTest()
+        public void FailWhenChangingCommissionToANegativeValue()
         {
             Provider provider = new Provider("Antel", 20);
 
@@ -29,13 +29,13 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenCreatingNewInstanceWithNegativeCommissionValueTest()
+        public void FailWhenCreatingNewInstanceWithNegativeCommissionValue()
         {
             Provider provider = new Provider("Antel", -20);
         }
 
         [TestMethod]
-        public void BeAbleToAddNewFieldsTest()
+        public void BeAbleToAddNewFields()
         {
             Provider provider = new Provider("Antel", 20);
             NumberField numericField = new NumberField("Monto");
@@ -46,7 +46,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToRemoveAFieldTest()
+        public void BeAbleToRemoveAField()
         {
             Provider provider = new Provider("Antel", 20);
             NumberField numericField = new NumberField("Monto");
@@ -59,7 +59,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailIfUserTriesToRemoveAFieldThatIsNotInFieldsListTest()
+        public void FailIfUserTriesToRemoveAFieldThatIsNotInFieldsList()
         {
             Provider provider = new Provider("Antel", 20);
             NumberField numericField = new NumberField("Monto");

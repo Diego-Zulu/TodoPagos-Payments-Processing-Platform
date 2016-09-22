@@ -8,7 +8,7 @@ namespace Tests
     public class NumberFieldShould
     {
         [TestMethod]
-        public void BeAbleToReturnItsDataTest()
+        public void BeAbleToReturnItsData()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -19,7 +19,7 @@ namespace Tests
 
 
         [TestMethod]
-        public void ReturnANewNumberFieldWhenFilledTest()
+        public void ReturnANewNumberFieldWhenFilled()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -29,7 +29,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AllowToBeFilledTest()
+        public void AllowToBeFilled()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -41,7 +41,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenDataToBeFilledWithIsNotNumericTest()
+        public void FailWhenDataToBeFilledWithIsNotNumeric()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -50,7 +50,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenDataToBeFilledWithIsNullTest()
+        public void FailWhenDataToBeFilledWithIsNull()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -58,7 +58,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TellItIsValidWhenItStoresANumberGreaterThanZeroTest()
+        public void TellItIsValidWhenItStoresANumberGreaterThanZero()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -68,7 +68,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TellItIsNotValidWhenItStoresANumberSmallerOrEqualToZeroTest()
+        public void TellItIsNotValidWhenItStoresANumberSmallerOrEqualToZero()
         {
             NumberField numberField = new NumberField("Monto");
 
@@ -78,7 +78,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItIsEqualToAnotherNumberFieldTest()
+        public void BeAbleToTellIfItIsEqualToAnotherNumberField()
         {
             NumberField firstNumberField = new NumberField("Monto");
             NumberField secondNumberField = new NumberField("Monto");
@@ -90,7 +90,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellItIsNotEqualToANullObjectTest()
+        public void BeAbleToTellItIsNotEqualToANullObject()
         {
             NumberField firstNumberField = new NumberField("Monto");
 
@@ -100,7 +100,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfField()
         {
             NumberField aNumberField = new NumberField("Monto");
 

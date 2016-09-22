@@ -8,7 +8,7 @@ namespace Tests
     public class TextFieldShould
     {
         [TestMethod]
-        public void BeAbleToReturnItsDataTest()
+        public void BeAbleToReturnItsData()
         {
             TextField textField = new TextField("Nombre");
 
@@ -19,7 +19,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AllowToBeFilledTest()
+        public void AllowToBeFilled()
         {
             TextField textField = new TextField("Nombre");
 
@@ -30,7 +30,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ReturnANewTextFieldWhenFilledTest()
+        public void ReturnANewTextFieldWhenFilled()
         {
             TextField textField = new TextField("Nombre");
 
@@ -40,7 +40,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TellItIsValidWhenItStoresANotEmptyTextTest()
+        public void TellItIsValidWhenItStoresANotEmptyText()
         {
             TextField textField = new TextField("Nombre");
 
@@ -50,7 +50,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TellItIsNotValidWhenItStoresAnEmptyTextTest()
+        public void TellItIsNotValidWhenItStoresAnEmptyText()
         {
             TextField textField = new TextField("Nombre");
 
@@ -60,7 +60,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TellItIsNotValidWhenItStoresAFullWhiteSpaceTextTest()
+        public void TellItIsNotValidWhenItStoresAFullWhiteSpaceText()
         {
             TextField textField = new TextField("Nombre");
 
@@ -71,7 +71,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenDataToBeFilledWithIsNullTest()
+        public void FailWhenDataToBeFilledWithIsNull()
         {
             TextField textField = new TextField("Nombre");
 
@@ -79,7 +79,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItIsEqualToAnotherTextFieldTest()
+        public void BeAbleToTellIfItIsEqualToAnotherTextField()
         {
             TextField firstTextField = new TextField("Nombre");
             TextField secondTextField = new TextField("Nombre");
@@ -91,7 +91,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellItIsNotEqualToANullObjectTest()
+        public void BeAbleToTellItIsNotEqualToANullObject()
         {
             TextField firstTextField = new TextField("Nombre");
 
@@ -101,7 +101,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfField()
         {
             TextField aTextField = new TextField("Nombre");
 

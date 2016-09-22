@@ -5,7 +5,7 @@ namespace Domain
 {
     public class Provider
     {
-        public long Commission { get; set; }
+        public double Commission { get; set; }
 
         public string Name { get; set; }
 

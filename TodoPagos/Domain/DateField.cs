@@ -21,7 +21,7 @@ namespace Domain
         {
             CheckForNullOrNotValidDateTimeArgument(dataToBeFilledWith);
             DateField newDateField = new DateField(Name);
-            newDateField.Data = DateTime.ParseExact(dataToBeFilledWith, "d", null);
+            newDateField.Data = DateTime.Parse(dataToBeFilledWith);
             return newDateField;
         }
 
@@ -30,7 +30,7 @@ namespace Domain
             if (String.IsNullOrWhiteSpace(dataToBeFilledWith)) throw new ArgumentException();
             try
             {
-                DateTime.ParseExact(dataToBeFilledWith, "d", null);
+                DateTime.Parse(dataToBeFilledWith);
             }
             catch (FormatException)
             {

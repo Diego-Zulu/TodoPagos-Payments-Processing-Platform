@@ -8,7 +8,7 @@ namespace Tests
     public class DateFieldShould
     {
         [TestMethod]
-        public void BeAbleToReturnItsDataTest()
+        public void BeAbleToReturnItsData()
         {
             DateField dateField = new DateField("Fecha");
 
@@ -20,7 +20,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ReturnANewDateFieldWhenFilledTest()
+        public void ReturnANewDateFieldWhenFilled()
         {
             DateField dateField = new DateField("Fecha");
 
@@ -30,7 +30,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AllowToBeFilledTest()
+        public void AllowToBeFilled()
         {
             DateField dateField = new DateField("Fecha");
 
@@ -42,7 +42,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenDataToBeFilledWithIsNullTest()
+        public void FailWhenDataToBeFilledWithIsNull()
         {
             DateField dateField = new DateField("Fecha");
 
@@ -51,7 +51,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenDataToBeFilledWithIsNotValidDateTimeTest()
+        public void FailWhenDataToBeFilledWithIsNotValidDateTime()
         {
             DateField dateField = new DateField("Fecha");
 
@@ -59,17 +59,17 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TellItIsValidWhenItStoresADateLaterThan2013Test()
+        public void TellItIsValidWhenItStoresADateLaterThan2013()
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("1/1/2014");
+            IField newDateField = dateField.FillAndClone("1/2/2014");
 
             Assert.IsTrue(newDateField.IsValid());
         }
 
         [TestMethod]
-        public void TellItIsNotValidWhenItStoresADateBeforeThan2014Test()
+        public void TellItIsNotValidWhenItStoresADateBeforeThan2014()
         {
             DateField dateField = new DateField("Fecha");
 
@@ -79,7 +79,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItIsEqualToAnotherDateFieldTest()
+        public void BeAbleToTellIfItIsEqualToAnotherDateField()
         {
             DateField firstDateField = new DateField("Fecha");
             DateField secondDateField = new DateField("Fecha");
@@ -91,7 +91,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellItIsNotEqualToANullObjectTest()
+        public void BeAbleToTellItIsNotEqualToANullObject()
         {
             DateField firstDateField = new DateField("Fecha");
 
@@ -101,7 +101,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellItIsNotEqualToAnotherTypeOfFieldTest()
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfField()
         {
             DateField aDateField = new DateField("Fecha");
 

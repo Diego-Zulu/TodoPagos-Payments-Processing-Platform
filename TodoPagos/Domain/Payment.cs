@@ -8,5 +8,12 @@ namespace Domain
 {
     public class Payment
     {
+        
+
+        Payment(PayMethod aPayMethod)
+        {
+            
+            
+        }
     }
 }

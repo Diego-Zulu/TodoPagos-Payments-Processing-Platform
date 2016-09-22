@@ -33,6 +33,18 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void RefusePaymentWhenTotalIsNegative()
+        {
+            int paymentTotal = -3000;
+            int moneyPayedWith = 2500;
+            DateTime todaysDate = DateTime.Now;
+            PayMethod payMethod = new CashPayMethod(moneyPayedWith, todaysDate);
+
+            payMethod.PayAndReturnChange(paymentTotal);
+        }
+
+        [TestMethod]
         public void KnowWhenItWasUsedToPaid()
         {
             int paymentTotal = 1000;

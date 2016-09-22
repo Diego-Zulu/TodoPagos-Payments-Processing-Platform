@@ -18,6 +18,16 @@ namespace Tests
 
             Assert.AreEqual(0, change);
         }
+
+        [TestMethod]
+        public void KnowWhenItWasUsedToPaid()
+        {
+            int paymentTotal = 1100;
+            DateTime oneDate = DateTime.Parse("10/10/2010");
+            PayMethod payMethod = new DebitPayMethod(oneDate);
+
+            Assert.AreEqual(oneDate, payMethod.payDate);
+        }
     }
 
 }

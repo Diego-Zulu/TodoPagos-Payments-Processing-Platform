@@ -24,7 +24,7 @@ namespace Tests
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("15/2/2015");
+            IField newDateField = dateField.FillAndClone("10/02/2015");
 
             Assert.AreNotSame(dateField, newDateField);
         }
@@ -34,8 +34,8 @@ namespace Tests
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("15/2/2015");
-            string expectedResult = "15/2/2015";
+            IField newDateField = dateField.FillAndClone("08/02/2015");
+            string expectedResult = "08/02/2015";
 
             Assert.AreEqual(expectedResult, newDateField.GetData());
         }
@@ -63,7 +63,7 @@ namespace Tests
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("1/1/2014");
+            IField newDateField = dateField.FillAndClone("1/2/2014");
 
             Assert.IsTrue(newDateField.IsValid());
         }

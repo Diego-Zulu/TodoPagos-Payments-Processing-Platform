@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class DebitPayMethod
+    public class DebitPayMethod : PayMethod
     {
+
+        public override int PayAndReturnChange(int total)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

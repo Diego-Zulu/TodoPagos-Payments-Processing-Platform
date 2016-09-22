@@ -7,3 +7,12 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\UserAPI.pdb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\Tests\obj\Debug\Tests.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\Tests\obj\Debug\Tests.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\Tests.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\Tests.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\Domain.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\UserAPI.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\Domain.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\bin\Debug\UserAPI.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\obj\Debug\Tests.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\Tests\obj\Debug\Tests.pdb

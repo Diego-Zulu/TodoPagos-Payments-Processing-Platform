@@ -77,5 +77,13 @@ namespace Tests
 
             Assert.IsTrue(firstProvider.Equals(secondProvider));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToANullObject()
+        {
+            Provider provider = new Provider("Antel", 20);
+
+            Assert.IsFalse(provider.Equals(null));
+        }
     }
 }

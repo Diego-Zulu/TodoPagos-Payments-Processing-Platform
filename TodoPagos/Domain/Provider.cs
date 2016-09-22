@@ -55,5 +55,10 @@ namespace Domain
             Provider otherProvider = (Provider) anotherProvider;
             return Name.Equals(otherProvider.Name);
         }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
     }
 }

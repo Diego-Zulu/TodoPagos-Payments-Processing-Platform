@@ -68,5 +68,14 @@ namespace Tests
             provider.AddField(numericField);
             provider.RemoveField(dateField);
         }
+
+        [TestMethod]
+        public void BeAbleToTellIfItIsEqualToAnotherProvider()
+        {
+            Provider firstProvider = new Provider("Antel", 20);
+            Provider secondProvider = new Provider("Antel", 10);
+
+            Assert.AreEqual(firstProvider, secondProvider);
+        }
     }
 }

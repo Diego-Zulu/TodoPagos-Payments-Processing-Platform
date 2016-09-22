@@ -17,7 +17,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ReturnFalseWhenComparedWithANonRoleObject()
+        public void ReturnFalseWhenComparedWithANonPrivilegeObject()
         {
             Privilege registerPaymentPrivilege = RegisterPaymentPrivilege.GetInstance();
             string nonRoleObject = "Goodbye World!";

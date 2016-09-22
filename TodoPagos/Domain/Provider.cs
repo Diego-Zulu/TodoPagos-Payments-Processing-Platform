@@ -52,14 +52,20 @@ namespace Domain
 
         public override bool Equals(object anotherProvider)
         {
-            if (anotherProvider == null) return false;
+            if (IsNull(anotherProvider)) return false;
             Provider otherProvider = (Provider) anotherProvider;
             return Name.Equals(otherProvider.Name);
+        }
+
+        private bool IsNull(object anObject)
+        {
+            return anObject == null;
         }
 
         public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
+
     }
 }

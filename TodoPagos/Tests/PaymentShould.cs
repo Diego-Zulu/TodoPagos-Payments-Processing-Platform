@@ -11,7 +11,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveANullPaymentMethod()
         {
-            PaymentShould paymentMethod = null;
+            PayMethod paymentMethod = null;
             Payment newPayment = new Payment(paymentMethod);
         }
     }

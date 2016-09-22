@@ -8,12 +8,17 @@ namespace Domain
 {
     public class Payment
     {
-        
+        public virtual PayMethod PaymentMethod { get; set; }
 
-        Payment(PayMethod aPayMethod)
+        public Payment(PayMethod aPayMethod)
         {
-            
-            
+            if (aPayMethod == null)
+            {
+                throw new ArgumentException();
+            }
+            PaymentMethod = aPayMethod;
         }
+
+    
     }
 }

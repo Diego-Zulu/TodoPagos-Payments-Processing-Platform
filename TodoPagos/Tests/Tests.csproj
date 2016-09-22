@@ -58,6 +58,7 @@
     <Compile Include="RegisterPaymentPrivilegeShould.cs" />
     <Compile Include="CashPayMethodShould.cs" />
     <Compile Include="DebitPayMethodShould.cs" />
+    <Compile Include="PaymentShould.cs" />
     <Compile Include="UserShould.cs" />
     <Compile Include="NumberFieldShould.cs" />
     <Compile Include="TextFieldShould.cs" />

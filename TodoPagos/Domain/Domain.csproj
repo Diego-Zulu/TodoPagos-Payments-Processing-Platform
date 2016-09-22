@@ -43,6 +43,7 @@
     <Compile Include="CashPayMethod.cs" />
     <Compile Include="CreditPayMethod.cs" />
     <Compile Include="DebitPayMethod.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="PayMethod.cs" />
     <Compile Include="DateField.cs" />
     <Compile Include="IField.cs" />

@@ -11,20 +11,20 @@ namespace Domain
 
         public List<IField> Fields { get; set; } = new List<IField>();
 
-        public Provider(string aName, long aCommission)
+        public Provider(string aName, double aCommission)
         {
             CheckForNegativeCommission(aCommission);
             Commission = aCommission;
             Name = aName;
         }
 
-        public void ChangeCommission(long newValue)
+        public void ChangeCommission(double newValue)
         {
             CheckForNegativeCommission(newValue);
             Commission = newValue;
         }
 
-        private void CheckForNegativeCommission(long newValue)
+        private void CheckForNegativeCommission(double newValue)
         {
             if (newValue < 0) throw new ArgumentException();
         }

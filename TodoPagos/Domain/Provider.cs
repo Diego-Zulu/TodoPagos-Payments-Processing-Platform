@@ -52,6 +52,7 @@ namespace Domain
 
         public override bool Equals(object anotherProvider)
         {
+            if (anotherProvider == null) return false;
             Provider otherProvider = (Provider) anotherProvider;
             return Name.Equals(otherProvider.Name);
         }

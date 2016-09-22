@@ -10,9 +10,18 @@ namespace Domain
     {
         public CashPayMethod(int amountPayed, DateTime date)
         {
+            CheckIfDateIsNotInTheFuture(date);
             this.Change = 0;
             this.PaidWith = amountPayed;
             this.payDate = date;
+        }
+
+        private void CheckIfDateIsNotInTheFuture(DateTime date)
+        {
+            if (DateTime.Now < date)
+            {
+                throw new ArgumentException();
+            }
         }
 
         public override int PayAndReturnChange(int total)

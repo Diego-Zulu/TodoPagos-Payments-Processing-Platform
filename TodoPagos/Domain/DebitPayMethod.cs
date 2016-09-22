@@ -20,9 +20,18 @@ namespace Domain
 
         public override int PayAndReturnChange(int total)
         {
+            CheckIfTotalIsPositive(total);
             this.PaidWith = total;
 
             return NO_CHANGE;
+        }
+
+        private void CheckIfTotalIsPositive(int total)
+        {
+            if (total < 0)
+            {
+                throw new InvalidOperationException();
+            }
         }
     }
 }

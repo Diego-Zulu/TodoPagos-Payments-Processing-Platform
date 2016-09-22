@@ -11,7 +11,6 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAFutureDate()
         {
-            int paymentTotal = 1000;
             int moneyPayedWith = 2500;
             DateTime futureDate = DateTime.Now.AddYears(1);
             PayMethod payMethod = new CashPayMethod(moneyPayedWith, futureDate);

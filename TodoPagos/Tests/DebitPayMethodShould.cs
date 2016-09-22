@@ -39,6 +39,14 @@ namespace Tests
 
             Assert.AreEqual(oneDate, payMethod.payDate);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveAFutureDate()
+        {
+            DateTime futureDate = DateTime.Now.AddYears(1);
+            PayMethod payMethod = new DebitPayMethod(futureDate);
+        }
     }
 
 }

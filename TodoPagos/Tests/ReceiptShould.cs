@@ -8,11 +8,14 @@ namespace Tests
     public class ReceiptShould
     {
 
-        /*[TestMethod]
+        [TestMethod]
         public void BeAbleToTellItsProvider()
         {
             Provider provider = new Provider("Antel", 20);
+
             Receipt receipt = new Receipt(provider);
-        }*/
+
+            Assert.AreEqual(provider, receipt.ReceiptProvider);
+        }
     }
 }

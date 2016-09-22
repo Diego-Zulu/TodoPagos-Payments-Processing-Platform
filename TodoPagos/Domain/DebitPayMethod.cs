@@ -9,6 +9,8 @@ namespace Domain
     public class DebitPayMethod : PayMethod
     {
 
+        const int NO_CHANGE = 0;
+
         public DebitPayMethod(DateTime date)
         {
             this.Change = 0;
@@ -18,7 +20,9 @@ namespace Domain
 
         public override int PayAndReturnChange(int total)
         {
-            throw new NotImplementedException();
+            this.PaidWith = total;
+
+            return NO_CHANGE;
         }
     }
 }

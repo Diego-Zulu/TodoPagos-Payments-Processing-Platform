@@ -58,6 +58,10 @@
     <Compile Include="RegisterPaymentPrivilegeShould.cs" />
     <Compile Include="CashPayMethodShould.cs" />
     <Compile Include="UserShould.cs" />
+    <Compile Include="NumberFieldShould.cs" />
+    <Compile Include="TextFieldShould.cs" />
+    <Compile Include="DateFieldShould.cs" />
+    <Compile Include="ProviderShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

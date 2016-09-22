@@ -8,10 +8,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{C37CAFAB-47AF-44A9-A208-93C37032F049}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A5B13880-C1F7-4165-B35F-C71219DC146E} = {A5B13880-C1F7-4165-B35F-C71219DC146E}
+<<<<<<< HEAD
 		{306F6FB4-9659-4714-AA36-56EA590935C5} = {306F6FB4-9659-4714-AA36-56EA590935C5}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAPI", "UserAPI\UserAPI.csproj", "{306F6FB4-9659-4714-AA36-56EA590935C5}"
+=======
+	EndProjectSection
+>>>>>>> developBruno
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

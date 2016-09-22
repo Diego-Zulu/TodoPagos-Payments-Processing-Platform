@@ -10,8 +10,8 @@ namespace UserAPI
     
     public class User
     {
-        public virtual string Name { get; set; }
-        public virtual string Email { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
 
         private const int MINIMUM_ROLE_AMOUNT = 1;

@@ -8,10 +8,10 @@ namespace Domain
 {
     public abstract class PayMethod
     {
-        public virtual int PayedWith { get; set; }
-        public virtual int Change { get; set; }
-        public virtual bool PaymentComplete { get; set; }
+        public int PaidWith { get; set; }
+        public int Change { get; set; }
+        public virtual DateTime payDate {get; set;}
 
-        public abstract int PayAndReturnChange(int amountPayed, int total);
+        public abstract int PayAndReturnChange(int total);
     }
 }

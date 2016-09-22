@@ -5,7 +5,7 @@ namespace UserAPI
 {
     public abstract class Role
     {
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
         public virtual ICollection<Privilege> Privileges { get; } = new List<Privilege>();
 
         public override bool Equals(Object anObject)

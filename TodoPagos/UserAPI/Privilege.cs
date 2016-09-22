@@ -8,7 +8,7 @@ namespace UserAPI
 {
     public abstract class Privilege
     {
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         public override bool Equals(Object anObject)
         {

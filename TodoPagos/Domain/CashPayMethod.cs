@@ -8,19 +8,17 @@ namespace Domain
 {
     public class CashPayMethod : PayMethod
     {
-        public CashPayMethod()
+        public CashPayMethod(int amountPayed, DateTime date)
         {
             this.Change = 0;
-            this.PayedWith = 0;
-            this.PaymentComplete = false;
+            this.PaidWith = amountPayed;
+            this.payDate = date;
         }
 
-        public override int PayAndReturnChange(int amountPayed, int total)
+        public override int PayAndReturnChange(int total)
         {
-            CheckIfAmountPayedIsMoreThanOrEqualsTotal(amountPayed, total);
-            PayedWith = amountPayed;
-            Change = amountPayed - total;
-            PaymentComplete = true;
+            CheckIfAmountPayedIsMoreThanOrEqualsTotal(PaidWith, total);
+            Change = PaidWith - total;
 
             return Change;
         }

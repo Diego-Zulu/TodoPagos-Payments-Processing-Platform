@@ -87,7 +87,6 @@ namespace Tests
             User newUser = new User(userName, userEmail, cashierRole);
 
             Assert.IsFalse(newUser.HasThisRole(adminRole));
-
         }
 
         [TestMethod]

@@ -75,7 +75,7 @@ namespace Tests
             Provider firstProvider = new Provider("Antel", 20);
             Provider secondProvider = new Provider("Antel", 10);
 
-            Assert.AreEqual(firstProvider, secondProvider);
+            Assert.IsTrue(firstProvider.Equals(secondProvider));
         }
     }
 }

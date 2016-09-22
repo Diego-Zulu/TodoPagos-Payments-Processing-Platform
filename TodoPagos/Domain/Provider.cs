@@ -49,5 +49,11 @@ namespace Domain
         {
             if (!ContainsField(fieldToBeRemoved)) throw new ArgumentException();
         }
+
+        public override bool Equals(object anotherProvider)
+        {
+            Provider otherProvider = (Provider) anotherProvider;
+            return Name.Equals(otherProvider.Name);
+        }
     }
 }

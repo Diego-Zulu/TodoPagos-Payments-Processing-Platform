@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -94,6 +95,18 @@ namespace Tests
             DateField aDateField = new DateField("Fecha");
 
             Assert.IsFalse(provider.Equals(aDateField));
+        }
+
+        [TestMethod]
+        public void GiveTheOptionToBeCreatedWithAnExistingFieldsList()
+        {
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Fecha");
+            list.Add(aDateField);
+
+            Provider provider = new Provider("Antel", 20, list);
+
+            Assert.AreEqual(list, provider.Fields);
         }
     }
 }

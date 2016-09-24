@@ -108,5 +108,12 @@ namespace Tests
 
             Assert.AreEqual(list, provider.Fields);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FailIfFieldsListIsNull()
+        {
+            Provider provider = new Provider("Antel", 20, null);
+        }
     }
 }

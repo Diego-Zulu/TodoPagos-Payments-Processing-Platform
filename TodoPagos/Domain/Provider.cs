@@ -73,6 +73,5 @@ namespace Domain
         {
             return Name.GetHashCode();
         }
-
     }
 }

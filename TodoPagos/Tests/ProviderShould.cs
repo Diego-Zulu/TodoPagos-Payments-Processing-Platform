@@ -95,17 +95,5 @@ namespace Tests
 
             Assert.IsFalse(provider.Equals(aDateField));
         }
-
-        [TestMethod]
-        public void BeAbleToReturnASpecificField()
-        {
-            Provider provider = new Provider("Antel", 20);
-            DateField aDateField = new DateField("Fecha");
-
-            provider.AddField(aDateField);
-            DateField resultOfOperation = provider.GetField("Fecha");
-
-            Assert.AreEqual(aDateField, resultOfOperation);
-        }
     }
 }

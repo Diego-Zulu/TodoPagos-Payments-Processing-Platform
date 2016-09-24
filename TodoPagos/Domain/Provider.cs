@@ -20,22 +20,35 @@ namespace Domain
 
         public Provider(string aName, double aCommission, List<IField> fields)
         {
-            if (fields == null) throw new ArgumentNullException();
-            CheckForNegativeCommission(aCommission);
+            CheckForPossibleErrors(fields, aCommission);
             Commission = aCommission;
             Name = aName;
             Fields = fields;
+        }
+
+        private void CheckForPossibleErrors(List<IField> fields, double aCommission)
+        {
+            CheckForNullFieldsList(fields);
+            CheckForNegativeCommission(aCommission);
+        }
+
+        private void CheckForNullFieldsList(List<IField> fields)
+        {
+            if(IsNull(fields))
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        private void CheckForNegativeCommission(double newValue)
+        {
+            if (newValue < 0) throw new ArgumentException();
         }
 
         public void ChangeCommission(double newValue)
         {
             CheckForNegativeCommission(newValue);
             Commission = newValue;
-        }
-
-        private void CheckForNegativeCommission(double newValue)
-        {
-            if (newValue < 0) throw new ArgumentException();
         }
 
         public void AddField(IField fieldToBeAdded)

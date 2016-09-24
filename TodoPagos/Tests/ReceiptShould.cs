@@ -34,7 +34,7 @@ namespace Tests
             Receipt receipt = new Receipt(provider, completedFields);
 
             Assert.IsTrue(completedFields.TrueForAll
-                (field => receipt.CompletedFields.Contains(field)));
+                (field => receipt.ContainsField(field)));
         }
     }
 }

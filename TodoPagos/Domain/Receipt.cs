@@ -17,5 +17,10 @@ namespace Domain
             ReceiptProvider = aProvider;
             CompletedFields = completedFields;
         }
+
+        public bool ContainsField(IField field)
+        {
+            return CompletedFields.Contains(field);
+        }
     }
 }

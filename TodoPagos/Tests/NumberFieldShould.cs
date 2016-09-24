@@ -78,7 +78,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItIsEqualToAnotherNumberField()
+        public void BeAbleToTellItIsEqualToAnotherNumberFieldWithSameNameAndData()
         {
             NumberField firstNumberField = new NumberField("Monto");
             NumberField secondNumberField = new NumberField("Monto");
@@ -87,6 +87,17 @@ namespace Tests
             IField secondNewNumberField = secondNumberField.FillAndClone("2");
 
             Assert.IsTrue(firstNewNumberField.Equals(secondNewNumberField));
+        }
+
+        public void BeAbleToTellItIsNotEqualToAnotherNumberFieldWithSameNameButDifferentData()
+        {
+            NumberField firstNumberField = new NumberField("Monto");
+            NumberField secondNumberField = new NumberField("Monto");
+
+            IField firstNewNumberField = firstNumberField.FillAndClone("2");
+            IField secondNewNumberField = secondNumberField.FillAndClone("3");
+
+            Assert.IsFalse(firstNewNumberField.Equals(secondNewNumberField));
         }
 
         [TestMethod]

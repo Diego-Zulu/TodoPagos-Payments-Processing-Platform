@@ -17,5 +17,7 @@ namespace Tests
 
             Assert.AreEqual(provider, receipt.ReceiptProvider);
         }
+
+
     }
 }

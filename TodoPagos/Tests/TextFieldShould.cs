@@ -79,7 +79,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItIsEqualToAnotherTextField()
+        public void BeAbleToTellItIsEqualToAnotherTextFieldWithSameNameAndData()
         {
             TextField firstTextField = new TextField("Nombre");
             TextField secondTextField = new TextField("Nombre");
@@ -88,6 +88,18 @@ namespace Tests
             IField secondNewTextField = secondTextField.FillAndClone("hola");
 
             Assert.IsTrue(firstNewTextField.Equals(secondNewTextField));
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherTextFieldWithSameNameButDifferentData()
+        {
+            TextField firstTextField = new TextField("Nombre");
+            TextField secondTextField = new TextField("Nombre");
+
+            IField firstNewTextField = firstTextField.FillAndClone("hola");
+            IField secondNewTextField = secondTextField.FillAndClone("hola2");
+
+            Assert.IsFalse(firstNewTextField.Equals(secondNewTextField));
         }
 
         [TestMethod]

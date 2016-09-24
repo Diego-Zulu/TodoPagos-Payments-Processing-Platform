@@ -20,6 +20,7 @@ namespace Domain
 
         public Provider(string aName, double aCommission, List<IField> fields)
         {
+            if (fields == null) throw new ArgumentNullException();
             CheckForNegativeCommission(aCommission);
             Commission = aCommission;
             Name = aName;

@@ -18,6 +18,14 @@ namespace Domain
             Name = aName;
         }
 
+        public Provider(string aName, double aCommission, List<IField> fields)
+        {
+            CheckForNegativeCommission(aCommission);
+            Commission = aCommission;
+            Name = aName;
+            Fields = fields;
+        }
+
         public void ChangeCommission(double newValue)
         {
             CheckForNegativeCommission(newValue);

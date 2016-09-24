@@ -79,7 +79,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItIsEqualToAnotherDateField()
+        public void BeAbleToTellItIsEqualToAnotherDateFieldWithSameNameAndData()
         {
             DateField firstDateField = new DateField("Fecha");
             DateField secondDateField = new DateField("Fecha");
@@ -88,6 +88,18 @@ namespace Tests
             IField secondNewDateField = secondDateField.FillAndClone("31/12/2013");
 
             Assert.IsTrue(firstNewDateField.Equals(secondNewDateField));
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherDateFieldWithSameNameAndDifferentData()
+        {
+            DateField firstDateField = new DateField("Fecha");
+            DateField secondDateField = new DateField("Fecha");
+
+            IField firstNewDateField = firstDateField.FillAndClone("31/12/2013");
+            IField secondNewDateField = secondDateField.FillAndClone("30/11/2013");
+
+            Assert.IsFalse(firstNewDateField.Equals(secondNewDateField));
         }
 
         [TestMethod]

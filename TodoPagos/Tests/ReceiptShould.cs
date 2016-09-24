@@ -14,7 +14,7 @@ namespace Tests
         {
             Provider provider = new Provider("Antel", 20);
 
-            Receipt receipt = new Receipt(provider);
+            Receipt receipt = new Receipt(provider, new List<IField>());
 
             Assert.AreEqual(provider, receipt.ReceiptProvider);
         }
@@ -22,6 +22,7 @@ namespace Tests
         [TestMethod]
         public void HaveTheNecessaryCompletedFields()
         {
+            Provider provider = new Provider("Antel", 20);
             DateField datefield = new DateField("Fecha");
             NumberField numberField = new NumberField("Monto");
             IField completedDateField = datefield.FillAndClone("01/02/2014");
@@ -32,7 +33,8 @@ namespace Tests
         
             Receipt receipt = new Receipt(provider, completedFields);
 
-            Assert.IsTrue(completedFields.ForEach(field => receipt.CompletedFields.contains(field)));
+            Assert.IsTrue(completedFields.TrueForAll
+                (field => receipt.CompletedFields.Contains(field)));
         }
     }
 }

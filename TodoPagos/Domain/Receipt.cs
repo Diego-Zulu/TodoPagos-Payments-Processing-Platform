@@ -10,9 +10,12 @@ namespace Domain
     {
         public Provider ReceiptProvider { get; set; }
 
-        public Receipt(Provider aProvider)
+        public List<IField> CompletedFields { get; set; } = new List<IField>();
+
+        public Receipt(Provider aProvider, List<IField> completedFields)
         {
             ReceiptProvider = aProvider;
+            CompletedFields = completedFields;
         }
     }
 }

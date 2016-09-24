@@ -89,6 +89,7 @@ namespace Tests
             Assert.IsTrue(firstNewNumberField.Equals(secondNewNumberField));
         }
 
+        [TestMethod]
         public void BeAbleToTellItIsNotEqualToAnotherNumberFieldWithSameNameButDifferentData()
         {
             NumberField firstNumberField = new NumberField("Monto");

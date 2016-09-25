@@ -12,9 +12,9 @@ namespace Domain
 
         public double Amount { get; set; }
 
-        public List<IField> CompletedFields { get; set; } = new List<IField>();
+        public ICollection<IField> CompletedFields { get; set; } = new List<IField>();
 
-        public Receipt(Provider aProvider, List<IField> completedFields, double amountToBePaid)
+        public Receipt(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
         {
             CheckForNegativeAmountToBePaid(amountToBePaid);
             ReceiptProvider = aProvider;
@@ -24,7 +24,10 @@ namespace Domain
 
         private void CheckForNegativeAmountToBePaid(double amountToBePaid)
         {
-            if (amountToBePaid < 0) throw new ArgumentException();
+            if (amountToBePaid < 0)
+            {
+                throw new ArgumentException();
+            }
         }
 
         public bool ContainsField(IField field)

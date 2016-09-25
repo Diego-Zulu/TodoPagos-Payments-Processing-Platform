@@ -8,6 +8,15 @@ namespace Tests
     public class CashPayMethodShould
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotHaveAFutureDate()
+        {
+            int moneyPayedWith = 2500;
+            DateTime futureDate = DateTime.Now.AddYears(1);
+            PayMethod payMethod = new CashPayMethod(moneyPayedWith, futureDate);
+        }
+
+        [TestMethod]
         public void BeAbleToPayAndReturnChange()
         {
             int paymentTotal = 1000;
@@ -25,6 +34,18 @@ namespace Tests
         public void RefusePaymentWhenTotalIsAboveAmountPayed()
         {
             int paymentTotal = 3000;
+            int moneyPayedWith = 2500;
+            DateTime todaysDate = DateTime.Now;
+            PayMethod payMethod = new CashPayMethod(moneyPayedWith, todaysDate);
+
+            payMethod.PayAndReturnChange(paymentTotal);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void RefusePaymentWhenTotalIsNegative()
+        {
+            int paymentTotal = -3000;
             int moneyPayedWith = 2500;
             DateTime todaysDate = DateTime.Now;
             PayMethod payMethod = new CashPayMethod(moneyPayedWith, todaysDate);

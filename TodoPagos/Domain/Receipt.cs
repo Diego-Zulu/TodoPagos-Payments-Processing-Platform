@@ -16,6 +16,7 @@ namespace Domain
 
         public Receipt(Provider aProvider, List<IField> completedFields, double amountToBePaid)
         {
+            if (amountToBePaid < 0) throw new ArgumentException();
             ReceiptProvider = aProvider;
             CompletedFields = completedFields;
             Amount = amountToBePaid;

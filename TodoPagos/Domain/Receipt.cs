@@ -16,10 +16,15 @@ namespace Domain
 
         public Receipt(Provider aProvider, List<IField> completedFields, double amountToBePaid)
         {
-            if (amountToBePaid < 0) throw new ArgumentException();
+            CheckForNegativeAmountToBePaid(amountToBePaid);
             ReceiptProvider = aProvider;
             CompletedFields = completedFields;
             Amount = amountToBePaid;
+        }
+
+        private void CheckForNegativeAmountToBePaid(double amountToBePaid)
+        {
+            if (amountToBePaid < 0) throw new ArgumentException();
         }
 
         public bool ContainsField(IField field)

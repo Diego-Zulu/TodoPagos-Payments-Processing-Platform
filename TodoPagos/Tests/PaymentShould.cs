@@ -27,6 +27,7 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void NotHaveNullReceipts()
         {
             int amountPayed = 500;
@@ -35,5 +36,14 @@ namespace Tests
 
             Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
         }
+
+
+        ////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+        //FALTA HACER QUE RECIBA MINIMO UNA FACTURA EN LA LISTA, Y LUEGO
+        //HACER QUE UN PROVIDER SE PUEDE DESACTIVAR/ELIMINAR
+        //LUEGO DE ESO EL DOMINIO ESTARIA, PERO NO ME DA MAS LA CABEZA
     }
 }

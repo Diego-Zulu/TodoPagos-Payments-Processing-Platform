@@ -10,13 +10,23 @@ namespace Domain
     {
         public virtual PayMethod PaymentMethod { get; set; }
         public double amountPayed { get; set; }
+        public virtual ICollection<Receipt> Receipts { get; set; }
 
-        public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReciepts)
+        public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
         {
             CheckIfPayMethodIsNotNull(aPayMethod);
             CheckIfAmountPayedIsPositive(theAmountPayed);
+            CheckIfReceiptsAreNotNull(paymentReceipts);
             PaymentMethod = aPayMethod;
             amountPayed = theAmountPayed;
+        }
+
+        private void CheckIfReceiptsAreNotNull(ICollection<Receipt>  paymentReceipts)
+        {
+            if (paymentReceipts == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckIfAmountPayedIsPositive(double theAmountPayed)

@@ -47,5 +47,15 @@ namespace Tests
 
             Assert.AreEqual(amount, receipt.Amount);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfAmountIsLessThanZero()
+        {
+            Provider provider = new Provider("Antel", 20);
+            double amount = -1;
+
+            Receipt receipt = new Receipt(provider, new List<IField>(), amount);
+        }
     }
 }

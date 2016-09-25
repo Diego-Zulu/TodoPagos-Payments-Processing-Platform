@@ -10,12 +10,15 @@ namespace Domain
     {
         public Provider ReceiptProvider { get; set; }
 
+        public double Amount { get; set; }
+
         public List<IField> CompletedFields { get; set; } = new List<IField>();
 
-        public Receipt(Provider aProvider, List<IField> completedFields)
+        public Receipt(Provider aProvider, List<IField> completedFields, double amountToBePaid)
         {
             ReceiptProvider = aProvider;
             CompletedFields = completedFields;
+            Amount = amountToBePaid;
         }
 
         public bool ContainsField(IField field)

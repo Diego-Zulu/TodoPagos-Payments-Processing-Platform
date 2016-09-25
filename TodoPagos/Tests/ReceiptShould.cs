@@ -36,5 +36,16 @@ namespace Tests
             Assert.IsTrue(completedFields.TrueForAll
                 (field => receipt.ContainsField(field)));
         }
+
+        [TestMethod]
+        public void KnowTheAmountToBePaid()
+        {
+            Provider provider = new Provider("Antel", 20);
+            double amount = 10000;
+
+            Receipt receipt = new Receipt(provider, new List<IField>(), amount);
+
+            Assert.AreEqual(amount, receipt.Amount);
+        }
     }
 }

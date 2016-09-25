@@ -11,7 +11,7 @@ namespace Domain
         public virtual PayMethod PaymentMethod { get; set; }
         public double amountPayed { get; set; }
 
-        public Payment(PayMethod aPayMethod, double theAmountPayed)
+        public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReciepts)
         {
             CheckIfPayMethodIsNotNull(aPayMethod);
             CheckIfAmountPayedIsPositive(theAmountPayed);

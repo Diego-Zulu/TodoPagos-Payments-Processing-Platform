@@ -177,6 +177,18 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailOnCommissionChangeToMoreThan100Percent()
+        {
+            NumberField aNumberField = new NumberField("ID");
+            List<IField> fields = new List<IField>();
+            fields.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, fields);
+
+            provider.ChangeCommission(101);
+        }
+
+        [TestMethod]
         public void BeAbleToDeactivateItself()
         {
             List<IField> list = new List<IField>();

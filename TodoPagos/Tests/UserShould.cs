@@ -19,8 +19,9 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string email = "invalid";
             string name = "Diego";
+            string password = "HolaCom1";
 
-            User notValidUser = new User(name, email, adminRole);
+            User notValidUser = new User(name, email, password, adminRole);
         }
 
         [TestMethod]
@@ -30,8 +31,9 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string email = "";
             string name = "Bruno";
+            string password = "HolaCom1";
 
-            User notValidUser = new User(name, email, adminRole);
+            User notValidUser = new User(name, email, password, adminRole);
         }
 
         [TestMethod]
@@ -41,8 +43,9 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string email = null;
             string name = "Nacho";
+            string password = "HolaCom1";
 
-            User notValidUser = new User(name, email, adminRole);
+            User notValidUser = new User(name, email, password, adminRole);
         }
 
         [TestMethod]
@@ -52,8 +55,9 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string email = "emptyMan@gmail.com";
             string name = "";
+            string password = "HolaCom1";
 
-            User notValidUser = new User(name, email, adminRole);
+            User notValidUser = new User(name, email, password, adminRole);
         }
 
         [TestMethod]
@@ -63,8 +67,9 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string email = "MrWhite@outlook.com";
             string name = "          ";
+            string password = "HolaCom1";
 
-            User notValidUser = new User(name, email, adminRole);
+            User notValidUser = new User(name, email, password, adminRole);
         }
 
         [TestMethod]
@@ -74,8 +79,9 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string email = "TheNuller@yahoo.com";
             string name = null;
+            string password = "HolaCom1";
 
-            User notValidUser = new User(name, email, adminRole);
+            User notValidUser = new User(name, email, password, adminRole);
         }
 
         [TestMethod]
@@ -85,7 +91,8 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string userEmail = "BirdFriend@hotmail.com";
             string userName = "Holly";
-            User newUser = new User(userName, userEmail, cashierRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
 
             Assert.IsFalse(newUser.HasThisRole(adminRole));
         }
@@ -97,7 +104,8 @@ namespace Tests
             Role nullRole = null;
             string userEmail = "TheNuller2_0@hotmail.com";
             string userName = "Molly";
-            User newUser = new User(userName, userEmail, nullRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, nullRole);
         }
 
         [TestMethod]
@@ -107,7 +115,8 @@ namespace Tests
             Role cashierRole = CashierRole.GetInstance();
             string userEmail = "Mad_Cashier_404@ort.com.uy";
             string userName = "Raul";
-            User newUser = new User(userName, userEmail, cashierRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
 
             newUser.RemoveRole(cashierRole);
         }
@@ -119,7 +128,8 @@ namespace Tests
             Role secondCashierRole = CashierRole.GetInstance();
             string userEmail = "DoubleCASHBABY@ort.com.uy";
             string userName = "Riki";
-            User newUser = new User(userName, userEmail, firstCashierRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, firstCashierRole);
             int roleAmountBeforeAddition = newUser.GetRoleCount();
 
             newUser.AddRole(secondCashierRole);
@@ -133,7 +143,8 @@ namespace Tests
             Role cashierRole = CashierRole.GetInstance();
             string userEmail = "DoubleCASHBABY@ort.com.uy";
             string userName = "Riki";
-            User newUser = new User(userName, userEmail, cashierRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
 
             ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
             Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
@@ -148,7 +159,8 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string userEmail = "MoneyMoneyMoney@gmail.com";
             string userName = "Mani";
-            User newUser = new User(userName, userEmail, cashierRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
 
             newUser.AddRole(adminRole);
 
@@ -162,7 +174,8 @@ namespace Tests
             Role adminRole = AdminRole.GetInstance();
             string userEmail = "LeUser@gmail.com";
             string userName = "Andrea";
-            User newUser = new User(userName, userEmail, cashierRole);
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
 
             newUser.AddRole(adminRole);
             newUser.RemoveRole(cashierRole);

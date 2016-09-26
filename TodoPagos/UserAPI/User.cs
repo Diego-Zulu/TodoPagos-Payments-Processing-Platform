@@ -12,6 +12,7 @@ namespace UserAPI
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
 
         private const int MINIMUM_ROLE_AMOUNT = 1;
@@ -21,19 +22,21 @@ namespace UserAPI
             Roles = new List<Role>();
         }
 
-        public User(string newUserName, string newUserEmail, Role newUserRole)
+        public User(string newUserName, string newUserEmail, string newPassword, Role newUserRole)
         {
-            CheckAttributeCorrectness(newUserName, newUserEmail, newUserRole);
+            CheckAttributeCorrectness(newUserName, newUserEmail, newPassword, newUserRole);
             Name = newUserName;
             Email = newUserEmail;
+            Password = newPassword;
             Roles = new List<Role>();
             Roles.Add(newUserRole);
         }
 
-        private void CheckAttributeCorrectness(string newUserName, string newUserEmail, Role newUserRole)
+        private void CheckAttributeCorrectness(string newUserName, string newUserEmail, string newPassword, Role newUserRole)
         {
             CheckIfNameAndEmailAreCorrect(newUserName, newUserEmail);
             CheckIfRoleIsNotNull(newUserRole);
+            CheckIfPasswordIsCorrect(newPassword);
         }
 
         private void CheckIfRoleIsNotNull(Role oneRole)
@@ -42,6 +45,21 @@ namespace UserAPI
             {
                 throw new ArgumentException();
             }
+        }
+
+        private void CheckIfPasswordIsCorrect(string newPassword)
+        {
+            bool validPassword = true;
+            if (String.IsNullOrWhiteSpace(newPassword)) validPassword = false;
+            char[] password = newPassword.ToCharArray();
+            bool hasNumber = false;
+            bool hasUppercaseLetter = false;
+            for (int i = 0; i < password.Length; i++)
+            {
+                if (password[i] >= 48 && password[i] <= 57) hasNumber = true;
+                else if (password[i] >= 65 && password[i] <= 90) hasUppercaseLetter = true;
+            }
+            if (!(validPassword && hasUppercaseLetter && hasNumber)) throw new ArgumentException();
         }
 
         private void CheckIfNameAndEmailAreCorrect(string aName, string anEmail)

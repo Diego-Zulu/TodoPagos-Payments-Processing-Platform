@@ -177,5 +177,19 @@ namespace Tests
 
             Assert.IsFalse(provider.Activated);
         }
+
+        [TestMethod]
+        public void BeAbleToActivateItself()
+        {
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Fecha");
+            list.Add(aDateField);
+
+            Provider provider = new Provider("Antel", 20, list);
+            provider.Deactivate();
+            provider.Activate();
+
+            Assert.IsTrue(provider.Activated);
+        }
     }
 }

@@ -82,5 +82,21 @@ namespace Tests
 
             Receipt receipt = new Receipt(provider, null, amount);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfOneFieldIsEmpty()
+        {
+            List<IField> emptyFieldsList = new List<IField>();
+            DateField aDateField = new DateField("Fecha");
+            emptyFieldsList.Add(aDateField);
+            Provider provider = new Provider("Antel", 20, emptyFieldsList);
+            double amount = 10000;
+
+            List<IField> completeFieldsList = new List<IField>();
+            completeFieldsList.Add(aDateField);
+
+            Receipt receipt = new Receipt(provider, completeFieldsList, amount);
+        }
     }
 }

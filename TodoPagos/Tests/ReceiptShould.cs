@@ -12,7 +12,10 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItsProvider()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("ID");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
 
             Receipt receipt = new Receipt(provider, new List<IField>(), 0);
 
@@ -22,7 +25,10 @@ namespace Tests
         [TestMethod]
         public void HaveTheNecessaryCompletedFields()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Kamen Rider");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
             DateField datefield = new DateField("Fecha");
             NumberField numberField = new NumberField("Monto");
             IField completedDateField = datefield.FillAndClone("01/02/2014");
@@ -40,7 +46,10 @@ namespace Tests
         [TestMethod]
         public void KnowTheAmountToBePaid()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Fecha");
+            list.Add(aDateField);
+            Provider provider = new Provider("Antel", 20, list);
             double amount = 10000;
 
             Receipt receipt = new Receipt(provider, new List<IField>(), amount);
@@ -52,7 +61,10 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailIfAmountIsLessThanZero()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            TextField aTextField = new TextField("Apellido");
+            list.Add(aTextField);
+            Provider provider = new Provider("Antel", 20, list);
             double amount = -1;
 
             Receipt receipt = new Receipt(provider, new List<IField>(), amount);

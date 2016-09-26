@@ -12,7 +12,10 @@ namespace Tests
         [TestMethod]
         public void BeAbleToModifyHisCommission()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("CI");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
 
             provider.ChangeCommission(15);
 
@@ -23,7 +26,10 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenChangingCommissionToANegativeValue()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            TextField aTextField = new TextField("Nombre");
+            list.Add(aTextField);
+            Provider provider = new Provider("Antel", 20, list);
 
             provider.ChangeCommission(-15);
         }
@@ -32,13 +38,19 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailWhenCreatingNewInstanceWithNegativeCommissionValue()
         {
-            Provider provider = new Provider("Antel", -20);
+            List<IField> list = new List<IField>();
+            TextField aTextField = new TextField("Apellido");
+            list.Add(aTextField);
+            Provider provider = new Provider("Antel", -20, list);
         }
 
         [TestMethod]
         public void BeAbleToAddNewFields()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            TextField aTextField = new TextField("Ciudad");
+            list.Add(aTextField);
+            Provider provider = new Provider("Antel", 20, list);
             NumberField numericField = new NumberField("Monto");
 
             provider.AddField(numericField);
@@ -49,7 +61,10 @@ namespace Tests
         [TestMethod]
         public void BeAbleToRemoveAField()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Fecha");
+            list.Add(aDateField);
+            Provider provider = new Provider("Antel", 20, list);
             NumberField numericField = new NumberField("Monto");
 
             provider.AddField(numericField);
@@ -62,7 +77,10 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FailIfUserTriesToRemoveAFieldThatIsNotInFieldsList()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Vencimiento");
+            list.Add(aDateField);
+            Provider provider = new Provider("Antel", 20, list);
             NumberField numericField = new NumberField("Monto");
             DateField dateField = new DateField("Fecha");
 
@@ -73,8 +91,11 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellIfItIsEqualToAnotherProvider()
         {
-            Provider firstProvider = new Provider("Antel", 20);
-            Provider secondProvider = new Provider("Antel", 10);
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Vencimiento");
+            list.Add(aDateField);
+            Provider firstProvider = new Provider("Antel", 20, list);
+            Provider secondProvider = new Provider("Antel", 10, list);
 
             Assert.IsTrue(firstProvider.Equals(secondProvider));
         }
@@ -82,7 +103,10 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToANullObject()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("RUT");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
 
             Assert.IsFalse(provider.Equals(null));
         }
@@ -90,7 +114,10 @@ namespace Tests
         [TestMethod]
         public void BeAbleToTellItIsNotEqualToAnotherTypeOfObject()
         {
-            Provider provider = new Provider("Antel", 20);
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("ID");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
 
             DateField aDateField = new DateField("Fecha");
 

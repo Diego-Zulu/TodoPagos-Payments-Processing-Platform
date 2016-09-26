@@ -7,3 +7,8 @@ C:\Users\Zuluaga\Documents\ZuluagaFerrari\TodoPagos\UserAPI\bin\Debug\UserAPI.dl
 C:\Users\Zuluaga\Documents\ZuluagaFerrari\TodoPagos\UserAPI\bin\Debug\UserAPI.pdb
 C:\Users\Zuluaga\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.dll
 C:\Users\Zuluaga\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\bin\Debug\UserAPI.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\bin\Debug\UserAPI.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\UserAPI\obj\Debug\UserAPI.pdb

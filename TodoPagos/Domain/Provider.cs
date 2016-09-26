@@ -9,16 +9,9 @@ namespace Domain
 
         public string Name { get; set; }
 
-        public List<IField> Fields { get; set; } = new List<IField>();
+        public ICollection<IField> Fields { get; set; } = new List<IField>();
 
-        public Provider(string aName, double aCommission)
-        {
-            CheckForNegativeCommission(aCommission);
-            Commission = aCommission;
-            Name = aName;
-        }
-
-        public Provider(string aName, double aCommission, List<IField> fields)
+        public Provider(string aName, double aCommission, ICollection<IField> fields)
         {
             CheckForPossibleErrors(fields, aCommission);
             Commission = aCommission;
@@ -26,13 +19,13 @@ namespace Domain
             Fields = fields;
         }
 
-        private void CheckForPossibleErrors(List<IField> fields, double aCommission)
+        private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission)
         {
             CheckForNullFieldsList(fields);
             CheckForNegativeCommission(aCommission);
         }
 
-        private void CheckForNullFieldsList(List<IField> fields)
+        private void CheckForNullFieldsList(ICollection<IField> fields)
         {
             if(IsNull(fields))
             {

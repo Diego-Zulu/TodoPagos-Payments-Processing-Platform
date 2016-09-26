@@ -12,18 +12,48 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveANullPaymentMethod()
         {
-            int amountPayed = 5000;
             PayMethod paymentMethod = null;
-            Payment newPayment = new Payment(paymentMethod, amountPayed);
+            List<IField> emptyFieldList = new List<IField>();
+            NumberField aNumberField = new NumberField("Numerito");
+            emptyFieldList.Add(aNumberField);
+
+            Provider provider = new Provider("Antel", 20, emptyFieldList);
+
+            IField aCompleteNumberField = aNumberField.FillAndClone("1234");
+            List<IField> completeFieldList = new List<IField>();
+            completeFieldList.Add(aCompleteNumberField);
+            double amount = 10000;
+            Receipt receipt = new Receipt(provider, completeFieldList, amount);
+
+            List<Receipt> receipts = new List<Receipt>();
+            receipts.Add(receipt);
+
+            int amountPayed = 500;
+            Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void HavePositiveAmountPayed()
         {
-            int amountPayed = -1000;
             PayMethod paymentMethod = new DebitPayMethod(DateTime.Now);
-            Payment newPayment = new Payment(paymentMethod, amountPayed);
+            List<IField> emptyFieldList = new List<IField>();
+            NumberField aNumberField = new NumberField("Numerito");
+            emptyFieldList.Add(aNumberField);
+
+            Provider provider = new Provider("Antel", 20, emptyFieldList);
+
+            IField aCompleteNumberField = aNumberField.FillAndClone("1234");
+            List<IField> completeFieldList = new List<IField>();
+            completeFieldList.Add(aCompleteNumberField);
+            double amount = 10000;
+            Receipt receipt = new Receipt(provider, completeFieldList, amount);
+
+            List<Receipt> receipts = new List<Receipt>();
+            receipts.Add(receipt);
+
+            int amountPayed = -1000;
+            Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
         }
 
         [TestMethod]
@@ -38,12 +68,15 @@ namespace Tests
         }
 
 
-        ////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////
-        //FALTA HACER QUE RECIBA MINIMO UNA FACTURA EN LA LISTA, Y LUEGO
-        //HACER QUE UN PROVIDER SE PUEDE DESACTIVAR/ELIMINAR
-        //LUEGO DE ESO EL DOMINIO ESTARIA, PERO NO ME DA MAS LA CABEZA
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void HaveMinimumOneReceipt()
+        {
+            PayMethod paymentMethod = new DebitPayMethod(DateTime.Now);
+            List<Receipt> receipts = new List<Receipt>();
+
+            int amountPayed = 7500;
+            Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
+        }
     }
 }

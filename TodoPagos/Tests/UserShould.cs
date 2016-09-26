@@ -169,5 +169,17 @@ namespace Tests
 
             Assert.IsFalse(newUser.HasThisRole(cashierRole));
         }
+
+        [TestMethod]
+        public void HaveAPasswordWithAtLeastOneUppercaseLetterAndOneNumber()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            Assert.AreEqual(password, newUser.Password);
+        }
     }
 }

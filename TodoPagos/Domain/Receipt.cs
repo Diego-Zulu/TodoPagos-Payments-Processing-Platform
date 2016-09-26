@@ -17,9 +17,18 @@ namespace Domain
         public Receipt(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
         {
             CheckForNegativeAmountToBePaid(amountToBePaid);
+            CheckForNullCompletedFields(completedFields);
             ReceiptProvider = aProvider;
             CompletedFields = completedFields;
             Amount = amountToBePaid;
+        }
+
+        private void CheckForNullCompletedFields(ICollection<IField> completedFields)
+        {
+            if (completedFields == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckForNegativeAmountToBePaid(double amountToBePaid)

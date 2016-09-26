@@ -49,8 +49,14 @@ namespace UserAPI
 
         private void CheckIfPasswordIsCorrect(string newPassword)
         {
-            bool validPassword = true;
-            if (String.IsNullOrWhiteSpace(newPassword)) validPassword = false;
+            bool isNotNullOrWhitespace = true;
+            if (String.IsNullOrWhiteSpace(newPassword)) isNotNullOrWhitespace = false;
+            bool isValidString = CheckForSafePassword(newPassword);
+            if (!(isNotNullOrWhitespace && isValidString)) throw new ArgumentException();
+        }
+
+        private bool CheckForSafePassword(string newPassword)
+        {
             char[] password = newPassword.ToCharArray();
             bool hasNumber = false;
             bool hasUppercaseLetter = false;
@@ -59,7 +65,7 @@ namespace UserAPI
                 if (password[i] >= 48 && password[i] <= 57) hasNumber = true;
                 else if (password[i] >= 65 && password[i] <= 90) hasUppercaseLetter = true;
             }
-            if (!(validPassword && hasUppercaseLetter && hasNumber)) throw new ArgumentException();
+            return hasNumber && hasUppercaseLetter;
         }
 
         private void CheckIfNameAndEmailAreCorrect(string aName, string anEmail)

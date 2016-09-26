@@ -238,5 +238,16 @@ namespace Tests
             string password = null;
             User newUser = new User(userName, userEmail, password, cashierRole);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfPasswordIsLessThan8CharactersLong()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCo1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+        }
     }
 }

@@ -112,5 +112,10 @@ namespace Domain
         {
             return Name.GetHashCode();
         }
+
+        public void Deactivate()
+        {
+            this.Activated = false;
+        }
     }
 }

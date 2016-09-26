@@ -168,13 +168,14 @@ namespace Tests
         [TestMethod]
         public void BeAbleToDeactivateItself()
         {
-            NumberField aNumberField = new NumberField("ID");
-            IField completedNumberField = aNumberField.FillAndClone("8000");
-            List<IField> completedFields = new List<IField>();
-            completedFields.Add(completedNumberField);
+            List<IField> list = new List<IField>();
+            DateField aDateField = new DateField("Fecha");
+            list.Add(aDateField);
 
-            Provider provider = new Provider("Antel", 20, completedFields);
+            Provider provider = new Provider("Antel", 20, list);
             provider.Deactivate();
+
+            Assert.IsFalse(provider.Activated);
         }
     }
 }

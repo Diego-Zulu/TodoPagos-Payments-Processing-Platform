@@ -23,6 +23,15 @@ namespace Domain
         {
             CheckForNullFieldsList(fields);
             CheckForNegativeCommission(aCommission);
+            CheckForMoreThan100Comission(aCommission);
+        }
+
+        private void CheckForMoreThan100Comission(double aCommission)
+        {
+            if (aCommission > 100)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckForNullFieldsList(ICollection<IField> fields)

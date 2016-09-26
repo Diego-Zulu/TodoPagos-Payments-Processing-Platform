@@ -15,6 +15,7 @@ namespace Domain
 
         public Provider(string aName, double aCommission, ICollection<IField> fields)
         {
+            if (String.IsNullOrWhiteSpace(aName)) throw new ArgumentException();
             CheckForPossibleErrors(fields, aCommission);
             Commission = aCommission;
             Name = aName;

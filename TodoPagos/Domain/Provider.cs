@@ -117,5 +117,10 @@ namespace Domain
         {
             this.Activated = false;
         }
+
+        public void Activate()
+        {
+            this.Activated = true;
+        }
     }
 }

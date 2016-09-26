@@ -12,9 +12,12 @@ namespace Domain
 
         public string Name { get; set; }
 
+        public bool Empty { get; set; }
+
         public DateField(string aName)
         {
             Name = aName;
+            Empty = true;
         }
 
         public override IField FillAndClone(string dataToBeFilledWith)
@@ -22,6 +25,7 @@ namespace Domain
             CheckForNullOrNotValidDateTimeArgument(dataToBeFilledWith);
             DateField newDateField = new DateField(Name);
             newDateField.Data = DateTime.Parse(dataToBeFilledWith);
+            newDateField.Empty = false;
             return newDateField;
         }
 
@@ -72,6 +76,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return Data.GetHashCode();
+        }
+
+        public override bool IsEmpty()
+        {
+            return Empty;
         }
     }
 }

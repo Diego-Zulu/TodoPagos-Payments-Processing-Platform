@@ -12,9 +12,12 @@ namespace Domain
 
         public string Name { get; set; }
 
+        public bool Empty { get; set; }
+
         public NumberField(string aName)
         {
             Name = aName;
+            Empty = true;
         }
 
         public override IField FillAndClone(string dataToFillWith)
@@ -22,6 +25,7 @@ namespace Domain
             CheckForNullOrNotNumericArgument(dataToFillWith);
             NumberField newNumberField = new NumberField(Name);
             newNumberField.Data = long.Parse(dataToFillWith);
+            newNumberField.Empty = false;
             return newNumberField;
         }
 
@@ -71,6 +75,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return Data.GetHashCode();
+        }
+
+        public override bool IsEmpty()
+        {
+            return Empty;
         }
     }
 }

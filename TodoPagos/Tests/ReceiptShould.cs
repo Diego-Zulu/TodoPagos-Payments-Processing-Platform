@@ -16,8 +16,11 @@ namespace Tests
             NumberField aNumberField = new NumberField("ID");
             list.Add(aNumberField);
             Provider provider = new Provider("Antel", 20, list);
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
 
-            Receipt receipt = new Receipt(provider, new List<IField>(), 0);
+            Receipt receipt = new Receipt(provider, completedFields, 0);
 
             Assert.AreEqual(provider, receipt.ReceiptProvider);
         }
@@ -47,12 +50,15 @@ namespace Tests
         public void KnowTheAmountToBePaid()
         {
             List<IField> list = new List<IField>();
-            DateField aDateField = new DateField("Fecha");
-            list.Add(aDateField);
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
             Provider provider = new Provider("Antel", 20, list);
             double amount = 10000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
 
-            Receipt receipt = new Receipt(provider, new List<IField>(), amount);
+            Receipt receipt = new Receipt(provider, completedFields, amount);
 
             Assert.AreEqual(amount, receipt.Amount);
         }

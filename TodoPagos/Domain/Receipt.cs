@@ -19,9 +19,18 @@ namespace Domain
             CheckForNegativeAmountToBePaid(amountToBePaid);
             CheckForNullCompletedFields(completedFields);
             CheckForEmptyCompletedField(completedFields);
+            CheckForAtLeastOneCompletedField(completedFields);
             ReceiptProvider = aProvider;
             CompletedFields = completedFields;
             Amount = amountToBePaid;
+        }
+
+        private void CheckForAtLeastOneCompletedField(ICollection<IField> completedFields)
+        {
+            if (completedFields.Count < 1)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckForEmptyCompletedField(ICollection<IField> completedFields)

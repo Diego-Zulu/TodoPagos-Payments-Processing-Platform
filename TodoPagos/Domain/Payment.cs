@@ -29,7 +29,7 @@ namespace Domain
 
         private void CheckIfItHasMoreThanOneReceipt(ICollection<Receipt> paymentReceipts)
         {
-            if (paymentReceipts.Count <= 1)
+            if (paymentReceipts.Count < 1)
             {
                 throw new ArgumentException();
             }

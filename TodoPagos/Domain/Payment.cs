@@ -17,8 +17,17 @@ namespace Domain
             CheckIfPayMethodIsNotNull(aPayMethod);
             CheckIfAmountPayedIsPositive(theAmountPayed);
             CheckIfReceiptsAreNotNull(paymentReceipts);
+            CheckIfItHasMoreThanOneReceipt(paymentReceipts);
             PaymentMethod = aPayMethod;
             amountPayed = theAmountPayed;
+        }
+
+        private void CheckIfItHasMoreThanOneReceipt(ICollection<Receipt> paymentReceipts)
+        {
+            if (paymentReceipts.Count <= 1)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckIfReceiptsAreNotNull(ICollection<Receipt>  paymentReceipts)

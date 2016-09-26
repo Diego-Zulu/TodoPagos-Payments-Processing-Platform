@@ -16,13 +16,18 @@ namespace Domain
 
         public Receipt(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
         {
+            CheckForPossibleErrors(aProvider, completedFields, amountToBePaid);
+            ReceiptProvider = aProvider;
+            CompletedFields = completedFields;
+            Amount = amountToBePaid;
+        }
+
+        private void CheckForPossibleErrors(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
+        {
             CheckForNegativeAmountToBePaid(amountToBePaid);
             CheckForNullCompletedFields(completedFields);
             CheckForEmptyCompletedField(completedFields);
             CheckForAtLeastOneCompletedField(completedFields);
-            ReceiptProvider = aProvider;
-            CompletedFields = completedFields;
-            Amount = amountToBePaid;
         }
 
         private void CheckForAtLeastOneCompletedField(ICollection<IField> completedFields)

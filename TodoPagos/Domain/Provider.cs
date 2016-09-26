@@ -25,8 +25,7 @@ namespace Domain
         private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission, string aName)
         {
             CheckForNullFieldsList(fields);
-            CheckForNegativeCommission(aCommission);
-            CheckForMoreThan100Comission(aCommission);
+            CheckForPossibleCommissionErrors(aCommission);
             CheckForCompleteField(fields);
             CheckForNullOrWhitespaceName(aName);
         }
@@ -70,9 +69,14 @@ namespace Domain
 
         public void ChangeCommission(double newValue)
         {
-            CheckForMoreThan100Comission(newValue);
-            CheckForNegativeCommission(newValue);
+            CheckForPossibleCommissionErrors(newValue);
             Commission = newValue;
+        }
+
+        private void CheckForPossibleCommissionErrors(double aCommission)
+        {
+            CheckForMoreThan100Comission(aCommission);
+            CheckForNegativeCommission(aCommission);
         }
 
         public void AddField(IField fieldToBeAdded)

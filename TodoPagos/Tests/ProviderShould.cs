@@ -152,5 +152,17 @@ namespace Tests
         {
             Provider provider = new Provider("Antel", 20, null);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FailIfFieldsListHasCompletedField()
+        {
+            NumberField aNumberField = new NumberField("ID");
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+
+            Provider provider = new Provider("Antel", 20, completedFields);
+        }
     }
 }

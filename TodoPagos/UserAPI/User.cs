@@ -50,12 +50,18 @@ namespace UserAPI
         private void CheckIfPasswordIsCorrect(string newPassword)
         {
             CheckForNullOrWhitespacePassword(newPassword);
+            CheckForCorrectLengthPassword(newPassword);
             CheckForSafePassword(newPassword);
         }
 
         private void CheckForNullOrWhitespacePassword(string newPassword)
         {
             if (String.IsNullOrWhiteSpace(newPassword)) throw new ArgumentException();
+        }
+
+        private void CheckForCorrectLengthPassword(string newPassword)
+        {
+            if (newPassword.Length < 8) throw new ArgumentException();
         }
 
         private void CheckForSafePassword(string newPassword)

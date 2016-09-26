@@ -45,6 +45,16 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenCreatingNewInstanceWithMoreThan100CommissionValue()
+        {
+            List<IField> list = new List<IField>();
+            TextField aTextField = new TextField("Apellido");
+            list.Add(aTextField);
+            Provider provider = new Provider("Antel", 101, list);
+        }
+
+        [TestMethod]
         public void BeAbleToAddNewFields()
         {
             List<IField> list = new List<IField>();

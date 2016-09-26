@@ -15,20 +15,25 @@ namespace Domain
 
         public Provider(string aName, double aCommission, ICollection<IField> fields)
         {
-            if (String.IsNullOrWhiteSpace(aName)) throw new ArgumentException();
-            CheckForPossibleErrors(fields, aCommission);
+            CheckForPossibleErrors(fields, aCommission, aName);
             Commission = aCommission;
             Name = aName;
             Fields = fields;
             Activated = true;
         }
 
-        private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission)
+        private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission, string aName)
         {
             CheckForNullFieldsList(fields);
             CheckForNegativeCommission(aCommission);
             CheckForMoreThan100Comission(aCommission);
             CheckForCompleteField(fields);
+            CheckForNullOrWhitespaceName(aName);
+        }
+
+        private void CheckForNullOrWhitespaceName(string aName)
+        {
+            if (String.IsNullOrWhiteSpace(aName)) throw new ArgumentException();
         }
 
         private void CheckForCompleteField(ICollection<IField> fields)

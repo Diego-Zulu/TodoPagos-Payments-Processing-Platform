@@ -70,6 +70,7 @@ namespace Domain
 
         public void ChangeCommission(double newValue)
         {
+            CheckForMoreThan100Comission(newValue);
             CheckForNegativeCommission(newValue);
             Commission = newValue;
         }

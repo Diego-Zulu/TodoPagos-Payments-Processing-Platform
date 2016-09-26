@@ -166,6 +166,17 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfNameIsNullOrWhitespace()
+        {
+            NumberField aNumberField = new NumberField("ID");
+            List<IField> fields = new List<IField>();
+            fields.Add(aNumberField);
+
+            Provider provider = new Provider("     ", 20, fields);
+        }
+
+        [TestMethod]
         public void BeAbleToDeactivateItself()
         {
             List<IField> list = new List<IField>();

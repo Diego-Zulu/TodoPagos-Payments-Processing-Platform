@@ -11,12 +11,15 @@ namespace Domain
 
         public ICollection<IField> Fields { get; set; } = new List<IField>();
 
+        public bool Activated { get; set; }
+
         public Provider(string aName, double aCommission, ICollection<IField> fields)
         {
             CheckForPossibleErrors(fields, aCommission);
             Commission = aCommission;
             Name = aName;
             Fields = fields;
+            Activated = true;
         }
 
         private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission)

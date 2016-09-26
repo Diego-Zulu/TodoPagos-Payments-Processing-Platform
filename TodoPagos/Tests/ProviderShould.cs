@@ -164,5 +164,17 @@ namespace Tests
 
             Provider provider = new Provider("Antel", 20, completedFields);
         }
+
+        [TestMethod]
+        public void BeAbleToDeactivateItself()
+        {
+            NumberField aNumberField = new NumberField("ID");
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+
+            Provider provider = new Provider("Antel", 20, completedFields);
+            provider.Deactivate();
+        }
     }
 }

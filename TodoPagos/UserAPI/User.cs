@@ -17,6 +17,8 @@ namespace UserAPI
 
         private const int MINIMUM_ROLE_AMOUNT = 1;
 
+        private const int MIN_PASSWORD_LENGTH = 8;
+
         private User()
         {
             Roles = new List<Role>();
@@ -61,7 +63,7 @@ namespace UserAPI
 
         private void CheckForCorrectLengthPassword(string newPassword)
         {
-            if (newPassword.Length < 8) throw new ArgumentException();
+            if (newPassword.Length < MIN_PASSWORD_LENGTH) throw new ArgumentException();
         }
 
         private void CheckForSafePassword(string newPassword)

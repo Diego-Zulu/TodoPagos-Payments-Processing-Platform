@@ -14,12 +14,17 @@ namespace Domain
 
         public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
         {
+            CheckAttributeCorrectness(aPayMethod, theAmountPayed, paymentReceipts);
+            PaymentMethod = aPayMethod;
+            amountPayed = theAmountPayed;
+        }
+
+        private void CheckAttributeCorrectness(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
+        {
             CheckIfPayMethodIsNotNull(aPayMethod);
             CheckIfAmountPayedIsPositive(theAmountPayed);
             CheckIfReceiptsAreNotNull(paymentReceipts);
             CheckIfItHasMoreThanOneReceipt(paymentReceipts);
-            PaymentMethod = aPayMethod;
-            amountPayed = theAmountPayed;
         }
 
         private void CheckIfItHasMoreThanOneReceipt(ICollection<Receipt> paymentReceipts)

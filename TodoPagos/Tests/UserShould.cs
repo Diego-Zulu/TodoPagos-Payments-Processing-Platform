@@ -194,5 +194,16 @@ namespace Tests
 
             Assert.AreEqual(password, newUser.Password);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfPasswordDoesntHaveAtLeastOneUppercaseLetter()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "holacom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+        }
     }
 }

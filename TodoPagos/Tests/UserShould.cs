@@ -205,5 +205,16 @@ namespace Tests
             string password = "holacom1";
             User newUser = new User(userName, userEmail, password, cashierRole);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfPasswordDoesntHaveAtLeastOneNumber()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "Holacoma";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+        }
     }
 }

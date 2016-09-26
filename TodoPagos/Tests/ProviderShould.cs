@@ -167,13 +167,24 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailIfNameIsNullOrWhitespace()
+        public void FailIfNameIsWhitespace()
         {
             NumberField aNumberField = new NumberField("ID");
             List<IField> fields = new List<IField>();
             fields.Add(aNumberField);
 
             Provider provider = new Provider("     ", 20, fields);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfNameIsNull()
+        {
+            NumberField aNumberField = new NumberField("ID");
+            List<IField> fields = new List<IField>();
+            fields.Add(aNumberField);
+
+            Provider provider = new Provider(null, 20, fields);
         }
 
         [TestMethod]

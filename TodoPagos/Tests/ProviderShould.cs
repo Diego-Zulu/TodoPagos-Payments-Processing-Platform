@@ -147,14 +147,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailIfFieldsListIsNull()
         {
             Provider provider = new Provider("Antel", 20, null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailIfFieldsListHasCompletedField()
         {
             NumberField aNumberField = new NumberField("ID");

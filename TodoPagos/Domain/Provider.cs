@@ -24,6 +24,18 @@ namespace Domain
             CheckForNullFieldsList(fields);
             CheckForNegativeCommission(aCommission);
             CheckForMoreThan100Comission(aCommission);
+            CheckForCompleteField(fields);
+        }
+
+        private void CheckForCompleteField(ICollection<IField> fields)
+        {
+            foreach (IField oneField in fields)
+            {
+                if (!oneField.IsEmpty())
+                {
+                    throw new ArgumentException();
+                }
+            }
         }
 
         private void CheckForMoreThan100Comission(double aCommission)
@@ -38,7 +50,7 @@ namespace Domain
         {
             if(IsNull(fields))
             {
-                throw new ArgumentNullException();
+                throw new ArgumentException();
             }
         }
 

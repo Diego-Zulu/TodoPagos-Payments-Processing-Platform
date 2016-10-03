@@ -1,0 +1,5 @@
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services\bin\Debug\TodoPagos.Web.Services.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services\bin\Debug\TodoPagos.Web.Services.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services\obj\Debug\TodoPagos.Web.Services.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services\obj\Debug\TodoPagos.Web.Services.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services\obj\Debug\TodoPagos.Web.Services.pdb

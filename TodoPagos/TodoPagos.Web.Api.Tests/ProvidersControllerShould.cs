@@ -19,5 +19,14 @@ namespace TodoPagos.Web.Api.Tests
 
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfProviderServiceIsNullOnCreation()
+        {
+            IProviderService nullProviderService = null;
+
+            ProvidersController controller = new ProvidersController(nullProviderService);
+        }
     }
 }

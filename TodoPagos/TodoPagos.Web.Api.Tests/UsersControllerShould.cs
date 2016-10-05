@@ -36,7 +36,7 @@ namespace TodoPagos.WebApi.Tests
 
             var allUsers = new[]
             {
-                new User("Gabriel", "gpiffaretti@gmail.com", "wololo1234!", CashierRole.GetInstance()),
+                new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance()),
             new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance())
         };
 

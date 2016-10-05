@@ -43,6 +43,12 @@
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoPagos.UserAPI\TodoPagos.UserAPI.csproj">
+      <Project>{306f6fb4-9659-4714-aa36-56ea590935c5}</Project>
+      <Name>TodoPagos.UserAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

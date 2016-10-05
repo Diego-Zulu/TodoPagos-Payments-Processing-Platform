@@ -52,12 +52,12 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void BeAbleToReturnSingleUserInRepository()
         {
-            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance())
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetUser(singleUser.ID)).Returns(singleUser);
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID)).Returns(singleUser);
             UserController controller = new UserController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.GetUsers();
+            IHttpActionResult actionResult = controller.GetUser(singleUser.ID);
             OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
 
             Assert.AreSame(contentResult.Content, singleUser);

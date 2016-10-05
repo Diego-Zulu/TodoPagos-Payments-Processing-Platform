@@ -14,6 +14,7 @@ namespace TodoPagos.UserAPI
         public string Email { get; set; }
         public string Password { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
+        public int ID { get; set; }
 
         private const int MINIMUM_ROLE_AMOUNT = 1;
 

@@ -6,15 +6,16 @@ using System.Net.Http;
 using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.UserAPI;
+using System.Web.Http.Description;
 
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/users")]
-    public class UsersController : ApiController
+    public class UserController : ApiController
     {
         private readonly IUserService userService;
 
-        public UsersController(IUserService oneService)
+        public UserController(IUserService oneService)
         {
             FailIfServiceArgumentIsNull(oneService);
             userService = oneService;
@@ -34,6 +35,14 @@ namespace TodoPagos.Web.Api.Controllers
         {
             IEnumerable<User> users = userService.GetAllUsers();
             return Ok(users);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
+        {
+            User user = userService.GetSingleUser(id);
+            return Ok(user);
         }
 
         protected override void Dispose(bool disposing)

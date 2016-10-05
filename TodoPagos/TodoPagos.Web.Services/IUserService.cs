@@ -11,6 +11,8 @@ namespace TodoPagos.Web.Services
     {
         IEnumerable<User> GetAllUsers();
 
+        User GetSingleUser(int id);
+
         void Dispose();
     }
 }

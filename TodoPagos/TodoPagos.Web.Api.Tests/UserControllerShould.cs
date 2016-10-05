@@ -12,14 +12,14 @@ using System.Collections.Generic;
 namespace TodoPagos.WebApi.Tests
 {
     [TestClass]
-    public class UsersControllerShould
+    public class UserControllerShould
     {
         [TestMethod]
         public void RecieveAUserServiceOnCreation()
         {
             var mockUserService = new Mock<IUserService>();
 
-            UsersController controller = new UsersController(mockUserService.Object);
+            UserController controller = new UserController(mockUserService.Object);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace TodoPagos.WebApi.Tests
         {
             IUserService nullUserService = null;
 
-            UsersController controller = new UsersController(nullUserService);
+            UserController controller = new UserController(nullUserService);
         }
 
         [TestMethod]
@@ -41,12 +41,26 @@ namespace TodoPagos.WebApi.Tests
         };
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsers);
-            UsersController controller = new UsersController(mockUserService.Object);
+            UserController controller = new UserController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUsers();
             OkNegotiatedContentResult<IEnumerable<User>> contentResult = (OkNegotiatedContentResult<IEnumerable<User>>)actionResult;
 
             Assert.AreSame(contentResult.Content, allUsers);
+        }
+
+        [TestMethod]
+        public void BeAbleToReturnSingleUserInRepository()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance())
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.GetUser(singleUser.ID)).Returns(singleUser);
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.GetUsers();
+            OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
+
+            Assert.AreSame(contentResult.Content, singleUser);
         }
     }
 }

@@ -10,5 +10,7 @@ namespace TodoPagos.Web.Services
     public interface IUserService
     {
         IEnumerable<User> GetAllUsers();
+
+        void Dispose();
     }
 }

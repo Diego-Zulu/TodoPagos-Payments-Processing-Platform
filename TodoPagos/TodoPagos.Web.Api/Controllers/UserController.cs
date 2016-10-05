@@ -29,10 +29,20 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
+        [HttpGet]
         public IHttpActionResult GetUsers()
         {
             IEnumerable<User> users = userService.GetAllUsers();
             return Ok(users);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                userService.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

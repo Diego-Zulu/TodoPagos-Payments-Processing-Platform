@@ -62,5 +62,17 @@ namespace TodoPagos.WebApi.Tests
 
             Assert.AreSame(contentResult.Content, singleUser);
         }
+
+        [TestMethod]
+        public void FailIfSingleUserIdDoesntExistInRepository()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID + 1)).Throws(new IndexOutOfRangeException());
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.GetUser(singleUser.ID + 1);
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
     }
 }

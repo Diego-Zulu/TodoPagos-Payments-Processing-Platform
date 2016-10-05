@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using TodoPagos.Web.Api.Controllers;
+using TodoPagos.Web.Services;
 
 namespace TodoPagos.Web.Api.Tests
 {

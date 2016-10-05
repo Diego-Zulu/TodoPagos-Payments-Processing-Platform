@@ -5,18 +5,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TodoPagos.Web.Services;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/users")]
     public class UsersController : ApiController
     {
-        private readonly IUserService usersService;
+        private readonly IUserService userService;
 
         public UsersController(IUserService oneService)
         {
             FailIfServiceArgumentIsNull(oneService);
-            usersService = oneService;
+            userService = oneService;
             
         }
 
@@ -30,7 +31,8 @@ namespace TodoPagos.Web.Api.Controllers
 
         public IHttpActionResult GetUsers()
         {
-            return Ok();
+            IEnumerable<User> users = userService.GetAllUsers();
+            return Ok(users);
         }
     }
 }

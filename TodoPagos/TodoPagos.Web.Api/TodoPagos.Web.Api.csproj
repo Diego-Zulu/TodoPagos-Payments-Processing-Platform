@@ -141,6 +141,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TodoPagos.UserAPI\TodoPagos.UserAPI.csproj">
+      <Project>{306f6fb4-9659-4714-aa36-56ea590935c5}</Project>
+      <Name>TodoPagos.UserAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TodoPagos.Web.Services\TodoPagos.Web.Services.csproj">
       <Project>{00a57fca-90f7-48a4-9689-1d3ca5114999}</Project>
       <Name>TodoPagos.Web.Services</Name>

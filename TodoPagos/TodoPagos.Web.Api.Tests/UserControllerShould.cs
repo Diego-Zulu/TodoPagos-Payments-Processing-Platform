@@ -139,5 +139,19 @@ namespace TodoPagos.WebApi.Tests
             IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
+
+        [TestMethod]
+        public void BeAbleToDeleteAnUser()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.DeleteUser(singleUser.ID)).Returns(true);
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
+            StatusCodeResult contentResult = (StatusCodeResult)actionResult;
+
+            Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
+        }
     }
 }

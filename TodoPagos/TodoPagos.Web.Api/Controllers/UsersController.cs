@@ -11,11 +11,16 @@ using System.Web.Http.Description;
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/users")]
-    public class UserController : ApiController
+    public class UsersController : ApiController
     {
         private readonly IUserService userService;
 
-        public UserController(IUserService oneService)
+        /*public UsersController()
+        {
+            userService = new UserService();
+        }*/
+
+        public UsersController(IUserService oneService)
         {
             FailIfServiceArgumentIsNull(oneService);
             userService = oneService;

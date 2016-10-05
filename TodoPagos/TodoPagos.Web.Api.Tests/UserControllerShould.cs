@@ -68,7 +68,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID + 1)).Throws(new IndexOutOfRangeException());
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID + 1)).Throws(new ArgumentOutOfRangeException());
             UserController controller = new UserController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUser(singleUser.ID + 1);

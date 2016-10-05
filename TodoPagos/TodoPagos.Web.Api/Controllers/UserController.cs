@@ -41,8 +41,15 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
         {
-            User user = userService.GetSingleUser(id);
-            return Ok(user);
+            User user;
+            try
+            {
+                user = userService.GetSingleUser(id);
+                return Ok(user);
+            } catch (ArgumentOutOfRangeException)
+            {
+                return NotFound();
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -101,5 +101,19 @@ namespace TodoPagos.WebApi.Tests
             
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
+
+        [TestMethod]
+        public void BeAbleToUpdateAUserInTheRepository()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(singleUser)).Returns(1);
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(singleUser);
+            CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
+
+            Assert.AreSame(contentResult.Content, singleUser);
+        }
     }
 }

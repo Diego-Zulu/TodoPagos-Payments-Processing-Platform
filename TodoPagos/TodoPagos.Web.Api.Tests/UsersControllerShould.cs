@@ -7,6 +7,7 @@ using TodoPagos.Web.Api.Controllers;
 using System.Web.Http;
 using System.Web.Http.Results;
 using TodoPagos.UserAPI;
+using System.Collections.Generic;
 
 namespace TodoPagos.WebApi.Tests
 {
@@ -31,23 +32,21 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void BeAbleToReturnAllUsersInRepositoryThroughUserView()
+        public void BeAbleToReturnAllUsersInRepository()
         {
-
             var allUsers = new[]
             {
-                new User("Gabriel", "gpiffaretti@gmail.com", "wololo1234!", CashierRole.GetInstance()),
+                new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance()),
             new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance())
         };
-
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsers);
-
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUsers();
+            OkNegotiatedContentResult<IEnumerable<User>> contentResult = (OkNegotiatedContentResult<IEnumerable<User>>)actionResult;
 
-           
+            Assert.AreSame(contentResult.Content, allUsers);
         }
     }
 }

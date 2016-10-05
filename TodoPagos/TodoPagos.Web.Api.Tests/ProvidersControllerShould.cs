@@ -10,7 +10,8 @@ using TodoPagos.Web.Services;
 
 namespace TodoPagos.Web.Api.Tests
 {
-    class ProvidersControllerShould
+    [TestClass]
+    public class ProvidersControllerShould
     {
         [TestMethod]
         public void RecieveAProviderServiceOnCreation()

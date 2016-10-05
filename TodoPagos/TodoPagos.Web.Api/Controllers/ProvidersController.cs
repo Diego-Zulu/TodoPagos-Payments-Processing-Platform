@@ -15,13 +15,16 @@ namespace TodoPagos.Web.Api.Controllers
 
         public ProvidersController(IProviderService oneService)
         {
-            if (oneService == null)
-            {
-                throw new ArgumentException();
-            }
+            MakeSureProvidedProviderServiceIsNotNull(oneService);
             providerService = oneService;
         }
 
-
+        private void MakeSureProvidedProviderServiceIsNotNull(IProviderService providedProviderService)
+        {
+            if (providedProviderService == null)
+            {
+                throw new ArgumentException();
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace TodoPagos.Web.Services
 
         User GetSingleUser(int id);
 
-        bool CreateUser(User newUser);
+        int CreateUser(User newUser);
 
         void Dispose();
     }

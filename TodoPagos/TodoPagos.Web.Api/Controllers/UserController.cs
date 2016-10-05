@@ -55,7 +55,14 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult PostUser(User newUser)
         {
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            int id = userService.CreateUser(newUser);
+
+            return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
         }
 
         protected override void Dispose(bool disposing)

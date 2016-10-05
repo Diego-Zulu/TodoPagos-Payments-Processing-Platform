@@ -80,7 +80,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(singleUser)).Returns(true);
+            mockUserService.Setup(x => x.CreateUser(singleUser)).Returns(1);
             UserController controller = new UserController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PostUser(singleUser);

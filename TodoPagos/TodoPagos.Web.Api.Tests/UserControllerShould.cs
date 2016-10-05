@@ -148,7 +148,7 @@ namespace TodoPagos.WebApi.Tests
             mockUserService.Setup(x => x.DeleteUser(singleUser.ID)).Returns(true);
             UserController controller = new UserController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
+            IHttpActionResult actionResult = controller.DeleteUser(singleUser.ID);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);

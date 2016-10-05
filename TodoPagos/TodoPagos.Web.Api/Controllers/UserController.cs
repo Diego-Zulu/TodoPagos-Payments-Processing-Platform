@@ -107,7 +107,13 @@ namespace TodoPagos.Web.Api.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        
+        [HttpDelete]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult DeleteUser(int id)
+        {
+            userService.DeleteUser(id);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         protected override void Dispose(bool disposing)
         {

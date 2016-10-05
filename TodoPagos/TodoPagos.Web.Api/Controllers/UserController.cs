@@ -84,6 +84,10 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (id != user.ID)
+            {
+                return BadRequest();
+            }
             return StatusCode(HttpStatusCode.NoContent);
         }
 

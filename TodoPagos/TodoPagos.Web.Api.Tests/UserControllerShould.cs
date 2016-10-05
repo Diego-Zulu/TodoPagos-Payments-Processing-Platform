@@ -74,5 +74,19 @@ namespace TodoPagos.WebApi.Tests
             IHttpActionResult actionResult = controller.GetUser(singleUser.ID + 1);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
+
+        [TestMethod]
+        public void BeAbleToPostNewseUserIntoRepository()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(singleUser)).Returns(true);
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(singleUser);
+            CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
+
+            Assert.AreSame(contentResult.Content, singleUser);
+        }
     }
 }

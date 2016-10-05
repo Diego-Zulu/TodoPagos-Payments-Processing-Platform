@@ -81,11 +81,25 @@ namespace TodoPagos.Web.Api.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            } else
+            {
+                return checkIfUserIdIsCorrectAndTryToUpdate(id, user);
             }
+        }
+
+        private IHttpActionResult checkIfUserIdIsCorrectAndTryToUpdate(int id, User user)
+        {
             if (id != user.ID)
             {
                 return BadRequest();
-            }
+            } else
+            {
+                return tryToUpdateUser(id, user);
+            } 
+        }
+
+        private IHttpActionResult tryToUpdateUser(int id, User user)
+        {
             if (!userService.UpdateUser(id, user))
             {
                 return NotFound();

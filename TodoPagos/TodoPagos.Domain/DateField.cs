@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace TodoPagos.Domain
 {
     public class DateField : IField
     {
+        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
+                    "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
         public DateTime Data { get; set; }
 
         public string Name { get; set; }
@@ -24,7 +27,7 @@ namespace TodoPagos.Domain
         {
             CheckForNullOrNotValidDateTimeArgument(dataToBeFilledWith);
             DateField newDateField = new DateField(Name);
-            newDateField.Data = DateTime.Parse(dataToBeFilledWith);
+            newDateField.Data = ParseToGMTDate(dataToBeFilledWith);
             newDateField.Empty = false;
             return newDateField;
         }
@@ -34,13 +37,19 @@ namespace TodoPagos.Domain
             if (String.IsNullOrWhiteSpace(dataToBeFilledWith)) throw new ArgumentException();
             try
             {
-                DateTime.Parse(dataToBeFilledWith);
+                ParseToGMTDate(dataToBeFilledWith);
             }
             catch (FormatException)
             {
                 throw new ArgumentException();
             }
 
+        }
+
+        private DateTime ParseToGMTDate(string dataToBeFilledWith)
+        {
+            return DateTime.ParseExact(dataToBeFilledWith, ACCEPTED_DATE_FORMATS,
+                CultureInfo.InvariantCulture, DateTimeStyles.None);
         }
 
         public override string GetData()
@@ -50,7 +59,7 @@ namespace TodoPagos.Domain
 
         public override bool IsValid()
         {
-            return Data.Year > 2013;
+            return true;
         }
 
         public override bool Equals(object otherIField)

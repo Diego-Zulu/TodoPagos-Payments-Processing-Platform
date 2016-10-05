@@ -5,3 +5,10 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Web.Services.Test.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Web.Services.Test.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.pdb

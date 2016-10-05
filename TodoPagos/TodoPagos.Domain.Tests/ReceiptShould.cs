@@ -34,7 +34,7 @@ namespace TodoPagos.Domain.Tests
             Provider provider = new Provider("Antel", 20, list);
             DateField datefield = new DateField("Fecha");
             NumberField numberField = new NumberField("Monto");
-            IField completedDateField = datefield.FillAndClone("01/02/2014");
+            IField completedDateField = datefield.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
             IField completedNumberField = numberField.FillAndClone("8000");
             List<IField> completedFields = new List<IField>();
             completedFields.Add(completedDateField);

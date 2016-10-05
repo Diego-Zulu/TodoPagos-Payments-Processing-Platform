@@ -24,7 +24,7 @@ namespace TodoPagos.Domain.Tests
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("10/02/2015");
+            IField newDateField = dateField.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
 
             Assert.AreNotSame(dateField, newDateField);
         }
@@ -59,23 +59,12 @@ namespace TodoPagos.Domain.Tests
         }
 
         [TestMethod]
-        public void TellItIsValidWhenItStoresADateLaterThan2013()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWhenTheProvidedDateIsNotInGMTFormat()
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("1/2/2014");
-
-            Assert.IsTrue(newDateField.IsValid());
-        }
-
-        [TestMethod]
-        public void TellItIsNotValidWhenItStoresADateBeforeThan2014()
-        {
-            DateField dateField = new DateField("Fecha");
-
-            IField newDateField = dateField.FillAndClone("31/12/2013");
-
-            Assert.IsFalse(newDateField.IsValid());
+            IField newDateField = dateField.FillAndClone("05/09/2016");
         }
 
         [TestMethod]
@@ -107,7 +96,7 @@ namespace TodoPagos.Domain.Tests
         {
             DateField firstDateField = new DateField("Fecha");
 
-            IField firstNewDateField = firstDateField.FillAndClone("Mon, 4 Jan 2010 15:31:51 GMT");
+            IField firstNewDateField = firstDateField.FillAndClone("Mon, 11 Jan 2010 15:31:15 GMT");
 
             Assert.IsFalse(firstNewDateField.Equals(null));
         }

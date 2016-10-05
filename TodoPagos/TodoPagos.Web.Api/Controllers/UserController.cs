@@ -60,9 +60,15 @@ namespace TodoPagos.Web.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            int id = userService.CreateUser(newUser);
+            try {
 
-            return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
+                int id = userService.CreateUser(newUser);
+                return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
+
+            } catch (InvalidOperationException)
+            {
+                return BadRequest();
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -76,7 +76,7 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void BeAbleToPostNewseUserIntoRepository()
+        public void BeAbleToPostNewUserIntoRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
@@ -87,6 +87,19 @@ namespace TodoPagos.WebApi.Tests
             CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
 
             Assert.AreSame(contentResult.Content, singleUser);
+        }
+
+        [TestMethod]
+        public void FailIfPostedNewUserIsAlreadyInRepository()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(singleUser)).Throws(new InvalidOperationException());
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(singleUser);
+            
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
     }
 }

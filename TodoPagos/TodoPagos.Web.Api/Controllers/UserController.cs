@@ -19,7 +19,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             FailIfServiceArgumentIsNull(oneService);
             userService = oneService;
-            
+
         }
 
         private void FailIfServiceArgumentIsNull(IUserService oneService)
@@ -45,7 +45,8 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 User user = userService.GetSingleUser(id);
                 return Ok(user);
-            } catch (ArgumentOutOfRangeException)
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 return NotFound();
             }
@@ -60,12 +61,17 @@ namespace TodoPagos.Web.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            try {
+            return tryToCreateUser(newUser);
+        }
 
+        private IHttpActionResult tryToCreateUser(User newUser)
+        {
+            try
+            {
                 int id = userService.CreateUser(newUser);
                 return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
-
-            } catch (InvalidOperationException)
+            }
+            catch (InvalidOperationException)
             {
                 return BadRequest();
             }

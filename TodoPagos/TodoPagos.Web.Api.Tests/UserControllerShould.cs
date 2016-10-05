@@ -116,5 +116,16 @@ namespace TodoPagos.WebApi.Tests
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
         }
+
+        [TestMethod]
+        public void FailIfUpdatedUserIdAndSuppliedIdAreDifferent()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            UserController controller = new UserController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PutUser(singleUser.ID + 1, singleUser);
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
     }
 }

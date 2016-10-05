@@ -77,6 +77,12 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutUser(int id, User user)
+        {
+            return Ok();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

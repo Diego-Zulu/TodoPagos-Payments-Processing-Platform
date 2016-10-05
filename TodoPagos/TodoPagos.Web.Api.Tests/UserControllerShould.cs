@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using TodoPagos.UserAPI;
 using System.Collections.Generic;
+using System.Net;
 
 namespace TodoPagos.WebApi.Tests
 {
@@ -103,17 +104,17 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void BeAbleToUpdateAUserInTheRepository()
+        public void BeAbleToUpdateAnUserInTheRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(singleUser)).Returns(1);
+            mockUserService.Setup(x => x.UpdateUser(singleUser)).Returns(true);
             UserController controller = new UserController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PostUser(singleUser);
-            CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
+            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
+            StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
-            Assert.AreSame(contentResult.Content, singleUser);
+            Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
         }
     }
 }

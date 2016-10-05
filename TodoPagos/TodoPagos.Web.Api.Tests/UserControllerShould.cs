@@ -108,7 +108,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.UpdateUser(singleUser)).Returns(true);
+            mockUserService.Setup(x => x.UpdateUser(singleUser.ID, singleUser)).Returns(true);
             UserController controller = new UserController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
@@ -129,11 +129,11 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void FailIfServiceCantFindUpdateUserInRepository()
+        public void FailIfServiceCantFindToBeUpdatedUserInRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.UpdateUser(singleUser)).Returns(false);
+            mockUserService.Setup(x => x.UpdateUser(singleUser.ID, singleUser)).Returns(false);
             UserController controller = new UserController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);

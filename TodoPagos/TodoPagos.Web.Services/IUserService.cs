@@ -15,7 +15,7 @@ namespace TodoPagos.Web.Services
 
         int CreateUser(User newUser);
 
-        bool UpdateUser(User toBeUpdatedUser);
+        bool UpdateUser(int id, User toBeUpdatedUser);
 
         void Dispose();
     }

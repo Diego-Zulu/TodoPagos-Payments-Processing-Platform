@@ -19,7 +19,6 @@ namespace TodoPagos.Web.Api.Controllers
         {
             FailIfServiceArgumentIsNull(oneService);
             userService = oneService;
-
         }
 
         private void FailIfServiceArgumentIsNull(IUserService oneService)
@@ -60,7 +59,6 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             return tryToCreateUser(newUser);
         }
 
@@ -87,6 +85,10 @@ namespace TodoPagos.Web.Api.Controllers
             if (id != user.ID)
             {
                 return BadRequest();
+            }
+            if (!userService.UpdateUser(id, user))
+            {
+                return NotFound();
             }
             return StatusCode(HttpStatusCode.NoContent);
         }

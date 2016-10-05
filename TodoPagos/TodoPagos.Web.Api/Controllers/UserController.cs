@@ -111,8 +111,11 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteUser(int id)
         {
-            userService.DeleteUser(id);
-            return StatusCode(HttpStatusCode.NoContent);
+            if (userService.DeleteUser(id))
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return NotFound();
         }
 
         protected override void Dispose(bool disposing)

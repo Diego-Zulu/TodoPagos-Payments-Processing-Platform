@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TodoPagos.Web.Services;
+using TodoPagos.Domain;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -26,5 +27,14 @@ namespace TodoPagos.Web.Api.Controllers
                 throw new ArgumentException();
             }
         }
+
+        [HttpGet]
+        public IHttpActionResult GetProviders()
+        {
+            IEnumerable<Provider> users = providerService.GetAllProviders();
+            return Ok(users);
+        }
+
+
     }
 }

@@ -103,3 +103,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\UserAPI.p
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\obj\Debug\TodoPagos.Web.Api.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\obj\Debug\TodoPagos.Web.Api.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\obj\Debug\TodoPagos.Web.Api.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Domain.pdb

@@ -37,9 +37,10 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [ResponseType(typeof(Provider))]
         public IHttpActionResult GetProvider(int id)
         {
-            return Ok();
+            return Ok(providerService.GetSingleProvider(id));
         }
     }
 }

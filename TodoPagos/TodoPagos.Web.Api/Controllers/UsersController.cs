@@ -94,7 +94,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (!userService.UpdateUser(id, user))
             {
-                if (id != user.ID)
+                if (user == null || id != user.ID)
                 {
                     return BadRequest();
                 } else

@@ -56,7 +56,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider singleProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.GetProvider(singleProvider.ID)).Returns(singleProvider);
+            mockProviderService.Setup(x => x.GetSingleProvider(singleProvider.ID)).Returns(singleProvider);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.GetProvider(singleProvider.ID);

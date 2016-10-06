@@ -36,6 +36,10 @@ namespace TodoPagos.Web.Api.Controllers
             return Ok(users);
         }
 
-        
+        [HttpGet]
+        public IHttpActionResult GetProvider(int id)
+        {
+            return Ok();
+        }
     }
 }

@@ -64,5 +64,17 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreSame(contentResult.Content, singleProvider);
         }
+
+        [TestMethod]
+        public void FailWithNotFoundIfUserIdIsNotInRepository()
+        {
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.GetSingleProvider(1)).Throws(new ArgumentOutOfRangeException());
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.GetProvider(1);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
     }
 }

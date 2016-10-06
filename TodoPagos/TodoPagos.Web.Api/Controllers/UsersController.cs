@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Web.Http.Description;
 using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.UserAPI;
-using System.Web.Http.Description;
 
 namespace TodoPagos.Web.Api.Controllers
 {
-    [RoutePrefix("api/v1/users")]
+    [RoutePrefix("api/v1/Users")]
     public class UsersController : ApiController
     {
         private readonly IUserService userService;
@@ -88,26 +86,21 @@ namespace TodoPagos.Web.Api.Controllers
                 return BadRequest(ModelState);
             } else
             {
-                return checkIfUserIdIsCorrectAndTryToUpdate(id, user);
-            }
-        }
-
-        private IHttpActionResult checkIfUserIdIsCorrectAndTryToUpdate(int id, User user)
-        {
-            if (id != user.ID)
-            {
-                return BadRequest();
-            } else
-            {
                 return tryToUpdateUser(id, user);
-            } 
+            }
         }
 
         private IHttpActionResult tryToUpdateUser(int id, User user)
         {
             if (!userService.UpdateUser(id, user))
             {
-                return NotFound();
+                if (id != user.ID)
+                {
+                    return BadRequest();
+                } else
+                {
+                    return NotFound();
+                } 
             }
             return StatusCode(HttpStatusCode.NoContent);
         }

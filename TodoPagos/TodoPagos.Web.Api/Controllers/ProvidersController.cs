@@ -6,10 +6,11 @@ using System.Net.Http;
 using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.Domain;
+using System.Web.Http.Description;
 
 namespace TodoPagos.Web.Api.Controllers
 {
-    [RoutePrefix("api/v1/providers")]
+    [RoutePrefix("api/v1/Providers")]
     public class ProvidersController : ApiController
     {
         private readonly IProviderService providerService;
@@ -35,6 +36,6 @@ namespace TodoPagos.Web.Api.Controllers
             return Ok(users);
         }
 
-
+        
     }
 }

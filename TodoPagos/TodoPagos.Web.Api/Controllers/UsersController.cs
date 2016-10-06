@@ -76,6 +76,10 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest();
             }
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
         }
 
         [ResponseType(typeof(void))]

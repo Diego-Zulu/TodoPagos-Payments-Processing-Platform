@@ -104,6 +104,19 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsNull()
+        {
+            User nullUser = null;
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(nullUser)).Throws(new ArgumentNullException());
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(nullUser);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
         public void BeAbleToUpdateAnUserInTheRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());

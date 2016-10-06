@@ -74,7 +74,7 @@ namespace TodoPagos.Web.Api.Tests
 
             IHttpActionResult actionResult = controller.GetProvider(1);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
     }
 }

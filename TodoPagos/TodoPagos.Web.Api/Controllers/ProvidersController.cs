@@ -40,7 +40,14 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(Provider))]
         public IHttpActionResult GetProvider(int id)
         {
-            return Ok(providerService.GetSingleProvider(id));
+            try
+            {
+                Provider targetProvider = providerService.GetSingleProvider(id);
+                return Ok(targetProvider);
+            } catch (ArgumentOutOfRangeException)
+            {
+                return NotFound();
+            }
         }
     }
 }

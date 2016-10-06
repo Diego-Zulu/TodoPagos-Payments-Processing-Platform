@@ -62,10 +62,22 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return tryToCreateUser(newUser);
+            return tryToCreateUserWhileCheckingForArgumentNullException(newUser);
         }
 
-        private IHttpActionResult tryToCreateUser(User newUser)
+        private IHttpActionResult tryToCreateUserWhileCheckingForArgumentNullException(User newUser)
+        {
+            try
+            {
+                return tryToCreateUserWhileCheckingForInvalidOperationException(newUser);
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
+        }
+
+        private IHttpActionResult tryToCreateUserWhileCheckingForInvalidOperationException(User newUser)
         {
             try
             {
@@ -73,10 +85,6 @@ namespace TodoPagos.Web.Api.Controllers
                 return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
             }
             catch (InvalidOperationException)
-            {
-                return BadRequest();
-            }
-            catch (ArgumentNullException)
             {
                 return BadRequest();
             }

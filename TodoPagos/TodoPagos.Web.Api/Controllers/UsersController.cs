@@ -94,15 +94,21 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (!userService.UpdateUser(id, user))
             {
-                if (user == null || id != user.ID)
-                {
-                    return BadRequest();
-                } else
-                {
-                    return NotFound();
-                } 
+                return DecideWhatErrorMessageToReturn(id, user);
             }
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        private IHttpActionResult DecideWhatErrorMessageToReturn(int id, User user)
+        {
+            if (user == null || id != user.ID)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete]

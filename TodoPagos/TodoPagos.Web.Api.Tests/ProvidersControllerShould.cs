@@ -50,5 +50,19 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreSame(contentResult.Content, allProviders);
         }
+
+        [TestMethod]
+        public void BeAbleToReturnASingleProviderFromRepository()
+        {
+            Provider singleProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.GetProvider(singleProvider.ID)).Returns(singleProvider);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.GetProvider(singleProvider.ID);
+            OkNegotiatedContentResult<Provider> contentResult = (OkNegotiatedContentResult<Provider>)actionResult;
+
+            Assert.AreSame(contentResult.Content, singleProvider);
+        }
     }
 }

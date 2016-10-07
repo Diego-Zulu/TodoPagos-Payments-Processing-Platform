@@ -157,5 +157,18 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewProviderIsNull()
+        {
+            Provider nullProvider = null;
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.CreateProvider(nullProvider)).Throws(new ArgumentNullException());
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PostProvider(nullProvider);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
     }
 }

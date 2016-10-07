@@ -56,8 +56,16 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int id = paymentService.CreatePayment(newPayment);
-            return CreatedAtRoute("TodoPagosApi", new { id = newPayment.ID }, newPayment);
+            try
+            {
+                int id = paymentService.CreatePayment(newPayment);
+                return CreatedAtRoute("TodoPagosApi", new { id = newPayment.ID }, newPayment);
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

@@ -15,6 +15,7 @@ namespace TodoPagos.Web.Api.Controllers
 
         public EarningQueriesController(IEarningQueriesService service)
         {
+            if (service == null) throw new ArgumentException();
             earningQueriesService = service;
         }
     }

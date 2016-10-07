@@ -15,7 +15,8 @@ namespace TodoPagos.Web.Api.Controllers
 
         /*public UsersController()
         {
-            userService = new UserService();
+            IUnitOfWork unitOfWork = new UnitOfWork();
+            userService = new UserService(unitOfWork);
         }*/
 
         public UsersController(IUserService oneService)

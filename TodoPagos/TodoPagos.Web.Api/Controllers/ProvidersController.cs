@@ -15,6 +15,12 @@ namespace TodoPagos.Web.Api.Controllers
     {
         private readonly IProviderService providerService;
 
+        /*public ProvidersController()
+        {
+            IUnitOfWork unitOfWork = new UnitOfWork();
+            providerService = new ProviderService(unitOfWork);
+        }*/
+
         public ProvidersController(IProviderService oneService)
         {
             MakeSureProvidedProviderServiceIsNotNull(oneService);

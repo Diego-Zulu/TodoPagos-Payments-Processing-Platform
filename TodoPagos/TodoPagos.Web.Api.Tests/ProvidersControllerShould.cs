@@ -170,5 +170,19 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
+
+        [TestMethod]
+        public void BeAbleToDeleteAProvider()
+        {
+            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.DeleteProvider(oneProvider.ID)).Returns(true);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);
+            StatusCodeResult contentResult = (StatusCodeResult)actionResult;
+
+            Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
+        }
     }
 }

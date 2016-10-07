@@ -17,6 +17,8 @@ namespace TodoPagos.Web.Services
 
         int CreateProvider(Provider targetProvider);
 
+        bool DeleteProvider(int providerId);
+
         void Dispose();
     }
 }

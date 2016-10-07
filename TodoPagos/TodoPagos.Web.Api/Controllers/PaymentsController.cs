@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 using TodoPagos.Domain;
 using TodoPagos.Web.Services;
 
@@ -30,6 +31,14 @@ namespace TodoPagos.Web.Api.Controllers
         {
             IEnumerable<Payment> payments = paymentService.GetAllPayments();
             return Ok(payments);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(Payment))]
+        public IHttpActionResult GetPayment(int id)
+        {
+            Payment payment = paymentService.GetSinglePayment(id);
+            return Ok(payment);
         }
     }
 }

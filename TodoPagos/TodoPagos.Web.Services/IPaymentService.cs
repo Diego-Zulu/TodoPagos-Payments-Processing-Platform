@@ -10,5 +10,7 @@ namespace TodoPagos.Web.Services
     public interface IPaymentService
     {
         IEnumerable<Payment> GetAllPayments();
+
+        Payment GetSinglePayment(int id);
     }
 }

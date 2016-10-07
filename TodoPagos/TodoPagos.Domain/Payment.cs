@@ -11,6 +11,7 @@ namespace TodoPagos.Domain
         public virtual PayMethod PaymentMethod { get; set; }
         public double amountPayed { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
+        public virtual int ID { get; set;}
 
         public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
         {

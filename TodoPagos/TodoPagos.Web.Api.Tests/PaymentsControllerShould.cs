@@ -87,5 +87,27 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreSame(contentResult.Content, payment);
         }
+
+        [TestMethod]
+        public void FailIfSinglePaymentIdDoesntExistInRepository()
+        {
+            List<IField> emptyFields = new List<IField>();
+            NumberField field = new NumberField("Monto");
+            emptyFields.Add(field);
+            IField filledField = field.FillAndClone("100");
+            List<IField> fullFields = new List<IField>();
+            fullFields.Add(filledField);
+            Provider provider = new Provider("Antel", 3, emptyFields);
+            Receipt receipt = new Receipt(provider, fullFields, 100);
+            List<Receipt> list = new List<Receipt>();
+            list.Add(receipt);
+            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            var mockPaymentService = new Mock<IPaymentService>();
+            mockPaymentService.Setup(x => x.GetSinglePayment(payment.ID + 1)).Throws(new ArgumentOutOfRangeException());
+            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
+
+            IHttpActionResult actionResult = controller.GetPayment(payment.ID + 1);
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
     }
 }

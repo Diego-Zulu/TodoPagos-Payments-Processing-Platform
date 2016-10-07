@@ -50,7 +50,11 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutProvider(int id, Provider oneProvider)
+        {
+            return Ok();
+        }
 
         protected override void Dispose(bool disposing)
         {

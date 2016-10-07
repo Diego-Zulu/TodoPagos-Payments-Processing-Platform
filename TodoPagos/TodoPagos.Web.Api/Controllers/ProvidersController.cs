@@ -50,6 +50,7 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
+        [HttpPost]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProvider(int id, Provider oneProvider)
         {
@@ -82,6 +83,18 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        [ResponseType(typeof(Provider))]
+        public IHttpActionResult PostProvider(Provider newProvider)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int id = providerService.CreateProvider(newProvider);
+            return CreatedAtRoute("TodoPagosApi", new { id = newProvider.ID }, newProvider);
         }
 
         protected override void Dispose(bool disposing)

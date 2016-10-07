@@ -130,5 +130,19 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
+
+        [TestMethod]
+        public void BeAbleToPostNewProviderIntoRepository()
+        {
+            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.CreateProvider(oneProvider)).Returns(1);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PostProvider(oneProvider);
+            CreatedAtRouteNegotiatedContentResult<Provider> contentResult = (CreatedAtRouteNegotiatedContentResult<Provider>)actionResult;
+
+            Assert.AreSame(contentResult.Content, oneProvider);
+        }
     }
 }

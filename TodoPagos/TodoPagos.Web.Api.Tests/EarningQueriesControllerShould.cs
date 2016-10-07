@@ -25,5 +25,12 @@ namespace TodoPagos.Web.Api.Tests
 
             EarningQueriesController controller = new EarningQueriesController(service);
         }
+
+        [TestMethod]
+        public void BeAbleToReturnEarningsPerProviderInACertainTimePeriod()
+        {
+            var mockEarningQueriesService = new Mock<IEarningQueriesService>();
+            EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
+        }
     }
 }

@@ -64,10 +64,10 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return tryToCreateUser(newUser);
+            return TryToCreateUser(newUser);
         }
 
-        private IHttpActionResult tryToCreateUser(User newUser)
+        private IHttpActionResult TryToCreateUser(User newUser)
         {
             try
             {

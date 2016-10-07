@@ -56,6 +56,11 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            return TryToCreatePayment(newPayment);
+        }
+
+        private IHttpActionResult TryToCreatePayment(Payment newPayment)
+        {
             try
             {
                 int id = paymentService.CreatePayment(newPayment);
@@ -65,7 +70,6 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest();
             }
-
         }
     }
 }

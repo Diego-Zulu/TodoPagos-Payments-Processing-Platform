@@ -85,7 +85,6 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\De
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\TodoPagos.Web.Api.Tests.pdb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\Castle.Core.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\Domain.dll
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\Moq.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\System.Net.Http.Formatting.dll
@@ -104,7 +103,6 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\De
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\System.Web.Http.xml
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\System.Web.Http.WebHost.xml
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\obj\Debug\TodoPagos.Web.Api.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\obj\Debug\TodoPagos.Web.Api.Tests.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api.Tests\obj\Debug\TodoPagos.Web.Api.Tests.pdb

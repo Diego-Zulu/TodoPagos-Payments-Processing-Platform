@@ -47,5 +47,17 @@ namespace TodoPagos.Web.Api.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPost]
+        [ResponseType(typeof(Payment))]
+        public IHttpActionResult PostPayment(Payment newPayment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int id = paymentService.CreatePayment(newPayment);
+            return CreatedAtRoute("TodoPagosApi", new { id = newPayment.ID }, newPayment);
+        }
     }
 }

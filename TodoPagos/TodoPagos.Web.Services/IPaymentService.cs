@@ -12,5 +12,7 @@ namespace TodoPagos.Web.Services
         IEnumerable<Payment> GetAllPayments();
 
         Payment GetSinglePayment(int id);
+
+        int CreatePayment(Payment newPayment);
     }
 }

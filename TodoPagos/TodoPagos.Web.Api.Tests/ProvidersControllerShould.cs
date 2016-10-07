@@ -190,7 +190,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.DeleteProvider(oneProvider.ID)).Returns(true);
+            mockProviderService.Setup(x => x.DeleteProvider(oneProvider.ID)).Returns(false);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);

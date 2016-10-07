@@ -131,8 +131,11 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteProvider(int id)
         {
-            providerService.DeleteProvider(id);
-            return StatusCode(HttpStatusCode.NoContent);
+            if (providerService.DeleteProvider(id))
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return NotFound();
         }
 
         protected override void Dispose(bool disposing)

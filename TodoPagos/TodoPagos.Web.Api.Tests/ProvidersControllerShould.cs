@@ -144,5 +144,18 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreSame(contentResult.Content, oneProvider);
         }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewProviderIsAlreadyInRepository()
+        {
+            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.CreateProvider(oneProvider)).Throws(new InvalidOperationException());
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PostProvider(oneProvider);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
     }
 }

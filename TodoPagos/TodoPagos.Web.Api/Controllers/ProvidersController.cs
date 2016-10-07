@@ -57,12 +57,31 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (providerService.UpdateProvider(id, oneProvider))
+            else
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                return tryToUpdateProvider(id, oneProvider);
             }
+        }
 
-            return NotFound();
+        private IHttpActionResult tryToUpdateProvider(int id, Provider oneProvider)
+        {
+            if (!providerService.UpdateProvider(id, oneProvider))
+            {
+                return DecideWhatErrorMessageToReturn(id, oneProvider);
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        private IHttpActionResult DecideWhatErrorMessageToReturn(int id, Provider oneProvider)
+        {
+            if (oneProvider == null || id != oneProvider.ID)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         protected override void Dispose(bool disposing)

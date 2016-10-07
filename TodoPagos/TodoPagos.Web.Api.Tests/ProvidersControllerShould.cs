@@ -91,5 +91,44 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
         }
+
+        [TestMethod]
+        public void FailWithBadRequestIfToBeUpdatedProviderIdAndSuppliedIdDontMatch()
+        {
+            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID + 1, oneProvider)).Returns(false);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID + 1, oneProvider);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfToBeUpdatedProviderIsNull()
+        {
+            Provider nullProvider = null;
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.UpdateProvider(1, nullProvider)).Returns(false);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PutProvider(1, nullProvider);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void FailWithNotFoundIfToBeUpdatedProviderIsNotInRepository()
+        {
+            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider)).Returns(false);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
+
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
     }
 }

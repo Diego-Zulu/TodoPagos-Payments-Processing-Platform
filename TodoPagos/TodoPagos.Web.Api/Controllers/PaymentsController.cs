@@ -37,8 +37,15 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(Payment))]
         public IHttpActionResult GetPayment(int id)
         {
-            Payment payment = paymentService.GetSinglePayment(id);
-            return Ok(payment);
+            try
+            {
+                Payment payment = paymentService.GetSinglePayment(id);
+                return Ok(payment);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound();
+            }
         }
     }
 }

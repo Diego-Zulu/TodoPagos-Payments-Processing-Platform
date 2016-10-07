@@ -53,7 +53,16 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProvider(int id, Provider oneProvider)
         {
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (providerService.UpdateProvider(id, oneProvider))
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+            return NotFound();
         }
 
         protected override void Dispose(bool disposing)

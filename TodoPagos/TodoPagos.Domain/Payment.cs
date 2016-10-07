@@ -24,10 +24,10 @@ namespace TodoPagos.Domain
             CheckIfPayMethodIsNotNull(aPayMethod);
             CheckIfAmountPayedIsPositive(theAmountPayed);
             CheckIfReceiptsAreNotNull(paymentReceipts);
-            CheckIfItHasMoreThanOneReceipt(paymentReceipts);
+            CheckIfItHasOneOrMoreReceipts(paymentReceipts);
         }
 
-        private void CheckIfItHasMoreThanOneReceipt(ICollection<Receipt> paymentReceipts)
+        private void CheckIfItHasOneOrMoreReceipts(ICollection<Receipt> paymentReceipts)
         {
             if (paymentReceipts.Count < 1)
             {

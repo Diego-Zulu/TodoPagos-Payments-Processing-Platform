@@ -33,10 +33,26 @@ namespace TodoPagos.Web.Api.Tests
         [TestMethod]
         public void BeAbleToReturnAllPaymentsInRepository()
         {
+            List<IField> emptyFields = new List<IField>();
+            NumberField field = new NumberField("Monto");
+            emptyFields.Add(field);
+            IField firstFilledField = field.FillAndClone("100");
+            List<IField> firstFullFields = new List<IField>();
+            firstFullFields.Add(firstFilledField);
+            IField secondFilledField = field.FillAndClone("101");
+            List<IField> secondFullFields = new List<IField>();
+            secondFullFields.Add(secondFilledField);
+            Provider provider = new Provider("Antel", 3, emptyFields);
+            Receipt firstReceipt = new Receipt(provider, firstFullFields, 100);
+            Receipt secondReceipt = new Receipt(provider, secondFullFields, 100);
+            List<Receipt> firstList = new List<Receipt>();
+            List<Receipt> secondList = new List<Receipt>();
+            firstList.Add(firstReceipt);
+            secondList.Add(secondReceipt);
             var allPayments = new[]
             {
-                new Payment(new CashPayMethod(100, DateTime.Now), 100, new List<Receipt>()),
-            new Payment(new DebitPayMethod(DateTime.Now), 100, new List<Receipt>())
+                new Payment(new CashPayMethod(100, DateTime.Now), 100, firstList),
+                new Payment(new DebitPayMethod(DateTime.Now), 100, secondList)
             };
             var mockPaymentService = new Mock<IPaymentService>();
             mockPaymentService.Setup(x => x.GetAllPayments()).Returns(allPayments);

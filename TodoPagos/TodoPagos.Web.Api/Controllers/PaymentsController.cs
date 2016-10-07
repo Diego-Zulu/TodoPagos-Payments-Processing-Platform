@@ -18,5 +18,10 @@ namespace TodoPagos.Web.Api.Controllers
             if (service == null) throw new ArgumentException();
             paymentService = service;
         }
+
+        private void CheckForNullPaymentService(IPaymentService service)
+        {
+            if (service == null) throw new ArgumentException();
+        }
     }
 }

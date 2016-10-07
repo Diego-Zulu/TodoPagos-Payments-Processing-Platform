@@ -12,5 +12,7 @@ namespace TodoPagos.Web.Services
         IEnumerable<Provider> GetAllProviders();
 
         Provider GetSingleProvider(int providerId);
+
+        void Dispose();
     }
 }

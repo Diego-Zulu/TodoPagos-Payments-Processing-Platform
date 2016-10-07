@@ -10,6 +10,7 @@ using TodoPagos.Web.Services;
 using TodoPagos.Domain;
 using System.Web.Http;
 using System.Web.Http.Results;
+using System.Net;
 
 namespace TodoPagos.Web.Api.Tests
 {
@@ -75,6 +76,20 @@ namespace TodoPagos.Web.Api.Tests
             IHttpActionResult actionResult = controller.GetProvider(1);
 
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void BeAbleToUpdateUserInRepositoryAndReturnNoContent()
+        {
+            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider)).Returns(true);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
+            StatusCodeResult contentResult = (StatusCodeResult)actionResult;
+
+            Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
         }
     }
 }

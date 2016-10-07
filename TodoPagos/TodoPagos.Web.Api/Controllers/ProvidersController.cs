@@ -49,5 +49,16 @@ namespace TodoPagos.Web.Api.Controllers
                 return NotFound();
             }
         }
+
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                providerService.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

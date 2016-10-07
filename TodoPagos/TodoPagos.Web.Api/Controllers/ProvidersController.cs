@@ -93,8 +93,14 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int id = providerService.CreateProvider(newProvider);
-            return CreatedAtRoute("TodoPagosApi", new { id = newProvider.ID }, newProvider);
+            try {
+                int id = providerService.CreateProvider(newProvider);
+                return CreatedAtRoute("TodoPagosApi", new { id = newProvider.ID }, newProvider);
+            } catch (InvalidOperationException)
+            {
+                return BadRequest();
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

@@ -8,7 +8,7 @@ using TodoPagos.Web.Services;
 namespace TodoPagos.Web.Api.Controllers
 {
 
-    [RoutePrefix("api/v1/users")]
+    [RoutePrefix("api/v1/query/earnings")]
     public class EarningQueriesController : ApiController
     {
         private readonly IEarningQueriesService earningQueriesService;

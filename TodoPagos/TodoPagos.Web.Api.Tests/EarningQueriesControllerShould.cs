@@ -16,5 +16,14 @@ namespace TodoPagos.Web.Api.Tests
 
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailCreationIfServiceIsNull()
+        {
+            IEarningQueriesService service = null;
+
+            EarningQueriesController controller = new EarningQueriesController(service);
+        }
     }
 }

@@ -16,5 +16,14 @@ namespace TodoPagos.Web.Api.Tests
 
             PaymentsController controller = new PaymentsController(mockPaymentService.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailCreationIfServiceIsNull()
+        {
+            IPaymentService service = null;
+
+            PaymentsController controller = new PaymentsController(service);
+        }
     }
 }

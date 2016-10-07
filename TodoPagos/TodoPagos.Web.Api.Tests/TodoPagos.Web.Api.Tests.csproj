@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvidersControllerShould.cs" />
     <Compile Include="PaymentsControllerShould.cs" />
+    <Compile Include="EarningQueriesControllerShould.cs" />
     <Compile Include="UsersControllerShould.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -40,7 +40,7 @@ namespace TodoPagos.Web.Api.Tests
             {
                 new Provider("Antel", 10, new List<IField>()),
             new Provider("Devoto", 15, new List<IField>())
-        };
+            };
             var mockProviderService = new Mock<IProviderService>();
             mockProviderService.Setup(x => x.GetAllProviders()).Returns(allProviders);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);

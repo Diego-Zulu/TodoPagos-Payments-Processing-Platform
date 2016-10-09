@@ -39,7 +39,7 @@ namespace TodoPagos.WebApi.Tests
             {
                 new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance()),
             new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance())
-        };
+            };
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsers);
             UsersController controller = new UsersController(mockUserService.Object);

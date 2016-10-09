@@ -49,12 +49,17 @@ namespace TodoPagos.Web.Services
 
         public User GetSingleUser(int id)
         {
-            User user = unitOfWork.UserRepository.GetByID(id);
-            if (user == null)
+            User foundUser = unitOfWork.UserRepository.GetByID(id);
+            ThrowArgumentExceptionIfUserWasntFound(foundUser);
+            return foundUser;
+        }
+
+        private void ThrowArgumentExceptionIfUserWasntFound(User foundUser)
+        {
+            if (foundUser == null)
             {
                 throw new ArgumentException();
             }
-            return user;
         }
 
         public bool UpdateUser(int id, User toBeUpdatedUser)

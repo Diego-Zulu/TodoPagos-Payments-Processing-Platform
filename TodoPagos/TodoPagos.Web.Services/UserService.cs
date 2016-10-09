@@ -50,6 +50,10 @@ namespace TodoPagos.Web.Services
         public User GetSingleUser(int id)
         {
             User user = unitOfWork.UserRepository.GetByID(id);
+            if (user == null)
+            {
+                throw new ArgumentException();
+            }
             return user;
         }
 

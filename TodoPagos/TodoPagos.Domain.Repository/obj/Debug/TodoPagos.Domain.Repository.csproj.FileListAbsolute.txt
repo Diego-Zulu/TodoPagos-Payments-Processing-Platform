@@ -1,0 +1,4 @@
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\TodoPagos.Domain.Repository.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\TodoPagos.Domain.Repository.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\obj\Debug\TodoPagos.Domain.Repository.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\obj\Debug\TodoPagos.Domain.Repository.pdb

@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TodoPagos.Domain.Repository;
+using Moq;
 
 namespace TodoPagos.Web.Services.Test
 {
@@ -15,6 +17,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailIfUnitOfWorkOnCreationIsNull()
         {
             IUnitOfWork mockUnitOfWork = null;

@@ -104,6 +104,19 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsNotCompleteInRepository()
+        {
+            User incompleteUser = new User();
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(incompleteUser)).Throws(new ArgumentException());
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(incompleteUser);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsNull()
         {
             User nullUser = null;

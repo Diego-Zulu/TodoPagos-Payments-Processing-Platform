@@ -29,17 +29,32 @@ namespace TodoPagos.Web.Services
 
         public int CreateUser(User newUser)
         {
-            if (newUser == null)
-            {
-                throw new ArgumentNullException();
-            }
-            if (!newUser.IsComplete())
-            {
-                throw new ArgumentException();
-            }
+            MakeSureTargetUserIsReadyToBeCreated(newUser);
             unitOfWork.UserRepository.Insert(newUser);
             unitOfWork.Save();
             return newUser.ID;
+        }
+
+        private void MakeSureTargetUserIsReadyToBeCreated(User targetUser)
+        {
+            MakeSureTargetUserIsNotNull(targetUser);
+            MakeSureTargetUserIsComplete(targetUser);
+        }
+
+        private void MakeSureTargetUserIsNotNull(User targetUser)
+        {
+            if (targetUser == null)
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        private void MakeSureTargetUserIsComplete(User targetUser)
+        {
+            if (!targetUser.IsComplete())
+            {
+                throw new ArgumentException();
+            }
         }
 
         public bool DeleteUser(int id)

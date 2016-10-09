@@ -144,5 +144,33 @@ namespace TodoPagos.UserAPI
             }
             return hasPrivilege;
         }
+
+        public bool IsComplete()
+        {
+            try
+            {
+                DoChecksToSeeIfUserIsComplete();
+
+                return true;
+            } catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        private void DoChecksToSeeIfUserIsComplete()
+        {
+            CheckIfNameAndEmailAreCorrect(this.Name, this.Email);
+            CheckIfPasswordIsCorrect(this.Password);
+            CheckIfHasAtLeastMinimumNumberOfRoles(this.Roles);
+        }
+
+        private void CheckIfHasAtLeastMinimumNumberOfRoles(ICollection<Role> rolesList)
+        {
+            if (rolesList != null && rolesList.Count < MINIMUM_ROLE_AMOUNT)
+            {
+                throw new ArgumentException();
+            }
+        }
     }
 }

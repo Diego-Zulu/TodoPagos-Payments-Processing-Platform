@@ -29,6 +29,14 @@ namespace TodoPagos.Web.Services
 
         public int CreateUser(User newUser)
         {
+            if (newUser == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (!newUser.IsComplete())
+            {
+                throw new ArgumentException();
+            }
             unitOfWork.UserRepository.Insert(newUser);
             unitOfWork.Save();
             return newUser.ID;

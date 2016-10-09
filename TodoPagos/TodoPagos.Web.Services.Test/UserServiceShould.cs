@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TodoPagos.Domain.Repository;
 using Moq;
+using System.Collections.Generic;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Services.Test
 {
@@ -23,6 +25,18 @@ namespace TodoPagos.Web.Services.Test
             IUnitOfWork mockUnitOfWork = null;
 
             UserService service = new UserService(mockUnitOfWork);
+        }
+
+        [TestMethod]
+        public void BeAbleToGetAllUsersFromRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.Get(null, null, ""));
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            IEnumerable<User> returnedUsers = userService.GetAllUsers();
+
+            mockUnitOfWork.VerifyAll();
         }
     }
 }

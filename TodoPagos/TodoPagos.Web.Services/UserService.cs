@@ -49,7 +49,8 @@ namespace TodoPagos.Web.Services
 
         public User GetSingleUser(int id)
         {
-            throw new NotImplementedException();
+            User user = unitOfWork.UserRepository.GetByID(id);
+            return user;
         }
 
         public bool UpdateUser(int id, User toBeUpdatedUser)

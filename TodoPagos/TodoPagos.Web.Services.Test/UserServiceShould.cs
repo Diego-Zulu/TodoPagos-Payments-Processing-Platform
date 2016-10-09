@@ -63,5 +63,19 @@ namespace TodoPagos.Web.Services.Test
 
             User returnedUser = userService.GetSingleUser(5);
         }
+
+        [TestMethod]
+        public void BeAbleToPostNewUserIntoRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
+            mockUnitOfWork.Setup(un => un.Save());
+            IUserService userService = new UserService(mockUnitOfWork.Object);
+
+            User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            int id = userService.CreateUser(singleUser);
+
+            mockUnitOfWork.VerifyAll(); 
+        }
     }
 }

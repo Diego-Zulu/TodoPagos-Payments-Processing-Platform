@@ -38,5 +38,17 @@ namespace TodoPagos.Web.Services.Test
 
             mockUnitOfWork.VerifyAll();
         }
+
+        [TestMethod]
+        public void BeAbleToReturnSingleUserInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.GetByID(It.IsAny<int>()));
+            IUserService userService = new UserService(mockUnitOfWork.Object);
+
+            User returnedUser = userService.GetSingleUser(5);
+
+            mockUnitOfWork.VerifyAll();
+        }
     }
 }

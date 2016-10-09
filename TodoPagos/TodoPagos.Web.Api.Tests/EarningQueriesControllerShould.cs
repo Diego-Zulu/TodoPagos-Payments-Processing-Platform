@@ -51,5 +51,22 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreSame(contentResult.Content, result);
         }
+
+        [TestMethod]
+        public void BeAbleToReturnEarningsPerProviderWithDefaultDates()
+        {
+            IDictionary<Provider, int> result = new Dictionary<Provider, int>();
+            result.Add(new Provider("Antel", 10, new List<IField>()), 100);
+            result.Add(new Provider("Tienda Inglesa", 7, new List<IField>()), 200);
+            var mockEarningQueriesService = new Mock<IEarningQueriesService>();
+            mockEarningQueriesService.Setup(x => x.GetEarningsPerProvider()).Returns(result);
+            EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
+
+            IHttpActionResult actionResult = controller.GetEarningsPerProvider();
+            OkNegotiatedContentResult<IDictionary<Provider, int>> contentResult =
+                (OkNegotiatedContentResult<IDictionary<Provider, int>>)actionResult;
+
+            Assert.AreSame(contentResult.Content, result);
+        }
     }
 }

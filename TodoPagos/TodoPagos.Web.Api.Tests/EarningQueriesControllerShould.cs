@@ -72,5 +72,23 @@ namespace TodoPagos.Web.Api.Tests
 
             Assert.AreSame(contentResult.Content, result);
         }
+
+        [TestMethod]
+        public void BeAbleToReturnEarningsInACertainTimePeriod()
+        {
+            DateTime from = DateTime.ParseExact("Mon, 15 Sep 2008 09:30:41 GMT",
+                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            DateTime to = DateTime.ParseExact("Tue, 16 Sep 2008 09:30:41 GMT",
+                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            int earnings = 1000;
+            var mockEarningQueriesService = new Mock<IEarningQueriesService>();
+            mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to)).Returns(earnings);
+            EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
+
+            IHttpActionResult actionResult = controller.GetAllEarnings(from, to);
+            OkNegotiatedContentResult<int> contentResult = (OkNegotiatedContentResult<int>)actionResult;
+
+            Assert.AreSame(contentResult.Content, earnings);
+        }
     }
 }

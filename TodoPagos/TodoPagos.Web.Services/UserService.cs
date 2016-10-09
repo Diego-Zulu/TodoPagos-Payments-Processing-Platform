@@ -29,7 +29,9 @@ namespace TodoPagos.Web.Services
 
         public int CreateUser(User newUser)
         {
-            throw new NotImplementedException();
+            unitOfWork.UserRepository.Insert(newUser);
+            unitOfWork.Save();
+            return newUser.ID;
         }
 
         public bool DeleteUser(int id)

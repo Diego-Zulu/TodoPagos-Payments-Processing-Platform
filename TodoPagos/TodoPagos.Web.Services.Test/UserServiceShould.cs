@@ -65,7 +65,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void BeAbleToPostNewUserIntoRepository()
+        public void BeAbleToCreateNewUserInRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));

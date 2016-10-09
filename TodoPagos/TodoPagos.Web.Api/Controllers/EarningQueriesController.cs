@@ -17,8 +17,8 @@ namespace TodoPagos.Web.Api.Controllers
         private readonly IEarningQueriesService earningQueriesService;
         private readonly DateTime DEFAULT_FROM_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-        private readonly DateTime DEFAULT_TO_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
-                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+        private readonly DateTime DEFAULT_TO_DATE = DateTime.ParseExact("Tue, 31 Dec 2030 00:00:00 GMT",
+                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
 
         public EarningQueriesController(IEarningQueriesService service)
         {
@@ -36,10 +36,8 @@ namespace TodoPagos.Web.Api.Controllers
         [Route("earningsPerProvider")]
         public IHttpActionResult GetEarningsPerProvider(DateTime? from = null, DateTime? to = null)
         {
-            if (from == null) from = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
-                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            if (to == null) to = DateTime.ParseExact("Tue, 31 Dec 2030 00:00:00 GMT",
-                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            from = AssignFromDateInCaseOfNull(from);
+            to = AssignToDateInCaseOfNull(to);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -48,6 +46,18 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return Ok(earningQueriesService.GetEarningsPerProvider(from.Value, to.Value));
             }
+        }
+
+        private DateTime? AssignFromDateInCaseOfNull(DateTime? from)
+        {
+            if (from == null) from = DEFAULT_FROM_DATE;
+            return from;
+        }
+
+        private DateTime? AssignToDateInCaseOfNull(DateTime? to)
+        {
+            if (to == null) to = DEFAULT_TO_DATE;
+            return to;
         }
     }
 }

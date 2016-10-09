@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -14,6 +15,10 @@ namespace TodoPagos.Web.Api.Controllers
     public class EarningQueriesController : ApiController
     {
         private readonly IEarningQueriesService earningQueriesService;
+        private readonly DateTime DEFAULT_FROM_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
+                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+        private readonly DateTime DEFAULT_TO_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
+                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
 
         public EarningQueriesController(IEarningQueriesService service)
         {
@@ -29,15 +34,19 @@ namespace TodoPagos.Web.Api.Controllers
         [HttpGet]
         [ResponseType(typeof(IDictionary<Provider, int>))]
         [Route("earningsPerProvider")]
-        public IHttpActionResult GetEarningsPerProvider(DateTime from, DateTime to)
+        public IHttpActionResult GetEarningsPerProvider(DateTime? from = null, DateTime? to = null)
         {
+            if (from == null) from = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
+                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            if (to == null) to = DateTime.ParseExact("Tue, 31 Dec 2030 00:00:00 GMT",
+                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                return Ok(earningQueriesService.GetEarningsPerProvider(from, to));
+                return Ok(earningQueriesService.GetEarningsPerProvider(from.Value, to.Value));
             }
         }
     }

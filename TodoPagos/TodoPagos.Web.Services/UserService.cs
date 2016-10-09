@@ -44,7 +44,7 @@ namespace TodoPagos.Web.Services
 
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return unitOfWork.UserRepository.Get(null, null, "");
         }
 
         public User GetSingleUser(int id)

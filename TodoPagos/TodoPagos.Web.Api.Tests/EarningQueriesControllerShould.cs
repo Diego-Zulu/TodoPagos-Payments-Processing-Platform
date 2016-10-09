@@ -88,7 +88,7 @@ namespace TodoPagos.Web.Api.Tests
             IHttpActionResult actionResult = controller.GetAllEarnings(from, to);
             OkNegotiatedContentResult<int> contentResult = (OkNegotiatedContentResult<int>)actionResult;
 
-            Assert.AreSame(contentResult.Content, earnings);
+            Assert.AreEqual(contentResult.Content, earnings);
         }
     }
 }

@@ -59,5 +59,20 @@ namespace TodoPagos.Web.Api.Controllers
             if (to == null) to = DEFAULT_TO_DATE;
             return to;
         }
+
+        [HttpGet]
+        [ResponseType(typeof(int))]
+        [Route("allEarnings")]
+        public IHttpActionResult GetAllEarnings(DateTime from, DateTime to)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(earningQueriesService.GetAllEarnings(from, to));
+            }
+        }
     }
 }

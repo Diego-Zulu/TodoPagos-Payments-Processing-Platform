@@ -20,7 +20,7 @@ namespace TodoPagos.UserAPI
 
         private const int MIN_PASSWORD_LENGTH = 8;
 
-        private User()
+        public User()
         {
             Roles = new List<Role>();
         }

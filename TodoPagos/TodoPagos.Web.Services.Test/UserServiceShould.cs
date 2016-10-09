@@ -77,5 +77,33 @@ namespace TodoPagos.Web.Services.Test
 
             mockUnitOfWork.VerifyAll(); 
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewUserIsNotComplete()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
+            mockUnitOfWork.Setup(un => un.Save());
+            IUserService userService = new UserService(mockUnitOfWork.Object);
+
+            User singleUser = new User();
+
+            int id = userService.CreateUser(singleUser);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FailWithNullArgumentExceptionIfToBeCreatedNewUserIsNull()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
+            mockUnitOfWork.Setup(un => un.Save());
+            IUserService userService = new UserService(mockUnitOfWork.Object);
+
+            User singleUser = null;
+
+            int id = userService.CreateUser(singleUser);
+        }
     }
 }

@@ -45,8 +45,14 @@
     <Compile Include="IProviderService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderService.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TodoPagos.Domain.Repository\TodoPagos.Domain.Repository.csproj">
+      <Project>{248f52db-a0b6-4ed2-825c-5c2c8ab4856f}</Project>
+      <Name>TodoPagos.Domain.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">
       <Project>{a5b13880-c1f7-4165-b35f-c71219dc146e}</Project>
       <Name>TodoPagos.Domain</Name>

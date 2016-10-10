@@ -10,5 +10,15 @@ namespace TodoPagos.Web.Services
     public interface IProviderService
     {
         IEnumerable<Provider> GetAllProviders();
+
+        Provider GetSingleProvider(int providerId);
+
+        bool UpdateProvider(int providerId, Provider targetProvider);
+
+        int CreateProvider(Provider targetProvider);
+
+        bool DeleteProvider(int providerId);
+
+        void Dispose();
     }
 }

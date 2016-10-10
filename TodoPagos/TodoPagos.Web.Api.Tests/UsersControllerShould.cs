@@ -65,7 +65,7 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void FailIfSingleUserIdDoesntExistInRepository()
+        public void FailWithNotFoundIfSingleUserIdDoesntExistInRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
@@ -91,7 +91,7 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void FailIfPostedNewUserIsAlreadyInRepository()
+        public void FailWithBadRequestIfPostedNewUserIsAlreadyInRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
@@ -100,6 +100,32 @@ namespace TodoPagos.WebApi.Tests
 
             IHttpActionResult actionResult = controller.PostUser(singleUser);
             
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsNotCompleteInRepository()
+        {
+            User incompleteUser = new User();
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(incompleteUser)).Throws(new ArgumentException());
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(incompleteUser);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsNull()
+        {
+            User nullUser = null;
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.CreateUser(nullUser)).Throws(new ArgumentNullException());
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PostUser(nullUser);
+
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
 
@@ -118,10 +144,11 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void FailIfUpdatedUserIdAndSuppliedIdAreDifferent()
+        public void FailWithBadRequestIfUpdatedUserIdAndSuppliedIdAreDifferent()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.UpdateUser(singleUser.ID + 1, singleUser)).Returns(false);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PutUser(singleUser.ID + 1, singleUser);
@@ -129,7 +156,19 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void FailIfServiceCantFindToBeUpdatedUserInRepository()
+        public void FailWithBadRequestIfUpdatedUserIsNull()
+        {
+            User nullUser = null;
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.UpdateUser(1, nullUser)).Returns(false);
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.PutUser(1, nullUser);
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void FailWithNotFoundIfServiceCantFindToBeUpdatedUserInRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
@@ -155,7 +194,7 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void FailIfToBeDeletedUserDoesntExistInRepository()
+        public void FailWithNotFoundIfToBeDeletedUserDoesntExistInRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();

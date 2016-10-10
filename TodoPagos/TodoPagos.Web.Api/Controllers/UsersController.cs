@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Web.Http.Description;
 using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.UserAPI;
-using System.Web.Http.Description;
+using TodoPagos.Domain.Repository;
 
 namespace TodoPagos.Web.Api.Controllers
 {
-    [RoutePrefix("api/v1/users")]
+    [RoutePrefix("api/v1/Users")]
     public class UsersController : ApiController
     {
         private readonly IUserService userService;
 
         /*public UsersController()
         {
-            userService = new UserService();
+            IUnitOfWork unitOfWork = new UnitOfWork();
+            userService = new UserService(unitOfWork);
         }*/
 
         public UsersController(IUserService oneService)
@@ -64,10 +64,22 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return TryToCreateUser(newUser);
+            return TryToCreateUserWhileCheckingForArgumentNullException(newUser);
         }
 
-        private IHttpActionResult TryToCreateUser(User newUser)
+        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullException(User newUser)
+        {
+            try
+            {
+                return TryToCreateUserWhileCheckingForInvalidOperationException(newUser);
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
+            {
+                return BadRequest();
+            }
+        }
+
+        private IHttpActionResult TryToCreateUserWhileCheckingForInvalidOperationException(User newUser)
         {
             try
             {
@@ -88,28 +100,29 @@ namespace TodoPagos.Web.Api.Controllers
                 return BadRequest(ModelState);
             } else
             {
-                return checkIfUserIdIsCorrectAndTryToUpdate(id, user);
+                return TryToUpdateUser(id, user);
             }
         }
 
-        private IHttpActionResult checkIfUserIdIsCorrectAndTryToUpdate(int id, User user)
-        {
-            if (id != user.ID)
-            {
-                return BadRequest();
-            } else
-            {
-                return tryToUpdateUser(id, user);
-            } 
-        }
-
-        private IHttpActionResult tryToUpdateUser(int id, User user)
+        private IHttpActionResult TryToUpdateUser(int id, User user)
         {
             if (!userService.UpdateUser(id, user))
             {
-                return NotFound();
+                return DecideWhatErrorMessageToReturn(id, user);
             }
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        private IHttpActionResult DecideWhatErrorMessageToReturn(int id, User user)
+        {
+            if (user == null || id != user.ID)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete]

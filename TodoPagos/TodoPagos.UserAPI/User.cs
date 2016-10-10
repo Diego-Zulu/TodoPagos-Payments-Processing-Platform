@@ -20,7 +20,7 @@ namespace TodoPagos.UserAPI
 
         private const int MIN_PASSWORD_LENGTH = 8;
 
-        private User()
+        public User()
         {
             Roles = new List<Role>();
         }
@@ -82,7 +82,7 @@ namespace TodoPagos.UserAPI
 
         private void CheckIfNameAndEmailAreCorrect(string aName, string anEmail)
         {
-            if (String.IsNullOrWhiteSpace(aName) || NotValidEmail(anEmail))
+            if (IsValidName(aName) || NotValidEmail(anEmail))
             {
                 throw new ArgumentException();
             }
@@ -143,6 +143,98 @@ namespace TodoPagos.UserAPI
                 }
             }
             return hasPrivilege;
+        }
+
+        public bool IsComplete()
+        {
+            try
+            {
+                DoChecksToSeeIfUserIsComplete();
+
+                return true;
+            } catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        private void DoChecksToSeeIfUserIsComplete()
+        {
+            CheckIfNameAndEmailAreCorrect(this.Name, this.Email);
+            CheckIfPasswordIsCorrect(this.Password);
+            CheckIfHasAtLeastMinimumNumberOfRoles(this.Roles);
+        }
+
+        private void CheckIfHasAtLeastMinimumNumberOfRoles(ICollection<Role> rolesList)
+        {
+            if (!IsValidRolesList(rolesList))
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        public void UpdateInfoWithTargetsUserInfo(User targetUser)
+        {
+            UpdateNameIfTargetUsersNameIsValid(targetUser);
+            UpdateEmailIfTargetUsersEmailIsValid(targetUser);
+            UpdatePasswordIfTargetUsersPasswordIsValid(targetUser);
+            UpdateRolesIfTargetUsersRolesAreValid(targetUser);
+        }
+
+        private void UpdateNameIfTargetUsersNameIsValid(User targetUser)
+        {
+            if (IsValidName(targetUser.Name))
+            {
+                this.Name = targetUser.Name;
+            }
+        }
+
+        private void UpdateEmailIfTargetUsersEmailIsValid(User targetUser)
+        {
+            if (!NotValidEmail(targetUser.Email))
+            {
+                this.Email = targetUser.Email;
+            }
+        }
+
+        private void UpdatePasswordIfTargetUsersPasswordIsValid(User targetUser)
+        {
+            if (IsValidPassword(targetUser.Password))
+            {
+                this.Password = targetUser.Password;
+            }
+        }
+
+        private void UpdateRolesIfTargetUsersRolesAreValid(User targetUser)
+        {
+            if (IsValidRolesList(targetUser.Roles))
+            {
+                this.Roles.Clear();
+                this.Roles.Concat(targetUser.Roles);
+            }
+        }
+
+        private bool IsValidRolesList(ICollection<Role> rolesList)
+        {
+            return rolesList != null && rolesList.Count >= MINIMUM_ROLE_AMOUNT;
+        }
+
+        private bool IsValidName(string aName)
+        {
+            return String.IsNullOrWhiteSpace(aName);
+        }
+
+        private bool IsValidPassword(string aPassword)
+        {
+            try
+            {
+                CheckIfPasswordIsCorrect(aPassword);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
         }
     }
 }

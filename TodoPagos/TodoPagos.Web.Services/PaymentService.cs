@@ -25,7 +25,9 @@ namespace TodoPagos.Web.Services
 
         public int CreatePayment(Payment newPayment)
         {
-            throw new NotImplementedException();
+            unitOfWork.PaymentRepository.Insert(newPayment);
+            unitOfWork.Save();
+            return newPayment.ID;
         }
 
         public IEnumerable<Payment> GetAllPayments()

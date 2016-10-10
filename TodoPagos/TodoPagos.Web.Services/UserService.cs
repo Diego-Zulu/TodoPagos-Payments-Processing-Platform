@@ -87,9 +87,23 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool UpdateUser(int id, User toBeUpdatedUser)
+        public bool UpdateUser(int userId, User user)
         {
-            throw new NotImplementedException();
+            if (user != null && userId == user.ID && ExistsUser(userId))
+            {
+                User userEntity = unitOfWork.UserRepository.GetByID(userId);
+                userEntity.UpdateInfoWithTargetsUserInfo(user);
+                unitOfWork.UserRepository.Update(userEntity);
+                unitOfWork.Save();
+                return true;
+            }
+            return false;
+        }
+
+        private bool ExistsUser(int userId)
+        {
+            User user = unitOfWork.UserRepository.GetByID(userId);
+            return user != null;
         }
     }
 }

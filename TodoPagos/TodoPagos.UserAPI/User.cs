@@ -82,7 +82,7 @@ namespace TodoPagos.UserAPI
 
         private void CheckIfNameAndEmailAreCorrect(string aName, string anEmail)
         {
-            if (String.IsNullOrWhiteSpace(aName) || NotValidEmail(anEmail))
+            if (IsValidName(aName) || NotValidEmail(anEmail))
             {
                 throw new ArgumentException();
             }
@@ -167,9 +167,57 @@ namespace TodoPagos.UserAPI
 
         private void CheckIfHasAtLeastMinimumNumberOfRoles(ICollection<Role> rolesList)
         {
-            if (rolesList != null && rolesList.Count < MINIMUM_ROLE_AMOUNT)
+            if (!IsValidRolesList(rolesList))
             {
                 throw new ArgumentException();
+            }
+        }
+
+        public void UpdateInfoWithTargetsUserInfo(User targetUser)
+        {
+            if (IsValidName(targetUser.Name))
+            {
+                this.Name = targetUser.Name;
+            }
+            
+            if (IsValidPassword(targetUser.Password))
+            {
+                this.Password = targetUser.Password;
+            }
+            
+            if (!NotValidEmail(targetUser.Email))
+            {
+                this.Email = targetUser.Email;
+            }
+            
+            if (IsValidRolesList(targetUser.Roles))
+            {
+                this.Roles.Clear();
+                this.Roles.Concat(targetUser.Roles);
+            }
+            
+        }
+
+        private bool IsValidRolesList(ICollection<Role> rolesList)
+        {
+            return rolesList != null && rolesList.Count >= MINIMUM_ROLE_AMOUNT;
+        }
+
+        private bool IsValidName(string aName)
+        {
+            return String.IsNullOrWhiteSpace(aName);
+        }
+
+        private bool IsValidPassword(string aPassword)
+        {
+            try
+            {
+                CheckIfPasswordIsCorrect(aPassword);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
             }
         }
     }

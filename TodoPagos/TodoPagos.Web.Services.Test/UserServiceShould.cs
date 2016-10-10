@@ -135,7 +135,8 @@ namespace TodoPagos.Web.Services.Test
         public void NotUpdateNotFilledInformation()
         {
             User toBeUpdatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
-            User updatedUser = new User("", "dizg2695@hotmail.com", "#ElBizagra1995", AdminRole.GetInstance());
+            User updatedUser = new User("Diego", "dizg2695@hotmail.com", "#ElBizagra1995", AdminRole.GetInstance());
+            updatedUser.Name = "";
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine2(mockUnitOfWork, toBeUpdatedUser);
             IUserService userService = new UserService(mockUnitOfWork.Object);

@@ -11,7 +11,7 @@ namespace TodoPagos.Domain
         public virtual PayMethod PaymentMethod { get; set; }
         public double amountPayed { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
-        public virtual int ID { get; set;}
+        public virtual int ID { get; set; }
 
         public Payment()
         {
@@ -42,7 +42,7 @@ namespace TodoPagos.Domain
             }
         }
 
-        private void CheckIfReceiptsAreNotNull(ICollection<Receipt>  paymentReceipts)
+        private void CheckIfReceiptsAreNotNull(ICollection<Receipt> paymentReceipts)
         {
             if (paymentReceipts == null)
             {
@@ -79,5 +79,19 @@ namespace TodoPagos.Domain
             }
         }
 
+        public IDictionary<Provider, double> AddThisPaymentsEarningsToDictionary
+            (IDictionary<Provider, double> earningsPerProvider, DateTime from, DateTime to)
+        {
+            if(PaymentMethod.payDate >= from && PaymentMethod.payDate <= to)
+            {
+                foreach (Receipt receipt in Receipts)
+                {
+                    double actualValue;
+                    earningsPerProvider.TryGetValue(receipt.ReceiptProvider, out actualValue);
+                    earningsPerProvider.Add(receipt.ReceiptProvider, actualValue + receipt.CalculateEarnings());
+                }
+            }
+            return earningsPerProvider;
+        }
     }
 }

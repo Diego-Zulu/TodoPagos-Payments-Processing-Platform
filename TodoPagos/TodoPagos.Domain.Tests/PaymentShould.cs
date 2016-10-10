@@ -84,7 +84,7 @@ namespace TodoPagos.Domain.Tests
         public void BeAbleToAddAllEarningsToExistingDictionaryOfEarningsPerProviderGivenFromAndToDates()
         {
             IDictionary<Provider, double> earningsPerProvider = new Dictionary<Provider, double>();
-            PayMethod paymentMethod = new DebitPayMethod(DateTime.Now);
+            PayMethod paymentMethod = new DebitPayMethod(DateTime.Today);
             List<IField> emptyFieldList = new List<IField>();
             NumberField aNumberField = new NumberField("Numerito");
             emptyFieldList.Add(aNumberField);
@@ -101,7 +101,7 @@ namespace TodoPagos.Domain.Tests
             IDictionary<Provider, double> expectedDictionary = new Dictionary<Provider, double>();
             expectedDictionary.Add(provider, 2000);
 
-            IDictionary<Provider, double> obtainedDictionary = newPayment.AddThisPaymentsEarningsToDictionary(earningsPerProvider);
+            IDictionary<Provider, double> obtainedDictionary = newPayment.AddThisPaymentsEarningsToDictionary(earningsPerProvider, DateTime.Today, DateTime.Today);
 
             bool result = true;
             foreach(KeyValuePair<Provider, double> pair in expectedDictionary)

@@ -224,5 +224,51 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
+
+        [TestMethod]
+        public void BeAbleToDeleteProviderFromRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockDeleteRoutine1(mockUnitOfWork);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool deleted = providerService.DeleteProvider(2);
+
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Delete(It.IsAny<int>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
+            Assert.IsTrue(deleted);
+        }
+
+        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => new Provider());
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
+
+        [TestMethod]
+        public void NotDeleteAnythingIfProviderIdDoesntExistInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockDeleteRoutine2(mockUnitOfWork);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool deleted = providerService.DeleteProvider(2);
+
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Delete(It.IsAny<int>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(deleted);
+        }
+
+        private void SetMockDeleteRoutine2(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => null);
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
     }
 }

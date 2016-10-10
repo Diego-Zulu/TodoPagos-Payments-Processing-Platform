@@ -36,6 +36,7 @@ namespace TodoPagos.Web.Services
         public Payment GetSinglePayment(int paymentId)
         {
             Payment payment = unitOfWork.PaymentRepository.GetByID(paymentId);
+            if (payment == null) throw new ArgumentException();
             return payment;
         }
     }

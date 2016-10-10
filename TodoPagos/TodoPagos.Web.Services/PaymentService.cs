@@ -14,8 +14,13 @@ namespace TodoPagos.Web.Services
 
         public PaymentService(IUnitOfWork oneUnitOfWork)
         {
-            if (oneUnitOfWork == null) throw new ArgumentException();
+            CheckForNullUnitOfWork(oneUnitOfWork);
             unitOfWork = oneUnitOfWork;
+        }
+
+        private void CheckForNullUnitOfWork(IUnitOfWork oneUnitOfWork)
+        {
+            if (oneUnitOfWork == null) throw new ArgumentException();
         }
 
         public int CreatePayment(Payment newPayment)

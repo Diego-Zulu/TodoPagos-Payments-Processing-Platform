@@ -44,6 +44,7 @@
     <Compile Include="IPaymentService.cs" />
     <Compile Include="IProviderService.cs" />
     <Compile Include="IUserService.cs" />
+    <Compile Include="PaymentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderService.cs" />
     <Compile Include="UserService.cs" />

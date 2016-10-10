@@ -175,27 +175,43 @@ namespace TodoPagos.UserAPI
 
         public void UpdateInfoWithTargetsUserInfo(User targetUser)
         {
+            UpdateNameIfTargetUsersNameIsValid(targetUser);
+            UpdateEmailIfTargetUsersEmailIsValid(targetUser);
+            UpdatePasswordIfTargetUsersPasswordIsValid(targetUser);
+            UpdateRolesIfTargetUsersRolesAreValid(targetUser);
+        }
+
+        private void UpdateNameIfTargetUsersNameIsValid(User targetUser)
+        {
             if (IsValidName(targetUser.Name))
             {
                 this.Name = targetUser.Name;
             }
-            
-            if (IsValidPassword(targetUser.Password))
-            {
-                this.Password = targetUser.Password;
-            }
-            
+        }
+
+        private void UpdateEmailIfTargetUsersEmailIsValid(User targetUser)
+        {
             if (!NotValidEmail(targetUser.Email))
             {
                 this.Email = targetUser.Email;
             }
-            
+        }
+
+        private void UpdatePasswordIfTargetUsersPasswordIsValid(User targetUser)
+        {
+            if (IsValidPassword(targetUser.Password))
+            {
+                this.Password = targetUser.Password;
+            }
+        }
+
+        private void UpdateRolesIfTargetUsersRolesAreValid(User targetUser)
+        {
             if (IsValidRolesList(targetUser.Roles))
             {
                 this.Roles.Clear();
                 this.Roles.Concat(targetUser.Roles);
             }
-            
         }
 
         private bool IsValidRolesList(ICollection<Role> rolesList)

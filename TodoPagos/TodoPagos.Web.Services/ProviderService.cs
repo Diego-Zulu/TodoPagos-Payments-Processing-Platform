@@ -39,12 +39,12 @@ namespace TodoPagos.Web.Services
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            unitOfWork.Dispose();
         }
 
         public IEnumerable<Provider> GetAllProviders()
         {
-            throw new NotImplementedException();
+            return unitOfWork.ProviderRepository.Get(null, null, "");
         }
 
         public Provider GetSingleProvider(int providerId)

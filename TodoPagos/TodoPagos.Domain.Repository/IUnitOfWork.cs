@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TodoPagos.UserAPI;
+using TodoPagos.Domain;
 
 namespace TodoPagos.Domain.Repository
 {
@@ -11,7 +12,7 @@ namespace TodoPagos.Domain.Repository
     {
         IRepository<User> UserRepository { get; }
 
-        IRepository<User> ProviderRepository { get; }
+        IRepository<Provider> ProviderRepository { get; }
 
         void Save();
     }

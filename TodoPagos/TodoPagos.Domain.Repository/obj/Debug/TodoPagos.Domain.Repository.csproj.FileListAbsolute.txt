@@ -5,3 +5,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\obj
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\UserAPI.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\UserAPI.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\obj\Debug\TodoPagos.Domain.Repository.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\Domain.pdb

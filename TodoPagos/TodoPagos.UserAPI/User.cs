@@ -239,7 +239,12 @@ namespace TodoPagos.UserAPI
 
         public bool HasPassword()
         {
-            return string.IsNullOrWhiteSpace(this.Password);
+            return !string.IsNullOrWhiteSpace(this.Password);
+        }
+
+        public void ClearPassword()
+        {
+            this.Password = null;
         }
     }
 }

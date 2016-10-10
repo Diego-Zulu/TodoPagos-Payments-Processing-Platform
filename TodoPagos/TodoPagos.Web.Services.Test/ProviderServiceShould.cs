@@ -40,12 +40,12 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void BeAbleToReturnSingleProvicerFromRepository()
+        public void BeAbleToReturnSingleProviderFromRepository()
         {
             Provider singleProvider = new Provider("UTE", 60, new List<IField>());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.ProviderRepository.GetByID(singleProvider.ID)).Returns(singleProvider);
-            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
             Provider returnedProvider = providerService.GetSingleProvider(singleProvider.ID);
 
@@ -59,7 +59,7 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()));
-            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
             Provider returnedProvider = providerService.GetSingleProvider(5);
         }

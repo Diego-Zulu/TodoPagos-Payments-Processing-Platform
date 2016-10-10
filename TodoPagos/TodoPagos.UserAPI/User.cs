@@ -236,5 +236,10 @@ namespace TodoPagos.UserAPI
                 return false;
             }
         }
+
+        public bool HasPassword()
+        {
+            return string.IsNullOrWhiteSpace(this.Password);
+        }
     }
 }

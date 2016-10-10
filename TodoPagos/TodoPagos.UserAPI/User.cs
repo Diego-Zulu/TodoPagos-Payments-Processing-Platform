@@ -246,5 +246,15 @@ namespace TodoPagos.UserAPI
         {
             this.Password = null;
         }
+
+        public override bool Equals(object obj)
+        {
+            User castedObject = (User) obj;
+            if (castedObject != null)
+            {
+                return castedObject.ID == this.ID || castedObject.Email.Equals(this.Email);
+            }
+            return false;
+        }
     }
 }

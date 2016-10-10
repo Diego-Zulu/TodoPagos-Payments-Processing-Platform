@@ -111,5 +111,19 @@ namespace TodoPagos.Web.Services.Test
 
             int id = paymentService.CreatePayment(payment);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FailWithArgumentNullExceptionIfToBeCreatedNewUserIsNull()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
+            mockUnitOfWork.Setup(x => x.Save());
+            PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
+
+            Payment payment = null;
+
+            int id = paymentService.CreatePayment(payment);
+        }
     }
 }

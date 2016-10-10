@@ -130,9 +130,9 @@ namespace TodoPagos.Domain.Tests
             List<IField> completedFields = new List<IField>();
             completedFields.Add(completedNumberField);
             Receipt receipt = new Receipt(provider, completedFields, amount);
-            int expectedEarning = 2000;
+            double expectedEarning = 2000;
 
-            int obtainedEarning = receipt.CalculateEarnings();
+            double obtainedEarning = receipt.CalculateEarnings();
 
             Assert.AreEqual(expectedEarning, obtainedEarning);
         }

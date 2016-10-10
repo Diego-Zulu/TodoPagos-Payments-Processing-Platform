@@ -69,5 +69,10 @@ namespace TodoPagos.Domain
         {
             return CompletedFields.Contains(field);
         }
+
+        public double CalculateEarnings()
+        {
+            return (ReceiptProvider.Commission / 100) * Amount;
+        }
     }
 }

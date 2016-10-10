@@ -87,9 +87,23 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool UpdateProvider(int providerId, Provider targetProvider)
+        public bool UpdateProvider(int providerId, Provider oneProvider)
         {
-            throw new NotImplementedException();
+            if (oneProvider != null && providerId == oneProvider.ID && ExistsProvider(providerId))
+            {
+                Provider providerToBeUpdated = unitOfWork.ProviderRepository.GetByID(providerId);
+                providerToBeUpdated.UpdateInfoWithTargetProvidersInfo(oneProvider);
+                unitOfWork.ProviderRepository.Update(providerToBeUpdated);
+                unitOfWork.Save();
+                return true;
+            }
+            return false;
+        }
+
+        private bool ExistsProvider(int providerId)
+        {
+            Provider provider = unitOfWork.ProviderRepository.GetByID(providerId);
+            return provider != null;
         }
     }
 }

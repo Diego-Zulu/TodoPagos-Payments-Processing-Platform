@@ -173,7 +173,7 @@ namespace TodoPagos.UserAPI
             }
         }
 
-        public void UpdateInfoWithTargetsUserInfo(User targetUser)
+        public void UpdateInfoWithTargetUsersInfo(User targetUser)
         {
             UpdateNameIfTargetUsersNameIsValid(targetUser);
             UpdateEmailIfTargetUsersEmailIsValid(targetUser);

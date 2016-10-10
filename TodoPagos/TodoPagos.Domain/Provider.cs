@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TodoPagos.Domain
 {
@@ -30,10 +31,15 @@ namespace TodoPagos.Domain
 
         private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission, string aName)
         {
-            CheckForNullFieldsList(fields);
+            CheckForPossibleFieldsErrors(fields);
             CheckForPossibleCommissionErrors(aCommission);
-            CheckForCompleteField(fields);
             CheckForNullOrWhitespaceName(aName);
+        }
+
+        private void CheckForPossibleFieldsErrors(ICollection<IField> fields)
+        {
+            CheckForNullFieldsList(fields);
+            CheckForCompleteField(fields);
         }
 
         private void CheckForNullOrWhitespaceName(string aName)
@@ -150,6 +156,52 @@ namespace TodoPagos.Domain
             {
                 return false;
             }       
+        }
+
+        public void UpdateInfoWithTargetProvidersInfo(Provider targetProvider)
+        {
+            if (!string.IsNullOrWhiteSpace(targetProvider.Name))
+            {
+                this.Name = targetProvider.Name;
+            }
+
+            if (TargetProviderHasValidComission(targetProvider))
+            {
+                this.Commission = targetProvider.Commission;
+            }
+            
+            if (TargetProviderHasValidFieldsList(targetProvider))
+            {
+                this.Fields.Clear();
+                this.Fields.Concat(targetProvider.Fields);
+            }
+            
+            this.Activated = targetProvider.Activated;
+        }
+
+        private bool TargetProviderHasValidComission(Provider targetProvider)
+        {
+            try
+            {
+                CheckForPossibleCommissionErrors(targetProvider.Commission);
+                return true;
+            } catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        private bool TargetProviderHasValidFieldsList(Provider targetProvider)
+        {
+            try
+            {
+                CheckForPossibleFieldsErrors(targetProvider.Fields);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
         }
     }
 }

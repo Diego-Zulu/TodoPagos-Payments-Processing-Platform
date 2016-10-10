@@ -133,7 +133,8 @@ namespace TodoPagos.Web.Services.Test
         public void NotUpdateNotFilledInformation()
         {
             Provider toBeUpdatedProvider = new Provider("AntelData", 60, new List<IField>());
-            Provider updatedProvider = new Provider("", 20, new List<IField>());
+            Provider updatedProvider = new Provider("AntelData", 20, new List<IField>());
+            updatedProvider.Name = "";
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine2(mockUnitOfWork, toBeUpdatedProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);

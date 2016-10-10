@@ -98,7 +98,7 @@ namespace TodoPagos.Web.Services
             if (user != null && userId == user.ID && ExistsUser(userId))
             {
                 User userEntity = unitOfWork.UserRepository.GetByID(userId);
-                userEntity.UpdateInfoWithTargetsUserInfo(user);
+                userEntity.UpdateInfoWithTargetUsersInfo(user);
                 unitOfWork.UserRepository.Update(userEntity);
                 unitOfWork.Save();
                 return true;

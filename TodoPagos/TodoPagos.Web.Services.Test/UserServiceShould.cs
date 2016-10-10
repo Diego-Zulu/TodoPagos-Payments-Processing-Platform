@@ -11,7 +11,7 @@ namespace TodoPagos.Web.Services.Test
     public class UserServiceShould
     {
         [TestMethod]
-        public void RecieveAUnitOfWorkOnCreation()
+        public void ReceiveAUnitOfWorkOnCreation()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
 

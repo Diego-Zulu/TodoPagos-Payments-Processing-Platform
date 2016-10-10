@@ -14,6 +14,11 @@ namespace TodoPagos.Domain
 
         public bool Activated { get; set; }
 
+        public Provider()
+        {
+
+        }
+
         public Provider(string aName, double aCommission, ICollection<IField> fields)
         {
             CheckForPossibleErrors(fields, aCommission, aName);

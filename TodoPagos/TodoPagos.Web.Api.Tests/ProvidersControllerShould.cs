@@ -18,7 +18,7 @@ namespace TodoPagos.Web.Api.Tests
     public class ProvidersControllerShould
     {
         [TestMethod]
-        public void RecieveAProviderServiceOnCreation()
+        public void ReceiveAProviderServiceOnCreation()
         {
             var mockProviderService = new Mock<IProviderService>();
 

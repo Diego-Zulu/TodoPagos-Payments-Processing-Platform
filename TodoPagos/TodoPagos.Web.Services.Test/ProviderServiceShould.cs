@@ -11,7 +11,7 @@ namespace TodoPagos.Web.Services.Test
     public class ProviderServiceShould
     {
         [TestMethod]
-        public void RecieveAUnitOfWorkOnCreation()
+        public void ReceiveAUnitOfWorkOnCreation()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
 
@@ -62,6 +62,46 @@ namespace TodoPagos.Web.Services.Test
             IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
             Provider returnedProvider = providerService.GetSingleProvider(5);
+        }
+
+        [TestMethod]
+        public void BeAbleToCreateNewProviderInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Insert(It.IsAny<Provider>()));
+            mockUnitOfWork.Setup(un => un.Save());
+            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            Provider oneProvider = new Provider("UTE", 60, new List<IField>());
+            int id = providerService.CreateProvider(oneProvider);
+
+            mockUnitOfWork.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewProviderIsNotComplete()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Insert(It.IsAny<Provider>()));
+            mockUnitOfWork.Setup(un => un.Save());
+            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            Provider nullProvider = null;
+            int id = providerService.CreateProvider(nullProvider);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FailWithNullArgumentExceptionIfToBeCreatedNewProviderIsNull()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Insert(It.IsAny<Provider>()));
+            mockUnitOfWork.Setup(un => un.Save());
+            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            Provider incompleteProvider = new Provider();
+            int id = providerService.CreateProvider(incompleteProvider);
         }
     }
 }

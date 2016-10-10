@@ -16,7 +16,7 @@ namespace TodoPagos.WebApi.Tests
     public class UsersControllerShould
     {
         [TestMethod]
-        public void RecieveAUserServiceOnCreation()
+        public void ReceiveAUserServiceOnCreation()
         {
             var mockUserService = new Mock<IUserService>();
 

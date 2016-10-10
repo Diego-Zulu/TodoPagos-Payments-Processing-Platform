@@ -49,7 +49,17 @@ namespace TodoPagos.Web.Services
 
         public Provider GetSingleProvider(int providerId)
         {
-            throw new NotImplementedException();
+            Provider foundProvider = unitOfWork.ProviderRepository.GetByID(providerId);
+            ThrowArgumentExceptionIfProviderWasntFound(foundProvider);
+            return foundProvider;
+        }
+
+        private void ThrowArgumentExceptionIfProviderWasntFound(Provider foundProvider)
+        {
+            if (foundProvider == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         public bool UpdateProvider(int providerId, Provider targetProvider)

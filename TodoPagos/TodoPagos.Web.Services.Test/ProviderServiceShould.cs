@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TodoPagos.Domain.Repository;
 using Moq;
 using System.Collections.Generic;
-using TodoPagos.UserAPI;
+using TodoPagos.Domain;
 
 namespace TodoPagos.Web.Services.Test
 {
@@ -31,10 +31,10 @@ namespace TodoPagos.Web.Services.Test
         public void BeAbleToGetAllProvidersFromRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.UserRepository.Get(null, null, ""));
-            ProviderService userService = new ProviderService(mockUnitOfWork.Object);
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Get(null, null, ""));
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            IEnumerable<Provider> returnedUsers = userService.GetAllUsers();
+            IEnumerable<Provider> returnedProviders = providerService.GetAllProviders();
 
             mockUnitOfWork.VerifyAll();
         }

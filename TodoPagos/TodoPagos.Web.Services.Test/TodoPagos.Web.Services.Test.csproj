@@ -69,6 +69,10 @@
       <Project>{248f52db-a0b6-4ed2-825c-5c2c8ab4856f}</Project>
       <Name>TodoPagos.Domain.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">
+      <Project>{a5b13880-c1f7-4165-b35f-c71219dc146e}</Project>
+      <Name>TodoPagos.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TodoPagos.UserAPI\TodoPagos.UserAPI.csproj">
       <Project>{306f6fb4-9659-4714-aa36-56ea590935c5}</Project>
       <Name>TodoPagos.UserAPI</Name>

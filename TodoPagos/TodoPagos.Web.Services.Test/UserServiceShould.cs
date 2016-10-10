@@ -226,5 +226,51 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
+
+        [TestMethod]
+        public void BeAbleToDeleteUserFromRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockDeleteRoutine1(mockUnitOfWork);
+            IUserService userService = new UserService(mockUnitOfWork.Object);
+
+            bool deleted = userService.DeleteUser(2);
+
+            mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
+            Assert.IsTrue(deleted);
+        }
+
+        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => new User());
+            mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
+
+        [TestMethod]
+        public void NotDeleteAnythingIfUserIdDoesntExistInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockDeleteRoutine2(mockUnitOfWork);
+            IUserService userService = new UserService(mockUnitOfWork.Object);
+
+            bool deleted = userService.DeleteUser(2);
+
+            mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(deleted);
+        }
+
+        private void SetMockDeleteRoutine2(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => null);
+            mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
     }
 }

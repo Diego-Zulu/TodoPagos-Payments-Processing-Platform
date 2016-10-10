@@ -74,10 +74,10 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return TryToCreateUserWhileCheckingForArgumentNullException(newUser);
+            return TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(newUser);
         }
 
-        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullException(User newUser)
+        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(User newUser)
         {
             try
             {

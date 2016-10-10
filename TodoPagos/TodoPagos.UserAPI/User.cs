@@ -249,7 +249,7 @@ namespace TodoPagos.UserAPI
 
         public override bool Equals(object obj)
         {
-            User castedObject = (User) obj;
+            User castedObject = obj as User;
             if (castedObject != null)
             {
                 return castedObject.ID == this.ID || castedObject.Email.Equals(this.Email);

@@ -107,6 +107,20 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsAlreadyInRepository()
+        {
+            User repeatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.Get(us => repeatedUser.Equals(repeatedUser), null, ""))
+                .Returns(() => new[] { repeatedUser });
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            int id = userService.CreateUser(repeatedUser);
+        }
+
+        [TestMethod]
         public void BeAbleToUpdateExistingUser()
         {
             User toBeUpdatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());

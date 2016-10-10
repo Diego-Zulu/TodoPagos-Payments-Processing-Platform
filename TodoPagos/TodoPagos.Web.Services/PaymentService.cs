@@ -25,10 +25,15 @@ namespace TodoPagos.Web.Services
 
         public int CreatePayment(Payment newPayment)
         {
-            if (!newPayment.IsComplete()) throw new ArgumentException();
+            CheckForIncompletePayment(newPayment);
             unitOfWork.PaymentRepository.Insert(newPayment);
             unitOfWork.Save();
             return newPayment.ID;
+        }
+
+        private void CheckForIncompletePayment(Payment newPayment)
+        {
+            if (!newPayment.IsComplete()) throw new ArgumentException();
         }
 
         public IEnumerable<Payment> GetAllPayments()

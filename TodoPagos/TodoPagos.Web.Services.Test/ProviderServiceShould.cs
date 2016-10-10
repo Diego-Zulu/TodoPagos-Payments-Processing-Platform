@@ -26,5 +26,17 @@ namespace TodoPagos.Web.Services.Test
 
             ProviderService service = new ProviderService(mockUnitOfWork);
         }
+
+        [TestMethod]
+        public void BeAbleToGetAllProvidersFromRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.Get(null, null, ""));
+            ProviderService userService = new ProviderService(mockUnitOfWork.Object);
+
+            IEnumerable<Provider> returnedUsers = userService.GetAllUsers();
+
+            mockUnitOfWork.VerifyAll();
+        }
     }
 }

@@ -14,8 +14,13 @@ namespace TodoPagos.Web.Services
 
         public EarningQueriesService(IUnitOfWork oneUnitOfWork)
         {
-            if (oneUnitOfWork == null) throw new ArgumentException();
+            CheckForNullUnitOfWork(oneUnitOfWork);
             unitOfWork = oneUnitOfWork;
+        }
+
+        private void CheckForNullUnitOfWork(IUnitOfWork oneUnitOfWork)
+        {
+            if (oneUnitOfWork == null) throw new ArgumentException();
         }
 
         public int GetAllEarnings(DateTime from, DateTime to)

@@ -5,6 +5,7 @@ using System.Web.Http.Description;
 using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.UserAPI;
+using TodoPagos.Domain.Repository;
 
 namespace TodoPagos.Web.Api.Controllers
 {

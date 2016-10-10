@@ -59,12 +59,18 @@ namespace TodoPagos.Web.Services
 
         public bool DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            if (ExistsUser(id))
+            {
+                unitOfWork.UserRepository.Delete(id);
+                unitOfWork.Save();
+                return true;
+            }
+            return false;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            unitOfWork.Dispose();
         }
 
         public IEnumerable<User> GetAllUsers()

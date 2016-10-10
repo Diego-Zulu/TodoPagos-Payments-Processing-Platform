@@ -30,7 +30,7 @@ namespace TodoPagos.Web.Services
 
         public IEnumerable<Payment> GetAllPayments()
         {
-            throw new NotImplementedException();
+            return unitOfWork.PaymentRepository.Get(null, null, "");
         }
 
         public Payment GetSinglePayment(int id)

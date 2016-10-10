@@ -38,5 +38,30 @@ namespace TodoPagos.Web.Services.Test
 
             mockUnitOfWork.VerifyAll();
         }
+
+        [TestMethod]
+        public void BeAbleToReturnSingleProvicerFromRepository()
+        {
+            Provider singleProvider = new Provider("UTE", 60, new List<IField>());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.GetByID(singleProvider.ID)).Returns(singleProvider);
+            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            Provider returnedProvider = providerService.GetSingleProvider(singleProvider.ID);
+
+            mockUnitOfWork.VerifyAll();
+            Assert.AreSame(singleProvider, returnedProvider);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfSingleProviderdDoesntExistInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()));
+            IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            Provider returnedProvider = providerService.GetSingleProvider(5);
+        }
     }
 }

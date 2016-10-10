@@ -139,5 +139,17 @@ namespace TodoPagos.Domain
         {
             this.Activated = true;
         }
+
+        public bool IsComplete()
+        {
+            try
+            {
+                CheckForPossibleErrors(this.Fields, this.Commission, this.Name);
+                return true;
+            } catch (ArgumentException)
+            {
+                return false;
+            }       
+        }
     }
 }

@@ -27,9 +27,34 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public int CreateProvider(Provider targetProvider)
+        public int CreateProvider(Provider newProvider)
         {
-            throw new NotImplementedException();
+            MakeSureTargetProviderIsReadyToBeCreated(newProvider);
+            unitOfWork.ProviderRepository.Insert(newProvider);
+            unitOfWork.Save();
+            return newProvider.ID;
+        }
+
+        private void MakeSureTargetProviderIsReadyToBeCreated(Provider targetProvider)
+        {
+            MakeSureTargetProviderIsNotNull(targetProvider);
+            MakeSureTargetProviderIsComplete(targetProvider);
+        }
+
+        private void MakeSureTargetProviderIsNotNull(Provider targetProvider)
+        {
+            if (targetProvider == null)
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        private void MakeSureTargetProviderIsComplete(Provider targetProvider)
+        {
+            if (!targetProvider.IsComplete())
+            {
+                throw new ArgumentException();
+            }
         }
 
         public bool DeleteProvider(int providerId)

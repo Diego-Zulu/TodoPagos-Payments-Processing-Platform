@@ -87,8 +87,8 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.Save());
             IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            Provider nullProvider = null;
-            int id = providerService.CreateProvider(nullProvider);
+            Provider incompleteProvider = new Provider();
+            int id = providerService.CreateProvider(incompleteProvider);
         }
 
         [TestMethod]
@@ -100,8 +100,8 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.Save());
             IProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            Provider incompleteProvider = new Provider();
-            int id = providerService.CreateProvider(incompleteProvider);
+            Provider nullProvider = null;
+            int id = providerService.CreateProvider(nullProvider);
         }
     }
 }

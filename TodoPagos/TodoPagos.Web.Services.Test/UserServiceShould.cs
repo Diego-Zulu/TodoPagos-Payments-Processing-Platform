@@ -45,7 +45,7 @@ namespace TodoPagos.Web.Services.Test
             User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.GetByID(singleUser.ID)).Returns(singleUser);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             User returnedUser = userService.GetSingleUser(singleUser.ID);
 
@@ -59,7 +59,7 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.GetByID(It.IsAny<int>()));
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             User returnedUser = userService.GetSingleUser(5);
         }
@@ -70,7 +70,7 @@ namespace TodoPagos.Web.Services.Test
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             int id = userService.CreateUser(singleUser);
@@ -85,7 +85,7 @@ namespace TodoPagos.Web.Services.Test
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User();
 
@@ -99,7 +99,7 @@ namespace TodoPagos.Web.Services.Test
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = null;
 
@@ -107,13 +107,13 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void BeAbleToUpdatesExistingUser()
+        public void BeAbleToUpdateExistingUser()
         {
             User toBeUpdatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             User updatedUser = new User("Diego Z", "dizg2695@hotmail.com", "#ElBizagra1995", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine1(mockUnitOfWork, toBeUpdatedUser);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool updated = userService.UpdateUser(toBeUpdatedUser.ID, updatedUser);
 
@@ -139,7 +139,7 @@ namespace TodoPagos.Web.Services.Test
             updatedUser.Name = "";
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine2(mockUnitOfWork, toBeUpdatedUser);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool updated = userService.UpdateUser(toBeUpdatedUser.ID, updatedUser);
 
@@ -162,7 +162,7 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine3(mockUnitOfWork);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool updated = userService.UpdateUser(0, new User() { });
 
@@ -185,7 +185,7 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine4(mockUnitOfWork);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool updated = userService.UpdateUser(0, null);
 
@@ -209,7 +209,7 @@ namespace TodoPagos.Web.Services.Test
             User updatedUserInfo = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine5(mockUnitOfWork);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool updated = userService.UpdateUser(updatedUserInfo.ID + 1, updatedUserInfo);
 
@@ -232,7 +232,7 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockDeleteRoutine1(mockUnitOfWork);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool deleted = userService.DeleteUser(2);
 
@@ -255,7 +255,7 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockDeleteRoutine2(mockUnitOfWork);
-            IUserService userService = new UserService(mockUnitOfWork.Object);
+            UserService userService = new UserService(mockUnitOfWork.Object);
 
             bool deleted = userService.DeleteUser(2);
 

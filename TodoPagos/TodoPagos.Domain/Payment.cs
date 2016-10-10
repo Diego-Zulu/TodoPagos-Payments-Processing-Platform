@@ -13,11 +13,17 @@ namespace TodoPagos.Domain
         public virtual ICollection<Receipt> Receipts { get; set; }
         public virtual int ID { get; set;}
 
+        public Payment()
+        {
+            Receipts = new List<Receipt>();
+        }
+
         public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
         {
             CheckAttributeCorrectness(aPayMethod, theAmountPayed, paymentReceipts);
             PaymentMethod = aPayMethod;
             amountPayed = theAmountPayed;
+            Receipts = paymentReceipts;
         }
 
         private void CheckAttributeCorrectness(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
@@ -57,6 +63,19 @@ namespace TodoPagos.Domain
             if (aPayMethod == null)
             {
                 throw new ArgumentException();
+            }
+        }
+
+        public bool IsComplete()
+        {
+            try
+            {
+                CheckAttributeCorrectness(this.PaymentMethod, this.amountPayed, this.Receipts);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
             }
         }
     }

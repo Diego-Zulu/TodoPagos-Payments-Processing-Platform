@@ -28,7 +28,7 @@ namespace TodoPagos.Web.Services
             throw new NotImplementedException();
         }
 
-        public IDictionary<Provider, int> GetEarningsPerProvider(DateTime from, DateTime to)
+        public IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to)
         {
             throw new NotImplementedException();
         }

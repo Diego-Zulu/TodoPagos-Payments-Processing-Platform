@@ -9,7 +9,7 @@ namespace TodoPagos.Web.Services
 {
     public interface IEarningQueriesService
     {
-        IDictionary<Provider, int> GetEarningsPerProvider(DateTime from, DateTime to);
+        IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to);
 
         int GetAllEarnings(DateTime from, DateTime to);
     }

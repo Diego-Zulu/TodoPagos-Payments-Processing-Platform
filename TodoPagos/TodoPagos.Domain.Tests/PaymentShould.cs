@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TodoPagos.Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TodoPagos.Domain.Tests
 {
@@ -77,6 +78,37 @@ namespace TodoPagos.Domain.Tests
 
             int amountPayed = 7500;
             Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
+        }
+
+        [TestMethod]
+        public void BeAbleToAddAllEarningsToExistingDictionaryOfEarningsPerProviderGivenFromAndToDates()
+        {
+            IDictionary<Provider, double> earningsPerProvider = new Dictionary<Provider, double>();
+            PayMethod paymentMethod = new DebitPayMethod(DateTime.Now);
+            List<IField> emptyFieldList = new List<IField>();
+            NumberField aNumberField = new NumberField("Numerito");
+            emptyFieldList.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, emptyFieldList);
+            IField aCompleteNumberField = aNumberField.FillAndClone("1234");
+            List<IField> completeFieldList = new List<IField>();
+            completeFieldList.Add(aCompleteNumberField);
+            double amount = 10000;
+            Receipt receipt = new Receipt(provider, completeFieldList, amount);
+            List<Receipt> receipts = new List<Receipt>();
+            receipts.Add(receipt);
+            int amountPayed = 10000;
+            Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
+            IDictionary<Provider, double> expectedDictionary = new Dictionary<Provider, double>();
+            expectedDictionary.Add(provider, 2000);
+
+            IDictionary<Provider, double> obtainedDictionary = newPayment.AddThisPaymentsEarningsToDictionary(earningsPerProvider);
+
+            bool result = true;
+            foreach(KeyValuePair<Provider, double> pair in expectedDictionary)
+            {
+                if (!obtainedDictionary.Contains(pair)) result = false;
+            }
+            Assert.IsTrue(result);
         }
     }
 }

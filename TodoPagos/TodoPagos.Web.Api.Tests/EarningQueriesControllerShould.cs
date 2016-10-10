@@ -36,8 +36,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             DateTime from = DateTime.ParseExact("Mon, 15 Sep 2008 09:30:41 GMT", 
                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            DateTime to = DateTime.ParseExact("Tue, 16 Sep 2008 09:30:41 GMT",
-                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            DateTime to = DateTime.Today;
             IDictionary<Provider, int> result = new Dictionary<Provider, int>();
             result.Add(new Provider("Antel", 10, new List<IField>()), 100);
             result.Add(new Provider("Tienda Inglesa", 7, new List<IField>()), 200);
@@ -57,8 +56,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             DateTime from = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
                  "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            DateTime to = DateTime.ParseExact("Tue, 31 Dec 2030 00:00:00 GMT",
-                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture); 
+            DateTime to = DateTime.Today;
             IDictionary<Provider, int> result = new Dictionary<Provider, int>();
             result.Add(new Provider("Antel", 10, new List<IField>()), 100);
             result.Add(new Provider("Tienda Inglesa", 7, new List<IField>()), 200);
@@ -78,8 +76,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             DateTime from = DateTime.ParseExact("Mon, 15 Sep 2008 09:30:41 GMT",
                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            DateTime to = DateTime.ParseExact("Tue, 16 Sep 2008 09:30:41 GMT",
-                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            DateTime to = DateTime.Today;
             int earnings = 1000;
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();
             mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to)).Returns(earnings);
@@ -96,8 +93,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             DateTime from = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
                  "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            DateTime to = DateTime.ParseExact("Tue, 31 Dec 2030 00:00:00 GMT",
-                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            DateTime to = DateTime.Today;
             int earnings = 1000;
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();
             mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to)).Returns(earnings);

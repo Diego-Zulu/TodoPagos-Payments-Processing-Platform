@@ -25,6 +25,7 @@ namespace TodoPagos.Web.Services
 
         public int CreatePayment(Payment newPayment)
         {
+            if (newPayment == null) throw new ArgumentNullException();
             CheckForIncompletePayment(newPayment);
             unitOfWork.PaymentRepository.Insert(newPayment);
             unitOfWork.Save();

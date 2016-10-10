@@ -33,9 +33,10 @@ namespace TodoPagos.Web.Services
             return unitOfWork.PaymentRepository.Get(null, null, "");
         }
 
-        public Payment GetSinglePayment(int id)
+        public Payment GetSinglePayment(int paymentId)
         {
-            throw new NotImplementedException();
+            Payment payment = unitOfWork.PaymentRepository.GetByID(paymentId);
+            return payment;
         }
     }
 }

@@ -54,13 +54,24 @@ namespace TodoPagos.Web.Services.Test
             list.Add(receipt);
             Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.PaymentRepository.GetByID(payment.ID)).Returns(payment);
+            mockUnitOfWork.Setup(x => x.PaymentRepository.GetByID(payment.ID)).Returns(payment);
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
 
             Payment returnedPayment = paymentService.GetSinglePayment(payment.ID);
 
             mockUnitOfWork.VerifyAll();
             Assert.AreSame(payment, returnedPayment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfSinglePaymentDoesntExistInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(x => x.PaymentRepository.GetByID(It.IsAny<int>()));
+            PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
+
+            Payment payment = paymentService.GetSinglePayment(5);
         }
     }
 }

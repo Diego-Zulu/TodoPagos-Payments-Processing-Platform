@@ -55,7 +55,7 @@ namespace TodoPagos.Web.Services.Test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailWithArgumentExceptionIfSingleProviderdDoesntExistInRepository()
+        public void FailWithArgumentExceptionIfSingleProviderDoesntExistInRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()));

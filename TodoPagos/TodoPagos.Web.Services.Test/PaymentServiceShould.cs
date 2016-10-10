@@ -15,5 +15,14 @@ namespace TodoPagos.Web.Services.Test
 
             PaymentService service = new PaymentService(mockUnitOfWork.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfUnitOfWorkOnCreationIsNull()
+        {
+            IUnitOfWork mockUnitOfWork = null;
+
+            PaymentService service = new PaymentService(mockUnitOfWork);
+        }
     }
 }

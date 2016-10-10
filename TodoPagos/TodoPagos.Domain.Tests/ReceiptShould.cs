@@ -117,5 +117,24 @@ namespace TodoPagos.Domain.Tests
 
             Receipt receipt = new Receipt(provider, new List<IField>(), amount);
         }
+
+        [TestMethod]
+        public void BeAbleToCalculateHowMuchTodoPagosEarnsFromIt()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 10000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+            Receipt receipt = new Receipt(provider, completedFields, amount);
+            int expectedEarning = 2000;
+
+            int obtainedEarning = receipt.CalculateEarnings();
+
+            Assert.AreEqual(expectedEarning, obtainedEarning);
+        }
     }
 }

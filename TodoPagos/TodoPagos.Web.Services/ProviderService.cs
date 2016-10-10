@@ -57,9 +57,15 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool DeleteProvider(int providerId)
+        public bool DeleteProvider(int id)
         {
-            throw new NotImplementedException();
+            if (ExistsProvider(id))
+            {
+                unitOfWork.ProviderRepository.Delete(id);
+                unitOfWork.Save();
+                return true;
+            }
+            return false;
         }
 
         public void Dispose()

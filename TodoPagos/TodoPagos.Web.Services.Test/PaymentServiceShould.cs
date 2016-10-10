@@ -97,5 +97,19 @@ namespace TodoPagos.Web.Services.Test
 
             mockUnitOfWork.VerifyAll();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewPaymentIsNotComplete()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
+            mockUnitOfWork.Setup(x => x.Save());
+            PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
+
+            Payment payment = new Payment();
+
+            int id = paymentService.CreatePayment(payment);
+        }
     }
 }

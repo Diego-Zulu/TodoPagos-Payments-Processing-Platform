@@ -15,5 +15,14 @@ namespace TodoPagos.Web.Services.Test
 
             EarningQueriesService service = new EarningQueriesService(mockUnitOfWork.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfUnitOfWorkOnCreationIsNull()
+        {
+            IUnitOfWork mockUnitOfWork = null;
+
+            EarningQueriesService service = new EarningQueriesService(mockUnitOfWork);
+        }
     }
 }

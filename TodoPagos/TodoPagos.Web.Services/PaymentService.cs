@@ -25,11 +25,21 @@ namespace TodoPagos.Web.Services
 
         public int CreatePayment(Payment newPayment)
         {
-            if (newPayment == null) throw new ArgumentNullException();
-            CheckForIncompletePayment(newPayment);
+            CheckForValidCreationOfPayment(newPayment);
             unitOfWork.PaymentRepository.Insert(newPayment);
             unitOfWork.Save();
             return newPayment.ID;
+        }
+
+        private void CheckForValidCreationOfPayment(Payment newPayment)
+        {
+            CheckForNullPayment(newPayment);
+            CheckForIncompletePayment(newPayment);
+        }
+
+        private void CheckForNullPayment(Payment payment)
+        {
+            if (payment == null) throw new ArgumentNullException();
         }
 
         private void CheckForIncompletePayment(Payment newPayment)

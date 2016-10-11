@@ -132,7 +132,7 @@ namespace TodoPagos.Domain.Tests
             double expectedValue = 2000;
             double overallValue = 0;
 
-            newPayment.AddThisPaymentsEarningsToOverallValue(overallValue);
+            newPayment.AddThisPaymentsEarningsToOverallValue(ref overallValue, DateTime.Today, DateTime.Today);
 
             Assert.AreEqual(expectedValue, overallValue);
         }

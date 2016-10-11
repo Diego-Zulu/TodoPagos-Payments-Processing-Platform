@@ -83,7 +83,7 @@ namespace TodoPagos.Web.Api.Tests
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
             IHttpActionResult actionResult = controller.GetAllEarnings(from, to);
-            OkNegotiatedContentResult<int> contentResult = (OkNegotiatedContentResult<int>)actionResult;
+            OkNegotiatedContentResult<double> contentResult = (OkNegotiatedContentResult<double>)actionResult;
 
             Assert.AreEqual(contentResult.Content, earnings);
         }
@@ -100,7 +100,7 @@ namespace TodoPagos.Web.Api.Tests
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
             IHttpActionResult actionResult = controller.GetAllEarnings();
-            OkNegotiatedContentResult<int> contentResult = (OkNegotiatedContentResult<int>)actionResult;
+            OkNegotiatedContentResult<double> contentResult = (OkNegotiatedContentResult<double>)actionResult;
 
             Assert.AreEqual(contentResult.Content, earnings);
         }

@@ -84,11 +84,11 @@ namespace TodoPagos.Domain
         {
             if(PaymentMethod.payDate >= from && PaymentMethod.payDate <= to)
             {
-                IterateOverAllReceipts(earningsPerProvider);
+                IterateOverAllReceiptsForDictionary(earningsPerProvider);
             }
         }
 
-        private void IterateOverAllReceipts
+        private void IterateOverAllReceiptsForDictionary
             (IDictionary<Provider, double> earningsPerProvider)
         {
             foreach (Receipt receipt in Receipts)
@@ -96,6 +96,22 @@ namespace TodoPagos.Domain
                 double actualValue;
                 earningsPerProvider.TryGetValue(receipt.ReceiptProvider, out actualValue);
                 earningsPerProvider.Add(receipt.ReceiptProvider, actualValue + receipt.CalculateEarnings());
+            }
+        }
+
+        public void AddThisPaymentsEarningsToOverallValue(ref double overallValue, DateTime from, DateTime to)
+        {
+            if (PaymentMethod.payDate >= from && PaymentMethod.payDate <= to)
+            {
+                IterateOverAllReceiptsForOverallValue(ref overallValue);
+            }
+        }
+
+        private void IterateOverAllReceiptsForOverallValue(ref double overallValue)
+        {
+            foreach (Receipt receipt in Receipts)
+            {
+                overallValue += receipt.CalculateEarnings();
             }
         }
     }

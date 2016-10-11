@@ -4,6 +4,7 @@ using TodoPagos.Domain.Repository;
 using Moq;
 using System.Collections.Generic;
 using TodoPagos.Domain;
+using System.Linq;
 
 namespace TodoPagos.Web.Services.Test
 {
@@ -30,23 +31,20 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void BeAbleToGetEarningsPerProvider()
         {
-            KeyValuePair<Payment, Provider> pair = CreateNewPaymentAndProvider();
-            Payment payment = pair.Key;
-            IDictionary<Provider, double> expectedDictionary = new Dictionary<Provider, double>();
-            expectedDictionary.Add(pair.Value, 3);
+            Payment payment = CreateNewPayment();
             List<Payment> paymentsList = new List<Payment>();
             paymentsList.Add(payment);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(x => x.PaymentRepository.Get(null, null, "")).Returns(paymentsList);
             EarningQueriesService earningQueries = new EarningQueriesService(mockUnitOfWork.Object);
 
-            IDictionary<Payment, double> resultingDictionary = 
-                (IDictionary<Payment, double>) earningQueries.GetEarningsPerProvider(DateTime.Today, DateTime.Today);
+            IDictionary<Provider, double> resultingDictionary = earningQueries.GetEarningsPerProvider(DateTime.Today, DateTime.Today);
 
             mockUnitOfWork.VerifyAll();
+            Assert.AreEqual(3, resultingDictionary.First().Value);
         }
 
-        private KeyValuePair<Payment,Provider> CreateNewPaymentAndProvider()
+        private Payment CreateNewPayment()
         {
             List<IField> emptyFields = new List<IField>();
             NumberField field = new NumberField("Monto");
@@ -58,8 +56,7 @@ namespace TodoPagos.Web.Services.Test
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            return new KeyValuePair<Payment, Provider>
-                (new Payment(new CashPayMethod(100, DateTime.Now), 100, list), provider);
+            return new Payment(new CashPayMethod(100, DateTime.Today), 100, list);
         }
     }
 }

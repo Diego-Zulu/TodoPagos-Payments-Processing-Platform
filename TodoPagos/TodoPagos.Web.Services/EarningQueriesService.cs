@@ -30,7 +30,13 @@ namespace TodoPagos.Web.Services
 
         public IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
+            IEnumerable<Payment> allPayments = unitOfWork.PaymentRepository.Get(null, null, "");
+            IDictionary<Provider, double> dictionary = new Dictionary<Provider, double>();
+            foreach(Payment payment in allPayments)
+            {
+                payment.AddThisPaymentsEarningsToDictionary(dictionary, from, to);
+            }
+            return dictionary;
         }
     }
 }

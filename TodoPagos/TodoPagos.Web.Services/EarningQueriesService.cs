@@ -25,7 +25,13 @@ namespace TodoPagos.Web.Services
 
         public double GetAllEarnings(DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
+            IEnumerable<Payment> allPayments = unitOfWork.PaymentRepository.Get(null, null, "");
+            double earnings = 0;
+            foreach (Payment payment in allPayments)
+            {
+                payment.AddThisPaymentsEarningsToOverallValue(ref earnings, from, to);
+            }
+            return earnings;
         }
 
         public IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to)

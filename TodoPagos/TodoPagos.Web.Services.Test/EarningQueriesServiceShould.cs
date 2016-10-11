@@ -58,5 +58,21 @@ namespace TodoPagos.Web.Services.Test
             list.Add(receipt);
             return new Payment(new CashPayMethod(100, DateTime.Today), 100, list);
         }
+
+        [TestMethod]
+        public void BeAbleToGetAllEarnings()
+        {
+            Payment payment = CreateNewPayment();
+            List<Payment> paymentsList = new List<Payment>();
+            paymentsList.Add(payment);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(x => x.PaymentRepository.Get(null, null, "")).Returns(paymentsList);
+            EarningQueriesService earningQueries = new EarningQueriesService(mockUnitOfWork.Object);
+
+            double resultingValue = earningQueries.GetAllEarnings(DateTime.Today, DateTime.Today);
+
+            mockUnitOfWork.VerifyAll();
+            Assert.AreEqual(3, resultingValue);
+        }
     }
 }

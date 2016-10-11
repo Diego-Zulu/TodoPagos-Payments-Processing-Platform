@@ -74,5 +74,13 @@ namespace TodoPagos.Domain
         {
             return (ReceiptProvider.Commission / 100) * Amount;
         }
+
+        public override bool Equals(object obj)
+        {
+            Receipt otherReceipt = (Receipt)obj;
+            return this.ReceiptProvider.Equals(otherReceipt.ReceiptProvider)
+                && CompletedFields.Equals(otherReceipt.CompletedFields)
+                && Amount.Equals(otherReceipt.Amount);
+        }
     }
 }

@@ -140,15 +140,6 @@ namespace TodoPagos.Domain.Tests
         [TestMethod]
         public void BeAbleToTellItIsEqualToAnotherReceiptWithTheSameFieldsAndData()
         {
-            Receipt firstReceipt = CreateReceipt();
-            Receipt secondReceipt = CreateReceipt();
-
-            Assert.AreNotSame(firstReceipt, secondReceipt);
-            Assert.AreEqual(firstReceipt, secondReceipt);
-        }
-
-        private Receipt CreateReceipt()
-        {
             List<IField> list = new List<IField>();
             NumberField aNumberField = new NumberField("Coordenada X");
             list.Add(aNumberField);
@@ -157,6 +148,15 @@ namespace TodoPagos.Domain.Tests
             IField completedNumberField = aNumberField.FillAndClone("8000");
             List<IField> completedFields = new List<IField>();
             completedFields.Add(completedNumberField);
+            Receipt firstReceipt = CreateReceipt(provider, completedFields, amount);
+            Receipt secondReceipt = CreateReceipt(provider, completedFields, amount);
+
+            Assert.AreNotSame(firstReceipt, secondReceipt);
+            Assert.AreEqual(firstReceipt, secondReceipt);
+        }
+
+        private Receipt CreateReceipt(Provider provider, List<IField> completedFields, double amount)
+        {
             return new Receipt(provider, completedFields, amount);
         }
     }

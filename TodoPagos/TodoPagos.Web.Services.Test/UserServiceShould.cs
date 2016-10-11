@@ -83,8 +83,6 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithArgumentExceptionIfToBeCreatedNewUserIsNotComplete()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User();
@@ -97,8 +95,6 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithNullArgumentExceptionIfToBeCreatedNewUserIsNull()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = null;
@@ -113,8 +109,10 @@ namespace TodoPagos.Web.Services.Test
             User repeatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork
-                .Setup(un => un.UserRepository.Get(us => repeatedUser.Equals(repeatedUser), null, ""))
-                .Returns(() => new[] { repeatedUser });
+                .Setup(un => un.UserRepository.Get(
+                It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, ""))
+                .Returns(new[] { repeatedUser });
+            
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             int id = userService.CreateUser(repeatedUser);

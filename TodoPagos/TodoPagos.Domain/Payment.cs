@@ -79,17 +79,16 @@ namespace TodoPagos.Domain
             }
         }
 
-        public IDictionary<Provider, double> AddThisPaymentsEarningsToDictionary
+        public void AddThisPaymentsEarningsToDictionary
             (IDictionary<Provider, double> earningsPerProvider, DateTime from, DateTime to)
         {
             if(PaymentMethod.payDate >= from && PaymentMethod.payDate <= to)
             {
-                earningsPerProvider = IterateOverAllReceipts(earningsPerProvider);
+                IterateOverAllReceipts(earningsPerProvider);
             }
-            return earningsPerProvider;
         }
 
-        private IDictionary<Provider, double> IterateOverAllReceipts
+        private void IterateOverAllReceipts
             (IDictionary<Provider, double> earningsPerProvider)
         {
             foreach (Receipt receipt in Receipts)
@@ -98,7 +97,6 @@ namespace TodoPagos.Domain
                 earningsPerProvider.TryGetValue(receipt.ReceiptProvider, out actualValue);
                 earningsPerProvider.Add(receipt.ReceiptProvider, actualValue + receipt.CalculateEarnings());
             }
-            return earningsPerProvider;
         }
     }
 }

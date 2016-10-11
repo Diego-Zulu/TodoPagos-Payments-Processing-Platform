@@ -101,14 +101,40 @@ namespace TodoPagos.Domain.Tests
             IDictionary<Provider, double> expectedDictionary = new Dictionary<Provider, double>();
             expectedDictionary.Add(provider, 2000);
 
-            IDictionary<Provider, double> obtainedDictionary = newPayment.AddThisPaymentsEarningsToDictionary(earningsPerProvider, DateTime.Today, DateTime.Today);
+            newPayment.AddThisPaymentsEarningsToDictionary(earningsPerProvider, DateTime.Today, DateTime.Today);
 
             bool result = true;
             foreach(KeyValuePair<Provider, double> pair in expectedDictionary)
             {
-                if (!obtainedDictionary.Contains(pair)) result = false;
+                if (!earningsPerProvider.Contains(pair)) result = false;
             }
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void BeAbleToAddItsEarningsToExistingEarningsValueGivenFromAndToDates()
+        {
+            IDictionary<Provider, double> earningsPerProvider = new Dictionary<Provider, double>();
+            PayMethod paymentMethod = new DebitPayMethod(DateTime.Today);
+            List<IField> emptyFieldList = new List<IField>();
+            NumberField aNumberField = new NumberField("Numerito");
+            emptyFieldList.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, emptyFieldList);
+            IField aCompleteNumberField = aNumberField.FillAndClone("1234");
+            List<IField> completeFieldList = new List<IField>();
+            completeFieldList.Add(aCompleteNumberField);
+            double amount = 10000;
+            Receipt receipt = new Receipt(provider, completeFieldList, amount);
+            List<Receipt> receipts = new List<Receipt>();
+            receipts.Add(receipt);
+            int amountPayed = 10000;
+            Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
+            double expectedValue = 2000;
+            double overallValue = 0;
+
+            newPayment.AddThisPaymentsEarningsToOverallValue(overallValue);
+
+            Assert.AreEqual(expectedValue, overallValue);
         }
     }
 }

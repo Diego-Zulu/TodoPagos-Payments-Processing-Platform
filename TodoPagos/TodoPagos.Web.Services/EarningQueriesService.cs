@@ -23,7 +23,7 @@ namespace TodoPagos.Web.Services
             if (oneUnitOfWork == null) throw new ArgumentException();
         }
 
-        public int GetAllEarnings(DateTime from, DateTime to)
+        public double GetAllEarnings(DateTime from, DateTime to)
         {
             throw new NotImplementedException();
         }

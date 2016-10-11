@@ -11,6 +11,6 @@ namespace TodoPagos.Web.Services
     {
         IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to);
 
-        int GetAllEarnings(DateTime from, DateTime to);
+        double GetAllEarnings(DateTime from, DateTime to);
     }
 }

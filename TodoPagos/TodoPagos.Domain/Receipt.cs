@@ -77,9 +77,17 @@ namespace TodoPagos.Domain
 
         public override bool Equals(object obj)
         {
-            if (IsNull(obj)) return false;
-            Receipt otherReceipt = (Receipt)obj;
-            return SeeIfReceiptsAreEqual(otherReceipt);
+            try
+            {
+                if (IsNull(obj)) return false;
+                Receipt otherReceipt = (Receipt)obj;
+                return SeeIfReceiptsAreEqual(otherReceipt);
+            }
+            catch (InvalidCastException)
+            {
+                return false;
+            }
+
         }
 
         private bool SeeIfReceiptsAreEqual(Receipt otherReceipt)

@@ -219,7 +219,7 @@ namespace TodoPagos.Domain.Tests
             Provider secondProvider = new Provider("Antel", 20, new List<IField>());
             firstProvider.ID = secondProvider.ID + 1;
 
-            Assert.AreNotEqual(firstProvider, secondProvider);
+            Assert.AreEqual(firstProvider, secondProvider);
         }
 
         [TestMethod]
@@ -229,7 +229,7 @@ namespace TodoPagos.Domain.Tests
             Provider secondProvider = new Provider("Antitel", 20, new List<IField>());
             firstProvider.ID = secondProvider.ID;
 
-            Assert.AreNotEqual(firstProvider, secondProvider);
+            Assert.AreEqual(firstProvider, secondProvider);
         }
     }
 }

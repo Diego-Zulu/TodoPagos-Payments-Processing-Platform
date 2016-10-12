@@ -118,7 +118,7 @@ namespace TodoPagos.Domain
             try
             {
                 Provider otherProvider = (Provider)anotherProvider;
-                return Name.Equals(otherProvider.Name);
+                return Name.Equals(otherProvider.Name) || ID == otherProvider.ID;
             }
             catch (InvalidCastException)
             {

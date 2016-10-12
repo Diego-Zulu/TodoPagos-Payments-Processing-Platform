@@ -82,12 +82,10 @@ namespace TodoPagos.Web.Services.Test
         [ExpectedException(typeof(ArgumentException))]
         public void FailWithArgumentExceptionIfToBeCreatedNewProviderIsNotComplete()
         {
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.ProviderRepository.Insert(It.IsAny<Provider>()));
-            mockUnitOfWork.Setup(un => un.Save());
-            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
-
             Provider incompleteProvider = new Provider();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+            
             int id = providerService.CreateProvider(incompleteProvider);
         }
 
@@ -95,13 +93,39 @@ namespace TodoPagos.Web.Services.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void FailWithNullArgumentExceptionIfToBeCreatedNewProviderIsNull()
         {
+            Provider nullProvider = null;
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.ProviderRepository.Insert(It.IsAny<Provider>()));
-            mockUnitOfWork.Setup(un => un.Save());
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+    
+            int id = providerService.CreateProvider(nullProvider);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewProviderHasTheNameOfAnActiveProviderInRepository()
+        {
+            Provider providerWithSameName = new Provider("UTE", 60, new List<IField>());
+            Provider providerWithRepeatedName = new Provider("UTE", 25, new List<IField>());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Get(
+                It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, ""));
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            Provider nullProvider = null;
-            int id = providerService.CreateProvider(nullProvider);
+            int id = providerService.CreateProvider(providerWithRepeatedName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void FailWithInvalidOperationExceptionIfToBeCreatedNewProviderIsMarkedAsDeleted()
+        {
+
+            Provider deletedProvider = new Provider("UTE", 60, new List<IField>());
+            deletedProvider.MarkAsInactiveToShowItIsDeleted();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Get(null, null, ""));
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+            
+            int id = providerService.CreateProvider(deletedProvider);
         }
 
         [TestMethod]

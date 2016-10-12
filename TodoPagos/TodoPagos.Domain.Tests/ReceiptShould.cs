@@ -197,5 +197,26 @@ namespace TodoPagos.Domain.Tests
             Assert.AreNotSame(firstReceipt, secondReceipt);
             Assert.AreNotEqual(firstReceipt, secondReceipt);
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherReceiptWithDifferentCompletedFieldsList()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 1000;
+            IField firstCompletedNumberField = aNumberField.FillAndClone("8000");
+            IField secondCompletedNumberField = aNumberField.FillAndClone("5000");
+            List<IField> firstCompletedFields = new List<IField>();
+            firstCompletedFields.Add(firstCompletedNumberField);
+            List<IField> secondCompletedFields = new List<IField>();
+            secondCompletedFields.Add(secondCompletedNumberField);
+            Receipt firstReceipt = CreateReceipt(provider, firstCompletedFields, amount);
+            Receipt secondReceipt = CreateReceipt(provider, secondCompletedFields, amount);
+
+            Assert.AreNotSame(firstReceipt, secondReceipt);
+            Assert.AreNotEqual(firstReceipt, secondReceipt);
+        }
     }
 }

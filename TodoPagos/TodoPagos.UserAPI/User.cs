@@ -173,7 +173,7 @@ namespace TodoPagos.UserAPI
             }
         }
 
-        public void UpdateInfoWithTargetsUserInfo(User targetUser)
+        public void UpdateInfoWithTargetUsersInfo(User targetUser)
         {
             UpdateNameIfTargetUsersNameIsValid(targetUser);
             UpdateEmailIfTargetUsersEmailIsValid(targetUser);
@@ -235,6 +235,31 @@ namespace TodoPagos.UserAPI
             {
                 return false;
             }
+        }
+
+        public bool HasPassword()
+        {
+            return !string.IsNullOrWhiteSpace(this.Password);
+        }
+
+        public void ClearPassword()
+        {
+            this.Password = null;
+        }
+
+        public override bool Equals(object obj)
+        {
+            User castedObject = obj as User;
+            if (castedObject != null)
+            {
+                return castedObject.ID == this.ID || castedObject.Email.Equals(this.Email);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

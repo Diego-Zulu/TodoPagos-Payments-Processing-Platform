@@ -11,13 +11,15 @@ namespace TodoPagos.Web.Services
     {
         IEnumerable<Provider> GetAllProviders();
 
+        IEnumerable<Provider> GetAllProvidersAcoordingToState(bool isActive);
+
         Provider GetSingleProvider(int providerId);
 
         bool UpdateProvider(int providerId, Provider targetProvider);
 
         int CreateProvider(Provider targetProvider);
 
-        bool DeleteProvider(int providerId);
+        bool MarkProviderAsDeleted(int providerId);
 
         void Dispose();
     }

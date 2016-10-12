@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TodoPagos.Domain
 {
@@ -12,7 +13,12 @@ namespace TodoPagos.Domain
 
         public ICollection<IField> Fields { get; set; } = new List<IField>();
 
-        public bool Activated { get; set; }
+        public bool Active { get; set; }
+
+        public Provider()
+        {
+
+        }
 
         public Provider(string aName, double aCommission, ICollection<IField> fields)
         {
@@ -20,15 +26,20 @@ namespace TodoPagos.Domain
             Commission = aCommission;
             Name = aName;
             Fields = fields;
-            Activated = true;
+            Active = true;
         }
 
         private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission, string aName)
         {
-            CheckForNullFieldsList(fields);
+            CheckForPossibleFieldsErrors(fields);
             CheckForPossibleCommissionErrors(aCommission);
-            CheckForCompleteField(fields);
             CheckForNullOrWhitespaceName(aName);
+        }
+
+        private void CheckForPossibleFieldsErrors(ICollection<IField> fields)
+        {
+            CheckForNullFieldsList(fields);
+            CheckForCompleteField(fields);
         }
 
         private void CheckForNullOrWhitespaceName(string aName)
@@ -125,14 +136,21 @@ namespace TodoPagos.Domain
             return Name.GetHashCode();
         }
 
-        public void Deactivate()
+        public void MarkAsInactiveToShowItIsDeleted()
         {
-            this.Activated = false;
+            this.Active = false;
         }
 
-        public void Activate()
+        public bool IsCompleteAndActive()
         {
-            this.Activated = true;
+            try
+            {
+                CheckForPossibleErrors(this.Fields, this.Commission, this.Name);
+                return this.Active;
+            } catch (ArgumentException)
+            {
+                return false;
+            }       
         }
     }
 }

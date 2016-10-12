@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
+using System.Linq;
 
 namespace TodoPagos.Web.Services
 {
@@ -36,6 +37,15 @@ namespace TodoPagos.Web.Services
         {
             MakeSureTargetUserIsNotNull(targetUser);
             MakeSureTargetUserIsComplete(targetUser);
+            MakeSureTargetIsNotAlreadyInRepository(targetUser);
+        }
+
+        private void MakeSureTargetIsNotAlreadyInRepository(User targetUser)
+        {
+            if (ExistsUser(targetUser))
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         private void MakeSureTargetUserIsNotNull(User targetUser)
@@ -92,10 +102,10 @@ namespace TodoPagos.Web.Services
 
         public bool UpdateUser(int userId, User user)
         {
-            if (user != null && userId == user.ID && ExistsUser(userId))
+            if (user != null && userId == user.ID && ExistsUser(userId) && !AnotherDifferentUserAlreadyHasThisEmail(user))
             {
                 User userEntity = unitOfWork.UserRepository.GetByID(userId);
-                userEntity.UpdateInfoWithTargetsUserInfo(user);
+                userEntity.UpdateInfoWithTargetUsersInfo(user);
                 unitOfWork.UserRepository.Update(userEntity);
                 unitOfWork.Save();
                 return true;
@@ -107,6 +117,20 @@ namespace TodoPagos.Web.Services
         {
             User user = unitOfWork.UserRepository.GetByID(userId);
             return user != null;
+        }
+
+        private bool AnotherDifferentUserAlreadyHasThisEmail(User userToBeChecked)
+        {
+            IEnumerable<User> usersThatExists = unitOfWork.UserRepository.Get(
+                us => us.ID != userToBeChecked.ID && us.Email.Equals(userToBeChecked), null, "");
+            return usersThatExists.Count() > 0;
+        }
+
+        private bool ExistsUser(User userToBeChecked)
+        {
+            IEnumerable<User> usersThatExists = unitOfWork.UserRepository.Get(
+                us => us.Equals(userToBeChecked), null, "");
+            return usersThatExists.Count() > 0;
         }
     }
 }

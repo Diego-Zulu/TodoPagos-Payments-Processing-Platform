@@ -249,5 +249,38 @@ namespace TodoPagos.UserAPI.Tests
             string password = "HolaCo1";
             User newUser = new User(userName, userEmail, password, cashierRole);
         }
+
+        [TestMethod]
+        public void BeEqualToAnotherUserIfIDsAreEqual()
+        {
+            string firstUserName = "Mike Aruba";
+            string firstEmail = "FunnyJoke@gmail.com";
+            string firstpassword = "BatmanPassTheMus1ardPl3ase";
+            string secondUserName = "RGB";
+            string secondEmail = "Scart@hotmail.com";
+            string secondPassword = "#CompositeHater123";
+            User firstUser = new User(firstUserName, firstEmail, firstpassword, CashierRole.GetInstance());
+            User secondUser = new User(secondUserName, secondEmail, secondPassword, AdminRole.GetInstance());
+            int sameId = 1;
+
+            firstUser.ID = sameId;
+            secondUser.ID = sameId;
+
+            Assert.AreEqual(firstUser, secondUser);
+        }
+
+        [TestMethod]
+        public void BeEqualToAnotherUserIfEmailsAreEqual()
+        {
+            string equalUserEmail = "LastOneOutOfBeachCity@gmail.com";
+            string firstUserName = "Mike Krol";
+            string firstpassword = "Wabadabadubdub1";
+            string secondUserName = "I Hate Jazz";
+            string secondPassword = "HeHasABandCamp1";
+            User firstUser = new User(firstUserName, equalUserEmail, firstpassword, CashierRole.GetInstance());
+            User secondUser = new User(secondUserName, equalUserEmail, secondPassword, AdminRole.GetInstance());
+
+            Assert.AreEqual(firstUser, secondUser);
+        }
     }
 }

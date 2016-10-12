@@ -11,7 +11,7 @@ namespace TodoPagos.Web.Services.Test
     public class UserServiceShould
     {
         [TestMethod]
-        public void RecieveAUnitOfWorkOnCreation()
+        public void ReceiveAUnitOfWorkOnCreation()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
 
@@ -83,8 +83,6 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithArgumentExceptionIfToBeCreatedNewUserIsNotComplete()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User();
@@ -97,8 +95,6 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithArgumentNullExceptionIfToBeCreatedNewUserIsNull()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = null;
@@ -107,7 +103,23 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void BeAbleToUpdatesExistingUser()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsAlreadyInRepository()
+        {
+            User repeatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.Get(
+                It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, ""))
+                .Returns(new[] { repeatedUser });
+            
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            int id = userService.CreateUser(repeatedUser);
+        }
+
+        [TestMethod]
+        public void BeAbleToUpdateExistingUser()
         {
             User toBeUpdatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             User updatedUser = new User("Diego Z", "dizg2695@hotmail.com", "#ElBizagra1995", AdminRole.GetInstance());
@@ -153,8 +165,6 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => toBeUpdatedUser);
-            mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
         }
 
         [TestMethod]
@@ -176,8 +186,6 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
-            mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
         }
 
         [TestMethod]
@@ -199,8 +207,6 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
-            mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
         }
 
         [TestMethod]
@@ -223,8 +229,34 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new User());
-            mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
-            mockUnitOfWork.Setup(un => un.Save());
+        }
+
+        [TestMethod]
+        public void NotUpdateUserWithEmailOfAnotherUserInRepository()
+        {
+            User updatedUserInfo = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine6(mockUnitOfWork);
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            bool updated = userService.UpdateUser(updatedUserInfo.ID + 1, updatedUserInfo);
+
+            mockUnitOfWork.Verify(un => un.UserRepository.Update(It.IsAny<User>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        private void SetMockUpdateRoutine6(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            User userWithSameEmail = new User("Bruno", "diego_i_zuluaga@outlook.com", "#ElBizagrita1996", AdminRole.GetInstance());
+            userWithSameEmail.ID = 5;
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => new User());
+            mockUnitOfWork
+               .Setup(un => un.UserRepository.Get(
+               It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, ""))
+               .Returns(new[] { userWithSameEmail });
         }
 
         [TestMethod]

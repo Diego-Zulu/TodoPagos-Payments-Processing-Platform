@@ -38,7 +38,16 @@ namespace TodoPagos.Web.Api.Controllers
         public IHttpActionResult GetUsers()
         {
             IEnumerable<User> users = userService.GetAllUsers();
+            ClearPasswordsFromTargetUsers(users);
             return Ok(users);
+        }
+
+        private void ClearPasswordsFromTargetUsers(IEnumerable<User> targetUsers)
+        {
+            foreach (User oneUser in targetUsers)
+            {
+                oneUser.ClearPassword();
+            }
         }
 
         [HttpGet]
@@ -48,6 +57,7 @@ namespace TodoPagos.Web.Api.Controllers
             try
             {
                 User user = userService.GetSingleUser(id);
+                user.ClearPassword();
                 return Ok(user);
             }
             catch (ArgumentOutOfRangeException)
@@ -64,10 +74,10 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return TryToCreateUserWhileCheckingForArgumentNullException(newUser);
+            return TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(newUser);
         }
 
-        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullException(User newUser)
+        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(User newUser)
         {
             try
             {

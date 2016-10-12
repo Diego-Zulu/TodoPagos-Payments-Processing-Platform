@@ -200,30 +200,36 @@ namespace TodoPagos.Domain.Tests
         }
 
         [TestMethod]
-        public void BeAbleToDeactivateItself()
+        public void BeAbleToMarkItselfAsDeleted()
         {
             List<IField> list = new List<IField>();
             DateField aDateField = new DateField("Fecha");
             list.Add(aDateField);
 
             Provider provider = new Provider("Antel", 20, list);
-            provider.Deactivate();
+            provider.MarkAsInactiveToShowItIsDeleted();
 
-            Assert.IsFalse(provider.Activated);
+            Assert.IsFalse(provider.Active);
         }
 
         [TestMethod]
-        public void BeAbleToActivateItself()
+        public void BeAbleToTellItsEqualToAnotherProviderById()
         {
-            List<IField> list = new List<IField>();
-            DateField aDateField = new DateField("Fecha");
-            list.Add(aDateField);
+            Provider firstProvider = new Provider("Antel", 20, new List<IField>());
+            Provider secondProvider = new Provider("Antel", 20, new List<IField>());
+            firstProvider.ID = secondProvider.ID + 1;
 
-            Provider provider = new Provider("Antel", 20, list);
-            provider.Deactivate();
-            provider.Activate();
+            Assert.AreEqual(firstProvider, secondProvider);
+        }
 
-            Assert.IsTrue(provider.Activated);
+        [TestMethod]
+        public void BeAbleToTellItsEqualToAnotherProviderByName()
+        {
+            Provider firstProvider = new Provider("Antel", 20, new List<IField>());
+            Provider secondProvider = new Provider("Antitel", 20, new List<IField>());
+            firstProvider.ID = secondProvider.ID;
+
+            Assert.AreEqual(firstProvider, secondProvider);
         }
     }
 }

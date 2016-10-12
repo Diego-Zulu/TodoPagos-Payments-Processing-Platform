@@ -16,7 +16,7 @@ namespace TodoPagos.WebApi.Tests
     public class UsersControllerShould
     {
         [TestMethod]
-        public void RecieveAUserServiceOnCreation()
+        public void ReceiveAUserServiceOnCreation()
         {
             var mockUserService = new Mock<IUserService>();
 
@@ -51,6 +51,47 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
+        public void NotReturnAnyPasswordsWhenAllUsersAreReturned()
+        {
+            var allUsersWithoutPasswords = GetAllUsersWithoutPasswords();
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsersWithoutPasswords);
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.GetUsers();
+            OkNegotiatedContentResult<IEnumerable<User>> contentResult = (OkNegotiatedContentResult<IEnumerable<User>>)actionResult;
+
+            Assert.AreSame(contentResult.Content, allUsersWithoutPasswords);
+            Assert.IsTrue(NoUserInTargetListHasPasswords(contentResult.Content));
+        }
+
+        private bool NoUserInTargetListHasPasswords(IEnumerable<User> targetList)
+        {
+            foreach(User oneUser in targetList)
+            {
+                if (oneUser.HasPassword())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private User[] GetAllUsersWithoutPasswords()
+        {
+            User firstUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            User secondUser = new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance());
+            firstUser.Password = null;
+            secondUser.Password = null;
+            return new[]
+            {
+                firstUser,
+                secondUser
+            };
+
+        }
+
+        [TestMethod]
         public void BeAbleToReturnSingleUserInRepository()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
@@ -62,6 +103,22 @@ namespace TodoPagos.WebApi.Tests
             OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
 
             Assert.AreSame(contentResult.Content, singleUser);
+        }
+
+        [TestMethod]
+        public void NotReturnThePasswordWhenSingleUserIsReturned()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            singleUser.Password = "";
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID)).Returns(singleUser);
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.GetUser(singleUser.ID);
+            OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
+
+            Assert.AreSame(contentResult.Content, singleUser);
+            Assert.IsFalse(contentResult.Content.HasPassword());
         }
 
         [TestMethod]
@@ -99,7 +156,7 @@ namespace TodoPagos.WebApi.Tests
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PostUser(singleUser);
-            
+
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
 

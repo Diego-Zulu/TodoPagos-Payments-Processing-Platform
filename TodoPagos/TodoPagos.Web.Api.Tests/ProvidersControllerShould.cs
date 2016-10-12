@@ -18,7 +18,7 @@ namespace TodoPagos.Web.Api.Tests
     public class ProvidersControllerShould
     {
         [TestMethod]
-        public void RecieveAProviderServiceOnCreation()
+        public void ReceiveAProviderServiceOnCreation()
         {
             var mockProviderService = new Mock<IProviderService>();
 
@@ -47,6 +47,25 @@ namespace TodoPagos.Web.Api.Tests
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.GetProviders();
+            OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
+
+            Assert.AreSame(contentResult.Content, allProviders);
+        }
+
+        [TestMethod]
+        public void BeAbleToReturnAllActiveProvidersInRepository()
+        {
+            var allProviders = new[]
+            {
+                new Provider("Antel", 10, new List<IField>()),
+            new Provider("Devoto", 15, new List<IField>())
+            };
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.GetAllProvidersAcoordingToState(true)).Returns(allProviders);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            bool getActives = true;
+            IHttpActionResult actionResult = controller.GetProviders(getActives);
             OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
 
             Assert.AreSame(contentResult.Content, allProviders);
@@ -176,7 +195,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.DeleteProvider(oneProvider.ID)).Returns(true);
+            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID)).Returns(true);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);
@@ -190,7 +209,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.DeleteProvider(oneProvider.ID)).Returns(false);
+            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID)).Returns(false);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);

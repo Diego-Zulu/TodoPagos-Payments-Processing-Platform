@@ -211,5 +211,25 @@ namespace TodoPagos.Domain.Tests
 
             Assert.IsFalse(provider.Active);
         }
+
+        [TestMethod]
+        public void BeAbleToTellItsEqualToAnotherProviderById()
+        {
+            Provider firstProvider = new Provider("Antel", 20, new List<IField>());
+            Provider secondProvider = new Provider("Antel", 20, new List<IField>());
+            firstProvider.ID = secondProvider.ID + 1;
+
+            Assert.AreNotEqual(firstProvider, secondProvider);
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItsEqualToAnotherProviderByName()
+        {
+            Provider firstProvider = new Provider("Antel", 20, new List<IField>());
+            Provider secondProvider = new Provider("Antitel", 20, new List<IField>());
+            firstProvider.ID = secondProvider.ID;
+
+            Assert.AreNotEqual(firstProvider, secondProvider);
+        }
     }
 }

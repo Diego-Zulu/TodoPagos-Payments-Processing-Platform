@@ -42,6 +42,20 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void BeAbleToReturnSinglePaymentFromRepository()
         {
+
+            Payment payment = CreateNewPayment();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(x => x.PaymentRepository.GetByID(payment.ID)).Returns(payment);
+            PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
+
+            Payment returnedPayment = paymentService.GetSinglePayment(payment.ID);
+
+            mockUnitOfWork.VerifyAll();
+            Assert.AreSame(payment, returnedPayment);
+        }
+
+        private Payment CreateNewPayment()
+        {
             List<IField> emptyFields = new List<IField>();
             NumberField field = new NumberField("Monto");
             emptyFields.Add(field);
@@ -52,15 +66,7 @@ namespace TodoPagos.Web.Services.Test
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(x => x.PaymentRepository.GetByID(payment.ID)).Returns(payment);
-            PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
-
-            Payment returnedPayment = paymentService.GetSinglePayment(payment.ID);
-
-            mockUnitOfWork.VerifyAll();
-            Assert.AreSame(payment, returnedPayment);
+            return new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
         }
 
         [TestMethod]
@@ -81,17 +87,7 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
             mockUnitOfWork.Setup(x => x.Save());
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
-            List<IField> emptyFields = new List<IField>();
-            NumberField field = new NumberField("Monto");
-            emptyFields.Add(field);
-            IField filledField = field.FillAndClone("100");
-            List<IField> fullFields = new List<IField>();
-            fullFields.Add(filledField);
-            Provider provider = new Provider("Antel", 3, emptyFields);
-            Receipt receipt = new Receipt(provider, fullFields, 100);
-            List<Receipt> list = new List<Receipt>();
-            list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            Payment payment = CreateNewPayment();
 
             int id = paymentService.CreatePayment(payment);
 
@@ -103,8 +99,6 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithArgumentExceptionIfToBeCreatedNewPaymentIsNotComplete()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
-            mockUnitOfWork.Setup(x => x.Save());
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
 
             Payment payment = new Payment();
@@ -114,16 +108,30 @@ namespace TodoPagos.Web.Services.Test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void FailWithArgumentNullExceptionIfToBeCreatedNewUserIsNull()
+        public void FailWithArgumentNullExceptionIfToBeCreatedNewPaymentIsNull()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
+
+            Payment payment = null;
+
+            int id = paymentService.CreatePayment(payment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfAnyOfTheNewPaymentsReceiptsAlreadyIsInTheReceiptsRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
             mockUnitOfWork.Setup(x => x.Save());
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
 
-            Payment payment = null;
+            Payment firstPayment = CreateNewPayment();
+            Payment secondPayment = CreateNewPayment();
 
-            int id = paymentService.CreatePayment(payment);
+            paymentService.CreatePayment(firstPayment);
+            paymentService.CreatePayment(secondPayment);
         }
     }
 }

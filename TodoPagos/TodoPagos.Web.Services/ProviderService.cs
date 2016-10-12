@@ -115,6 +115,11 @@ namespace TodoPagos.Web.Services
             return unitOfWork.ProviderRepository.Get(null, null, "");
         }
 
+        public IEnumerable<Provider> GetAllProvidersAcoordingToState(bool state)
+        {
+            return unitOfWork.ProviderRepository.Get(us => us.Active == state, null, "");
+        }
+
         public Provider GetSingleProvider(int providerId)
         {
             Provider foundProvider = unitOfWork.ProviderRepository.GetByID(providerId);

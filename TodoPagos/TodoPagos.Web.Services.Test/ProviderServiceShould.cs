@@ -48,7 +48,7 @@ namespace TodoPagos.Web.Services.Test
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
             bool getActiveProviders = true;
-            IEnumerable<Provider> returnedProviders = providerService.GetAllProviders(getActiveProviders);
+            IEnumerable<Provider> returnedProviders = providerService.GetAllProvidersAcoordingToState(getActiveProviders);
 
             mockUnitOfWork.VerifyAll();
         }

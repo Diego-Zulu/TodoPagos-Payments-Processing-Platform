@@ -132,17 +132,27 @@ namespace TodoPagos.Web.Services
 
         public bool UpdateProvider(int providerId, Provider oneProvider)
         {
-            if (oneProvider != null && providerId == oneProvider.ID && oneProvider.IsCompleteAndActive() &&
-                ExistsProviderAndItIsNotDeleted(providerId) && !IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(oneProvider))
+            if (ProviderWithUpdatedInfoAndBaseProviderInRepositoryCanBothStartAnUpdate(providerId, oneProvider))
             {
-                Provider providerToBeUpdated = unitOfWork.ProviderRepository.GetByID(providerId);
-                providerToBeUpdated.MarkAsInactiveToShowItIsDeleted();
-                unitOfWork.ProviderRepository.Insert(oneProvider);
-                unitOfWork.ProviderRepository.Update(providerToBeUpdated);
-                unitOfWork.Save();
+                UpdateBaseProviderMarkedAsDeletedAndInsertUpdatedProvider(providerId, oneProvider);
                 return true;
             }
             return false;
+        }
+
+        private bool ProviderWithUpdatedInfoAndBaseProviderInRepositoryCanBothStartAnUpdate(int baseProviderId, Provider updatedProvider)
+        {
+            return updatedProvider != null && baseProviderId == updatedProvider.ID && updatedProvider.IsCompleteAndActive() &&
+                ExistsProviderAndItIsNotDeleted(baseProviderId) && !IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(updatedProvider);
+        }
+
+        private void UpdateBaseProviderMarkedAsDeletedAndInsertUpdatedProvider(int baseProviderId, Provider updatedProvider)
+        {
+            Provider providerToBeUpdated = unitOfWork.ProviderRepository.GetByID(baseProviderId);
+            providerToBeUpdated.MarkAsInactiveToShowItIsDeleted();
+            unitOfWork.ProviderRepository.Insert(updatedProvider);
+            unitOfWork.ProviderRepository.Update(providerToBeUpdated);
+            unitOfWork.Save();
         }
 
         private bool IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(Provider targetProvider)

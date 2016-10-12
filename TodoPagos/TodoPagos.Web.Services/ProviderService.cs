@@ -61,18 +61,26 @@ namespace TodoPagos.Web.Services
         {
             if (ExistsProvider(id))
             {
-                MarkProviderAsDeletedAndUpdate(id);
-                unitOfWork.Save();
+                MarkProviderAsDeletedAndUpdateOnlyIfItIsNotAlreadyDeleted(id);
                 return true;
             }
             return false;
         }
 
-        private void MarkProviderAsDeletedAndUpdate(int targetId)
+        private void MarkProviderAsDeletedAndUpdateOnlyIfItIsNotAlreadyDeleted(int targetId)
         {
             Provider provider = unitOfWork.ProviderRepository.GetByID(targetId);
-            provider.MarkAsInactiveToShowItIsDeleted();
-            unitOfWork.ProviderRepository.Update(provider);
+            if (provider.Active)
+            {
+                MarkProviderAsDeletedAndUpdate(provider);
+            }
+        }
+
+        private void MarkProviderAsDeletedAndUpdate(Provider toBeMarkedAsDeletedProvider)
+        {
+            toBeMarkedAsDeletedProvider.MarkAsInactiveToShowItIsDeleted();
+            unitOfWork.ProviderRepository.Update(toBeMarkedAsDeletedProvider);
+            unitOfWork.Save();
         }
 
         public void Dispose()

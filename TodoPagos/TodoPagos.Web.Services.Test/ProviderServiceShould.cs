@@ -274,7 +274,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void NotModifyAnythingIfProviderInRepositoryIsAlreadyMarkedAsDeleted()
+        public void NotModifyAnythingAndNotFailIfProviderInRepositoryIsAlreadyMarkedAsDeleted()
         {
             Provider alreadyDeletedProvider = new Provider("AntelData", 60, new List<IField>());
             alreadyDeletedProvider.MarkAsInactiveToShowItIsDeleted();
@@ -287,7 +287,7 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
             mockUnitOfWork.Verify(un => un.ProviderRepository.Delete(It.IsAny<int>()), Times.Never());
-            Assert.IsFalse(deleted);
+            Assert.IsTrue(deleted);
         }
 
         private void SetMockDeleteRoutine3(Mock<IUnitOfWork> mockUnitOfWork, Provider alreadyDeletedProvider)

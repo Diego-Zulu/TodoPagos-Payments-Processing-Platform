@@ -153,7 +153,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void NotUpdateNotFilledInformation()
+        public void NotUpdateProviderIfNotComplete()
         {
             Provider toBeUpdatedProvider = new Provider("AntelData", 60, new List<IField>());
             Provider updatedProvider = new Provider("AntelData", 20, new List<IField>());
@@ -164,9 +164,9 @@ namespace TodoPagos.Web.Services.Test
 
             bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID, updatedProvider);
 
-            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Exactly(1));
-            mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
-            Assert.IsTrue(updated);
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
         }
 
         private void SetMockUpdateRoutine2(Mock<IUnitOfWork> mockUnitOfWork, Provider toBeUpdatedProvider)
@@ -246,6 +246,61 @@ namespace TodoPagos.Web.Services.Test
                 .Returns(() => new Provider());
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
+        }
+
+        [TestMethod]
+        public void NotUpdateProviderIfUpdatedInfoHasTheNameOfAnActiveProviderInRepositoryDiferentThanIt()
+        {
+            Provider providerWithSameName = new Provider("UTE", 60, new List<IField>());
+            Provider providerWithUpdatedInfo = new Provider("UTE", 25, new List<IField>());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => new Provider());
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Get(
+                It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, "")).Returns(new[] { providerWithSameName });
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool updated = providerService.UpdateProvider(0, new Provider());
+
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        [TestMethod]
+        public void NotUpdateIfUpdatedProviderIsMarkedAsDeleted()
+        {
+
+            Provider deletedProvider = new Provider("UTE", 60, new List<IField>());
+            deletedProvider.MarkAsInactiveToShowItIsDeleted();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool updated = providerService.UpdateProvider(0, new Provider());
+
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        [TestMethod]
+        public void NotUpdateIfToBeUpdatedProviderInRepositoryIsMarkedAsDeleted()
+        {
+            Provider providerWithUpdatedInfo = new Provider("UTE", 20, new List<IField>());
+            Provider markedAsDeletedInRepositoryProvider = new Provider("UTE", 60, new List<IField>());
+            markedAsDeletedInRepositoryProvider.MarkAsInactiveToShowItIsDeleted();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => markedAsDeletedInRepositoryProvider);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool updated = providerService.UpdateProvider(providerWithUpdatedInfo.ID, providerWithUpdatedInfo);
+
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
         }
 
         [TestMethod]

@@ -11,6 +11,8 @@ namespace TodoPagos.Domain.Repository
 
         IRepository<Payment> PaymentRepository { get; }
 
+        IRepository<Receipt> ReceiptRepository { get; }
+
         void Save();
     }
 }

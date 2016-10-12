@@ -103,8 +103,7 @@ namespace TodoPagos.Domain
 
         private bool CompletedFieldsListsAreEqual(IEnumerable<IField> firstList, IEnumerable<IField> secondList)
         {
-            IEnumerable<IField> intersection = firstList.Intersect(secondList);
-            return firstList.Count() == secondList.Count() && intersection.Count() == firstList.Count();
+            return firstList.All(x => secondList.Contains(x)) && secondList.All(x => firstList.Contains(x));
         }
     }
 }

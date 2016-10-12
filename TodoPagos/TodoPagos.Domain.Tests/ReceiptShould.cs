@@ -187,6 +187,7 @@ namespace TodoPagos.Domain.Tests
             list.Add(aNumberField);
             Provider firstProvider = new Provider("Antel", 20, list);
             Provider secondProvider = new Provider("UTE", 20, list);
+            secondProvider.ID = 1;
             double amount = 1000;
             IField completedNumberField = aNumberField.FillAndClone("8000");
             List<IField> completedFields = new List<IField>();

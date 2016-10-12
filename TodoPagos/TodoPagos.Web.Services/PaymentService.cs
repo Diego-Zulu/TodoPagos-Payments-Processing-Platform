@@ -49,7 +49,8 @@ namespace TodoPagos.Web.Services
         private void CheckThatEqualReceiptDoesntAlreadyExistInReceiptRepository(IEnumerable<Receipt> receipts)
         {
             IEnumerable<Receipt> allReceipts = unitOfWork.ReceiptRepository.Get(null, null, "");
-            if(receipts.Intersect(allReceipts).Count() > 0)
+            bool anyIsContained = receipts.Any(x => allReceipts.Contains(x));
+            if (anyIsContained)
             {
                 throw new ArgumentException();
             }

@@ -90,8 +90,6 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             List<Receipt> receipts = new List<Receipt>();
-            Receipt receipt = CreateNewReceipt();
-            receipts.Add(receipt);
             mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
             mockUnitOfWork.Setup(x => x.ReceiptRepository.Get(null, null, "")).Returns(receipts);
             mockUnitOfWork.Setup(x => x.Save());

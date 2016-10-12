@@ -79,8 +79,14 @@ namespace TodoPagos.Domain
         {
             Receipt otherReceipt = (Receipt)obj;
             return this.ReceiptProvider.Equals(otherReceipt.ReceiptProvider)
-                && CompletedFields.Equals(otherReceipt.CompletedFields)
+                && CompletedFieldsListsAreEqual(CompletedFields, otherReceipt.CompletedFields)
                 && Amount.Equals(otherReceipt.Amount);
+        }
+
+        private bool CompletedFieldsListsAreEqual(IEnumerable<IField> firstList, IEnumerable<IField> secondList)
+        {
+            IEnumerable<IField> intersection = firstList.Intersect(secondList);
+            return firstList.Count() == secondList.Count() && intersection.Count() == firstList.Count();
         }
     }
 }

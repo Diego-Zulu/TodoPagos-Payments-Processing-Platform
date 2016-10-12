@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TodoPagos.Domain;
 using TodoPagos.Domain.Repository;
+using System.Linq;
 
 namespace TodoPagos.Web.Services
 {
@@ -32,6 +33,7 @@ namespace TodoPagos.Web.Services
         {
             CheckForNullPayment(newPayment);
             CheckForIncompletePayment(newPayment);
+            CheckThatEqualReceiptDoesntAlreadyExistInReceiptRepository(newPayment.Receipts);
         }
 
         private void CheckForNullPayment(Payment payment)
@@ -42,6 +44,15 @@ namespace TodoPagos.Web.Services
         private void CheckForIncompletePayment(Payment newPayment)
         {
             if (!newPayment.IsComplete()) throw new ArgumentException();
+        }
+
+        private void CheckThatEqualReceiptDoesntAlreadyExistInReceiptRepository(IEnumerable<Receipt> receipts)
+        {
+            IEnumerable<Receipt> allReceipts = unitOfWork.ReceiptRepository.Get(null, null, "");
+            if(receipts.Intersect(allReceipts).Count() > 0)
+            {
+                throw new ArgumentException();
+            }
         }
 
         public IEnumerable<Payment> GetAllPayments()

@@ -14,6 +14,8 @@ namespace TodoPagos.Domain
 
         public ICollection<IField> CompletedFields { get; set; } = new List<IField>();
 
+        public int ID { get; set; }
+
         public Receipt(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
         {
             CheckForPossibleErrors(aProvider, completedFields, amountToBePaid);
@@ -104,6 +106,11 @@ namespace TodoPagos.Domain
         private bool CompletedFieldsListsAreEqual(IEnumerable<IField> firstList, IEnumerable<IField> secondList)
         {
             return firstList.All(x => secondList.Contains(x)) && secondList.All(x => firstList.Contains(x));
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
         }
     }
 }

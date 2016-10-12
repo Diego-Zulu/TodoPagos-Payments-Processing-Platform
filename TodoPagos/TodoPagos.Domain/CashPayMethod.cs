@@ -13,7 +13,7 @@ namespace TodoPagos.Domain
             CheckIfDateIsNotInTheFuture(date);
             this.Change = 0;
             this.PaidWith = amountPayed;
-            this.payDate = date;
+            this.PayDate = date;
         }
 
         private void CheckIfDateIsNotInTheFuture(DateTime date)

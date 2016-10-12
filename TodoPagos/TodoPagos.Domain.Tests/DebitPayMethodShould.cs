@@ -37,7 +37,7 @@ namespace TodoPagos.Domain.Tests
             DateTime oneDate = DateTime.Parse("10/10/2010");
             PayMethod payMethod = new DebitPayMethod(oneDate);
 
-            Assert.AreEqual(oneDate, payMethod.payDate);
+            Assert.AreEqual(oneDate, payMethod.PayDate);
         }
 
         [TestMethod]

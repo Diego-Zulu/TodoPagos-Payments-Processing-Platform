@@ -82,7 +82,7 @@ namespace TodoPagos.Domain
         public void AddThisPaymentsEarningsToDictionary
             (IDictionary<Provider, double> earningsPerProvider, DateTime from, DateTime to)
         {
-            if(PaymentMethod.payDate >= from && PaymentMethod.payDate <= to)
+            if(PaymentMethod.PayDate >= from && PaymentMethod.PayDate <= to)
             {
                 IterateOverAllReceiptsForDictionary(earningsPerProvider);
             }
@@ -101,7 +101,7 @@ namespace TodoPagos.Domain
 
         public void AddThisPaymentsEarningsToOverallValue(ref double overallValue, DateTime from, DateTime to)
         {
-            if (PaymentMethod.payDate >= from && PaymentMethod.payDate <= to)
+            if (PaymentMethod.PayDate >= from && PaymentMethod.PayDate <= to)
             {
                 IterateOverAllReceiptsForOverallValue(ref overallValue);
             }

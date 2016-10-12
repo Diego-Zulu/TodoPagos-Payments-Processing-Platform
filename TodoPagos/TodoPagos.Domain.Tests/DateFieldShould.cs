@@ -20,7 +20,7 @@ namespace TodoPagos.Domain.Tests
         }
 
         [TestMethod]
-        public void ReturnANewDateFieldWhenFilled()
+        public void ReturnANewIFieldWhenFilled()
         {
             DateField dateField = new DateField("Fecha");
 

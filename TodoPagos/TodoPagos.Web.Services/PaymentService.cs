@@ -64,11 +64,11 @@ namespace TodoPagos.Web.Services
         public Payment GetSinglePayment(int paymentId)
         {
             Payment payment = unitOfWork.PaymentRepository.GetByID(paymentId);
-            CheckIfPaymentExisted(payment);
+            CheckIfPaymentExists(payment);
             return payment;
         }
 
-        private void CheckIfPaymentExisted(Payment payment)
+        private void CheckIfPaymentExists(Payment payment)
         {
             if (payment == null) throw new ArgumentException();
         }

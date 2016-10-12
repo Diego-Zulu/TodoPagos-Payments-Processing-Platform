@@ -131,7 +131,7 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteProvider(int id)
         {
-            if (providerService.DeleteProvider(id))
+            if (providerService.MarkProviderAsDeleted(id))
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }

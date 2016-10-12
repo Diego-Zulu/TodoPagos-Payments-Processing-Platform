@@ -226,25 +226,27 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void BeAbleToDeleteProviderFromRepository()
+        public void BeAbleToMarkAsDeletedAProviderFromRepository()
         {
+            Provider toBeDeletedProvider = new Provider("AntelData", 60, new List<IField>());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            SetMockDeleteRoutine1(mockUnitOfWork);
+            SetMockDeleteRoutine1(mockUnitOfWork, toBeDeletedProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool deleted = providerService.DeleteProvider(2);
+            bool deleted = providerService.MarkProviderAsDeleted(2);
 
-            mockUnitOfWork.Verify(un => un.ProviderRepository.Delete(It.IsAny<int>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
             Assert.IsTrue(deleted);
+            Assert.IsFalse(toBeDeletedProvider.Active);
         }
 
-        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork)
+        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork, Provider toBeDeletedProvider)
         {
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
-                .Returns(() => new Provider());
-            mockUnitOfWork.Setup(un => un.ProviderRepository.Delete(It.IsAny<int>()));
+                .Returns(() => toBeDeletedProvider);
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Update(toBeDeletedProvider));
             mockUnitOfWork.Setup(un => un.Save());
         }
 
@@ -255,7 +257,7 @@ namespace TodoPagos.Web.Services.Test
             SetMockDeleteRoutine2(mockUnitOfWork);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool deleted = providerService.DeleteProvider(2);
+            bool deleted = providerService.MarkProviderAsDeleted(2);
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Delete(It.IsAny<int>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -267,8 +269,6 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
-            mockUnitOfWork.Setup(un => un.ProviderRepository.Delete(It.IsAny<int>()));
-            mockUnitOfWork.Setup(un => un.Save());
         }
     }
 }

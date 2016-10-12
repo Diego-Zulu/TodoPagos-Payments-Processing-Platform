@@ -13,7 +13,7 @@ namespace TodoPagos.Domain
 
         public ICollection<IField> Fields { get; set; } = new List<IField>();
 
-        public bool Activated { get; set; }
+        public bool Active { get; set; }
 
         public Provider()
         {
@@ -26,7 +26,7 @@ namespace TodoPagos.Domain
             Commission = aCommission;
             Name = aName;
             Fields = fields;
-            Activated = true;
+            Active = true;
         }
 
         private void CheckForPossibleErrors(ICollection<IField> fields, double aCommission, string aName)
@@ -136,14 +136,9 @@ namespace TodoPagos.Domain
             return Name.GetHashCode();
         }
 
-        public void Deactivate()
+        public void MarkAsInactiveToShowItIsDeleted()
         {
-            this.Activated = false;
-        }
-
-        public void Activate()
-        {
-            this.Activated = true;
+            this.Active = false;
         }
 
         public bool IsComplete()
@@ -156,52 +151,6 @@ namespace TodoPagos.Domain
             {
                 return false;
             }       
-        }
-
-        public void UpdateInfoWithTargetProvidersInfo(Provider targetProvider)
-        {
-            if (!string.IsNullOrWhiteSpace(targetProvider.Name))
-            {
-                this.Name = targetProvider.Name;
-            }
-
-            if (TargetProviderHasValidComission(targetProvider))
-            {
-                this.Commission = targetProvider.Commission;
-            }
-            
-            if (TargetProviderHasValidFieldsList(targetProvider))
-            {
-                this.Fields.Clear();
-                this.Fields.Concat(targetProvider.Fields);
-            }
-            
-            this.Activated = targetProvider.Activated;
-        }
-
-        private bool TargetProviderHasValidComission(Provider targetProvider)
-        {
-            try
-            {
-                CheckForPossibleCommissionErrors(targetProvider.Commission);
-                return true;
-            } catch (ArgumentException)
-            {
-                return false;
-            }
-        }
-
-        private bool TargetProviderHasValidFieldsList(Provider targetProvider)
-        {
-            try
-            {
-                CheckForPossibleFieldsErrors(targetProvider.Fields);
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
         }
     }
 }

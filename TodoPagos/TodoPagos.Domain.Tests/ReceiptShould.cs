@@ -152,7 +152,7 @@ namespace TodoPagos.Domain.Tests
             Receipt secondReceipt = CreateReceipt(provider, completedFields, amount);
 
             Assert.AreNotSame(firstReceipt, secondReceipt);
-            Assert.AreEqual(firstReceipt, secondReceipt);
+            Assert.IsTrue(firstReceipt.Equals(secondReceipt));
         }
 
         private Receipt CreateReceipt(Provider provider, List<IField> completedFields, double amount)
@@ -176,7 +176,7 @@ namespace TodoPagos.Domain.Tests
             Receipt secondReceipt = CreateReceipt(provider, completedFields, secondAmount);
 
             Assert.AreNotSame(firstReceipt, secondReceipt);
-            Assert.AreNotEqual(firstReceipt, secondReceipt);
+            Assert.IsFalse(firstReceipt.Equals(secondReceipt));
         }
 
         [TestMethod]
@@ -195,7 +195,7 @@ namespace TodoPagos.Domain.Tests
             Receipt secondReceipt = CreateReceipt(secondProvider, completedFields, amount);
 
             Assert.AreNotSame(firstReceipt, secondReceipt);
-            Assert.AreNotEqual(firstReceipt, secondReceipt);
+            Assert.IsFalse(firstReceipt.Equals(secondReceipt));
         }
 
         [TestMethod]
@@ -216,7 +216,24 @@ namespace TodoPagos.Domain.Tests
             Receipt secondReceipt = CreateReceipt(provider, secondCompletedFields, amount);
 
             Assert.AreNotSame(firstReceipt, secondReceipt);
-            Assert.AreNotEqual(firstReceipt, secondReceipt);
+            Assert.IsFalse(firstReceipt.Equals(secondReceipt));
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToANullObject()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 10000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+            Receipt firstReceipt = CreateReceipt(provider, completedFields, amount);
+            Receipt secondReceipt = null;
+
+            Assert.IsFalse(firstReceipt.Equals(secondReceipt));
         }
     }
 }

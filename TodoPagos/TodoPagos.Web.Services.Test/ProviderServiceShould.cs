@@ -101,28 +101,27 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void FailWithArgumentExceptionIfToBeCreatedNewProviderHasTheNameOfAnActiveProviderInRepository()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void FailWithInvalidOperationExceptionIfToBeCreatedNewProviderHasTheNameOfAnActiveProviderInRepository()
         {
             Provider providerWithSameName = new Provider("UTE", 60, new List<IField>());
             Provider providerWithRepeatedName = new Provider("UTE", 25, new List<IField>());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.ProviderRepository.Get(
-                It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, ""));
+                It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, "")).Returns(new[] { providerWithSameName });
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
             int id = providerService.CreateProvider(providerWithRepeatedName);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void FailWithInvalidOperationExceptionIfToBeCreatedNewProviderIsMarkedAsDeleted()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewProviderIsMarkedAsDeleted()
         {
 
             Provider deletedProvider = new Provider("UTE", 60, new List<IField>());
             deletedProvider.MarkAsInactiveToShowItIsDeleted();
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.ProviderRepository.Get(null, null, ""));
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
             
             int id = providerService.CreateProvider(deletedProvider);

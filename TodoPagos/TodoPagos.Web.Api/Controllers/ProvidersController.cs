@@ -99,14 +99,14 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return tryToCreateProviderWhileCheckingForArgumentNullException(newProvider);
+            return TryToCreateProviderWhileCheckingForArgumentNullException(newProvider);
         }
 
-        private IHttpActionResult tryToCreateProviderWhileCheckingForArgumentNullException(Provider newProvider)
+        private IHttpActionResult TryToCreateProviderWhileCheckingForArgumentNullException(Provider newProvider)
         {
             try
             {
-                return tryToCreateProviderWhileCheckingForInvalidOperationException(newProvider);
+                return TryToCreateProviderWhileCheckingForInvalidOperationException(newProvider);
             }
             catch (ArgumentNullException)
             {
@@ -114,14 +114,26 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-        private IHttpActionResult tryToCreateProviderWhileCheckingForInvalidOperationException(Provider newProvider)
+        private IHttpActionResult TryToCreateProviderWhileCheckingForInvalidOperationException(Provider newProvider)
+        {
+            try
+            {
+                return TryToCreateProviderWhileCheckingForArgumentException(newProvider);
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest();
+            }
+        }
+
+        private IHttpActionResult TryToCreateProviderWhileCheckingForArgumentException(Provider newProvider)
         {
             try
             {
                 int id = providerService.CreateProvider(newProvider);
                 return CreatedAtRoute("TodoPagosApi", new { id = newProvider.ID }, newProvider);
             }
-            catch (InvalidOperationException)
+            catch (ArgumentException)
             {
                 return BadRequest();
             }

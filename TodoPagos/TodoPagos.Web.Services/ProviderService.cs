@@ -38,7 +38,8 @@ namespace TodoPagos.Web.Services
         private void MakeSureTargetProviderIsReadyToBeCreated(Provider targetProvider)
         {
             MakeSureTargetProviderIsNotNull(targetProvider);
-            MakeSureTargetProviderIsComplete(targetProvider);
+            MakeSureTargetProviderIsCompleteAndActive(targetProvider);
+            MakeSureTargetProvidersNameIsNotAlreadyOnAnotherActiveProviderInRepository(targetProvider);
         }
 
         private void MakeSureTargetProviderIsNotNull(Provider targetProvider)
@@ -49,11 +50,21 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        private void MakeSureTargetProviderIsComplete(Provider targetProvider)
+        private void MakeSureTargetProviderIsCompleteAndActive(Provider targetProvider)
         {
-            if (!targetProvider.IsComplete())
+            if (!targetProvider.IsComplete() || !targetProvider.Active)
             {
                 throw new ArgumentException();
+            }
+        }
+
+        public void MakeSureTargetProvidersNameIsNotAlreadyOnAnotherActiveProviderInRepository(Provider targetProvider)
+        {
+            IEnumerable<Provider> providersWithSameName = unitOfWork.ProviderRepository.Get(
+                us => us.Name.Equals(targetProvider.Name) && us.Active, null, "");
+            if (providersWithSameName.Count() > 0)
+            {
+                throw new InvalidOperationException();
             }
         }
 

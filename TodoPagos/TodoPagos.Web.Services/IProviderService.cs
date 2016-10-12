@@ -11,6 +11,8 @@ namespace TodoPagos.Web.Services
     {
         IEnumerable<Provider> GetAllProviders();
 
+        IEnumerable<Provider> GetAllProvidersAcoordingToState(bool isActive);
+
         Provider GetSingleProvider(int providerId);
 
         bool UpdateProvider(int providerId, Provider targetProvider);

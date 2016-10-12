@@ -61,7 +61,7 @@ namespace TodoPagos.Web.Api.Tests
             new Provider("Devoto", 15, new List<IField>())
             };
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.GetAllProviders()).Returns(allProviders);
+            mockProviderService.Setup(x => x.GetAllProvidersAcoordingToState(true)).Returns(allProviders);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             bool getActives = true;

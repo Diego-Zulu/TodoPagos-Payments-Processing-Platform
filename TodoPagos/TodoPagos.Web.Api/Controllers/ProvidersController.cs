@@ -36,6 +36,13 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        public IHttpActionResult GetProviders(bool getActiveProviders)
+        {
+            IEnumerable<Provider> users = providerService.GetAllProvidersAcoordingToState(getActiveProviders);
+            return Ok(users);
+        }
+
+        [HttpGet]
         public IHttpActionResult GetProviders()
         {
             IEnumerable<Provider> users = providerService.GetAllProviders();

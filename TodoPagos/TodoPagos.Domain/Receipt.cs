@@ -87,7 +87,6 @@ namespace TodoPagos.Domain
             {
                 return false;
             }
-
         }
 
         private bool SeeIfReceiptsAreEqual(Receipt otherReceipt)

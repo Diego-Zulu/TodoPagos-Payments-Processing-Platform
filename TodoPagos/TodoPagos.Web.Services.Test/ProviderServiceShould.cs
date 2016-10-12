@@ -40,6 +40,20 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
+        public void BeAbleToGetAllActiveProvidersFromRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.ProviderRepository.Get(
+                It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, ""));
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool getActiveProviders = true;
+            IEnumerable<Provider> returnedProviders = providerService.GetAllProviders(getActiveProviders);
+
+            mockUnitOfWork.VerifyAll();
+        }
+
+        [TestMethod]
         public void BeAbleToReturnSingleProvicerFromRepository()
         {
             Provider singleProvider = new Provider("UTE", 60, new List<IField>());

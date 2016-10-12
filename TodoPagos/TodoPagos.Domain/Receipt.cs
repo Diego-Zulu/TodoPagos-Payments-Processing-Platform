@@ -77,6 +77,7 @@ namespace TodoPagos.Domain
 
         public override bool Equals(object obj)
         {
+            if (obj == null) return false;
             Receipt otherReceipt = (Receipt)obj;
             return this.ReceiptProvider.Equals(otherReceipt.ReceiptProvider)
                 && CompletedFieldsListsAreEqual(CompletedFields, otherReceipt.CompletedFields)

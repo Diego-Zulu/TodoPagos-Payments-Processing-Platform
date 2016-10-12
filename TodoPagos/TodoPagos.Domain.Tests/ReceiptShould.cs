@@ -159,5 +159,24 @@ namespace TodoPagos.Domain.Tests
         {
             return new Receipt(provider, completedFields, amount);
         }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherReceiptWithDifferentAmount()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double firstAmount = 10000;
+            double secondAmount = 1000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+            Receipt firstReceipt = CreateReceipt(provider, completedFields, firstAmount);
+            Receipt secondReceipt = CreateReceipt(provider, completedFields, secondAmount);
+
+            Assert.AreNotSame(firstReceipt, secondReceipt);
+            Assert.AreNotEqual(firstReceipt, secondReceipt);
+        }
     }
 }

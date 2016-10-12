@@ -53,6 +53,25 @@ namespace TodoPagos.Web.Api.Tests
         }
 
         [TestMethod]
+        public void BeAbleToReturnAllActiveProvidersInRepository()
+        {
+            var allProviders = new[]
+            {
+                new Provider("Antel", 10, new List<IField>()),
+            new Provider("Devoto", 15, new List<IField>())
+            };
+            var mockProviderService = new Mock<IProviderService>();
+            mockProviderService.Setup(x => x.GetAllProviders()).Returns(allProviders);
+            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+
+            bool getActives = true;
+            IHttpActionResult actionResult = controller.GetProviders(getActives);
+            OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
+
+            Assert.AreSame(contentResult.Content, allProviders);
+        }
+
+        [TestMethod]
         public void BeAbleToReturnASingleProviderFromRepository()
         {
             Provider singleProvider = new Provider("Antel", 10, new List<IField>());

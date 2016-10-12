@@ -52,7 +52,7 @@ namespace TodoPagos.Web.Services
 
         private void MakeSureTargetProviderIsCompleteAndActive(Provider targetProvider)
         {
-            if (!targetProvider.IsComplete() || !targetProvider.Active)
+            if (!targetProvider.IsCompleteAndActive())
             {
                 throw new ArgumentException();
             }
@@ -60,12 +60,23 @@ namespace TodoPagos.Web.Services
 
         public void MakeSureTargetProvidersNameIsNotAlreadyOnAnotherActiveProviderInRepository(Provider targetProvider)
         {
-            IEnumerable<Provider> providersWithSameName = unitOfWork.ProviderRepository.Get(
-                us => us.Name.Equals(targetProvider.Name) && us.Active, null, "");
-            if (providersWithSameName.Count() > 0)
+            if (IsTargetProvidersNameAlreadyInAnActiveProviderInRepository(targetProvider))
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        private bool IsTargetProvidersNameAlreadyInAnActiveProviderInRepository(Provider targetProvider)
+        {
+            IEnumerable<Provider> providersWithSameName = 
+                GetActiveProvidersInRepositoryWithSameNameAsTargetProvider(targetProvider);
+            return providersWithSameName.Count() > 0;
+        }
+
+        private IEnumerable<Provider> GetActiveProvidersInRepositoryWithSameNameAsTargetProvider(Provider targetProvider)
+        {
+            return unitOfWork.ProviderRepository.Get(
+                us => us.Name.Equals(targetProvider.Name) && us.Active, null, "");
         }
 
         public bool MarkProviderAsDeleted(int id)
@@ -121,10 +132,12 @@ namespace TodoPagos.Web.Services
 
         public bool UpdateProvider(int providerId, Provider oneProvider)
         {
-            if (oneProvider != null && providerId == oneProvider.ID && ExistsProvider(providerId))
+            if (oneProvider != null && providerId == oneProvider.ID && oneProvider.IsCompleteAndActive() &&
+                ExistsProviderAndItIsNotDeleted(providerId) && !IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(oneProvider))
             {
                 Provider providerToBeUpdated = unitOfWork.ProviderRepository.GetByID(providerId);
-                //providerToBeUpdated.UpdateInfoWithTargetProvidersInfo(oneProvider);
+                providerToBeUpdated.MarkAsInactiveToShowItIsDeleted();
+                unitOfWork.ProviderRepository.Insert(oneProvider);
                 unitOfWork.ProviderRepository.Update(providerToBeUpdated);
                 unitOfWork.Save();
                 return true;
@@ -132,10 +145,23 @@ namespace TodoPagos.Web.Services
             return false;
         }
 
+        private bool IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(Provider targetProvider)
+        {
+            IEnumerable<Provider> diferentActiveProvidersWithSameName = unitOfWork.ProviderRepository.Get(
+                us => us.Name.Equals(targetProvider.Name) && us.Active && us.ID == targetProvider.ID, null, "");
+            return diferentActiveProvidersWithSameName.Count() > 0;
+        }
+
         private bool ExistsProvider(int providerId)
         {
             Provider provider = unitOfWork.ProviderRepository.GetByID(providerId);
             return provider != null;
+        }
+
+        private bool ExistsProviderAndItIsNotDeleted(int providerId)
+        {
+            Provider provider = unitOfWork.ProviderRepository.GetByID(providerId);
+            return provider != null && provider.Active;
         }
     }
 }

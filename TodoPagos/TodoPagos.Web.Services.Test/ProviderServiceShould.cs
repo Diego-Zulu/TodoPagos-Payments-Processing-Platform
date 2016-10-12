@@ -128,7 +128,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void BeAbleToUpdateExistingProvider()
+        public void BeAbleToInsertUpdatedProviderAsMarkOldProviderAsDeletedWhenUpdatingExistingProvider()
         {
             Provider toBeUpdatedProvider = new Provider("AntelData", 60, new List<IField>());
             Provider updatedProvider = new Provider("Antel", 20, new List<IField>());
@@ -138,9 +138,11 @@ namespace TodoPagos.Web.Services.Test
 
             bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID, updatedProvider);
 
-            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Insert(updatedProvider), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(toBeUpdatedProvider), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
             Assert.IsTrue(updated);
+            Assert.IsFalse(toBeUpdatedProvider.Active);
         }
 
         private void SetMockUpdateRoutine1(Mock<IUnitOfWork> mockUnitOfWork, Provider toBeUpdatedProvider)

@@ -141,12 +141,12 @@ namespace TodoPagos.Domain
             this.Active = false;
         }
 
-        public bool IsComplete()
+        public bool IsCompleteAndActive()
         {
             try
             {
                 CheckForPossibleErrors(this.Fields, this.Commission, this.Name);
-                return true;
+                return this.Active;
             } catch (ArgumentException)
             {
                 return false;

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.UserAPI.Tests", "TodoPagos.UserAPI.Tests\TodoPagos.UserAPI.Tests.csproj", "{994859B7-5316-4F64-9191-891434423306}"
 EndProject
@@ -20,6 +20,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Services.Test", "TodoPagos.Web.Services.Test\TodoPagos.Web.Services.Test.csproj", "{67554477-0507-4BF0-A493-2812D91AF561}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository", "TodoPagos.Domain.Repository\TodoPagos.Domain.Repository.csproj", "{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.DataAccess", "TodoPagos.Domain.DataAccess\TodoPagos.Domain.DataAccess.csproj", "{93599674-97E1-49D7-909E-CF01AF2A8AE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository.Tests", "TodoPagos.Domain.Repository.Tests\TodoPagos.Domain.Repository.Tests.csproj", "{2DAED29E-A6E4-4987-AB74-18038CEB5085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

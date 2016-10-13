@@ -19,5 +19,7 @@ namespace TodoPagos.Domain
         public abstract override bool Equals(object otherIField);
 
         public abstract override int GetHashCode();
+
+        public int ID { get; set; }
     }
 }

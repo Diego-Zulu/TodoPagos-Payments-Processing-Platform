@@ -7,6 +7,8 @@ using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.Domain;
 using System.Web.Http.Description;
+using TodoPagos.Domain.Repository;
+using TodoPagos.Domain.DataAccess;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -15,11 +17,12 @@ namespace TodoPagos.Web.Api.Controllers
     {
         private readonly IProviderService providerService;
 
-        /*public ProvidersController()
+        public ProvidersController()
         {
-            IUnitOfWork unitOfWork = new UnitOfWork();
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
             providerService = new ProviderService(unitOfWork);
-        }*/
+        }
 
         public ProvidersController(IProviderService oneService)
         {
@@ -63,9 +66,9 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProvider(int id, Provider oneProvider)
+        public IHttpActionResult PutProvider([FromUri]int id, [FromBody]Provider oneProvider)
         {
             if (!ModelState.IsValid)
             {
@@ -73,11 +76,11 @@ namespace TodoPagos.Web.Api.Controllers
             }
             else
             {
-                return tryToUpdateProvider(id, oneProvider);
+                return TryToUpdateProvider(id, oneProvider);
             }
         }
 
-        private IHttpActionResult tryToUpdateProvider(int id, Provider oneProvider)
+        private IHttpActionResult TryToUpdateProvider(int id, Provider oneProvider)
         {
             if (!providerService.UpdateProvider(id, oneProvider))
             {

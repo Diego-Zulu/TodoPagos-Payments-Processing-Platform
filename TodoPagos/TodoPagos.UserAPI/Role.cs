@@ -6,6 +6,9 @@ namespace TodoPagos.UserAPI
     public abstract class Role
     {
         public string Name { get; set; }
+
+        public int ID { get; set; }
+
         public virtual ICollection<Privilege> Privileges { get; } = new List<Privilege>();
 
         public override bool Equals(Object anObject)

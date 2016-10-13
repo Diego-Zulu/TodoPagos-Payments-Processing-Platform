@@ -1,0 +1,7 @@
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\TodoPagos.Domain.Repository.Tests.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\TodoPagos.Domain.Repository.Tests.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.pdb

@@ -11,13 +11,13 @@ namespace TodoPagos.Domain
 
         public string Name { get; set; }
 
-        public ICollection<IField> Fields { get; set; } = new List<IField>();
+        public virtual ICollection<IField> Fields { get; set; }
 
         public bool Active { get; set; }
 
         public Provider()
         {
-
+            Fields = new List<IField>();
         }
 
         public Provider(string aName, double aCommission, ICollection<IField> fields)

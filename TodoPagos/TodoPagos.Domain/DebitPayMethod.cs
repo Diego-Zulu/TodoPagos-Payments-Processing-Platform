@@ -11,6 +11,8 @@ namespace TodoPagos.Domain
 
         const int NO_CHANGE = 0;
 
+        private DebitPayMethod() { }
+
         public DebitPayMethod(DateTime date)
         {
             CheckIfDateIsNotInTheFuture(date);

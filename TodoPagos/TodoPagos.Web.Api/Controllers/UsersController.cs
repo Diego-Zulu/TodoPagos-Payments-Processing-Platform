@@ -6,6 +6,7 @@ using System.Web.Http;
 using TodoPagos.Web.Services;
 using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
+using TodoPagos.Domain.DataAccess;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -14,11 +15,12 @@ namespace TodoPagos.Web.Api.Controllers
     {
         private readonly IUserService userService;
 
-        /*public UsersController()
+        public UsersController()
         {
-            IUnitOfWork unitOfWork = new UnitOfWork();
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
             userService = new UserService(unitOfWork);
-        }*/
+        }
 
         public UsersController(IUserService oneService)
         {

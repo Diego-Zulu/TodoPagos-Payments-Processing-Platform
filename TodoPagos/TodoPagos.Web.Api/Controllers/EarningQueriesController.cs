@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TodoPagos.Domain;
+using TodoPagos.Domain.DataAccess;
+using TodoPagos.Domain.Repository;
 using TodoPagos.Web.Services;
 
 namespace TodoPagos.Web.Api.Controllers
@@ -18,6 +20,13 @@ namespace TodoPagos.Web.Api.Controllers
         private readonly DateTime DEFAULT_FROM_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
         private readonly DateTime DEFAULT_TO_DATE = DateTime.Today;
+
+        public EarningQueriesController()
+        {
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            earningQueriesService = new EarningQueriesService(unitOfWork);
+        }
 
         public EarningQueriesController(IEarningQueriesService service)
         {

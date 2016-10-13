@@ -12,6 +12,8 @@ namespace TodoPagos.Domain
         public int Change { get; set; }
         public virtual DateTime PayDate {get; set;}
 
+        public int ID { get; set; }
+
         public abstract int PayAndReturnChange(int total);
     }
 }

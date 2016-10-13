@@ -1,0 +1,14 @@
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\TodoPagos.Domain.DataAccess.dll.config
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\Domain.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\UserAPI.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\Domain.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\UserAPI.pdb
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.pdb

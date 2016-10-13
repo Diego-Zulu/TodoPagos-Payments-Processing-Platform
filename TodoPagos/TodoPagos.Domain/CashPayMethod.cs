@@ -8,6 +8,8 @@ namespace TodoPagos.Domain
 {
     public class CashPayMethod : PayMethod
     {
+        private CashPayMethod() { }
+
         public CashPayMethod(int amountPayed, DateTime date)
         {
             CheckIfDateIsNotInTheFuture(date);

@@ -14,6 +14,8 @@ namespace TodoPagos.Domain
 
         public bool Empty { get; set; }
 
+        private TextField() { }
+
         public TextField(string aName)
         {
             Name = aName;

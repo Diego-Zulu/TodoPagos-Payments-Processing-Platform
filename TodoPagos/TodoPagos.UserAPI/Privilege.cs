@@ -10,6 +10,8 @@ namespace TodoPagos.UserAPI
     {
         public string Name { get; set; }
 
+        public int ID { get; set; }
+
         public override bool Equals(Object anObject)
         {
             try

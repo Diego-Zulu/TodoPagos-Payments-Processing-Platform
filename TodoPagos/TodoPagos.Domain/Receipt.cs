@@ -12,9 +12,14 @@ namespace TodoPagos.Domain
 
         public double Amount { get; set; }
 
-        public ICollection<IField> CompletedFields { get; set; } = new List<IField>();
+        public ICollection<IField> CompletedFields { get; set; }
 
         public int ID { get; set; }
+
+        private Receipt()
+        {
+            CompletedFields = new List<IField>();
+        }
 
         public Receipt(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
         {

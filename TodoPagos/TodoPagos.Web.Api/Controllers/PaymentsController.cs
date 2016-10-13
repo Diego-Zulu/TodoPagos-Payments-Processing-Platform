@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TodoPagos.Domain;
+using TodoPagos.Domain.DataAccess;
+using TodoPagos.Domain.Repository;
 using TodoPagos.Web.Services;
 
 namespace TodoPagos.Web.Api.Controllers
@@ -15,9 +17,16 @@ namespace TodoPagos.Web.Api.Controllers
 
         private readonly IPaymentService paymentService;
 
+        public PaymentsController()
+        {
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            paymentService = new PaymentService(unitOfWork);
+        }
+
         public PaymentsController(IPaymentService service)
         {
-            if (service == null) throw new ArgumentException();
+            CheckForNullPaymentService(service);
             paymentService = service;
         }
 

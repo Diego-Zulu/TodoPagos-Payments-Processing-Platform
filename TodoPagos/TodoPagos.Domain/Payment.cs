@@ -9,27 +9,27 @@ namespace TodoPagos.Domain
     public class Payment
     {
         public virtual PayMethod PaymentMethod { get; set; }
-        public double amountPayed { get; set; }
+        public double AmountPaid { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
-        public virtual int ID { get; set; }
+        public int ID { get; set; }
 
         public Payment()
         {
             Receipts = new List<Receipt>();
         }
 
-        public Payment(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
+        public Payment(PayMethod aPayMethod, double theAmountPaid, ICollection<Receipt> paymentReceipts)
         {
-            CheckAttributeCorrectness(aPayMethod, theAmountPayed, paymentReceipts);
+            CheckAttributeCorrectness(aPayMethod, theAmountPaid, paymentReceipts);
             PaymentMethod = aPayMethod;
-            amountPayed = theAmountPayed;
+            AmountPaid = theAmountPaid;
             Receipts = paymentReceipts;
         }
 
         private void CheckAttributeCorrectness(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
         {
             CheckIfPayMethodIsNotNull(aPayMethod);
-            CheckIfAmountPayedIsPositive(theAmountPayed);
+            CheckIfAmountPaidIsPositive(theAmountPayed);
             CheckIfReceiptsAreNotNull(paymentReceipts);
             CheckIfItHasOneOrMoreReceipts(paymentReceipts);
         }
@@ -50,14 +50,13 @@ namespace TodoPagos.Domain
             }
         }
 
-        private void CheckIfAmountPayedIsPositive(double theAmountPayed)
+        private void CheckIfAmountPaidIsPositive(double theAmountPaid)
         {
-            if (theAmountPayed < 0)
+            if (theAmountPaid < 0)
             {
                 throw new ArgumentException();
             }
         }
-
         private void CheckIfPayMethodIsNotNull(PayMethod aPayMethod)
         {
             if (aPayMethod == null)
@@ -70,7 +69,7 @@ namespace TodoPagos.Domain
         {
             try
             {
-                CheckAttributeCorrectness(this.PaymentMethod, this.amountPayed, this.Receipts);
+                CheckAttributeCorrectness(this.PaymentMethod, this.AmountPaid, this.Receipts);
                 return true;
             }
             catch (ArgumentException)

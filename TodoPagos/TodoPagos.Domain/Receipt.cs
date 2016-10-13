@@ -8,11 +8,11 @@ namespace TodoPagos.Domain
 {
     public class Receipt
     {
-        public Provider ReceiptProvider { get; set; }
+        public virtual Provider ReceiptProvider { get; set; }
 
         public double Amount { get; set; }
 
-        public ICollection<IField> CompletedFields { get; set; }
+        public virtual ICollection<IField> CompletedFields { get; set; }
 
         public int ID { get; set; }
 

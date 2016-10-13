@@ -39,3 +39,10 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\TodoPagos.Domain.DataAccess.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\EntityFramework.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\TodoPagos.Domain.Repository.dll.config
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\EntityFramework.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\EntityFramework.xml
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository\bin\Debug\EntityFramework.SqlServer.xml

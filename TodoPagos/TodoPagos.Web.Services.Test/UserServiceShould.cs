@@ -67,39 +67,45 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void BeAbleToCreateNewUserInRepository()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email,UserManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
-            int id = userService.CreateUser(singleUser);
+            int id = userService.CreateUser(singleUser, receivedUser.Email);
 
-            mockUnitOfWork.VerifyAll(); 
+            mockUnitOfWork.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void FailWithArgumentExceptionIfToBeCreatedNewUserIsNotComplete()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User();
 
-            int id = userService.CreateUser(singleUser);
+            int id = userService.CreateUser(singleUser, receivedUser.Email);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void FailWithArgumentNullExceptionIfToBeCreatedNewUserIsNull()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = null;
 
-            int id = userService.CreateUser(singleUser);
+            int id = userService.CreateUser(singleUser, receivedUser.Email);
         }
 
         [TestMethod]
@@ -107,15 +113,17 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsAlreadyInRepository()
         {
             User repeatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork
                 .Setup(un => un.UserRepository.Get(
                 It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, ""))
                 .Returns(new[] { repeatedUser });
-            
+
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            int id = userService.CreateUser(repeatedUser);
+            int id = userService.CreateUser(repeatedUser, receivedUser.Email);
         }
 
         [TestMethod]
@@ -304,5 +312,22 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void FailWithUnauthorizedAccessExceptionIfUserTriesToPostANewUserWithoutHavingUserManagementPrivilege()
+        {
+            User userToCreate = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
+            User receivedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", CashierRole.GetInstance());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance()))
+                .Returns(false);
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            int id = userService.CreateUser(userToCreate, receivedUser.Email);
+        }
+
     }
 }

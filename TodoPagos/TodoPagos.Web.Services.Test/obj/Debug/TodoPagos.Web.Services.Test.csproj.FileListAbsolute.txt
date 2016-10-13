@@ -56,3 +56,10 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.pdb
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.DataAccess.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Web.Services.Test.dll.config
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\EntityFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\EntityFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.DataAccess.pdb

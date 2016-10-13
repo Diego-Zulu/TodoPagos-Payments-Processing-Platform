@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
 using System.Linq;
+using System.Web;
 
 namespace TodoPagos.Web.Services
 {
@@ -25,12 +26,21 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public int CreateUser(User newUser)
+        public int CreateUser(User newUser, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             MakeSureTargetUserIsReadyToBeCreated(newUser);
             unitOfWork.UserRepository.Insert(newUser);
             unitOfWork.Save();
             return newUser.ID;
+        }
+
+        private void MakeSureUserHasRequiredPrivilege(string signedInUserEmail)
+        {
+            if(!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, UserManagementPrivilege.GetInstance()))
+            {
+                throw new UnauthorizedAccessException();
+            }
         }
 
         private void MakeSureTargetUserIsReadyToBeCreated(User targetUser)

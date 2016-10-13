@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.UserAPI;
 
@@ -86,6 +87,19 @@ namespace TodoPagos.Domain.Repository
                 }
             }
             this.disposed = true;
+        }
+
+        public bool CurrentSignedInUserHasRequiredPrivilege(string userEmail, Privilege somePrivilege)
+        {
+            IEnumerable<User> allUsers = UserRepository.Get(null, null, "");
+            foreach(User user in allUsers)
+            {
+                if (user.Email.Equals(userEmail))
+                {
+                    return user.HasPrivilege(somePrivilege);
+                }
+            }
+            return false;
         }
 
         public void Dispose()

@@ -13,7 +13,7 @@ namespace TodoPagos.Web.Services
 
         User GetSingleUser(int id);
 
-        int CreateUser(User newUser);
+        int CreateUser(User newUser, string signedInUserEmail);
 
         bool UpdateUser(int id, User toBeUpdatedUser);
 

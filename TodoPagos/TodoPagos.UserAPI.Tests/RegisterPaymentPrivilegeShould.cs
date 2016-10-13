@@ -10,19 +10,19 @@ namespace TodoPagos.UserAPI.Tests
         [TestMethod]
         public void HaveItsNamesHashCode()
         {
-            Privilege registerPaymentPrivilege = RegisterPaymentPrivilege.GetInstance();
-            int registerPaymentPrivilegeHashCode = registerPaymentPrivilege.GetHashCode();
+            Privilege userManagementPrivilege = UserManagementPrivilege.GetInstance();
+            int registerPaymentPrivilegeHashCode = userManagementPrivilege.GetHashCode();
 
-            Assert.AreEqual(registerPaymentPrivilegeHashCode, registerPaymentPrivilege.Name.GetHashCode());
+            Assert.AreEqual(registerPaymentPrivilegeHashCode, userManagementPrivilege.Name.GetHashCode());
         }
 
         [TestMethod]
         public void ReturnFalseWhenComparedWithANonPrivilegeObject()
         {
-            Privilege registerPaymentPrivilege = RegisterPaymentPrivilege.GetInstance();
+            Privilege userManagementPrivilege = UserManagementPrivilege.GetInstance();
             string nonRoleObject = "Goodbye World!";
 
-            Assert.AreNotEqual(registerPaymentPrivilege, nonRoleObject);
+            Assert.AreNotEqual(userManagementPrivilege, nonRoleObject);
         }
     }
 }

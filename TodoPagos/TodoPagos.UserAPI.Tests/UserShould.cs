@@ -140,14 +140,14 @@ namespace TodoPagos.UserAPI.Tests
         [TestMethod]
         public void KnowIfItHasACertainPrivilege()
         {
-            Role cashierRole = CashierRole.GetInstance();
+            Role adminRole = AdminRole.GetInstance();
             string userEmail = "DoubleCASHBABY@ort.com.uy";
             string userName = "Riki";
             string password = "HolaCom1";
-            User newUser = new User(userName, userEmail, password, cashierRole);
+            User newUser = new User(userName, userEmail, password, adminRole);
 
-            ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
-            Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
+            ICollection<Privilege> adminPrivileges = adminRole.Privileges;
+            Privilege firstPrivilege = adminPrivileges.ElementAt(FIRST_POSITION);
 
             Assert.IsTrue(newUser.HasPrivilege(firstPrivilege));
         }

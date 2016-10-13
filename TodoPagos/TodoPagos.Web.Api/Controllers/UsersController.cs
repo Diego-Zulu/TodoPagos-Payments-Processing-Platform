@@ -7,6 +7,7 @@ using TodoPagos.Web.Services;
 using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
 using TodoPagos.Domain.DataAccess;
+using System.Web;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -37,6 +38,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IHttpActionResult GetUsers()
         {
             IEnumerable<User> users = userService.GetAllUsers();
@@ -53,6 +55,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
         {
@@ -69,6 +72,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ResponseType(typeof(User))]
         public IHttpActionResult PostUser(User newUser)
         {
@@ -95,12 +99,16 @@ namespace TodoPagos.Web.Api.Controllers
         {
             try
             {
-                int id = userService.CreateUser(newUser);
+                int id = userService.CreateUser(newUser, HttpContext.Current.User.Identity.Name);
                 return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
             }
             catch (InvalidOperationException)
             {
                 return BadRequest();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
             }
         }
 
@@ -138,6 +146,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteUser(int id)
         {

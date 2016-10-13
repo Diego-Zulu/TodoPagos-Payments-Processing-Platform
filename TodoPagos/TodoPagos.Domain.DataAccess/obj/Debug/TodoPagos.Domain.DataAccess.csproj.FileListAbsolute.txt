@@ -12,3 +12,17 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\TodoPagos.Domain.DataAccess.dll.config
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\UserAPI.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\Domain.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\UserAPI.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.pdb

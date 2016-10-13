@@ -18,7 +18,7 @@ namespace TodoPagos.UserAPI
 
         private void AddCashierPrivileges()
         {
-            this.Privileges.Add(RegisterPaymentPrivilege.GetInstance());
+
         }
 
         public static CashierRole GetInstance()

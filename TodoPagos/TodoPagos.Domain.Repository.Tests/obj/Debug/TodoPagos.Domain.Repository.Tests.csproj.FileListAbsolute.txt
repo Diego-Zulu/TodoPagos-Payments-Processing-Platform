@@ -5,3 +5,10 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\TodoPagos.Domain.Repository.Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\TodoPagos.Domain.Repository.Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Repository.Tests\obj\Debug\TodoPagos.Domain.Repository.Tests.pdb

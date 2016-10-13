@@ -40,6 +40,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ResponseType(typeof(IDictionary<Provider, int>))]
         [Route("earningsPerProvider")]
         public IHttpActionResult GetEarningsPerProvider(DateTime? from = null, DateTime? to = null)
@@ -69,6 +70,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ResponseType(typeof(int))]
         [Route("allEarnings")]
         public IHttpActionResult GetAllEarnings(DateTime? from = null, DateTime? to = null)

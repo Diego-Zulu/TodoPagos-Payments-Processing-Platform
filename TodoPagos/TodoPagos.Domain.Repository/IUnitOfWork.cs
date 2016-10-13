@@ -14,5 +14,7 @@ namespace TodoPagos.Domain.Repository
         IRepository<Receipt> ReceiptRepository { get; }
 
         void Save();
+
+        bool CurrentSignedInUserHasRequiredPrivilege(string userEmail, Privilege somePrivilege);
     }
 }

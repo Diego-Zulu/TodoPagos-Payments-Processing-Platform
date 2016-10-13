@@ -25,10 +25,9 @@ namespace TodoPagos.UserAPI.Tests
         {
             CashierRole cashierRole = CashierRole.GetInstance();
 
-            ICollection<Privilege> cashierPrivileges = cashierRole.Privileges;
-            Privilege firstPrivilege = cashierPrivileges.ElementAt(FIRST_POSITION);
+            Privilege onePrivilege = UserManagementPrivilege.GetInstance();
 
-            Assert.IsTrue(cashierRole.HasPrivilege(firstPrivilege));
+            Assert.IsFalse(cashierRole.HasPrivilege(onePrivilege));
         }
 
         [TestMethod]
@@ -47,16 +46,6 @@ namespace TodoPagos.UserAPI.Tests
             string nonRoleObject = "Hello World!";
 
             Assert.AreNotEqual(cashierRole, nonRoleObject);
-        }
-
-        [TestMethod]
-        public void HaveAtLeastOnePrivilege()
-        {
-            CashierRole cashierRole = CashierRole.GetInstance();
-
-            int numberOfPrivileges = cashierRole.GetPrivilegeCount();
-
-            Assert.IsTrue(numberOfPrivileges > 0);
         }
     }
 }

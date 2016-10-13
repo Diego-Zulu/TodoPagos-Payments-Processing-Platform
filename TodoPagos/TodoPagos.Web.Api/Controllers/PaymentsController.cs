@@ -36,6 +36,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IHttpActionResult GetPayments()
         {
             IEnumerable<Payment> payments = paymentService.GetAllPayments();
@@ -43,6 +44,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ResponseType(typeof(Payment))]
         public IHttpActionResult GetPayment(int id)
         {
@@ -58,6 +60,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ResponseType(typeof(Payment))]
         public IHttpActionResult PostPayment(Payment newPayment)
         {

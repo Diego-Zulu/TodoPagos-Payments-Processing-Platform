@@ -38,7 +38,7 @@ namespace TodoPagos.WebApi.Tests
             var allUsers = new[]
             {
                 new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance()),
-            new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance())
+                new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance())
             };
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsers);
@@ -138,7 +138,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(singleUser)).Returns(1);
+            mockUserService.Setup(x => x.CreateUser(singleUser, It.IsAny<String>())).Returns(1);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PostUser(singleUser);
@@ -150,9 +150,10 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsAlreadyInRepository()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(singleUser)).Throws(new InvalidOperationException());
+            mockUserService.Setup(x => x.CreateUser(singleUser, receivedUser.Email)).Throws(new InvalidOperationException());
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PostUser(singleUser);
@@ -163,9 +164,10 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsNotCompleteInRepository()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             User incompleteUser = new User();
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(incompleteUser)).Throws(new ArgumentException());
+            mockUserService.Setup(x => x.CreateUser(incompleteUser, receivedUser.Email)).Throws(new ArgumentException());
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PostUser(incompleteUser);
@@ -176,9 +178,10 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsNull()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             User nullUser = null;
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(nullUser)).Throws(new ArgumentNullException());
+            mockUserService.Setup(x => x.CreateUser(nullUser, receivedUser.Email)).Throws(new ArgumentNullException());
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PostUser(nullUser);

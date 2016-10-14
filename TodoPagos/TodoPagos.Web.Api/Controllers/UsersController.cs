@@ -8,6 +8,8 @@ using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
 using TodoPagos.Domain.DataAccess;
 using System.Web;
+using System.Security.Claims;
+using Microsoft.Owin.Security.OAuth;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -15,18 +17,21 @@ namespace TodoPagos.Web.Api.Controllers
     public class UsersController : ApiController
     {
         private readonly IUserService userService;
+        private readonly string nameOfUser;
 
         public UsersController()
         {
             TodoPagosContext context = new TodoPagosContext();
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             userService = new UserService(unitOfWork);
+            nameOfUser = HttpContext.Current.User.Identity.Name;
         }
 
         public UsersController(IUserService oneService)
         {
             FailIfServiceArgumentIsNull(oneService);
             userService = oneService;
+            nameOfUser = "TESTING";
         }
 
         private void FailIfServiceArgumentIsNull(IUserService oneService)
@@ -42,15 +47,16 @@ namespace TodoPagos.Web.Api.Controllers
         public IHttpActionResult GetUsers()
         {
             IEnumerable<User> users = userService.GetAllUsers();
-            ClearPasswordsFromTargetUsers(users);
+            ClearPasswordsAndSaltsFromTargetUsers(users);
             return Ok(users);
         }
 
-        private void ClearPasswordsFromTargetUsers(IEnumerable<User> targetUsers)
+        private void ClearPasswordsAndSaltsFromTargetUsers(IEnumerable<User> targetUsers)
         {
             foreach (User oneUser in targetUsers)
             {
                 oneUser.ClearPassword();
+                oneUser.ClearSalt();
             }
         }
 
@@ -63,6 +69,7 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 User user = userService.GetSingleUser(id);
                 user.ClearPassword();
+                user.ClearSalt();
                 return Ok(user);
             }
             catch (ArgumentOutOfRangeException)
@@ -74,20 +81,20 @@ namespace TodoPagos.Web.Api.Controllers
         [HttpPost]
         [Authorize]
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User newUser)
+        public IHttpActionResult PostUser(User newUser, string password)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(newUser);
+            return TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(newUser, password);
         }
 
-        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(User newUser)
+        private IHttpActionResult TryToCreateUserWhileCheckingForArgumentNullAndArgumentException(User newUser, string password)
         {
             try
             {
-                return TryToCreateUserWhileCheckingForInvalidOperationException(newUser);
+                return TryToCreateUserWhileCheckingForInvalidOperationException(newUser, password);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
             {
@@ -95,11 +102,11 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-        private IHttpActionResult TryToCreateUserWhileCheckingForInvalidOperationException(User newUser)
+        private IHttpActionResult TryToCreateUserWhileCheckingForInvalidOperationException(User newUser, string password)
         {
             try
             {
-                int id = userService.CreateUser(newUser, HttpContext.Current.User.Identity.Name);
+                int id = userService.CreateUser(newUser, password, nameOfUser);
                 return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
             }
             catch (InvalidOperationException)
@@ -113,20 +120,20 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutUser(int id, User user, string password)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             } else
             {
-                return TryToUpdateUser(id, user);
+                return TryToUpdateUser(id, user, password);
             }
         }
 
-        private IHttpActionResult TryToUpdateUser(int id, User user)
+        private IHttpActionResult TryToUpdateUser(int id, User user, string password)
         {
-            if (!userService.UpdateUser(id, user))
+            if (!userService.UpdateUser(id, user, password, nameOfUser))
             {
                 return DecideWhatErrorMessageToReturn(id, user);
             }

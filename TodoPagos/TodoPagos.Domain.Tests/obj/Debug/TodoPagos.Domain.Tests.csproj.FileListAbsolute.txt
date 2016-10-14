@@ -5,13 +5,6 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Deb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\TodoPagos.Domain.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Tests.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Tests.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Domain.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Domain.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\TodoPagos.Domain.Tests.csprojResolveAssemblyReference.cache
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.pdb
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Tests.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Tests.pdb
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Domain.dll
@@ -19,3 +12,10 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\TodoPagos.Domain.Tests.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Debug\Domain.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\TodoPagos.Domain.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Debug\Tests.pdb

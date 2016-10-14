@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.OAuth;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using TodoPagos.Domain.DataAccess;
+using Domain;
 
 namespace TodoPagos.Web.Api
 {
@@ -19,12 +20,11 @@ namespace TodoPagos.Web.Api
 
         public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
            using (TodoPagosContext db = new TodoPagosContext())
             {
-                var user = db.Users.FirstOrDefault(u => u.Email == context.UserName && u.Password == context.Password);
+                var user = db.Users.FirstOrDefault(u => u.Email == context.UserName && Hashing.VerifyHash(context.Password, u.Salt, u.Password));
                 if (user == null)
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");

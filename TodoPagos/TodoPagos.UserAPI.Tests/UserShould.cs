@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TodoPagos.UserAPI;
 using System.Security.Cryptography;
+using Domain;
 
 namespace TodoPagos.UserAPI.Tests
 {
@@ -192,7 +193,7 @@ namespace TodoPagos.UserAPI.Tests
             string password = "HolaCom1";
             User newUser = new User(userName, userEmail, password, cashierRole);
 
-            Assert.AreEqual(password, newUser.Password);
+            Assert.IsTrue(Hashing.VerifyHash(password, newUser.Salt, newUser.Password));
         }
 
         [TestMethod]

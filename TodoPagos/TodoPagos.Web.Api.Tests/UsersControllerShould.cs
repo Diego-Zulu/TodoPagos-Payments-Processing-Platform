@@ -51,25 +51,25 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void NotReturnAnyPasswordsWhenAllUsersAreReturned()
+        public void NotReturnAnyPasswordsOrSaltsWhenAllUsersAreReturned()
         {
-            var allUsersWithoutPasswords = GetAllUsersWithoutPasswords();
+            var allUsersWithoutPasswordsAndSalts = GetAllUsersWithoutPasswordsAndSalts();
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsersWithoutPasswords);
+            mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsersWithoutPasswordsAndSalts);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUsers();
             OkNegotiatedContentResult<IEnumerable<User>> contentResult = (OkNegotiatedContentResult<IEnumerable<User>>)actionResult;
 
-            Assert.AreSame(contentResult.Content, allUsersWithoutPasswords);
-            Assert.IsTrue(NoUserInTargetListHasPasswords(contentResult.Content));
+            Assert.AreSame(contentResult.Content, allUsersWithoutPasswordsAndSalts);
+            Assert.IsTrue(NoUserInTargetListHasPasswordsOrSalts(contentResult.Content));
         }
 
-        private bool NoUserInTargetListHasPasswords(IEnumerable<User> targetList)
+        private bool NoUserInTargetListHasPasswordsOrSalts(IEnumerable<User> targetList)
         {
             foreach(User oneUser in targetList)
             {
-                if (oneUser.HasPassword())
+                if (oneUser.HasPassword() || oneUser.HasSalt())
                 {
                     return false;
                 }
@@ -77,12 +77,14 @@ namespace TodoPagos.WebApi.Tests
             return true;
         }
 
-        private User[] GetAllUsersWithoutPasswords()
+        private User[] GetAllUsersWithoutPasswordsAndSalts()
         {
             User firstUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             User secondUser = new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance());
-            firstUser.Password = null;
-            secondUser.Password = null;
+            firstUser.ClearPassword();
+            firstUser.ClearSalt();
+            secondUser.ClearPassword();
+            secondUser.ClearSalt();
             return new[]
             {
                 firstUser,
@@ -106,10 +108,11 @@ namespace TodoPagos.WebApi.Tests
         }
 
         [TestMethod]
-        public void NotReturnThePasswordWhenSingleUserIsReturned()
+        public void NotReturnThePasswordNeitherTheSaltWhenSingleUserIsReturned()
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
-            singleUser.Password = "";
+            singleUser.ClearPassword();
+            singleUser.ClearSalt();
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetSingleUser(singleUser.ID)).Returns(singleUser);
             UsersController controller = new UsersController(mockUserService.Object);
@@ -119,6 +122,7 @@ namespace TodoPagos.WebApi.Tests
 
             Assert.AreSame(contentResult.Content, singleUser);
             Assert.IsFalse(contentResult.Content.HasPassword());
+            Assert.IsFalse(contentResult.Content.HasSalt());
         }
 
         [TestMethod]
@@ -136,12 +140,13 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void BeAbleToPostNewUserIntoRepository()
         {
-            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            string singleUserPass = "Wololo1234!";
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", singleUserPass, CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(singleUser, It.IsAny<String>())).Returns(1);
+            mockUserService.Setup(x => x.CreateUser(singleUser, singleUserPass, It.IsAny<String>())).Returns(1);
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PostUser(singleUser);
+            IHttpActionResult actionResult = controller.PostUser(singleUser, singleUserPass);
             CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
 
             Assert.AreSame(contentResult.Content, singleUser);
@@ -150,13 +155,13 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsAlreadyInRepository()
         {
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
-            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            string singleUserPass = "Wololo1234!";
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", singleUserPass, CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(singleUser, receivedUser.Email)).Throws(new InvalidOperationException());
+            mockUserService.Setup(x => x.CreateUser(singleUser, singleUserPass, It.IsAny<string>())).Throws(new InvalidOperationException());
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PostUser(singleUser);
+            IHttpActionResult actionResult = controller.PostUser(singleUser, singleUserPass);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -164,13 +169,12 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsNotCompleteInRepository()
         {
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             User incompleteUser = new User();
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(incompleteUser, receivedUser.Email)).Throws(new ArgumentException());
+            mockUserService.Setup(x => x.CreateUser(incompleteUser, "", It.IsAny<string>())).Throws(new ArgumentException());
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PostUser(incompleteUser);
+            IHttpActionResult actionResult = controller.PostUser(incompleteUser, "");
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -178,13 +182,12 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewUserIsNull()
         {
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             User nullUser = null;
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.CreateUser(nullUser, receivedUser.Email)).Throws(new ArgumentNullException());
+            mockUserService.Setup(x => x.CreateUser(nullUser, null, It.IsAny<string>())).Throws(new ArgumentNullException());
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PostUser(nullUser);
+            IHttpActionResult actionResult = controller.PostUser(nullUser, null);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -192,12 +195,13 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void BeAbleToUpdateAnUserInTheRepository()
         {
-            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            string singleUserPass = "Wololo1234!";
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", singleUserPass, CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.UpdateUser(singleUser.ID, singleUser)).Returns(true);
+            mockUserService.Setup(x => x.UpdateUser(singleUser.ID, singleUser, singleUserPass, It.IsAny<string>())).Returns(true);
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
+            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser, singleUserPass);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
@@ -206,36 +210,39 @@ namespace TodoPagos.WebApi.Tests
         [TestMethod]
         public void FailWithBadRequestIfUpdatedUserIdAndSuppliedIdAreDifferent()
         {
-            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            string singleUserPass = "Wololo1234!";
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", singleUserPass, CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.UpdateUser(singleUser.ID + 1, singleUser)).Returns(false);
+            mockUserService.Setup(x => x.UpdateUser(singleUser.ID + 1, singleUser, singleUserPass, It.IsAny<string>())).Returns(false);
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PutUser(singleUser.ID + 1, singleUser);
+            IHttpActionResult actionResult = controller.PutUser(singleUser.ID + 1, singleUser, singleUserPass);
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
 
         [TestMethod]
         public void FailWithBadRequestIfUpdatedUserIsNull()
         {
+            string nullUserPass = null;
             User nullUser = null;
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.UpdateUser(1, nullUser)).Returns(false);
+            mockUserService.Setup(x => x.UpdateUser(1, nullUser, nullUserPass, It.IsAny<string>())).Returns(false);
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PutUser(1, nullUser);
+            IHttpActionResult actionResult = controller.PutUser(1, nullUser, nullUserPass);
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
 
         [TestMethod]
         public void FailWithNotFoundIfServiceCantFindToBeUpdatedUserInRepository()
         {
-            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            string singleUserPass = "Wololo1234!";
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", singleUserPass, CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.UpdateUser(singleUser.ID, singleUser)).Returns(false);
+            mockUserService.Setup(x => x.UpdateUser(singleUser.ID, singleUser, singleUserPass, It.IsAny<string>())).Returns(false);
             UsersController controller = new UsersController(mockUserService.Object);
 
-            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser);
+            IHttpActionResult actionResult = controller.PutUser(singleUser.ID, singleUser, singleUserPass);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
 

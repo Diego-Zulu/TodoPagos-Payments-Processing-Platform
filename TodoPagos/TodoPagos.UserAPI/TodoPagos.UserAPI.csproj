@@ -48,6 +48,12 @@
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">
+      <Project>{a5b13880-c1f7-4165-b35f-c71219dc146e}</Project>
+      <Name>TodoPagos.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EmailAddress = System.Net.Mail.MailAddress;
 
@@ -12,7 +12,8 @@ namespace TodoPagos.UserAPI
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
+        public byte[] Salt { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
         public int ID { get; set; }
 
@@ -30,9 +31,15 @@ namespace TodoPagos.UserAPI
             CheckAttributeCorrectness(newUserName, newUserEmail, newPassword, newUserRole);
             Name = newUserName;
             Email = newUserEmail;
-            Password = newPassword;
             Roles = new List<Role>();
             Roles.Add(newUserRole);
+            DealWithPassword(newPassword);
+        }
+
+        private void DealWithPassword(string pass)
+        {
+            Salt = Hashing.GetRandomSalt();
+            this.Password = Hashing.HashValue(pass, this.Salt);
         }
 
         private void CheckAttributeCorrectness(string newUserName, string newUserEmail, string newPassword, Role newUserRole)
@@ -161,7 +168,6 @@ namespace TodoPagos.UserAPI
         private void DoChecksToSeeIfUserIsComplete()
         {
             CheckIfNameAndEmailAreCorrect(this.Name, this.Email);
-            CheckIfPasswordIsCorrect(this.Password);
             CheckIfHasAtLeastMinimumNumberOfRoles(this.Roles);
         }
 
@@ -173,12 +179,12 @@ namespace TodoPagos.UserAPI
             }
         }
 
-        public void UpdateInfoWithTargetUsersInfo(User targetUser)
+        public void UpdateInfoWithTargetUsersInfo(User targetUser, string newPassword)
         {
             UpdateNameIfTargetUsersNameIsValid(targetUser);
             UpdateEmailIfTargetUsersEmailIsValid(targetUser);
-            UpdatePasswordIfTargetUsersPasswordIsValid(targetUser);
             UpdateRolesIfTargetUsersRolesAreValid(targetUser);
+            UpdatePasswordIfPasswordIsCorrect(targetUser, newPassword);
         }
 
         private void UpdateNameIfTargetUsersNameIsValid(User targetUser)
@@ -194,14 +200,6 @@ namespace TodoPagos.UserAPI
             if (!NotValidEmail(targetUser.Email))
             {
                 this.Email = targetUser.Email;
-            }
-        }
-
-        private void UpdatePasswordIfTargetUsersPasswordIsValid(User targetUser)
-        {
-            if (IsValidPassword(targetUser.Password))
-            {
-                this.Password = targetUser.Password;
             }
         }
 
@@ -224,6 +222,14 @@ namespace TodoPagos.UserAPI
             return String.IsNullOrWhiteSpace(aName);
         }
 
+        public void UpdatePasswordIfPasswordIsCorrect(User targetUser, string newPassword)
+        {
+            if (IsValidPassword(newPassword))
+            {
+                targetUser.DealWithPassword(newPassword);
+            }
+        }
+
         private bool IsValidPassword(string aPassword)
         {
             try
@@ -239,12 +245,28 @@ namespace TodoPagos.UserAPI
 
         public bool HasPassword()
         {
-            return !string.IsNullOrWhiteSpace(this.Password);
+            return Password != null;
         }
 
         public void ClearPassword()
         {
             this.Password = null;
+        }
+
+        public bool HasSalt()
+        {
+            return Salt != null;
+        }
+
+        public void ClearSalt()
+        {
+            this.Salt = null;
+        }
+
+        public void SetPasswordIfCorrect(string password)
+        {
+            CheckIfPasswordIsCorrect(password);
+            DealWithPassword(password);
         }
 
         public override bool Equals(object obj)
@@ -261,5 +283,7 @@ namespace TodoPagos.UserAPI
         {
             return base.GetHashCode();
         }
+
+
     }
 }

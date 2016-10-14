@@ -26,10 +26,11 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public int CreateUser(User newUser, string signedInUserEmail)
+        public int CreateUser(User newUser, string password, string signedInUserEmail)
         {
             MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             MakeSureTargetUserIsReadyToBeCreated(newUser);
+            MakeSureTargetUserIsWithCorrectPassword(newUser, password);
             unitOfWork.UserRepository.Insert(newUser);
             unitOfWork.Save();
             return newUser.ID;
@@ -37,7 +38,7 @@ namespace TodoPagos.Web.Services
 
         private void MakeSureUserHasRequiredPrivilege(string signedInUserEmail)
         {
-            if(!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, UserManagementPrivilege.GetInstance()))
+            if (!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, UserManagementPrivilege.GetInstance()))
             {
                 throw new UnauthorizedAccessException();
             }
@@ -56,6 +57,11 @@ namespace TodoPagos.Web.Services
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        private void MakeSureTargetUserIsWithCorrectPassword(User targetUser, string password)
+        {
+            targetUser.SetPasswordIfCorrect(password);
         }
 
         private void MakeSureTargetUserIsNotNull(User targetUser)
@@ -110,12 +116,12 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool UpdateUser(int userId, User user)
+        public bool UpdateUser(int userId, User user, string newPassword, string signedInUserEmail)
         {
             if (user != null && userId == user.ID && ExistsUser(userId) && !AnotherDifferentUserAlreadyHasThisEmail(user))
             {
                 User userEntity = unitOfWork.UserRepository.GetByID(userId);
-                userEntity.UpdateInfoWithTargetUsersInfo(user);
+                userEntity.UpdateInfoWithTargetUsersInfo(user, newPassword);
                 unitOfWork.UserRepository.Update(userEntity);
                 unitOfWork.Save();
                 return true;

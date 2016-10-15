@@ -113,5 +113,17 @@ namespace TodoPagos.Domain
                 overallValue += receipt.CalculateEarnings();
             }
         }
+
+        public bool IsValid()
+        {
+            foreach(Receipt receipt in Receipts)
+            {
+                if (!receipt.IsValid())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

@@ -243,5 +243,20 @@ namespace TodoPagos.Domain.Tests
 
             Assert.IsTrue(firstProvider.IsCompletelyEqualTo(secondProvider));
         }
+
+        [TestMethod]
+        public void BeAbleToTellTwoProvidersWithDifferentListsAreNotCompletelyEqual()
+        {
+            List<IField> firstList = new List<IField>();
+            DateField aDateField = new DateField("Vencimiento");
+            firstList.Add(aDateField);
+            List<IField> secondList = new List<IField>();
+            NumberField aNumberField = new NumberField("Vencimiento");
+            secondList.Add(aNumberField);
+            Provider firstProvider = new Provider("Antel", 10, firstList);
+            Provider secondProvider = new Provider("Antel", 10, secondList);
+
+            Assert.IsFalse(firstProvider.IsCompletelyEqualTo(secondProvider));
+        }
     }
 }

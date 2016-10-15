@@ -152,5 +152,17 @@ namespace TodoPagos.Domain
                 return false;
             }       
         }
+
+        public bool IsCompletelyEqualTo(Provider anotherProvider)
+        {
+            return Name.Equals(anotherProvider.Name) && Commission.Equals(anotherProvider.Commission)
+                && ID == anotherProvider.ID && Active.Equals(anotherProvider.Active)
+                && TheTwoFieldsListAreCompletelyEqual(Fields, anotherProvider.Fields);
+        }
+
+        private bool TheTwoFieldsListAreCompletelyEqual(IEnumerable<IField> firstFieldsList, IEnumerable<IField> secondFieldsList)
+        {
+            return firstFieldsList.All(x => secondFieldsList.Contains(x)) && secondFieldsList.All(x => firstFieldsList.Contains(x));
+        }
     }
 }

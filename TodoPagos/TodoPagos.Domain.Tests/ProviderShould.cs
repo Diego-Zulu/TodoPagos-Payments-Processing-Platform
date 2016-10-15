@@ -238,7 +238,7 @@ namespace TodoPagos.Domain.Tests
             List<IField> list = new List<IField>();
             DateField aDateField = new DateField("Vencimiento");
             list.Add(aDateField);
-            Provider firstProvider = new Provider("Antel", 20, list);
+            Provider firstProvider = new Provider("Antel", 10, list);
             Provider secondProvider = new Provider("Antel", 10, list);
 
             Assert.IsTrue(firstProvider.IsCompletelyEqualTo(secondProvider));

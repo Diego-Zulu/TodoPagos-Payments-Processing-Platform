@@ -245,7 +245,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.DeleteUser(singleUser.ID)).Returns(true);
+            mockUserService.Setup(x => x.DeleteUser(singleUser.ID, It.IsAny<string>())).Returns(true);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.DeleteUser(singleUser.ID);
@@ -259,7 +259,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.DeleteUser(singleUser.ID)).Returns(false);
+            mockUserService.Setup(x => x.DeleteUser(singleUser.ID, It.IsAny<string>())).Returns(false);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.DeleteUser(singleUser.ID);

@@ -4,6 +4,7 @@ using TodoPagos.Domain.Repository;
 using Moq;
 using System.Collections.Generic;
 using TodoPagos.UserAPI;
+using System.Linq.Expressions;
 
 namespace TodoPagos.Web.Services.Tests
 {
@@ -69,7 +70,7 @@ namespace TodoPagos.Web.Services.Tests
         {
             User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email,UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
@@ -272,22 +273,29 @@ namespace TodoPagos.Web.Services.Tests
         [TestMethod]
         public void BeAbleToDeleteUserFromRepository()
         {
+            User adminUser = new User("Bruno", "bferr42@gmail.com", "Hola123!!", AdminRole.GetInstance());
+            adminUser.ID = 1;
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            SetMockDeleteRoutine1(mockUnitOfWork);
+            SetMockDeleteRoutine1(mockUnitOfWork, adminUser);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            bool deleted = userService.DeleteUser(2);
+            bool deleted = userService.DeleteUser(2, adminUser.Email);
 
             mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
             Assert.IsTrue(deleted);
         }
 
-        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork)
+        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork, User signedInUser)
         {
+            List<User> usersList = new List<User>();
+            usersList.Add(signedInUser);
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new User());
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, ""))
+                .Returns(() => usersList);
             mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -295,11 +303,12 @@ namespace TodoPagos.Web.Services.Tests
         [TestMethod]
         public void NotDeleteAnythingIfUserIdDoesntExistInRepository()
         {
+            User adminUser = new User("Bruno", "bferr42@gmail.com", "Hola123!!", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockDeleteRoutine2(mockUnitOfWork);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            bool deleted = userService.DeleteUser(2);
+            bool deleted = userService.DeleteUser(2, adminUser.Email);
 
             mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -339,7 +348,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockDeleteRoutine3(mockUnitOfWork, user);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            bool deleted = userService.DeleteUser(user.ID);
+            bool deleted = userService.DeleteUser(user.ID, user.Email);
 
             mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -348,9 +357,14 @@ namespace TodoPagos.Web.Services.Tests
 
         private void SetMockDeleteRoutine3(Mock<IUnitOfWork> mockUnitOfWork, User signedInUser)
         {
+            List<User> usersList = new List<User>();
+            usersList.Add(signedInUser);
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => signedInUser);
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, ""))
+                .Returns(() => usersList);
             mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
             mockUnitOfWork.Setup(un => un.Save());
         }

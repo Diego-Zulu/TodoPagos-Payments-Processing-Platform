@@ -75,15 +75,22 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool DeleteUser(int id)
+        public bool DeleteUser(int id, string signedInUserEmail)
         {
-            if (ExistsUser(id))
+            if (ExistsUser(id) && !SameUser(id, signedInUserEmail))
             {
                 unitOfWork.UserRepository.Delete(id);
                 unitOfWork.Save();
                 return true;
             }
             return false;
+        }
+
+        private bool SameUser(int id, string signedInUserEmail)
+        {
+            User userToBeDeleted = unitOfWork.UserRepository.GetByID(id);
+            User signedInUser = unitOfWork.UserRepository.Get(us => us.Email.Equals(signedInUserEmail), null, "").First();
+            return signedInUser.Equals(userToBeDeleted);
         }
 
         public void Dispose()

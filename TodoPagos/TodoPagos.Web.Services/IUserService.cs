@@ -17,7 +17,7 @@ namespace TodoPagos.Web.Services
 
         bool UpdateUser(int userId, User user, string signedInUserEmail);
 
-        bool DeleteUser(int id);
+        bool DeleteUser(int id, string signedInUserEmail);
 
         void Dispose();
     }

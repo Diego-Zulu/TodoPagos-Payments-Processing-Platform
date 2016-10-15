@@ -154,7 +154,7 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteUser(int id)
         {
-            if (userService.DeleteUser(id))
+            if (userService.DeleteUser(id, signedInUsername))
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }

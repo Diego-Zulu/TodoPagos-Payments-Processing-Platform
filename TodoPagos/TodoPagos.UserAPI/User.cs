@@ -283,7 +283,7 @@ namespace TodoPagos.UserAPI
             User castedObject = obj as User;
             if (castedObject != null)
             {
-                return castedObject.ID == this.ID || castedObject.Email.Equals(this.Email);
+                return this.ID == castedObject.ID || this.Email.Equals(castedObject.Email);
             }
             return false;
         }

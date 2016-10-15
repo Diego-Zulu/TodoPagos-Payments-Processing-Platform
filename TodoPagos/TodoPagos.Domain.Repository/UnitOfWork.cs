@@ -12,7 +12,6 @@ namespace TodoPagos.Domain.Repository
         private GenericRepository<Receipt> receiptRepository;
         private GenericRepository<Provider> providerRepository;
         private GenericRepository<Payment> paymentRepository;
-
         public UnitOfWork(TodoPagosContext todoPagosContext)
         {
             context = todoPagosContext;

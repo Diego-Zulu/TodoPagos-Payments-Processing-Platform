@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Api.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Services", "TodoPagos.Web.Services\TodoPagos.Web.Services.csproj", "{00A57FCA-90F7-48A4-9689-1D3CA5114999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Services.Test", "TodoPagos.Web.Services.Test\TodoPagos.Web.Services.Test.csproj", "{67554477-0507-4BF0-A493-2812D91AF561}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Services.Tests", "TodoPagos.Web.Services.Test\TodoPagos.Web.Services.Tests.csproj", "{67554477-0507-4BF0-A493-2812D91AF561}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository", "TodoPagos.Domain.Repository\TodoPagos.Domain.Repository.csproj", "{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}"
 EndProject

@@ -252,5 +252,21 @@ namespace TodoPagos.Domain.Tests
 
             Assert.IsFalse(firstReceipt.Equals(provider));
         }
+
+        [TestMethod]
+        public void BeAbleToTellItsFieldsAreCompleteAndValid()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 10000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+            Receipt receipt = CreateReceipt(provider, completedFields, amount);
+
+            Assert.IsTrue(receipt.IsValid());
+        }
     }
 }

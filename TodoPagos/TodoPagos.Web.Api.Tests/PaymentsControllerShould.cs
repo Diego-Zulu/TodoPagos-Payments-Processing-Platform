@@ -149,7 +149,7 @@ namespace TodoPagos.Web.Api.Tests
             list.Add(receipt);
             Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
             var mockPaymentService = new Mock<IPaymentService>();
-            mockPaymentService.Setup(x => x.CreatePayment(payment)).Throws(new InvalidOperationException());
+            mockPaymentService.Setup(x => x.CreatePayment(payment)).Throws(new ArgumentException());
             PaymentsController controller = new PaymentsController(mockPaymentService.Object);
 
             IHttpActionResult actionResult = controller.PostPayment(payment);

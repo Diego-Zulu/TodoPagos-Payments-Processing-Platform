@@ -115,6 +115,25 @@ namespace TodoPagos.Domain.Tests
         public void BeAbleToAddItsEarningsToExistingEarningsValueGivenFromAndToDates()
         {
             IDictionary<Provider, double> earningsPerProvider = new Dictionary<Provider, double>();
+            Payment newPayment = CreatePayment();
+            double expectedValue = 2000;
+            double overallValue = 0;
+
+            newPayment.AddThisPaymentsEarningsToOverallValue(ref overallValue, DateTime.Today, DateTime.Today);
+
+            Assert.AreEqual(expectedValue, overallValue);
+        }
+
+        [TestMethod]
+        public void BeAbleToTellIfItsReceiptsAreValid()
+        {
+            Payment payment = CreatePayment();
+
+            Assert.IsTrue(payment.AreValidReceipts());
+        }
+
+        private Payment CreatePayment()
+        {
             PayMethod paymentMethod = new DebitPayMethod(DateTime.Today);
             List<IField> emptyFieldList = new List<IField>();
             NumberField aNumberField = new NumberField("Numerito");
@@ -128,13 +147,7 @@ namespace TodoPagos.Domain.Tests
             List<Receipt> receipts = new List<Receipt>();
             receipts.Add(receipt);
             int amountPayed = 10000;
-            Payment newPayment = new Payment(paymentMethod, amountPayed, receipts);
-            double expectedValue = 2000;
-            double overallValue = 0;
-
-            newPayment.AddThisPaymentsEarningsToOverallValue(ref overallValue, DateTime.Today, DateTime.Today);
-
-            Assert.AreEqual(expectedValue, overallValue);
+            return new Payment(paymentMethod, amountPayed, receipts);
         }
     }
 }

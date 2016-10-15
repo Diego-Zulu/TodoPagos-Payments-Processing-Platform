@@ -8,15 +8,15 @@ namespace TodoPagos.Domain
 {
     public class Receipt
     {
-        public Provider ReceiptProvider { get; set; }
+        public virtual Provider ReceiptProvider { get; set; }
 
         public double Amount { get; set; }
 
-        public ICollection<IField> CompletedFields { get; set; }
+        public virtual ICollection<IField> CompletedFields { get; set; }
 
         public int ID { get; set; }
 
-        private Receipt()
+        public Receipt()
         {
             CompletedFields = new List<IField>();
         }
@@ -116,6 +116,19 @@ namespace TodoPagos.Domain
         public override int GetHashCode()
         {
             return ID.GetHashCode();
+        }
+
+        public bool IsValid()
+        {
+            foreach(IField field in CompletedFields)
+            {
+                if(field.IsEmpty() || !field.IsValid())
+                {
+                    return false;
+                }
+            }
+            if (CompletedFields.Count == 0) return false;
+            return true;
         }
     }
 }

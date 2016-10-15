@@ -5,7 +5,7 @@ using TodoPagos.Domain.Repository;
 using System.Collections.Generic;
 using TodoPagos.Domain;
 
-namespace TodoPagos.Web.Services.Test
+namespace TodoPagos.Web.Services.Tests
 {
     [TestClass]
     public class PaymentServiceShould
@@ -114,8 +114,8 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void FailWithArgumentNullExceptionIfToBeCreatedNewPaymentIsNull()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewPaymentIsNull()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);

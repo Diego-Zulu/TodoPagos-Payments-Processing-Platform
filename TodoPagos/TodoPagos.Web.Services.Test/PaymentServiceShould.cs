@@ -5,7 +5,7 @@ using TodoPagos.Domain.Repository;
 using System.Collections.Generic;
 using TodoPagos.Domain;
 
-namespace TodoPagos.Web.Services.Test
+namespace TodoPagos.Web.Services.Tests
 {
     [TestClass]
     public class PaymentServiceShould

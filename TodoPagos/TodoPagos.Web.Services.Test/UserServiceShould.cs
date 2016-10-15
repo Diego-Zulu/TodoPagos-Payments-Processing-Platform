@@ -5,7 +5,7 @@ using Moq;
 using System.Collections.Generic;
 using TodoPagos.UserAPI;
 
-namespace TodoPagos.Web.Services.Test
+namespace TodoPagos.Web.Services.Tests
 {
     [TestClass]
     public class UserServiceShould

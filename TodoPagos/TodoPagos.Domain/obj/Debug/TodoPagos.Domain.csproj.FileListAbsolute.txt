@@ -1,7 +1,3 @@
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.pdb
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
@@ -12,4 +8,8 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\TodoPagos.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.pdb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\TodoPagos.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb

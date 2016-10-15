@@ -1,7 +1,3 @@
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.dll
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.pdb
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
@@ -12,4 +8,8 @@ C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
 C:\Users\alumnoFI\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\TodoPagos.UserAPI.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.pdb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\TodoPagos.UserAPI.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.pdb

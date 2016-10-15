@@ -16,7 +16,7 @@ namespace TodoPagos.Domain
 
         public int ID { get; set; }
 
-        private Receipt()
+        public Receipt()
         {
             CompletedFields = new List<IField>();
         }
@@ -127,6 +127,7 @@ namespace TodoPagos.Domain
                     return false;
                 }
             }
+            if (CompletedFields.Count == 0) return false;
             return true;
         }
     }

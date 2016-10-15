@@ -129,7 +129,7 @@ namespace TodoPagos.Domain.Tests
         {
             Payment payment = CreatePayment();
 
-            Assert.IsTrue(payment.IsValid());
+            Assert.IsTrue(payment.AreValidReceipts());
         }
 
         private Payment CreatePayment()

@@ -114,8 +114,8 @@ namespace TodoPagos.Web.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void FailWithArgumentNullExceptionIfToBeCreatedNewPaymentIsNull()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeCreatedNewPaymentIsNull()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);

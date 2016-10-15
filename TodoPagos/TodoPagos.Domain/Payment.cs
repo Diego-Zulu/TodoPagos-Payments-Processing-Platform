@@ -114,7 +114,7 @@ namespace TodoPagos.Domain
             }
         }
 
-        public bool IsValid()
+        public bool AreValidReceipts()
         {
             foreach(Receipt receipt in Receipts)
             {

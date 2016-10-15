@@ -254,7 +254,7 @@ namespace TodoPagos.Domain.Tests
         }
 
         [TestMethod]
-        public void BeAbleToTellIfItsFieldsAreCompleteAndValid()
+        public void BeAbleToTellItsFieldsAreCompleteAndValid()
         {
             List<IField> list = new List<IField>();
             NumberField aNumberField = new NumberField("Coordenada X");

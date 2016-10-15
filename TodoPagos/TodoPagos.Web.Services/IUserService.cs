@@ -13,9 +13,9 @@ namespace TodoPagos.Web.Services
 
         User GetSingleUser(int id);
 
-        int CreateUser(User newUser, string password, string signedInUserEmail);
+        int CreateUser(User newUser, string signedInUserEmail);
 
-        bool UpdateUser(int userId, User user, string newPassword, string signedInUserEmail);
+        bool UpdateUser(int userId, User user, string signedInUserEmail);
 
         bool DeleteUser(int id);
 

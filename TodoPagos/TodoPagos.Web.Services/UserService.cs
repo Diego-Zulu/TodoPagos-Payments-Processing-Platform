@@ -26,11 +26,10 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public int CreateUser(User newUser, string password, string signedInUserEmail)
+        public int CreateUser(User newUser, string signedInUserEmail)
         {
             MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             MakeSureTargetUserIsReadyToBeCreated(newUser);
-            MakeSureTargetUserIsWithCorrectPassword(newUser, password);
             unitOfWork.UserRepository.Insert(newUser);
             unitOfWork.Save();
             return newUser.ID;
@@ -49,6 +48,7 @@ namespace TodoPagos.Web.Services
             MakeSureTargetUserIsNotNull(targetUser);
             MakeSureTargetUserIsComplete(targetUser);
             MakeSureTargetIsNotAlreadyInRepository(targetUser);
+            targetUser.HashPasswordIfCorrect();
         }
 
         private void MakeSureTargetIsNotAlreadyInRepository(User targetUser)
@@ -57,11 +57,6 @@ namespace TodoPagos.Web.Services
             {
                 throw new InvalidOperationException();
             }
-        }
-
-        private void MakeSureTargetUserIsWithCorrectPassword(User targetUser, string password)
-        {
-            targetUser.SetPasswordIfCorrect(password);
         }
 
         private void MakeSureTargetUserIsNotNull(User targetUser)
@@ -116,12 +111,12 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool UpdateUser(int userId, User user, string newPassword, string signedInUserEmail)
+        public bool UpdateUser(int userId, User user, string signedInUserEmail)
         {
             if (user != null && userId == user.ID && ExistsUser(userId) && !AnotherDifferentUserAlreadyHasThisEmail(user))
             {
                 User userEntity = unitOfWork.UserRepository.GetByID(userId);
-                userEntity.UpdateInfoWithTargetUsersInfo(user, newPassword);
+                userEntity.UpdateInfoWithTargetUsersInfo(user);
                 unitOfWork.UserRepository.Update(userEntity);
                 unitOfWork.Save();
                 return true;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TodoPagos.UserAPI
 {
-    public abstract class Role
+    public class Role
     {
         public string Name { get; set; }
 

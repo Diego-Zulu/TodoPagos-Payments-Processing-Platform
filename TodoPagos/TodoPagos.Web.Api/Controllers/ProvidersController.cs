@@ -12,7 +12,8 @@ using TodoPagos.Domain.DataAccess;
 
 namespace TodoPagos.Web.Api.Controllers
 {
-    [RoutePrefix("api/v1/Providers")]
+    [RoutePrefix("api/v1/providers")]
+    [Authorize]
     public class ProvidersController : ApiController
     {
         private readonly IProviderService providerService;
@@ -39,7 +40,6 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IHttpActionResult GetProviders(bool getActiveProviders)
         {
             IEnumerable<Provider> users = providerService.GetAllProvidersAcoordingToState(getActiveProviders);
@@ -47,7 +47,6 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IHttpActionResult GetProviders()
         {
             IEnumerable<Provider> users = providerService.GetAllProviders();
@@ -55,7 +54,6 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [ResponseType(typeof(Provider))]
         public IHttpActionResult GetProvider(int id)
         {
@@ -70,7 +68,6 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpPut]
-        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProvider([FromUri]int id, [FromBody]Provider oneProvider)
         {
@@ -106,7 +103,6 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ResponseType(typeof(Provider))]
         public IHttpActionResult PostProvider(Provider newProvider)
         {
@@ -155,7 +151,6 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteProvider(int id)
         {

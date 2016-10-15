@@ -24,7 +24,7 @@ namespace TodoPagos.Web.Api
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/api/v1/Login"),
+                TokenEndpointPath = new PathString("/api/v1/login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new CredentialsAuthorizationServerProvider(),
             };

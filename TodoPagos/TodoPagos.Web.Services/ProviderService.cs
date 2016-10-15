@@ -139,6 +139,7 @@ namespace TodoPagos.Web.Services
         {
             if (ProviderWithUpdatedInfoAndBaseProviderInRepositoryCanBothStartAnUpdate(providerId, oneProvider))
             {
+                if (ProviderInRepositoryAndModifiedProviderAreCompletelyEqual(providerId, oneProvider)) return true;
                 UpdateBaseProviderMarkedAsDeletedAndInsertUpdatedProvider(providerId, oneProvider);
                 return true;
             }
@@ -149,6 +150,12 @@ namespace TodoPagos.Web.Services
         {
             return updatedProvider != null && baseProviderId == updatedProvider.ID && updatedProvider.IsCompleteAndActive() &&
                 ExistsProviderAndItIsNotDeleted(baseProviderId) && !IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(updatedProvider);
+        }
+
+        private bool ProviderInRepositoryAndModifiedProviderAreCompletelyEqual(int providerId, Provider modifiedProvider)
+        {
+            Provider providerToBeUpdated = unitOfWork.ProviderRepository.GetByID(providerId);
+            return modifiedProvider.IsCompletelyEqualTo(providerToBeUpdated);
         }
 
         private void UpdateBaseProviderMarkedAsDeletedAndInsertUpdatedProvider(int baseProviderId, Provider updatedProvider)

@@ -312,7 +312,7 @@ namespace TodoPagos.Web.Services.Tests
                 .Returns(() => markedAsDeletedInRepositoryProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(providerWithUpdatedInfo.ID, providerWithUpdatedInfo);
+            bool updated = providerService.UpdateProvider(markedAsDeletedInRepositoryProvider.ID, providerWithUpdatedInfo);
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -389,6 +389,24 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => alreadyDeletedProvider);
+        }
+
+        [TestMethod]
+        public void ReturnTrueWhenUpdatingAProviderAndToBeUpdatedProviderIsCompletelyEqualToModifiedProviderButNotModifyAnything()
+        {
+            Provider providerWithUpdatedInfo = new Provider("UTE", 20, new List<IField>());
+            Provider providerInRepository = new Provider("UTE", 20, new List<IField>());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => providerInRepository);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            bool updated = providerService.UpdateProvider(providerInRepository.ID, providerWithUpdatedInfo);
+
+            mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsTrue(updated);
         }
     }
 }

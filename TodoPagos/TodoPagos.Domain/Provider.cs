@@ -68,7 +68,7 @@ namespace TodoPagos.Domain
 
         private void CheckForNullFieldsList(ICollection<IField> fields)
         {
-            if(IsNull(fields))
+            if (IsNull(fields))
             {
                 throw new ArgumentException();
             }
@@ -147,17 +147,23 @@ namespace TodoPagos.Domain
             {
                 CheckForPossibleErrors(this.Fields, this.Commission, this.Name);
                 return this.Active;
-            } catch (ArgumentException)
+            }
+            catch (ArgumentException)
             {
                 return false;
-            }       
+            }
         }
 
         public bool IsCompletelyEqualTo(Provider anotherProvider)
         {
-            return Name.Equals(anotherProvider.Name) && Commission.Equals(anotherProvider.Commission)
-                && ID == anotherProvider.ID && Active.Equals(anotherProvider.Active)
+            return SeeIfAllAttributesButTheFieldsListsAreEqual(anotherProvider)
                 && TheTwoFieldsListAreCompletelyEqual(Fields, anotherProvider.Fields);
+        }
+
+        private bool SeeIfAllAttributesButTheFieldsListsAreEqual(Provider anotherProvider)
+        {
+            return Name.Equals(anotherProvider.Name) && Commission.Equals(anotherProvider.Commission)
+                 && ID == anotherProvider.ID && Active.Equals(anotherProvider.Active);
         }
 
         private bool TheTwoFieldsListAreCompletelyEqual(IEnumerable<IField> firstFieldsList, IEnumerable<IField> secondFieldsList)

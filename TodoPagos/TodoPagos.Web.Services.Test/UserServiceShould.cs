@@ -331,5 +331,29 @@ namespace TodoPagos.Web.Services.Tests
             int id = userService.CreateUser(userToCreate, receivedUser.Email);
         }
 
+        [TestMethod]
+        public void NotDeleteAnythingIfSignedInUserAsksToDeleteHimself()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            User user = new User("Bruno", "bferr42@gmail.com", "Holaaaa12!", AdminRole.GetInstance());
+            SetMockDeleteRoutine3(mockUnitOfWork, user);
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            bool deleted = userService.DeleteUser(user.ID);
+
+            mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(deleted);
+        }
+
+        private void SetMockDeleteRoutine3(Mock<IUnitOfWork> mockUnitOfWork, User signedInUser)
+        {
+            mockUnitOfWork
+                .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => signedInUser);
+            mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
+
     }
 }

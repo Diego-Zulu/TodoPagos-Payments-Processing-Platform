@@ -78,5 +78,10 @@ namespace TodoPagos.Web.Services
         {
             if (payment == null) throw new ArgumentException();
         }
+
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
+        }
     }
 }

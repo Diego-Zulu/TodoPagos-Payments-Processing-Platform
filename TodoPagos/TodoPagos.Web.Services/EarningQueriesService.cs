@@ -41,5 +41,10 @@ namespace TodoPagos.Web.Services
             }
             return dictionary;
         }
+
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
+        }
     }
 }

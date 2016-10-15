@@ -14,5 +14,7 @@ namespace TodoPagos.Web.Services
         Payment GetSinglePayment(int id);
 
         int CreatePayment(Payment newPayment);
+
+        void Dispose();
     }
 }

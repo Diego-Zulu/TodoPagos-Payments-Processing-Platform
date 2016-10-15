@@ -117,5 +117,17 @@ namespace TodoPagos.Domain
         {
             return ID.GetHashCode();
         }
+
+        public bool IsValid()
+        {
+            foreach(IField field in CompletedFields)
+            {
+                if(field.IsEmpty() || !field.IsValid())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

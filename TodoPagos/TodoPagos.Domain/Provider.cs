@@ -7,6 +7,7 @@ namespace TodoPagos.Domain
     public class Provider
     {
         public int ID { get; set; }
+
         public double Commission { get; set; }
 
         public string Name { get; set; }

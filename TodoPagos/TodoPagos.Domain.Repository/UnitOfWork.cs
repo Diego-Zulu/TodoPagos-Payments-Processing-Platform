@@ -12,16 +12,22 @@ namespace TodoPagos.Domain.Repository
         private GenericRepository<Receipt> receiptRepository;
         private GenericRepository<Provider> providerRepository;
         private GenericRepository<Payment> paymentRepository;
+
         public UnitOfWork(TodoPagosContext todoPagosContext)
         {
+            CheckForNullTodoPagosContext(todoPagosContext);
             context = todoPagosContext;
+        }
+
+        private void CheckForNullTodoPagosContext(TodoPagosContext context)
+        {
+            if (context == null) throw new ArgumentException();
         }
 
         public IRepository<User> UserRepository
         {
             get
             {
-
                 if (this.userRepository == null)
                 {
                     this.userRepository = new GenericRepository<User>(context);
@@ -47,7 +53,6 @@ namespace TodoPagos.Domain.Repository
         {
             get
             {
-
                 if (this.providerRepository == null)
                 {
                     this.providerRepository = new GenericRepository<Provider>(context);
@@ -60,7 +65,6 @@ namespace TodoPagos.Domain.Repository
         {
             get
             {
-
                 if (this.paymentRepository == null)
                 {
                     this.paymentRepository = new GenericRepository<Payment>(context);

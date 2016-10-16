@@ -15,8 +15,14 @@ namespace TodoPagos.Domain.Repository
 
         public GenericRepository(TodoPagosContext context)
         {
+            CheckForNullContext(context);
             this.context = context;
             this.dbSet = context.Set<TEntity>();
+        }
+
+        private void CheckForNullContext(TodoPagosContext context)
+        {
+            if (context == null) throw new ArgumentException();
         }
 
         public virtual IEnumerable<TEntity> Get(

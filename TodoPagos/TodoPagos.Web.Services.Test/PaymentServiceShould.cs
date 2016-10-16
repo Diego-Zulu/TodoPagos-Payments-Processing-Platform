@@ -59,7 +59,7 @@ namespace TodoPagos.Web.Services.Test
             Receipt receipt = CreateNewReceipt();
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            return new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            return new Payment(new CashPayMethod(DateTime.Now), 100, list);
         }
 
         private Receipt CreateNewReceipt()

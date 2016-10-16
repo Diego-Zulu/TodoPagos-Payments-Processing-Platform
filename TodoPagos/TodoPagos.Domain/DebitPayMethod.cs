@@ -16,8 +16,6 @@ namespace TodoPagos.Domain
         public DebitPayMethod(DateTime date)
         {
             CheckIfDateIsNotInTheFuture(date);
-            this.Change = 0;
-            this.PaidWith = 0;
             this.PayDate = date;
         }
 
@@ -29,15 +27,22 @@ namespace TodoPagos.Domain
             }
         }
 
-        public override int PayAndReturnChange(int total)
+        public override double PayAndReturnChange(double total, double payedWith)
         {
             CheckIfTotalIsPositive(total);
-            this.PaidWith = total;
-
+            CheckThatTotalAndPayedWithAreSame(total, payedWith);
             return NO_CHANGE;
         }
 
-        private void CheckIfTotalIsPositive(int total)
+        private void CheckThatTotalAndPayedWithAreSame(double total, double payedWith)
+        {
+            if (!total.Equals(payedWith))
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private void CheckIfTotalIsPositive(double total)
         {
             if (total < 0)
             {

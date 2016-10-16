@@ -11,9 +11,8 @@ namespace TodoPagos.Domain.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void NotHaveAFutureDate()
         {
-            int moneyPayedWith = 2500;
             DateTime futureDate = DateTime.Now.AddYears(1);
-            PayMethod payMethod = new CashPayMethod(moneyPayedWith, futureDate);
+            PayMethod payMethod = new CashPayMethod(futureDate);
         }
 
         [TestMethod]
@@ -22,9 +21,9 @@ namespace TodoPagos.Domain.Tests
             int paymentTotal = 1000;
             int moneyPayedWith = 2500;
             DateTime todaysDate = DateTime.Now;
-            PayMethod payMethod = new CashPayMethod(moneyPayedWith, todaysDate);
+            PayMethod payMethod = new CashPayMethod(todaysDate);
 
-            int change = payMethod.PayAndReturnChange(paymentTotal);
+            double change = payMethod.PayAndReturnChange(paymentTotal, moneyPayedWith);
 
             Assert.AreEqual(moneyPayedWith - paymentTotal, change);
         }
@@ -36,9 +35,9 @@ namespace TodoPagos.Domain.Tests
             int paymentTotal = 3000;
             int moneyPayedWith = 2500;
             DateTime todaysDate = DateTime.Now;
-            PayMethod payMethod = new CashPayMethod(moneyPayedWith, todaysDate);
+            PayMethod payMethod = new CashPayMethod(todaysDate);
 
-            payMethod.PayAndReturnChange(paymentTotal);
+            payMethod.PayAndReturnChange(paymentTotal, moneyPayedWith);
         }
 
         [TestMethod]
@@ -48,9 +47,9 @@ namespace TodoPagos.Domain.Tests
             int paymentTotal = -3000;
             int moneyPayedWith = 2500;
             DateTime todaysDate = DateTime.Now;
-            PayMethod payMethod = new CashPayMethod(moneyPayedWith, todaysDate);
+            PayMethod payMethod = new CashPayMethod(todaysDate);
 
-            payMethod.PayAndReturnChange(paymentTotal);
+            payMethod.PayAndReturnChange(paymentTotal, moneyPayedWith);
         }
 
         [TestMethod]
@@ -59,7 +58,7 @@ namespace TodoPagos.Domain.Tests
             int paymentTotal = 1000;
             int moneyPayedWith = 2500;
             DateTime oneDate = DateTime.Parse("10/10/2010");
-            PayMethod payMethod = new CashPayMethod(moneyPayedWith, oneDate);
+            PayMethod payMethod = new CashPayMethod(oneDate);
 
             Assert.AreEqual(oneDate, payMethod.PayDate);
         }

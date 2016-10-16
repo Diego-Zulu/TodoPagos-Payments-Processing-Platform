@@ -43,5 +43,20 @@ namespace Domain
             string hashedSource = Hashing.HashValue(source, hashedValueSalt);
             return hashedSource.Equals(hashedValue);
         }
+
+        public static bool BothAreSaltsAndAreEqual (string oneSalt, string otherSalt)
+        {
+            return oneSalt.Length == SALT_LENGTH && otherSalt.Length == SALT_LENGTH && oneSalt.Equals(otherSalt);
+        }
+
+        public static string GetSaltFromPassword(string hashedPassword)
+        {
+            if (hashedPassword.Length <= SALT_LENGTH)
+            {
+                throw new ArgumentException();
+            }
+
+            return hashedPassword.Substring(0, SALT_LENGTH);
+        }
     }
 }

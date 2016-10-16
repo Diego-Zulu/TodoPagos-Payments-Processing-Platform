@@ -4,15 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.ModelBinding;
 using TodoPagos.Domain;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.Domain.Repository;
+using TodoPagos.Web.Api.Models;
 using TodoPagos.Web.Services;
 
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/payments")]
-    [Authorize]
+
     public class PaymentsController : ApiController
     {
 
@@ -60,7 +62,7 @@ namespace TodoPagos.Web.Api.Controllers
 
         [HttpPost]
         [ResponseType(typeof(Payment))]
-        public IHttpActionResult PostPayment(Payment newPayment)
+        public IHttpActionResult PostPayment([ModelBinder(typeof(PaymentModelBinder))] Payment newPayment)
         {
             if (!ModelState.IsValid)
             {

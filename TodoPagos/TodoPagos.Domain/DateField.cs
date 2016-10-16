@@ -11,7 +11,7 @@ namespace TodoPagos.Domain
     {
         private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
                     "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
-        public DateTime Data { get; set; }
+        public virtual DateTime Data { get; set; }
 
         public string Name { get; set; }
 

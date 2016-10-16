@@ -9,7 +9,9 @@ namespace TodoPagos.Domain
     public class Payment
     {
         public virtual PayMethod PaymentMethod { get; set; }
-        public double amountPayed { get; set; }
+        public double PayedWith { get; set; }
+        public double Change { get; set; }
+        private double PaymentTotal { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
         public virtual int ID { get; set; }
 
@@ -22,8 +24,20 @@ namespace TodoPagos.Domain
         {
             CheckAttributeCorrectness(aPayMethod, theAmountPayed, paymentReceipts);
             PaymentMethod = aPayMethod;
-            amountPayed = theAmountPayed;
+            PayedWith = theAmountPayed;
             Receipts = paymentReceipts;
+            PaymentTotal = CalculatePaymentTotal();
+            Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PayedWith);
+        }
+
+        private double CalculatePaymentTotal()
+        {
+            double total = 0;
+            foreach (Receipt oneReceipt in this.Receipts)
+            {
+                total += oneReceipt.Amount;
+            }
+            return total;
         }
 
         private void CheckAttributeCorrectness(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
@@ -70,7 +84,7 @@ namespace TodoPagos.Domain
         {
             try
             {
-                CheckAttributeCorrectness(this.PaymentMethod, this.amountPayed, this.Receipts);
+                CheckAttributeCorrectness(this.PaymentMethod, this.PayedWith, this.Receipts);
                 return true;
             }
             catch (ArgumentException)

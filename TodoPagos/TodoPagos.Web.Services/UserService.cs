@@ -46,9 +46,17 @@ namespace TodoPagos.Web.Services
         private void MakeSureTargetUserIsReadyToBeCreated(User targetUser)
         {
             MakeSureTargetUserIsNotNull(targetUser);
-            MakeSureTargetUserIsComplete(targetUser);
             MakeSureTargetIsNotAlreadyInRepository(targetUser);
+            MakeSureUserIsComplete(targetUser);
             targetUser.HashPasswordIfCorrect();
+        }
+
+        private void MakeSureUserIsComplete(User targetUser)
+        {
+            if (!targetUser.IsComplete())
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         private void MakeSureTargetIsNotAlreadyInRepository(User targetUser)
@@ -64,14 +72,6 @@ namespace TodoPagos.Web.Services
             if (targetUser == null)
             {
                 throw new ArgumentNullException();
-            }
-        }
-
-        private void MakeSureTargetUserIsComplete(User targetUser)
-        {
-            if (!targetUser.IsComplete())
-            {
-                throw new ArgumentException();
             }
         }
 
@@ -133,14 +133,15 @@ namespace TodoPagos.Web.Services
         private bool AnotherDifferentUserAlreadyHasThisEmail(User userToBeChecked)
         {
             IEnumerable<User> usersThatExists = unitOfWork.UserRepository.Get(
-                us => us.ID != userToBeChecked.ID && us.Email.Equals(userToBeChecked), null, "");
+                us => us.ID == userToBeChecked.ID || !us.Email.Equals(userToBeChecked), null, "");
             return usersThatExists.Count() > 0;
         }
 
         private bool ExistsUser(User userToBeChecked)
         {
             IEnumerable<User> usersThatExists = unitOfWork.UserRepository.Get(
-                us => us.Equals(userToBeChecked), null, "");
+             us => !us.Email.Equals(userToBeChecked.Email) 
+             || !us.ID.Equals(userToBeChecked.ID), null, "");
             return usersThatExists.Count() > 0;
         }
     }

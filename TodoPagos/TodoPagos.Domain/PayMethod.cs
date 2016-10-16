@@ -8,12 +8,10 @@ namespace TodoPagos.Domain
 {
     public abstract class PayMethod
     {
-        public int PaidWith { get; set; }
-        public int Change { get; set; }
         public virtual DateTime PayDate {get; set;}
 
         public int ID { get; set; }
 
-        public abstract int PayAndReturnChange(int total);
+        public abstract double PayAndReturnChange(double total, double payedWith);
     }
 }

@@ -20,6 +20,10 @@ namespace TodoPagos.Domain.DataAccess
 
         public virtual DbSet<User> Users { get; set; }
 
+        public virtual DbSet<Role> Roles { get; set; }
+
+        public virtual DbSet<Privilege> Privileges { get; set; }
+
         public virtual DbSet<Provider> Providers { get; set; }
 
         public virtual DbSet<PayMethod> PayMethods { get; set; }

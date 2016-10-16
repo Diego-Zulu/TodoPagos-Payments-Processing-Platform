@@ -51,7 +51,7 @@ namespace TodoPagos.Web.Api.Tests
             secondList.Add(secondReceipt);
             var allPayments = new[]
             {
-                new Payment(new CashPayMethod(100, DateTime.Now), 100, firstList),
+                new Payment(new CashPayMethod(DateTime.Now), 100, firstList),
                 new Payment(new DebitPayMethod(DateTime.Now), 100, secondList)
             };
             var mockPaymentService = new Mock<IPaymentService>();
@@ -77,7 +77,7 @@ namespace TodoPagos.Web.Api.Tests
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
             var mockPaymentService = new Mock<IPaymentService>();
             mockPaymentService.Setup(x => x.GetSinglePayment(payment.ID)).Returns(payment);
             PaymentsController controller = new PaymentsController(mockPaymentService.Object);
@@ -101,7 +101,7 @@ namespace TodoPagos.Web.Api.Tests
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
             var mockPaymentService = new Mock<IPaymentService>();
             mockPaymentService.Setup(x => x.GetSinglePayment(payment.ID + 1)).Throws(new ArgumentOutOfRangeException());
             PaymentsController controller = new PaymentsController(mockPaymentService.Object);
@@ -123,7 +123,7 @@ namespace TodoPagos.Web.Api.Tests
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
             var mockPaymentService = new Mock<IPaymentService>();
             mockPaymentService.Setup(x => x.CreatePayment(payment)).Returns(1);
             PaymentsController controller = new PaymentsController(mockPaymentService.Object);
@@ -147,7 +147,7 @@ namespace TodoPagos.Web.Api.Tests
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(100, DateTime.Now), 100, list);
+            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
             var mockPaymentService = new Mock<IPaymentService>();
             mockPaymentService.Setup(x => x.CreatePayment(payment)).Throws(new InvalidOperationException());
             PaymentsController controller = new PaymentsController(mockPaymentService.Object);

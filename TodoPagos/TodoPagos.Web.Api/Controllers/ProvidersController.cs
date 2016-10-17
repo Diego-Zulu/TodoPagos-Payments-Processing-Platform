@@ -36,6 +36,14 @@ namespace TodoPagos.Web.Api.Controllers
             signedInUsername = "TESTING";
         }
 
+        public ProvidersController(string oneUsername)
+        {
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            signedInUsername = oneUsername;
+            providerService = new ProviderService(unitOfWork);
+        }
+
         private void MakeSureProvidedProviderServiceIsNotNull(IProviderService providedProviderService)
         {
             if (providedProviderService == null)

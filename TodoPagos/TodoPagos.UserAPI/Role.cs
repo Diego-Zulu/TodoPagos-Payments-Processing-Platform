@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TodoPagos.UserAPI
 {
     public abstract class Role
     {
+
         public string Name { get; set; }
 
         public int ID { get; set; }
+
+        public User userThatHasThisRole { get; set; }
 
         public virtual ICollection<Privilege> Privileges { get; set; } = new List<Privilege>();
 

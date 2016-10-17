@@ -10,7 +10,7 @@ namespace TodoPagos.UserAPI
     {
         private static AdminRole instance;
 
-        private AdminRole()
+        protected AdminRole()
         {
             this.Name = "Admin";
             AddAdminPrivileges();

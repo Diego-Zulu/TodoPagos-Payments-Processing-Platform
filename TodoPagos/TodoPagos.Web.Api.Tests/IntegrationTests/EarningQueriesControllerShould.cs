@@ -9,9 +9,9 @@ using TodoPagos.Domain;
 using System.Web.Http;
 using System.Web.Http.Results;
 
-namespace TodoPagos.Web.Api.Tests
+namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
-    [TestClass]
+    
     public class EarningQueriesControllerShould
     {
         [TestMethod]

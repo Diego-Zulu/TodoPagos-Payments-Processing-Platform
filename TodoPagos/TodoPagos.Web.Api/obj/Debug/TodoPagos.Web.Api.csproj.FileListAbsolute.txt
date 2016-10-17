@@ -129,6 +129,7 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.Owin.Security.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Newtonsoft.Json.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Owin.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\System.Net.Http.Formatting.dll
@@ -159,6 +160,7 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.Owin.Security.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Newtonsoft.Json.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\System.Net.Http.Formatting.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\System.Web.Http.xml

@@ -10,7 +10,7 @@ namespace TodoPagos.UserAPI
     {
         private static EarningQueriesPrivilege instance;
 
-        private EarningQueriesPrivilege()
+        protected EarningQueriesPrivilege()
         {
             this.Name = "Earning Queries";
         }

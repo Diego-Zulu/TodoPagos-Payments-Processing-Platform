@@ -10,7 +10,7 @@ namespace TodoPagos.UserAPI
     {
         private static CashierRole instance;
 
-        private CashierRole()
+        protected CashierRole()
         {
             this.Name = "Cashier";
             AddCashierPrivileges();

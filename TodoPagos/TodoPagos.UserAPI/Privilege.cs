@@ -12,6 +12,8 @@ namespace TodoPagos.UserAPI
 
         public int ID { get; set; }
 
+        public Role InRole { get; set; }
+
         public override bool Equals(Object anObject)
         {
             try

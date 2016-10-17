@@ -9,8 +9,9 @@ namespace TodoPagos.Domain
 {
     public static class Hashing
     {
+        public const int SALT_BYTE_LENGTH = SALT_LENGTH * UnicodeEncoding.CharSize;
 
-        public const int SALT_LENGTH = 32 * UnicodeEncoding.CharSize;
+        public const int SALT_LENGTH = 32;
 
         private const string TO_BE_USED_HASH_ALGORITHM = "SHA256";
 
@@ -29,7 +30,7 @@ namespace TodoPagos.Domain
 
         public static string GetRandomSalt()
         {
-            var salt = new byte[SALT_LENGTH];
+            var salt = new byte[SALT_BYTE_LENGTH];
             using (var random = new RNGCryptoServiceProvider())
             {
                 random.GetNonZeroBytes(salt);

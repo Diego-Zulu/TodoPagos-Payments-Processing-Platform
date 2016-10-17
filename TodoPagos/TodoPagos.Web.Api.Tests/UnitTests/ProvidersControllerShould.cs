@@ -12,7 +12,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Net;
 
-namespace TodoPagos.Web.Api.Tests
+namespace TodoPagos.Web.Api.Tests.UnitTests
 {
     [TestClass]
     public class ProvidersControllerShould

@@ -10,7 +10,7 @@ namespace TodoPagos.UserAPI
     {
         private static ProviderManagementPrivilege instance;
 
-        private ProviderManagementPrivilege()
+        protected ProviderManagementPrivilege()
         {
             this.Name = "Register Provider";
         }

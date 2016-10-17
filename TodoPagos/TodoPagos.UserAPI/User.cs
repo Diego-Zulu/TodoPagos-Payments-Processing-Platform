@@ -23,12 +23,25 @@ namespace TodoPagos.UserAPI
         [NotMapped]
         private const int MIN_PASSWORD_LENGTH = 8;
 
-        [NotMapped]
-        private const int MAX_PASSWORD_LENGTH = 32;
-
         public User()
         {
             Roles = new List<Role>();
+        }
+
+        public User(User toBeCopiedUser)
+        {
+            if (toBeCopiedUser.IsComplete())
+            {
+                ID = toBeCopiedUser.ID;
+                Name = toBeCopiedUser.Name;
+                Email = toBeCopiedUser.Email;
+                Roles = toBeCopiedUser.Roles;
+                Salt = toBeCopiedUser.Salt;
+                Password = toBeCopiedUser.Password;
+            } else
+            {
+                throw new ArgumentException();
+            }
         }
 
         public User(string newUserName, string newUserEmail, string newPassword, Role newUserRole)
@@ -115,7 +128,7 @@ namespace TodoPagos.UserAPI
 
         private void CheckForCorrectLengthPassword(string newPassword)
         {
-            if (newPassword.Length < MIN_PASSWORD_LENGTH || newPassword.Length > MAX_PASSWORD_LENGTH)
+            if (newPassword.Length < MIN_PASSWORD_LENGTH)
             {
                 throw new ArgumentException();
             }
@@ -285,8 +298,14 @@ namespace TodoPagos.UserAPI
 
         public void HashPasswordIfCorrect()
         {
-            CheckIfPasswordHasCorrectFormat(this.Password);
-            DealWithPassword(this.Password);
+            if (IsPasswordInCorrectFormat(this.Password))
+            {
+                DealWithPassword(this.Password);
+            } else
+            {
+                CheckIfPasswordSeemsHashed(this.Password);
+            }
+            
         }
 
         public override bool Equals(object obj)
@@ -342,6 +361,16 @@ namespace TodoPagos.UserAPI
             {
                 throw new ArgumentException();
             }
+        }
+
+        public User CloneAndReturnNewUserWithoutPasswordAndSalt()
+        {
+            User newInstance = new User(this);
+
+            newInstance.ClearPassword();
+            newInstance.ClearSalt();
+
+            return newInstance;
         }
     }
 }

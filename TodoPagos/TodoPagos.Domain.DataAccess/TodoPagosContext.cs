@@ -10,7 +10,7 @@ namespace TodoPagos.Domain.DataAccess
 {
     public class TodoPagosContext : DbContext
     {
-        public TodoPagosContext() : base("name=TodoPagosContext"){ }
+        public TodoPagosContext() : base("name=TodoPagosContext") { }
 
         public virtual DbSet<IField> Fields { get; set; }
 
@@ -27,5 +27,15 @@ namespace TodoPagos.Domain.DataAccess
         public virtual DbSet<Provider> Providers { get; set; }
 
         public virtual DbSet<PayMethod> PayMethods { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                 .HasMany<Role>(u => u.Roles).WithOptional(
+                r => r.userThatHasThisRole).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Role>().HasMany<Privilege>(
+                r => r.Privileges).WithOptional(p => p.InRole).WillCascadeOnDelete(true);
+        }
     }
 }

@@ -12,9 +12,9 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Net;
 
-namespace TodoPagos.Web.Api.Tests
+namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
-    [TestClass]
+    
     public class ProvidersControllerShould
     {
         [TestMethod]

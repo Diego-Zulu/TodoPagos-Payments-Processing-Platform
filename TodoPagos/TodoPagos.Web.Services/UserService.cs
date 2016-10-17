@@ -147,8 +147,8 @@ namespace TodoPagos.Web.Services
         private bool ExistsUser(User userToBeChecked)
         {
             IEnumerable<User> usersThatExists = unitOfWork.UserRepository.Get(
-             us => !us.Email.Equals(userToBeChecked.Email) 
-             || !us.ID.Equals(userToBeChecked.ID), null, "");
+             us => us.Email.Equals(userToBeChecked.Email) 
+             || us.ID.Equals(userToBeChecked.ID), null, "");
             return usersThatExists.Count() > 0;
         }
     }

@@ -19,6 +19,7 @@ namespace TodoPagos.Web.Api.Controllers
     {
 
         private readonly IPaymentService paymentService;
+        private readonly string signedInUsername;
 
         public PaymentsController()
         {
@@ -31,6 +32,14 @@ namespace TodoPagos.Web.Api.Controllers
         {
             CheckForNullPaymentService(service);
             paymentService = service;
+            signedInUsername = "TESTING";
+        }
+
+        public PaymentsController(IPaymentService service, string oneUsername)
+        {
+            CheckForNullPaymentService(service);
+            paymentService = service;
+            signedInUsername = oneUsername;
         }
 
         private void CheckForNullPaymentService(IPaymentService service)

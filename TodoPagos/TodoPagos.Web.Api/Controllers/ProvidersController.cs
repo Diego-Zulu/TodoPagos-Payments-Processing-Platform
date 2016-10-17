@@ -18,6 +18,7 @@ namespace TodoPagos.Web.Api.Controllers
     public class ProvidersController : ApiController
     {
         private readonly IProviderService providerService;
+        private readonly string signedInUsername;
 
         public ProvidersController()
         {
@@ -30,6 +31,14 @@ namespace TodoPagos.Web.Api.Controllers
         {
             MakeSureProvidedProviderServiceIsNotNull(oneService);
             providerService = oneService;
+            signedInUsername = "TESTING";
+        }
+
+        public ProvidersController(IProviderService oneService, string oneUsername)
+        {
+            MakeSureProvidedProviderServiceIsNotNull(oneService);
+            providerService = oneService;
+            signedInUsername = oneUsername;
         }
 
         private void MakeSureProvidedProviderServiceIsNotNull(IProviderService providedProviderService)

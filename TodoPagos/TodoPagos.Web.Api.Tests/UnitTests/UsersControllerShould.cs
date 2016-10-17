@@ -10,7 +10,7 @@ using TodoPagos.UserAPI;
 using System.Collections.Generic;
 using System.Net;
 
-namespace TodoPagos.WebApi.Tests
+namespace TodoPagos.WebApi.Tests.UnitTests
 {
     [TestClass]
     public class UsersControllerShould

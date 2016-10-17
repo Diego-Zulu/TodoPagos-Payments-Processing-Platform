@@ -12,7 +12,7 @@ namespace TodoPagos.UserAPI
 
         private UserManagementPrivilege()
         {
-            this.Name = "Register Payment";
+            this.Name = "User Managment";
         }
 
         public static UserManagementPrivilege GetInstance()

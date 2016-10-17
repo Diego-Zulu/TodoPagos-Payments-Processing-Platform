@@ -20,6 +20,7 @@ namespace TodoPagos.Web.Api.Controllers
         private readonly DateTime DEFAULT_FROM_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
         private readonly DateTime DEFAULT_TO_DATE = DateTime.Today;
+        private readonly string signedInUsername;
 
         public EarningQueriesController()
         {
@@ -32,6 +33,14 @@ namespace TodoPagos.Web.Api.Controllers
         {
             CheckForNullEarningQueriesService(service);
             earningQueriesService = service;
+            signedInUsername = "TESTING";
+        }
+
+        public EarningQueriesController(IEarningQueriesService service, string oneUsername)
+        {
+            CheckForNullEarningQueriesService(service);
+            earningQueriesService = service;
+            signedInUsername = oneUsername;
         }
 
         private void CheckForNullEarningQueriesService(IEarningQueriesService service)

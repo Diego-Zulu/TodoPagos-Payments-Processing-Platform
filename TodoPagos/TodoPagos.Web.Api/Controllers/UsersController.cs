@@ -8,10 +8,12 @@ using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
 using TodoPagos.Domain.DataAccess;
 using System.Web;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.Owin.Security.OAuth;
 using System.Web.Http.ModelBinding;
 using TodoPagos.Web.Api.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -36,6 +38,23 @@ namespace TodoPagos.Web.Api.Controllers
             signedInUsername = "TESTING";
         }
 
+        public UsersController(string oneUsername)
+        {
+            FailIfUsernameArgumentIsNull(oneUsername);
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            userService = new UserService(unitOfWork);
+            signedInUsername = oneUsername;
+        }
+
+        private void FailIfUsernameArgumentIsNull(string oneUsername)
+        {
+            if (oneUsername == null)
+            {
+                throw new ArgumentException();
+            }
+        }
+
         private void FailIfServiceArgumentIsNull(IUserService oneService)
         {
             if (oneService == null)
@@ -48,17 +67,20 @@ namespace TodoPagos.Web.Api.Controllers
         public IHttpActionResult GetUsers()
         {
             IEnumerable<User> users = userService.GetAllUsers();
-            ClearPasswordsAndSaltsFromTargetUsers(users);
-            return Ok(users);
+            IEnumerable<User> usersWithoutSaltAndPasswords = ClearPasswordsAndSaltsFromNewInstanceOfTargetUsers(users);
+            return Ok(usersWithoutSaltAndPasswords);
         }
 
-        private void ClearPasswordsAndSaltsFromTargetUsers(IEnumerable<User> targetUsers)
+        private IEnumerable<User> ClearPasswordsAndSaltsFromNewInstanceOfTargetUsers(IEnumerable<User> targetUsers)
         {
+            ICollection<User> newInstances = new List<User>();
             foreach (User oneUser in targetUsers)
             {
-                oneUser.ClearPassword();
-                oneUser.ClearSalt();
+                User newInstanceOfUser = oneUser.CloneAndReturnNewUserWithoutPasswordAndSalt();
+                newInstances.Add(newInstanceOfUser);
             }
+
+            return newInstances;
         }
 
         [HttpGet]
@@ -68,9 +90,7 @@ namespace TodoPagos.Web.Api.Controllers
             try
             {
                 User user = userService.GetSingleUser(id);
-                user.ClearPassword();
-                user.ClearSalt();
-                return Ok(user);
+                return Ok(user.CloneAndReturnNewUserWithoutPasswordAndSalt());
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -106,9 +126,7 @@ namespace TodoPagos.Web.Api.Controllers
             try
             {
                 int id = userService.CreateUser(newUser, signedInUsername);
-                newUser.ClearSalt();
-                newUser.ClearPassword();
-                return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
+                return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser.CloneAndReturnNewUserWithoutPasswordAndSalt());
             }
             catch (InvalidOperationException)
             {

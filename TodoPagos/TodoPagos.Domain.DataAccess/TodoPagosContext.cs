@@ -27,5 +27,12 @@ namespace TodoPagos.Domain.DataAccess
         public virtual DbSet<Provider> Providers { get; set; }
 
         public virtual DbSet<PayMethod> PayMethods { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                 .HasMany<Role>(u => u.Roles).WithMany(r => r.usersThatHaveThisRole);
+
+        }
     }
 }

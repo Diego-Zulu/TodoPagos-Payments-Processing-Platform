@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UserAPI.Privileges;
 
 namespace TodoPagos.UserAPI.Tests
 {
@@ -9,7 +10,7 @@ namespace TodoPagos.UserAPI.Tests
         [TestMethod]
         public void HaveItsNamesHashCode()
         {
-            Privilege providerManagement = ProviderManagement.GetInstance();
+            Privilege providerManagement = ProviderManagementPrivilege.GetInstance();
             int privilegeHashCode = providerManagement.GetHashCode();
 
             Assert.AreEqual(privilegeHashCode, providerManagement.Name.GetHashCode());

@@ -8,6 +8,21 @@ namespace TodoPagos.Domain.Tests
     [TestClass]
     public class ReceiptShould
     {
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailCreationIfProviderIsDeactivated()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("ID");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            provider.Active = false;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+
+            Receipt receipt = new Receipt(provider, completedFields, 0);
+        }
 
         [TestMethod]
         public void BeAbleToTellItsProvider()

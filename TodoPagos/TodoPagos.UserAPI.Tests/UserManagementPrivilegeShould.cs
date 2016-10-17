@@ -5,7 +5,7 @@ using TodoPagos.UserAPI;
 namespace TodoPagos.UserAPI.Tests
 {
     [TestClass]
-    public class RegisterPaymentPrivilegeShould
+    public class UserManagementPrivilegeShould
     {
         [TestMethod]
         public void HaveItsNamesHashCode()

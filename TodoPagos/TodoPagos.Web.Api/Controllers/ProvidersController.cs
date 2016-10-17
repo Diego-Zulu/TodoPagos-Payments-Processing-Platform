@@ -9,11 +9,12 @@ using TodoPagos.Domain;
 using System.Web.Http.Description;
 using TodoPagos.Domain.Repository;
 using TodoPagos.Domain.DataAccess;
+using System.Web.Http.ModelBinding;
+using TodoPagos.Web.Api.Models;
 
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/providers")]
-    [Authorize]
     public class ProvidersController : ApiController
     {
         private readonly IProviderService providerService;
@@ -69,7 +70,7 @@ namespace TodoPagos.Web.Api.Controllers
 
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProvider([FromUri]int id, [FromBody]Provider oneProvider)
+        public IHttpActionResult PutProvider(int id, [ModelBinder(typeof(ProviderModelBinder))] Provider oneProvider)
         {
             if (!ModelState.IsValid)
             {
@@ -104,7 +105,7 @@ namespace TodoPagos.Web.Api.Controllers
 
         [HttpPost]
         [ResponseType(typeof(Provider))]
-        public IHttpActionResult PostProvider(Provider newProvider)
+        public IHttpActionResult PostProvider([ModelBinder(typeof(ProviderModelBinder))] Provider newProvider)
         {
             if (!ModelState.IsValid)
             {

@@ -43,6 +43,7 @@ namespace TodoPagos.Domain.Repository
             }
             else
             {
+                query.Load();
                 return query.ToList();
             }
         }

@@ -8,7 +8,7 @@ namespace TodoPagos.Domain
 {
     public class CashPayMethod : PayMethod
     {
-        private CashPayMethod() { }
+        protected CashPayMethod() { }
 
         public CashPayMethod(DateTime date)
         {

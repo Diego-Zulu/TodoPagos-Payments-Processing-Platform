@@ -46,6 +46,18 @@ namespace TodoPagos.Domain
             CheckIfAmountPayedIsPositive(theAmountPayed);
             CheckIfReceiptsAreNotNull(paymentReceipts);
             CheckIfItHasOneOrMoreReceipts(paymentReceipts);
+            CheckIfAllReceiptsAreComplete(paymentReceipts);
+        }
+
+        private void CheckIfAllReceiptsAreComplete(ICollection<Receipt> paymentReceipts)
+        {
+            foreach (Receipt oneReceipt in paymentReceipts)
+            {
+                if (!oneReceipt.IsComplete())
+                {
+                    throw new ArgumentException();
+                }
+            }
         }
 
         private void CheckIfItHasOneOrMoreReceipts(ICollection<Receipt> paymentReceipts)

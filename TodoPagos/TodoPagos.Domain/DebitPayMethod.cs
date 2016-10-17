@@ -11,7 +11,7 @@ namespace TodoPagos.Domain
 
         const int NO_CHANGE = 0;
 
-        private DebitPayMethod() { }
+        protected DebitPayMethod() { }
 
         public DebitPayMethod(DateTime date)
         {

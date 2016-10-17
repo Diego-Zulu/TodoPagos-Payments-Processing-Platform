@@ -167,6 +167,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CredentialsAuthorizationServerProvider.cs" />
     <Compile Include="Models\PaymentModelBinder.cs" />
+    <Compile Include="Models\ProviderModelBinder.cs" />
     <Compile Include="Models\UserModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

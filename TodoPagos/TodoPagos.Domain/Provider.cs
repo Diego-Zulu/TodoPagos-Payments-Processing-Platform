@@ -152,5 +152,23 @@ namespace TodoPagos.Domain
                 return false;
             }       
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public bool AllTargetFieldsAndThisFieldsAreEqualNotRegardingData(ICollection<IField> someFields)
+        {
+            foreach (IField oneField in someFields)
+            {
+                IField oneEmptyField = oneField.ClearDataAndClone();
+                if (!this.Fields.Contains(oneEmptyField))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

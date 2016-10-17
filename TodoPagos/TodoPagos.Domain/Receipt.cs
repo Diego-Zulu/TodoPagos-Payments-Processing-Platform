@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace TodoPagos.Domain
 
         public int ID { get; set; }
 
-        private Receipt()
+        protected Receipt()
         {
             CompletedFields = new List<IField>();
         }
@@ -34,12 +36,30 @@ namespace TodoPagos.Domain
             CheckForNegativeAmountToBePaid(amountToBePaid);
             CheckForNullCompletedFields(completedFields);
             CheckForEmptyCompletedField(completedFields);
-            CheckForAtLeastOneCompletedField(completedFields);
+            CheckForNullProvider(aProvider);
+            CheckForIncompleteProvider(aProvider);
+            CheckThatCompletedFieldsAreProvidersFields(aProvider, completedFields);
         }
 
-        private void CheckForAtLeastOneCompletedField(ICollection<IField> completedFields)
+        private void CheckForNullProvider(Provider aProvider)
         {
-            if (completedFields.Count < 1)
+            if (aProvider == null)
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void CheckForIncompleteProvider(Provider aProvider)
+        {
+            if (!aProvider.IsCompleteAndActive())
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void CheckThatCompletedFieldsAreProvidersFields(Provider aProvider, ICollection<IField> completedFields)
+        {
+            if (!aProvider.AllTargetFieldsAndThisFieldsAreEqualNotRegardingData(completedFields))
             {
                 throw new ArgumentException();
             }
@@ -116,6 +136,23 @@ namespace TodoPagos.Domain
         public override int GetHashCode()
         {
             return ID.GetHashCode();
+        }
+
+        public int GetReceiptProviderID()
+        {
+            return this.ReceiptProvider.ID;
+        }
+
+        public bool IsComplete()
+        {
+            try
+            {
+                CheckForPossibleErrors(this.ReceiptProvider, this.CompletedFields, this.Amount);
+                return true;
+            } catch (ArgumentException)
+            {
+                return false;
+            }
         }
     }
 }

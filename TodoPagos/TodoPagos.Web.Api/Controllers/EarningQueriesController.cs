@@ -14,7 +14,6 @@ namespace TodoPagos.Web.Api.Controllers
 {
 
     [RoutePrefix("api/v1/query/earnings")]
-    [Authorize]
     public class EarningQueriesController : ApiController
     {
         private readonly IEarningQueriesService earningQueriesService;

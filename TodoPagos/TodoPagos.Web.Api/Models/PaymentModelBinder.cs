@@ -88,15 +88,8 @@ namespace TodoPagos.Web.Api.Models
         private Provider ParseReceiptProviderFromJsonParameters(dynamic providerJsonParameters)
         {
             int id = providerJsonParameters.ID;
-            double commission = providerJsonParameters.Commission;
-            string name = providerJsonParameters.Name;
-            bool active = providerJsonParameters.Active;
-
-            JArray providerFieldsJsonArray = (JArray)providerJsonParameters.Fields;
-            ICollection<IField> providerFields = ParseProviderFieldsFromJsonArray(providerFieldsJsonArray);
-
-            Provider parsedProvider = new Provider(name, commission, providerFields);
-            parsedProvider.Active = active;
+            
+            Provider parsedProvider = new Provider();
             parsedProvider.ID = id;
 
             return parsedProvider;

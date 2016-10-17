@@ -29,11 +29,11 @@ namespace TodoPagos.Domain.Tests
         public void HaveTheNecessaryCompletedFields()
         {
             List<IField> list = new List<IField>();
-            NumberField aNumberField = new NumberField("Kamen Rider");
-            list.Add(aNumberField);
-            Provider provider = new Provider("Antel", 20, list);
             DateField datefield = new DateField("Fecha");
             NumberField numberField = new NumberField("Monto");
+            list.Add(numberField);
+            list.Add(datefield);
+            Provider provider = new Provider("Antel", 20, list);
             IField completedDateField = datefield.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
             IField completedNumberField = numberField.FillAndClone("8000");
             List<IField> completedFields = new List<IField>();
@@ -41,9 +41,6 @@ namespace TodoPagos.Domain.Tests
             completedFields.Add(completedNumberField);
         
             Receipt receipt = new Receipt(provider, completedFields, 0);
-
-            Assert.IsTrue(completedFields.TrueForAll
-                (field => receipt.ContainsField(field)));
         }
 
         [TestMethod]
@@ -103,19 +100,6 @@ namespace TodoPagos.Domain.Tests
             completeFieldsList.Add(aDateField);
 
             Receipt receipt = new Receipt(provider, completeFieldsList, amount);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void HaveMinimumOneField()
-        {
-            List<IField> list = new List<IField>();
-            DateField aDateField = new DateField("Fecha");
-            list.Add(aDateField);
-            Provider provider = new Provider("Antel", 20, list);
-            double amount = 10000;
-
-            Receipt receipt = new Receipt(provider, new List<IField>(), amount);
         }
 
         [TestMethod]
@@ -251,6 +235,22 @@ namespace TodoPagos.Domain.Tests
             Receipt firstReceipt = CreateReceipt(provider, completedFields, amount);
 
             Assert.IsFalse(firstReceipt.Equals(provider));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfCompletedFieldsAreNotTheSameAsProvidersFieldsIgnoringData()
+        {
+
+            List<IField> emptyFieldsList = new List<IField>();
+            Provider provider = new Provider("Antel", 20, emptyFieldsList);
+            double amount = 10000;
+            NumberField aNumberField = new NumberField("Coordenada X");
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+
+            Receipt firstReceipt = CreateReceipt(provider, completedFields, amount);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace TodoPagos.Domain
 
         public bool Empty { get; set; }
 
-        private DateField() { }
+        protected DateField() { }
 
         public DateField(string aName)
         {
@@ -92,6 +92,13 @@ namespace TodoPagos.Domain
         public override bool IsEmpty()
         {
             return Empty;
+        }
+
+        public override IField ClearDataAndClone()
+        {
+            IField clearedField = new DateField(this.Name);
+
+            return clearedField;
         }
     }
 }

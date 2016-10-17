@@ -4,6 +4,7 @@ using Moq;
 using TodoPagos.Domain.Repository;
 using System.Collections.Generic;
 using TodoPagos.Domain;
+using System.Linq;
 
 namespace TodoPagos.Web.Services.Test
 {
@@ -89,12 +90,15 @@ namespace TodoPagos.Web.Services.Test
         public void BeAbleToCreateNewPaymentInRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            List<Receipt> receipts = new List<Receipt>();
-            mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
-            mockUnitOfWork.Setup(x => x.ReceiptRepository.Get(null, null, "")).Returns(receipts);
-            mockUnitOfWork.Setup(x => x.Save());
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
             Payment payment = CreateNewPayment();
+            List<Receipt> emptyReceipts = new List<Receipt>();
+            mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
+            mockUnitOfWork.Setup(x => x.ProviderRepository.GetByID(
+                payment.Receipts.First().GetReceiptProviderID())).Returns(payment.Receipts.First().ReceiptProvider);
+            mockUnitOfWork.Setup(x => x.ReceiptRepository.Get(null, null, "")).Returns(emptyReceipts);
+            mockUnitOfWork.Setup(x => x.Save());
+            
 
             int id = paymentService.CreatePayment(payment);
 
@@ -131,15 +135,17 @@ namespace TodoPagos.Web.Services.Test
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             List<Receipt> receipts = new List<Receipt>();
+            Payment firstPayment = CreateNewPayment();
+            Payment secondPayment = CreateNewPayment();
             Receipt receipt = CreateNewReceipt();
+
             receipts.Add(receipt);
             mockUnitOfWork.Setup(x => x.PaymentRepository.Insert(It.IsAny<Payment>()));
+            mockUnitOfWork.Setup(x => x.ProviderRepository.GetByID(
+                It.IsAny<int>())).Returns(receipts.First().ReceiptProvider);
             mockUnitOfWork.Setup(x => x.ReceiptRepository.Get(null, null, "")).Returns(receipts);
             mockUnitOfWork.Setup(x => x.Save());
             PaymentService paymentService = new PaymentService(mockUnitOfWork.Object);
-
-            Payment firstPayment = CreateNewPayment();
-            Payment secondPayment = CreateNewPayment();
 
             paymentService.CreatePayment(firstPayment);
             paymentService.CreatePayment(secondPayment);

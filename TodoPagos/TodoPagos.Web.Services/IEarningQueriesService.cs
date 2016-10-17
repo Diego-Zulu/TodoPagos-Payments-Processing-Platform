@@ -9,9 +9,9 @@ namespace TodoPagos.Web.Services
 {
     public interface IEarningQueriesService
     {
-        IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to);
+        IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to, string signedInUsername);
 
-        double GetAllEarnings(DateTime from, DateTime to);
+        double GetAllEarnings(DateTime from, DateTime to, string signedInUsername);
 
         void Dispose();
     }

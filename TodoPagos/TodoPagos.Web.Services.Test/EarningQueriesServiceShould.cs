@@ -5,6 +5,7 @@ using Moq;
 using System.Collections.Generic;
 using TodoPagos.Domain;
 using System.Linq;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Services.Tests
 {
@@ -36,9 +37,11 @@ namespace TodoPagos.Web.Services.Tests
             paymentsList.Add(payment);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(x => x.PaymentRepository.Get(null, null, "")).Returns(paymentsList);
+            mockUnitOfWork.Setup(x => x.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(),
+                EarningQueriesPrivilege.GetInstance())).Returns(true);
             EarningQueriesService earningQueries = new EarningQueriesService(mockUnitOfWork.Object);
 
-            IDictionary<Provider, double> resultingDictionary = earningQueries.GetEarningsPerProvider(DateTime.Today, DateTime.Today);
+            IDictionary<Provider, double> resultingDictionary = earningQueries.GetEarningsPerProvider(DateTime.Today, DateTime.Today, It.IsAny<string>());
 
             mockUnitOfWork.VerifyAll();
             Assert.AreEqual(3, resultingDictionary.First().Value);
@@ -67,12 +70,27 @@ namespace TodoPagos.Web.Services.Tests
             paymentsList.Add(payment);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(x => x.PaymentRepository.Get(null, null, "")).Returns(paymentsList);
+            mockUnitOfWork.Setup(x => x.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(),
+                EarningQueriesPrivilege.GetInstance())).Returns(true);
             EarningQueriesService earningQueries = new EarningQueriesService(mockUnitOfWork.Object);
 
-            double resultingValue = earningQueries.GetAllEarnings(DateTime.Today, DateTime.Today);
+            double resultingValue = earningQueries.GetAllEarnings(DateTime.Today, DateTime.Today, It.IsAny<string>());
 
             mockUnitOfWork.VerifyAll();
             Assert.AreEqual(3, resultingValue);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void FailWithUnauthorizedAccessExceptionIfUserTriesToAccessAnythingWithoutEarningQueriesPrivilege()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), EarningQueriesPrivilege.GetInstance()))
+                .Returns(false);
+            EarningQueriesService earningQueriesService = new EarningQueriesService(mockUnitOfWork.Object);
+
+            double result = earningQueriesService.GetAllEarnings(DateTime.Today, DateTime.Today, It.IsAny<string>());
         }
     }
 }

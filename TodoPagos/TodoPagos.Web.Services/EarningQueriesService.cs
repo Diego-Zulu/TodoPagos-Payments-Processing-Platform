@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TodoPagos.Domain;
 using TodoPagos.Domain.Repository;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Services
 {
@@ -20,8 +21,9 @@ namespace TodoPagos.Web.Services
             if (oneUnitOfWork == null) throw new ArgumentException();
         }
 
-        public double GetAllEarnings(DateTime from, DateTime to)
+        public double GetAllEarnings(DateTime from, DateTime to, string signedInUsername)
         {
+            MakeSureSignedInUserHasRequiredPrivilege(signedInUsername);
             IEnumerable<Payment> allPayments = unitOfWork.PaymentRepository.Get(null, null, "");
             double earnings = 0;
             foreach (Payment payment in allPayments)
@@ -31,8 +33,17 @@ namespace TodoPagos.Web.Services
             return earnings;
         }
 
-        public IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to)
+        private void MakeSureSignedInUserHasRequiredPrivilege(string signedInUsername)
         {
+            if (!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUsername, EarningQueriesPrivilege.GetInstance()))
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
+        public IDictionary<Provider, double> GetEarningsPerProvider(DateTime from, DateTime to, string signedInUsername)
+        {
+            MakeSureSignedInUserHasRequiredPrivilege(signedInUsername);
             IEnumerable<Payment> allPayments = unitOfWork.PaymentRepository.Get(null, null, "");
             IDictionary<Provider, double> dictionary = new Dictionary<Provider, double>();
             foreach(Payment payment in allPayments)

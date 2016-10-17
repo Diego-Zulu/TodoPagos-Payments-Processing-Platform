@@ -11,6 +11,7 @@ using TodoPagos.Domain.Repository;
 using TodoPagos.Domain.DataAccess;
 using System.Web.Http.ModelBinding;
 using TodoPagos.Web.Api.Models;
+using System.Web;
 
 namespace TodoPagos.Web.Api.Controllers
 {
@@ -18,11 +19,13 @@ namespace TodoPagos.Web.Api.Controllers
     public class ProvidersController : ApiController
     {
         private readonly IProviderService providerService;
+        private readonly string signedInUsername;
 
         public ProvidersController()
         {
             TodoPagosContext context = new TodoPagosContext();
             IUnitOfWork unitOfWork = new UnitOfWork(context);
+            signedInUsername = HttpContext.Current.User.Identity.Name;
             providerService = new ProviderService(unitOfWork);
         }
 
@@ -30,6 +33,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             MakeSureProvidedProviderServiceIsNotNull(oneService);
             providerService = oneService;
+            signedInUsername = "TESTING";
         }
 
         private void MakeSureProvidedProviderServiceIsNotNull(IProviderService providedProviderService)
@@ -84,11 +88,18 @@ namespace TodoPagos.Web.Api.Controllers
 
         private IHttpActionResult TryToUpdateProvider(int id, Provider oneProvider)
         {
-            if (!providerService.UpdateProvider(id, oneProvider))
+            try
             {
-                return DecideWhatErrorMessageToReturn(id, oneProvider);
+                if (!providerService.UpdateProvider(id, oneProvider, signedInUsername))
+                {
+                    return DecideWhatErrorMessageToReturn(id, oneProvider);
+                }
+                return StatusCode(HttpStatusCode.NoContent);
             }
-            return StatusCode(HttpStatusCode.NoContent);
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
 
         private IHttpActionResult DecideWhatErrorMessageToReturn(int id, Provider oneProvider)
@@ -142,8 +153,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             try
             {
-                int id = providerService.CreateProvider(newProvider);
-                return CreatedAtRoute("TodoPagosApi", new { id = newProvider.ID }, newProvider);
+                return TryToCreateProviderWhileCheckingForUnauthorizedAccessException(newProvider);
             }
             catch (ArgumentException)
             {
@@ -151,15 +161,35 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
+        private IHttpActionResult TryToCreateProviderWhileCheckingForUnauthorizedAccessException(Provider newProvider)
+        {
+            try
+            {
+                int id = providerService.CreateProvider(newProvider, signedInUsername);
+                return CreatedAtRoute("TodoPagosApi", new { id = newProvider.ID }, newProvider);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
+
         [HttpDelete]
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteProvider(int id)
         {
-            if (providerService.MarkProviderAsDeleted(id))
+            try
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                if (providerService.MarkProviderAsDeleted(id, signedInUsername))
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                return NotFound();
             }
-            return NotFound();
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
 
         protected override void Dispose(bool disposing)

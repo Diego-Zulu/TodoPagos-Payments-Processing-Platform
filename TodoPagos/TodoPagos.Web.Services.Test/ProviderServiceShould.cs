@@ -4,6 +4,7 @@ using TodoPagos.Domain.Repository;
 using Moq;
 using System.Collections.Generic;
 using TodoPagos.Domain;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Services.Tests
 {
@@ -81,13 +82,15 @@ namespace TodoPagos.Web.Services.Tests
         [TestMethod]
         public void BeAbleToCreateNewProviderInRepository()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, ProviderManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Insert(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
             Provider oneProvider = new Provider("UTE", 60, new List<IField>());
-            int id = providerService.CreateProvider(oneProvider);
+            int id = providerService.CreateProvider(oneProvider, receivedUser.Email);
 
             mockUnitOfWork.VerifyAll();
         }
@@ -98,9 +101,12 @@ namespace TodoPagos.Web.Services.Tests
         {
             Provider incompleteProvider = new Provider();
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+            .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
             
-            int id = providerService.CreateProvider(incompleteProvider);
+            int id = providerService.CreateProvider(incompleteProvider, It.IsAny<string>());
         }
 
         [TestMethod]
@@ -109,9 +115,12 @@ namespace TodoPagos.Web.Services.Tests
         {
             Provider nullProvider = null;
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+            .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
     
-            int id = providerService.CreateProvider(nullProvider);
+            int id = providerService.CreateProvider(nullProvider, It.IsAny<string>());
         }
 
         [TestMethod]
@@ -123,9 +132,12 @@ namespace TodoPagos.Web.Services.Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.ProviderRepository.Get(
                 It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, "")).Returns(new[] { providerWithSameName });
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+            .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            int id = providerService.CreateProvider(providerWithRepeatedName);
+            int id = providerService.CreateProvider(providerWithRepeatedName, It.IsAny<string>());
         }
 
         [TestMethod]
@@ -136,21 +148,25 @@ namespace TodoPagos.Web.Services.Tests
             Provider deletedProvider = new Provider("UTE", 60, new List<IField>());
             deletedProvider.MarkAsInactiveToShowItIsDeleted();
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+            .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
             
-            int id = providerService.CreateProvider(deletedProvider);
+            int id = providerService.CreateProvider(deletedProvider, It.IsAny<string>());
         }
 
         [TestMethod]
         public void BeAbleToInsertUpdatedProviderAsMarkOldProviderAsDeletedWhenUpdatingExistingProvider()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             Provider toBeUpdatedProvider = new Provider("AntelData", 60, new List<IField>());
             Provider updatedProvider = new Provider("Antel", 20, new List<IField>());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine1(mockUnitOfWork, toBeUpdatedProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID, updatedProvider);
+            bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID, updatedProvider, receivedUser.Email);
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Insert(updatedProvider), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(toBeUpdatedProvider), Times.Exactly(1));
@@ -164,6 +180,8 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => toBeUpdatedProvider);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege
+            (It.IsAny<string>(), ProviderManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -178,7 +196,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockUpdateRoutine2(mockUnitOfWork, toBeUpdatedProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID, updatedProvider);
+            bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID, updatedProvider, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -190,6 +208,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => toBeUpdatedProvider);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -201,7 +222,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockUpdateRoutine3(mockUnitOfWork);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(0, new Provider());
+            bool updated = providerService.UpdateProvider(0, new Provider(), It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -213,6 +234,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -224,7 +248,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockUpdateRoutine4(mockUnitOfWork);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(0, null);
+            bool updated = providerService.UpdateProvider(0, null, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -236,6 +260,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -248,7 +275,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockUpdateRoutine5(mockUnitOfWork);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID + 1, toBeUpdatedProvider);
+            bool updated = providerService.UpdateProvider(toBeUpdatedProvider.ID + 1, toBeUpdatedProvider, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -260,6 +287,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new Provider());
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(It.IsAny<Provider>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -273,11 +303,14 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new Provider());
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Get(
                 It.IsAny<System.Linq.Expressions.Expression<Func<Provider, bool>>>(), null, "")).Returns(new[] { providerWithSameName });
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(0, new Provider());
+            bool updated = providerService.UpdateProvider(0, new Provider(), It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -291,9 +324,12 @@ namespace TodoPagos.Web.Services.Tests
             Provider deletedProvider = new Provider("UTE", 60, new List<IField>());
             deletedProvider.MarkAsInactiveToShowItIsDeleted();
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(0, new Provider());
+            bool updated = providerService.UpdateProvider(0, new Provider(), It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -310,9 +346,12 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => markedAsDeletedInRepositoryProvider);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(markedAsDeletedInRepositoryProvider.ID, providerWithUpdatedInfo);
+            bool updated = providerService.UpdateProvider(markedAsDeletedInRepositoryProvider.ID, providerWithUpdatedInfo, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -322,12 +361,13 @@ namespace TodoPagos.Web.Services.Tests
         [TestMethod]
         public void BeAbleToMarkAsDeletedAProviderFromRepository()
         {
+            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             Provider toBeDeletedProvider = new Provider("AntelData", 60, new List<IField>());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockDeleteRoutine1(mockUnitOfWork, toBeDeletedProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool deleted = providerService.MarkProviderAsDeleted(2);
+            bool deleted = providerService.MarkProviderAsDeleted(2, receivedUser.Email);
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
@@ -341,6 +381,8 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => toBeDeletedProvider);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege
+            (It.IsAny<string>(), ProviderManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.ProviderRepository.Update(toBeDeletedProvider));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -352,7 +394,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockDeleteRoutine2(mockUnitOfWork);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool deleted = providerService.MarkProviderAsDeleted(2);
+            bool deleted = providerService.MarkProviderAsDeleted(2, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -365,6 +407,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
         }
 
         [TestMethod]
@@ -376,7 +421,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockDeleteRoutine3(mockUnitOfWork, alreadyDeletedProvider);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool deleted = providerService.MarkProviderAsDeleted(2);
+            bool deleted = providerService.MarkProviderAsDeleted(2, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -389,6 +434,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => alreadyDeletedProvider);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
         }
 
         [TestMethod]
@@ -400,13 +448,30 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.ProviderRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => providerInRepository);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(true);
             ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
 
-            bool updated = providerService.UpdateProvider(providerInRepository.ID, providerWithUpdatedInfo);
+            bool updated = providerService.UpdateProvider(providerInRepository.ID, providerWithUpdatedInfo, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.ProviderRepository.Update(It.IsAny<Provider>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
             Assert.IsTrue(updated);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void FailWithUnauthorizedAccessExceptionIfUserTriesToAccessAnythingWithoutProviderManagementPrivilege()
+        {
+            Provider providerToCreate = new Provider("Antel", 20, new List<IField>());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ProviderManagementPrivilege.GetInstance()))
+                .Returns(false);
+            ProviderService providerService = new ProviderService(mockUnitOfWork.Object);
+
+            int id = providerService.CreateProvider(providerToCreate, It.IsAny<string>());
         }
     }
 }

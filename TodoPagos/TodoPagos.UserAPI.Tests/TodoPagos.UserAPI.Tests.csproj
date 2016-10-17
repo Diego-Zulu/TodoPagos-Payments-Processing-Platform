@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AdminRoleShould.cs" />
     <Compile Include="CashierRoleShould.cs" />
+    <Compile Include="EarningQueriesPrivilegeShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderManagementPrivilegeShould.cs" />
     <Compile Include="UserManagementPrivilegeShould.cs" />

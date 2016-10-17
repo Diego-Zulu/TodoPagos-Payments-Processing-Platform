@@ -47,9 +47,16 @@ namespace TodoPagos.Web.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetUsers()
         {
-            IEnumerable<User> users = userService.GetAllUsers();
-            ClearPasswordsAndSaltsFromTargetUsers(users);
-            return Ok(users);
+            try
+            {
+                IEnumerable<User> users = userService.GetAllUsers(signedInUsername);
+                ClearPasswordsAndSaltsFromTargetUsers(users);
+                return Ok(users);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
 
         private void ClearPasswordsAndSaltsFromTargetUsers(IEnumerable<User> targetUsers)
@@ -67,7 +74,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             try
             {
-                User user = userService.GetSingleUser(id);
+                User user = userService.GetSingleUser(id, signedInUsername);
                 user.ClearPassword();
                 user.ClearSalt();
                 return Ok(user);
@@ -75,6 +82,10 @@ namespace TodoPagos.Web.Api.Controllers
             catch (ArgumentOutOfRangeException)
             {
                 return NotFound();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
             }
         }
 
@@ -134,11 +145,19 @@ namespace TodoPagos.Web.Api.Controllers
 
         private IHttpActionResult TryToUpdateUser(int id, User user)
         {
-            if (!userService.UpdateUser(id, user, signedInUsername))
+            try
             {
-                return DecideWhatErrorMessageToReturn(id, user);
+
+                if (!userService.UpdateUser(id, user, signedInUsername))
+                {
+                    return DecideWhatErrorMessageToReturn(id, user);
+                }
+                return StatusCode(HttpStatusCode.NoContent);
             }
-            return StatusCode(HttpStatusCode.NoContent);
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
         }
 
         private IHttpActionResult DecideWhatErrorMessageToReturn(int id, User user)
@@ -157,11 +176,19 @@ namespace TodoPagos.Web.Api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteUser(int id)
         {
-            if (userService.DeleteUser(id, signedInUsername))
+            try
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                if (userService.DeleteUser(id, signedInUsername))
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                return NotFound();
             }
-            return NotFound();
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+
         }
 
         protected override void Dispose(bool disposing)

@@ -31,11 +31,15 @@ namespace TodoPagos.Web.Services.Tests
         [TestMethod]
         public void BeAbleToGetAllUsersFromRepository()
         {
+            User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(singleUser.Email, UserManagementPrivilege.GetInstance()))
+            .Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Get(null, null, ""));
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            IEnumerable<User> returnedUsers = userService.GetAllUsers();
+            IEnumerable<User> returnedUsers = userService.GetAllUsers(singleUser.Email);
 
             mockUnitOfWork.VerifyAll();
         }
@@ -46,9 +50,12 @@ namespace TodoPagos.Web.Services.Tests
             User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.GetByID(singleUser.ID)).Returns(singleUser);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(singleUser.Email, UserManagementPrivilege.GetInstance()))
+            .Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            User returnedUser = userService.GetSingleUser(singleUser.ID);
+            User returnedUser = userService.GetSingleUser(singleUser.ID, singleUser.Email);
 
             mockUnitOfWork.VerifyAll();
             Assert.AreSame(singleUser, returnedUser);
@@ -60,24 +67,26 @@ namespace TodoPagos.Web.Services.Tests
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.UserRepository.GetByID(It.IsAny<int>()));
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+            .Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            User returnedUser = userService.GetSingleUser(5);
+            User returnedUser = userService.GetSingleUser(5, It.IsAny<string>());
         }
 
         [TestMethod]
         public void BeAbleToCreateNewUserInRepository()
         {
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
             singleUser.Password = "#ElBizagra1996";
-            int id = userService.CreateUser(singleUser, receivedUser.Email);
+            int id = userService.CreateUser(singleUser, It.IsAny<string>());
 
             mockUnitOfWork.VerifyAll();
         }
@@ -86,30 +95,28 @@ namespace TodoPagos.Web.Services.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsNotComplete()
         {
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Get(
                It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, "")).Returns(new List<User>());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User();
 
-            int id = userService.CreateUser(singleUser, receivedUser.Email);
+            int id = userService.CreateUser(singleUser, It.IsAny<string>());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void FailWithArgumentNullExceptionIfToBeCreatedNewUserIsNull()
         {
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = null;
 
-            int id = userService.CreateUser(singleUser, receivedUser.Email);
+            int id = userService.CreateUser(singleUser, It.IsAny<string>());
         }
 
         [TestMethod]
@@ -117,9 +124,8 @@ namespace TodoPagos.Web.Services.Tests
         public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsAlreadyInRepository()
         {
             User repeatedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
-            User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork
                 .Setup(un => un.UserRepository.Get(
                 It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, ""))
@@ -128,7 +134,7 @@ namespace TodoPagos.Web.Services.Tests
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             repeatedUser.Password = "#ElBizagra1995";
-            int id = userService.CreateUser(repeatedUser, receivedUser.Email);
+            int id = userService.CreateUser(repeatedUser, It.IsAny<string>());
         }
 
         [TestMethod]
@@ -152,6 +158,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => toBeUpdatedUser);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+            .Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -178,6 +187,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => toBeUpdatedUser);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                .Returns(true);
         }
 
         [TestMethod]
@@ -199,6 +211,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                .Returns(true);
         }
 
         [TestMethod]
@@ -220,6 +235,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                .Returns(true);
         }
 
         [TestMethod]
@@ -242,6 +260,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new User());
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                .Returns(true);
         }
 
         [TestMethod]
@@ -266,6 +287,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new User());
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                .Returns(true);
             mockUnitOfWork
                .Setup(un => un.UserRepository.Get(
                It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, ""))
@@ -293,6 +317,9 @@ namespace TodoPagos.Web.Services.Tests
             List<User> usersList = new List<User>();
             usersList.Add(signedInUser);
             mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(signedInUser.Email, UserManagementPrivilege.GetInstance()))
+                .Returns(true);
+            mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => new User());
             mockUnitOfWork
@@ -305,12 +332,11 @@ namespace TodoPagos.Web.Services.Tests
         [TestMethod]
         public void NotDeleteAnythingIfUserIdDoesntExistInRepository()
         {
-            User adminUser = new User("Bruno", "bferr42@gmail.com", "Hola123!!", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockDeleteRoutine2(mockUnitOfWork);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            bool deleted = userService.DeleteUser(2, adminUser.Email);
+            bool deleted = userService.DeleteUser(2, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -322,6 +348,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => null);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+            .Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Delete(It.IsAny<int>()));
             mockUnitOfWork.Setup(un => un.Save());
         }
@@ -332,14 +361,13 @@ namespace TodoPagos.Web.Services.Tests
         public void FailWithUnauthorizedAccessExceptionIfUserTriesToPostANewUserWithoutHavingUserManagementPrivilege()
         {
             User userToCreate = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1995", AdminRole.GetInstance());
-            User receivedUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", CashierRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork
-                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance()))
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
                 .Returns(false);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            int id = userService.CreateUser(userToCreate, receivedUser.Email);
+            int id = userService.CreateUser(userToCreate, It.IsAny<string>());
         }
 
         [TestMethod]
@@ -350,7 +378,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockDeleteRoutine3(mockUnitOfWork, user);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            bool deleted = userService.DeleteUser(user.ID, user.Email);
+            bool deleted = userService.DeleteUser(user.ID, It.IsAny<string>());
 
             mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Never());
             mockUnitOfWork.Verify(un => un.Save(), Times.Never());
@@ -364,6 +392,9 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.UserRepository.GetByID(It.IsAny<int>()))
                 .Returns(() => signedInUser);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+            .Returns(true);
             mockUnitOfWork
                 .Setup(un => un.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, ""))
                 .Returns(() => usersList);

@@ -9,9 +9,9 @@ namespace TodoPagos.Web.Services
 {
     public interface IUserService
     {
-        IEnumerable<User> GetAllUsers();
+        IEnumerable<User> GetAllUsers(string signedInUserEmail);
 
-        User GetSingleUser(int id);
+        User GetSingleUser(int id, string signedInUserEmail);
 
         int CreateUser(User newUser, string signedInUserEmail);
 

@@ -15,11 +15,11 @@ namespace TodoPagos.Web.Services
 
         Provider GetSingleProvider(int providerId);
 
-        bool UpdateProvider(int providerId, Provider targetProvider);
+        bool UpdateProvider(int providerId, Provider targetProvider, string signedInUserEmail);
 
-        int CreateProvider(Provider targetProvider);
+        int CreateProvider(Provider targetProvider, string signedInUserEmail);
 
-        bool MarkProviderAsDeleted(int providerId);
+        bool MarkProviderAsDeleted(int providerId, string signedInUserEmail);
 
         void Dispose();
     }

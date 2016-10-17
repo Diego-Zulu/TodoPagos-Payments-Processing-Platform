@@ -19,6 +19,8 @@ namespace TodoPagos.UserAPI
         private void AddAdminPrivileges()
         {
             this.Privileges.Add(UserManagementPrivilege.GetInstance());
+            this.Privileges.Add(ProviderManagementPrivilege.GetInstance());
+            this.Privileges.Add(EarningQueriesPrivilege.GetInstance());
         }
 
         public static AdminRole GetInstance()

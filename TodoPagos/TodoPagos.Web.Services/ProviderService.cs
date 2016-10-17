@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TodoPagos.Domain;
 using TodoPagos.Domain.Repository;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Services
 {
@@ -27,12 +28,21 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public int CreateProvider(Provider newProvider)
+        public int CreateProvider(Provider newProvider, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             MakeSureTargetProviderIsReadyToBeCreated(newProvider);
             unitOfWork.ProviderRepository.Insert(newProvider);
             unitOfWork.Save();
             return newProvider.ID;
+        }
+
+        private void MakeSureUserHasRequiredPrivilege(string signedInUserEmail)
+        {
+            if (!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, ProviderManagementPrivilege.GetInstance()))
+            {
+                throw new UnauthorizedAccessException();
+            }
         }
 
         private void MakeSureTargetProviderIsReadyToBeCreated(Provider targetProvider)
@@ -79,8 +89,9 @@ namespace TodoPagos.Web.Services
                 us => !us.Name.Equals(targetProvider.Name) || !us.Active, null, "");
         }
 
-        public bool MarkProviderAsDeleted(int id)
+        public bool MarkProviderAsDeleted(int id, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             if (ExistsProvider(id))
             {
                 MarkProviderAsDeletedAndUpdateOnlyIfItIsNotAlreadyDeleted(id);
@@ -135,8 +146,9 @@ namespace TodoPagos.Web.Services
             }
         }
 
-        public bool UpdateProvider(int providerId, Provider oneProvider)
+        public bool UpdateProvider(int providerId, Provider oneProvider, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             if (ProviderWithUpdatedInfoAndBaseProviderInRepositoryCanBothStartAnUpdate(providerId, oneProvider))
             {
                 if (ProviderInRepositoryAndModifiedProviderAreCompletelyEqual(providerId, oneProvider)) return true;

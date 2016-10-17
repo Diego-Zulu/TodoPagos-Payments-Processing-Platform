@@ -77,6 +77,7 @@ namespace TodoPagos.Web.Services
 
         public bool DeleteUser(int id, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             if (ExistsUser(id) && !SameUser(id, signedInUserEmail))
             {
                 unitOfWork.UserRepository.Delete(id);
@@ -98,13 +99,15 @@ namespace TodoPagos.Web.Services
             unitOfWork.Dispose();
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<User> GetAllUsers(string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             return unitOfWork.UserRepository.Get(null, null, "");
         }
 
-        public User GetSingleUser(int id)
+        public User GetSingleUser(int id, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             User foundUser = unitOfWork.UserRepository.GetByID(id);
             ThrowArgumentExceptionIfUserWasntFound(foundUser);
             return foundUser;
@@ -120,6 +123,7 @@ namespace TodoPagos.Web.Services
 
         public bool UpdateUser(int userId, User user, string signedInUserEmail)
         {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             if (user != null && userId == user.ID && ExistsUser(userId) && !AnotherDifferentUserAlreadyHasThisEmail(user))
             {
                 User userEntity = unitOfWork.UserRepository.GetByID(userId);

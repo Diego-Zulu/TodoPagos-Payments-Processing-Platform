@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace TodoPagos.Domain
 {
     public static class Hashing
     {

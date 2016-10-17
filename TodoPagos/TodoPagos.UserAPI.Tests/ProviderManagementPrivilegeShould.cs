@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UserAPI.Privileges;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TodoPagos.UserAPI.Tests
 {
@@ -14,6 +12,15 @@ namespace TodoPagos.UserAPI.Tests
             int privilegeHashCode = providerManagement.GetHashCode();
 
             Assert.AreEqual(privilegeHashCode, providerManagement.Name.GetHashCode());
+        }
+
+        [TestMethod]
+        public void ReturnFalseWhenComparedWithANonPrivilegeObject()
+        {
+            Privilege providerManagement = ProviderManagementPrivilege.GetInstance();
+            string nonRoleObject = "Goodbye World!";
+
+            Assert.AreNotEqual(providerManagement, nonRoleObject);
         }
     }
 }

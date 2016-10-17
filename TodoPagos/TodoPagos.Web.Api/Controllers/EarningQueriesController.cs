@@ -20,18 +20,21 @@ namespace TodoPagos.Web.Api.Controllers
         private readonly DateTime DEFAULT_FROM_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
         private readonly DateTime DEFAULT_TO_DATE = DateTime.Today;
+        private readonly string signedInUsername;
 
         public EarningQueriesController()
         {
             TodoPagosContext context = new TodoPagosContext();
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             earningQueriesService = new EarningQueriesService(unitOfWork);
+            signedInUsername = HttpContext.Current.User.Identity.Name;
         }
 
         public EarningQueriesController(IEarningQueriesService service)
         {
             CheckForNullEarningQueriesService(service);
             earningQueriesService = service;
+            signedInUsername = "TESTING";
         }
 
         private void CheckForNullEarningQueriesService(IEarningQueriesService service)
@@ -52,7 +55,19 @@ namespace TodoPagos.Web.Api.Controllers
             }
             else
             {
-                return Ok(earningQueriesService.GetEarningsPerProvider(from.Value, to.Value));
+                return TryToProcessRequestToGetEarningsPerProvider(from, to);
+            }
+        }
+
+        private IHttpActionResult TryToProcessRequestToGetEarningsPerProvider(DateTime? from, DateTime? to)
+        {
+            try
+            {
+                return Ok(earningQueriesService.GetEarningsPerProvider(from.Value, to.Value, signedInUsername));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
             }
         }
 
@@ -81,7 +96,19 @@ namespace TodoPagos.Web.Api.Controllers
             }
             else
             {
-                return Ok(earningQueriesService.GetAllEarnings(from.Value, to.Value));
+                return TryToProcessRequestToGetAllEarnings(from, to);
+            }
+        }
+
+        private IHttpActionResult TryToProcessRequestToGetAllEarnings(DateTime? from, DateTime? to)
+        {
+            try
+            {
+                return Ok(earningQueriesService.GetAllEarnings(from.Value, to.Value, signedInUsername));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
             }
         }
     }

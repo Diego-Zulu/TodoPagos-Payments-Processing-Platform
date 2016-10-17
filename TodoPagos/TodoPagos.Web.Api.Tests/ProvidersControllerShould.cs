@@ -102,7 +102,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider)).Returns(true);
+            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider, It.IsAny<string>())).Returns(true);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
@@ -116,7 +116,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID + 1, oneProvider)).Returns(false);
+            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID + 1, oneProvider, It.IsAny<string>())).Returns(false);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID + 1, oneProvider);
@@ -129,7 +129,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider nullProvider = null;
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(1, nullProvider)).Returns(false);
+            mockProviderService.Setup(x => x.UpdateProvider(1, nullProvider, It.IsAny<string>())).Returns(false);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PutProvider(1, nullProvider);
@@ -142,7 +142,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider)).Returns(false);
+            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider, It.IsAny<string>())).Returns(false);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
@@ -155,7 +155,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.CreateProvider(oneProvider)).Returns(1);
+            mockProviderService.Setup(x => x.CreateProvider(oneProvider, It.IsAny<string>())).Returns(1);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PostProvider(oneProvider);
@@ -169,7 +169,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.CreateProvider(oneProvider)).Throws(new InvalidOperationException());
+            mockProviderService.Setup(x => x.CreateProvider(oneProvider, It.IsAny<string>())).Throws(new InvalidOperationException());
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PostProvider(oneProvider);
@@ -182,7 +182,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider nullProvider = null;
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.CreateProvider(nullProvider)).Throws(new ArgumentNullException());
+            mockProviderService.Setup(x => x.CreateProvider(nullProvider, It.IsAny<string>())).Throws(new ArgumentNullException());
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PostProvider(nullProvider);
@@ -195,7 +195,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID)).Returns(true);
+            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID, It.IsAny<string>())).Returns(true);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);
@@ -209,7 +209,7 @@ namespace TodoPagos.Web.Api.Tests
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID)).Returns(false);
+            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID, It.IsAny<string>())).Returns(false);
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);

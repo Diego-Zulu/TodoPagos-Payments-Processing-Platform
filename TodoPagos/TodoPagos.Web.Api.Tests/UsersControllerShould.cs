@@ -41,7 +41,7 @@ namespace TodoPagos.WebApi.Tests
                 new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance())
             };
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsers);
+            mockUserService.Setup(x => x.GetAllUsers(It.IsAny<string>())).Returns(allUsers);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUsers();
@@ -55,7 +55,7 @@ namespace TodoPagos.WebApi.Tests
         {
             var allUsersWithoutPasswordsAndSalts = GetAllUsersWithoutPasswordsAndSalts();
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetAllUsers()).Returns(allUsersWithoutPasswordsAndSalts);
+            mockUserService.Setup(x => x.GetAllUsers(It.IsAny<string>())).Returns(allUsersWithoutPasswordsAndSalts);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUsers();
@@ -98,7 +98,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID)).Returns(singleUser);
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID, It.IsAny<string>())).Returns(singleUser);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUser(singleUser.ID);
@@ -114,7 +114,7 @@ namespace TodoPagos.WebApi.Tests
             singleUser.ClearPassword();
             singleUser.ClearSalt();
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID)).Returns(singleUser);
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID, It.IsAny<string>())).Returns(singleUser);
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUser(singleUser.ID);
@@ -130,7 +130,7 @@ namespace TodoPagos.WebApi.Tests
         {
             User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
             var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID + 1)).Throws(new ArgumentOutOfRangeException());
+            mockUserService.Setup(x => x.GetSingleUser(singleUser.ID + 1, It.IsAny<string>())).Throws(new ArgumentOutOfRangeException());
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetUser(singleUser.ID + 1);

@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.OAuth;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using TodoPagos.Domain.DataAccess;
-using Domain;
+using TodoPagos.Domain;
 
 namespace TodoPagos.Web.Api
 {

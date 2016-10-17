@@ -41,7 +41,7 @@ namespace TodoPagos.Web.Api.Tests
             result.Add(new Provider("Antel", 10, new List<IField>()), 100);
             result.Add(new Provider("Tienda Inglesa", 7, new List<IField>()), 200);
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();
-            mockEarningQueriesService.Setup(x => x.GetEarningsPerProvider(from, to)).Returns(result);
+            mockEarningQueriesService.Setup(x => x.GetEarningsPerProvider(from, to, It.IsAny<string>())).Returns(result);
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
             IHttpActionResult actionResult = controller.GetEarningsPerProvider(from, to);
@@ -61,7 +61,7 @@ namespace TodoPagos.Web.Api.Tests
             result.Add(new Provider("Antel", 10, new List<IField>()), 100);
             result.Add(new Provider("Tienda Inglesa", 7, new List<IField>()), 200);
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();
-            mockEarningQueriesService.Setup(x => x.GetEarningsPerProvider(from, to)).Returns(result);
+            mockEarningQueriesService.Setup(x => x.GetEarningsPerProvider(from, to, It.IsAny<string>())).Returns(result);
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
             IHttpActionResult actionResult = controller.GetEarningsPerProvider();
@@ -79,7 +79,7 @@ namespace TodoPagos.Web.Api.Tests
             DateTime to = DateTime.Today;
             int earnings = 1000;
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();
-            mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to)).Returns(earnings);
+            mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to, It.IsAny<string>())).Returns(earnings);
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
             IHttpActionResult actionResult = controller.GetAllEarnings(from, to);
@@ -96,7 +96,7 @@ namespace TodoPagos.Web.Api.Tests
             DateTime to = DateTime.Today;
             int earnings = 1000;
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();
-            mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to)).Returns(earnings);
+            mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to, It.IsAny<string>())).Returns(earnings);
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
             IHttpActionResult actionResult = controller.GetAllEarnings();

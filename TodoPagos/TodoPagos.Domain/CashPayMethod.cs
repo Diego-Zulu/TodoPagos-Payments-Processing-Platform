@@ -8,13 +8,11 @@ namespace TodoPagos.Domain
 {
     public class CashPayMethod : PayMethod
     {
-        private CashPayMethod() { }
+        protected CashPayMethod() { }
 
-        public CashPayMethod(int amountPayed, DateTime date)
+        public CashPayMethod(DateTime date)
         {
             CheckIfDateIsNotInTheFuture(date);
-            this.Change = 0;
-            this.PaidWith = amountPayed;
             this.PayDate = date;
         }
 
@@ -26,16 +24,14 @@ namespace TodoPagos.Domain
             }
         }
 
-        public override int PayAndReturnChange(int total)
+        public override double PayAndReturnChange(double total, double payedWith)
         {
-            CheckIfAmountPayedIsMoreThanOrEqualsTotal(PaidWith, total);
+            CheckIfAmountPayedIsMoreThanOrEqualsTotal(payedWith, total);
             CheckIfTotalIsPositive(total);
-            Change = PaidWith - total;
-
-            return Change;
+            return payedWith - total;
         }
 
-        private void CheckIfAmountPayedIsMoreThanOrEqualsTotal(int amountPayed, int total)
+        private void CheckIfAmountPayedIsMoreThanOrEqualsTotal(double amountPayed, double total)
         {
             if (amountPayed < total)
             {
@@ -43,7 +39,7 @@ namespace TodoPagos.Domain
             }
         }
 
-        private void CheckIfTotalIsPositive(int total)
+        private void CheckIfTotalIsPositive(double total)
         {
             if (total < 0)
             {

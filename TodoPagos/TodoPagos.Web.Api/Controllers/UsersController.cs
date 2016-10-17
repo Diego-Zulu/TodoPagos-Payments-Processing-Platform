@@ -10,11 +10,12 @@ using TodoPagos.Domain.DataAccess;
 using System.Web;
 using System.Security.Claims;
 using Microsoft.Owin.Security.OAuth;
+using System.Web.Http.ModelBinding;
+using TodoPagos.Web.Api.Models;
 
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/users")]
-    [Authorize]
     public class UsersController : ApiController
     {
         private readonly IUserService userService;
@@ -79,7 +80,7 @@ namespace TodoPagos.Web.Api.Controllers
 
         [HttpPost]
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User newUser)
+        public IHttpActionResult PostUser([ModelBinder(typeof(UserModelBinder))] User newUser)
         {
             if (!ModelState.IsValid)
             {
@@ -105,6 +106,8 @@ namespace TodoPagos.Web.Api.Controllers
             try
             {
                 int id = userService.CreateUser(newUser, signedInUsername);
+                newUser.ClearSalt();
+                newUser.ClearPassword();
                 return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser);
             }
             catch (InvalidOperationException)
@@ -118,7 +121,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutUser(int id, [ModelBinder(typeof(UserModelBinder))] User user)
         {
             if (!ModelState.IsValid)
             {

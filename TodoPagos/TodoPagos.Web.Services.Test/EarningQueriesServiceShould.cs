@@ -56,7 +56,7 @@ namespace TodoPagos.Web.Services.Tests
             Receipt receipt = new Receipt(provider, fullFields, 100);
             List<Receipt> list = new List<Receipt>();
             list.Add(receipt);
-            return new Payment(new CashPayMethod(100, DateTime.Today), 100, list);
+            return new Payment(new CashPayMethod(DateTime.Today), 100, list);
         }
 
         [TestMethod]

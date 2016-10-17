@@ -21,5 +21,7 @@ namespace TodoPagos.Domain
         public abstract override int GetHashCode();
 
         public int ID { get; set; }
+
+        public abstract IField ClearDataAndClone();
     }
 }

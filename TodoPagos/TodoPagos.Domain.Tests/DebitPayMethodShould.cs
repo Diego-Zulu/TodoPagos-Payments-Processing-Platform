@@ -11,10 +11,11 @@ namespace TodoPagos.Domain.Tests
         public void BeAbleToPayAndReturn0Change()
         {
             int paymentTotal = 1000;
+            int payedWith = 1000;
             DateTime todaysDate = DateTime.Now;
             PayMethod payMethod = new DebitPayMethod(todaysDate);
 
-            int change = payMethod.PayAndReturnChange(paymentTotal);
+            double change = payMethod.PayAndReturnChange(paymentTotal, payedWith);
 
             Assert.AreEqual(0, change);
         }
@@ -24,10 +25,11 @@ namespace TodoPagos.Domain.Tests
         public void RefusePaymentWhenTotalIsNegative()
         {
             int paymentTotal = -1;
+            int payedWith = 0;
             DateTime oneDate = DateTime.Parse("12/12/2009");
             PayMethod payMethod = new DebitPayMethod(oneDate);
 
-            payMethod.PayAndReturnChange(paymentTotal);
+            payMethod.PayAndReturnChange(paymentTotal, payedWith);
         }
 
         [TestMethod]

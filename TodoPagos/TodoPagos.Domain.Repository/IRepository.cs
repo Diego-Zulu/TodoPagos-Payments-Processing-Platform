@@ -19,6 +19,5 @@ namespace TodoPagos.Domain.Repository
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
 
-
     }
 }

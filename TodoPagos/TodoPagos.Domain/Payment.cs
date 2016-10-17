@@ -9,7 +9,9 @@ namespace TodoPagos.Domain
     public class Payment
     {
         public virtual PayMethod PaymentMethod { get; set; }
-        public double AmountPaid { get; set; }
+        public double PaidWith { get; set; }
+        public double Change { get; set; }
+        private double PaymentTotal { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
         public int ID { get; set; }
 
@@ -22,8 +24,20 @@ namespace TodoPagos.Domain
         {
             CheckAttributeCorrectness(aPayMethod, theAmountPaid, paymentReceipts);
             PaymentMethod = aPayMethod;
-            AmountPaid = theAmountPaid;
+            PaidWith = theAmountPaid;
             Receipts = paymentReceipts;
+            PaymentTotal = CalculatePaymentTotal();
+            Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
+        }
+
+        private double CalculatePaymentTotal()
+        {
+            double total = 0;
+            foreach (Receipt oneReceipt in this.Receipts)
+            {
+                total += oneReceipt.Amount;
+            }
+            return total;
         }
 
         private void CheckAttributeCorrectness(PayMethod aPayMethod, double theAmountPayed, ICollection<Receipt> paymentReceipts)
@@ -31,14 +45,26 @@ namespace TodoPagos.Domain
             CheckIfPayMethodIsNotNull(aPayMethod);
             CheckIfAmountPaidIsPositive(theAmountPayed);
             CheckIfReceiptsAreNotNull(paymentReceipts);
-            CheckIfItHasOneOrMoreReceipts(paymentReceipts);
+            CheckIfPaymentHasAtLeastOneReceipt(paymentReceipts);
+            CheckIfAllReceiptsAreComplete(paymentReceipts);
         }
 
-        private void CheckIfItHasOneOrMoreReceipts(ICollection<Receipt> paymentReceipts)
+        private void CheckIfPaymentHasAtLeastOneReceipt(ICollection<Receipt> paymentReceipts)
         {
             if (paymentReceipts.Count < 1)
             {
                 throw new ArgumentException();
+            }
+        }
+
+        private void CheckIfAllReceiptsAreComplete(ICollection<Receipt> paymentReceipts)
+        {
+            foreach (Receipt oneReceipt in paymentReceipts)
+            {
+                if (!oneReceipt.IsComplete())
+                {
+                    throw new ArgumentException();
+                }
             }
         }
 
@@ -69,12 +95,21 @@ namespace TodoPagos.Domain
         {
             try
             {
-                CheckAttributeCorrectness(this.PaymentMethod, this.AmountPaid, this.Receipts);
+                CheckAttributeCorrectness(this.PaymentMethod, this.PaidWith, this.Receipts);
+                CheckThatPaymentTotalIsStillTheSumOfTheAmountsOfAllReceipts(this.PaymentTotal);
                 return true;
             }
             catch (ArgumentException)
             {
                 return false;
+            }
+        }
+
+        private void CheckThatPaymentTotalIsStillTheSumOfTheAmountsOfAllReceipts(double payment)
+        {
+            if (payment != this.CalculatePaymentTotal())
+            {
+                throw new ArgumentException();
             }
         }
 
@@ -112,18 +147,6 @@ namespace TodoPagos.Domain
             {
                 overallValue += receipt.CalculateEarnings();
             }
-        }
-
-        public bool AreValidReceipts()
-        {
-            foreach(Receipt receipt in Receipts)
-            {
-                if (!receipt.IsValid())
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

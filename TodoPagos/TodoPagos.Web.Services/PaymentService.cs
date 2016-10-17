@@ -32,9 +32,21 @@ namespace TodoPagos.Web.Services
         private void CheckForValidCreationOfPayment(Payment newPayment)
         {
             CheckForNullPayment(newPayment);
+            LoadAllReceiptsProvidersInfoFromDatabase(newPayment);
             CheckForIncompletePayment(newPayment);
             CheckThatEqualReceiptDoesntAlreadyExistInReceiptRepository(newPayment.Receipts);
-            CheckForValidReceipts(newPayment.Receipts);
+        }
+        private void LoadAllReceiptsProvidersInfoFromDatabase(Payment newPayment)
+        {
+            ICollection<Receipt> allReceiptsInPayment = newPayment.Receipts;
+
+            foreach (Receipt oneReceipt in allReceiptsInPayment)
+            {
+                int providerId = oneReceipt.GetReceiptProviderID();
+                Provider receiptProviderFromDatabase = unitOfWork.ProviderRepository.GetByID(providerId);
+
+                oneReceipt.ReceiptProvider = receiptProviderFromDatabase;
+            }
         }
 
         private void CheckForNullPayment(Payment payment)
@@ -55,11 +67,6 @@ namespace TodoPagos.Web.Services
             {
                 throw new ArgumentException();
             }
-        }
-
-        private void CheckForValidReceipts(IEnumerable<Receipt> receipts)
-        {
-            if (receipts.Any(receipt => !receipt.IsValid())) throw new ArgumentException();            
         }
 
         public IEnumerable<Payment> GetAllPayments()

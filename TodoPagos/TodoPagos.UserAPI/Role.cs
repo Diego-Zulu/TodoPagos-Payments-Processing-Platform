@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace TodoPagos.UserAPI
 {
-    public class Role
+    public abstract class Role
     {
         public string Name { get; set; }
 
         public int ID { get; set; }
 
-        public virtual ICollection<Privilege> Privileges { get; } = new List<Privilege>();
+        public virtual ICollection<Privilege> Privileges { get; set; } = new List<Privilege>();
 
         public override bool Equals(Object anObject)
         {

@@ -1,13 +1,14 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using EmailAddress = System.Net.Mail.MailAddress;
 
 namespace TodoPagos.UserAPI
 {
-    
+
     public class User
     {
         public string Name { get; set; }
@@ -17,11 +18,14 @@ namespace TodoPagos.UserAPI
         public virtual ICollection<Role> Roles { get; set; }
         public int ID { get; set; }
 
+        [NotMapped]
         private const int MINIMUM_ROLE_AMOUNT = 1;
 
+        [NotMapped]
         private const int MIN_PASSWORD_LENGTH = 8;
 
-        private const int MAX_PASSWORD_LENGTH = Hashing.SALT_LENGTH;
+        [NotMapped]
+        private const int MAX_PASSWORD_LENGTH = 32;
 
         public User()
         {
@@ -38,6 +42,15 @@ namespace TodoPagos.UserAPI
             DealWithPassword(newPassword);
         }
 
+        public User(string newUserName, string newUserEmail, string newPassword, ICollection<Role> newRolesList)
+        {
+            CheckAttributeCorrectness(newUserName, newUserEmail, newPassword, newRolesList);
+            Name = newUserName;
+            Email = newUserEmail;
+            Roles = newRolesList;
+            DealWithPassword(newPassword);
+        }
+
         private void DealWithPassword(string pass)
         {
             Salt = Hashing.GetRandomSalt();
@@ -48,7 +61,34 @@ namespace TodoPagos.UserAPI
         {
             CheckIfNameAndEmailAreCorrect(newUserName, newUserEmail);
             CheckIfRoleIsNotNull(newUserRole);
-            CheckIfPasswordIsCorrect(newPassword);
+            CheckIfPasswordHasCorrectFormat(newPassword);
+        }
+
+        private void CheckAttributeCorrectness(string newUserName, string newUserEmail, string newPassword, ICollection<Role> newUserRoles)
+        {
+            CheckIfNameAndEmailAreCorrect(newUserName, newUserEmail);
+            CheckIfRolesListIsNotNullOrEmpty(newUserRoles);
+            CheckIfNoRoleIsNull(newUserRoles);
+            CheckIfPasswordHasCorrectFormat(newPassword);
+        }
+
+        private void CheckIfRolesListIsNotNullOrEmpty(ICollection<Role> roles)
+        {
+            if (roles == null || roles.Count == 0)
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void CheckIfNoRoleIsNull(ICollection<Role> roles)
+        {
+            foreach (Role oneRole in roles)
+            {
+                if (oneRole == null)
+                {
+                    throw new ArgumentException();
+                }
+            }
         }
 
         private void CheckIfRoleIsNotNull(Role oneRole)
@@ -59,7 +99,7 @@ namespace TodoPagos.UserAPI
             }
         }
 
-        private void CheckIfPasswordIsCorrect(string newPassword)
+        private void CheckIfPasswordHasCorrectFormat(string newPassword)
         {
             CheckForNullOrWhitespacePassword(newPassword);
             CheckForCorrectLengthPassword(newPassword);
@@ -160,34 +200,6 @@ namespace TodoPagos.UserAPI
             return hasPrivilege;
         }
 
-        public bool IsComplete()
-        {
-            try
-            {
-                DoChecksToSeeIfUserIsComplete();
-
-                return true;
-            } catch (ArgumentException)
-            {
-                return false;
-            }
-        }
-
-        private void DoChecksToSeeIfUserIsComplete()
-        {
-            CheckIfNameAndEmailAreCorrect(this.Name, this.Email);
-            CheckIfHasAtLeastMinimumNumberOfRoles(this.Roles);
-            CheckIfPasswordIsCorrect(this.Password);
-        }
-
-        private void CheckIfHasAtLeastMinimumNumberOfRoles(ICollection<Role> rolesList)
-        {
-            if (!IsValidRolesList(rolesList))
-            {
-                throw new ArgumentException();
-            }
-        }
-
         public void UpdateInfoWithTargetUsersInfo(User targetUser)
         {
             UpdateNameIfTargetUsersNameIsValid(targetUser);
@@ -233,17 +245,17 @@ namespace TodoPagos.UserAPI
 
         public void UpdatePasswordIfPasswordIsCorrect(User targetUser)
         {
-            if (IsValidPassword(targetUser.Password))
+            if (IsPasswordInCorrectFormat(targetUser.Password))
             {
                 this.DealWithPassword(targetUser.Password);
             }
         }
 
-        private bool IsValidPassword(string aPassword)
+        private bool IsPasswordInCorrectFormat(string aPassword)
         {
             try
             {
-                CheckIfPasswordIsCorrect(aPassword);
+                CheckIfPasswordHasCorrectFormat(aPassword);
                 return true;
             }
             catch (ArgumentException)
@@ -274,7 +286,7 @@ namespace TodoPagos.UserAPI
 
         public void HashPasswordIfCorrect()
         {
-            CheckIfPasswordIsCorrect(this.Password);
+            CheckIfPasswordHasCorrectFormat(this.Password);
             DealWithPassword(this.Password);
         }
 
@@ -293,6 +305,44 @@ namespace TodoPagos.UserAPI
             return base.GetHashCode();
         }
 
+        public bool IsComplete()
+        {
+            try
+            {
+                DoChecksToSeeIfUserIsComplete();
 
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        private void DoChecksToSeeIfUserIsComplete()
+        {
+            CheckIfNameAndEmailAreCorrect(this.Name, this.Email);
+            CheckIfRolesListIsNotNullOrEmpty(this.Roles);
+            CheckIfNoRoleIsNull(this.Roles);
+            CheckIfPasswordHasCorrectFormatOrIsHashed(this.Password);
+        }
+
+        private void CheckIfPasswordHasCorrectFormatOrIsHashed(string aPass)
+        {
+            if (!IsPasswordInCorrectFormat(aPass))
+            {
+                CheckIfPasswordSeemsHashed(aPass);
+            }
+        }
+
+        private void CheckIfPasswordSeemsHashed(string aPass)
+        {
+            string saltFromPassword = Hashing.GetSaltFromPassword(aPass);
+
+            if (!Hashing.BothAreSaltsAndAreEqual(saltFromPassword, this.Salt))
+            {
+                throw new ArgumentException();
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace TodoPagos.Domain
 
         public int ID { get; set; }
 
-        public Receipt()
+        protected Receipt()
         {
             CompletedFields = new List<IField>();
         }
@@ -32,14 +34,38 @@ namespace TodoPagos.Domain
         private void CheckForPossibleErrors(Provider aProvider, ICollection<IField> completedFields, double amountToBePaid)
         {
             CheckForNegativeAmountToBePaid(amountToBePaid);
-            CheckForNullCompletedFields(completedFields);
-            CheckForEmptyCompletedField(completedFields);
-            CheckForAtLeastOneCompletedField(completedFields);
+            CheckForCompletedFieldsPossibleErrors(completedFields);
+            CheckForNullProvider(aProvider);
+            CheckForIncompleteProvider(aProvider);
+            CheckThatCompletedFieldsAreProvidersFields(aProvider, completedFields);
         }
 
-        private void CheckForAtLeastOneCompletedField(ICollection<IField> completedFields)
+        private void CheckForCompletedFieldsPossibleErrors(ICollection<IField> completedFields)
         {
-            if (completedFields.Count < 1)
+            CheckForNullCompletedFields(completedFields);
+            CheckForEmptyCompletedField(completedFields);
+            CheckForInvalidCompletedFields(completedFields);
+        }
+
+        private void CheckForNullProvider(Provider aProvider)
+        {
+            if (aProvider == null)
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void CheckForIncompleteProvider(Provider aProvider)
+        {
+            if (!aProvider.IsCompleteAndActive())
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void CheckThatCompletedFieldsAreProvidersFields(Provider aProvider, ICollection<IField> completedFields)
+        {
+            if (!aProvider.AllTargetFieldsAndThisFieldsAreEqualNotRegardingData(completedFields))
             {
                 throw new ArgumentException();
             }
@@ -118,17 +144,32 @@ namespace TodoPagos.Domain
             return ID.GetHashCode();
         }
 
-        public bool IsValid()
+        private void CheckForInvalidCompletedFields(ICollection<IField> someCompletedFields)
         {
-            foreach(IField field in CompletedFields)
+            foreach (IField field in someCompletedFields)
             {
-                if(field.IsEmpty() || !field.IsValid())
+                if (field.IsEmpty() || !field.IsValid())
                 {
-                    return false;
+                    throw new ArgumentException();
                 }
             }
-            if (CompletedFields.Count == 0) return false;
-            return true;
+        }
+
+        public int GetReceiptProviderID()
+        {
+            return this.ReceiptProvider.ID;
+        }
+
+        public bool IsComplete()
+        {
+            try
+            {
+                CheckForPossibleErrors(this.ReceiptProvider, this.CompletedFields, this.Amount);
+                return true;
+            } catch (ArgumentException)
+            {
+                return false;
+            }
         }
     }
 }

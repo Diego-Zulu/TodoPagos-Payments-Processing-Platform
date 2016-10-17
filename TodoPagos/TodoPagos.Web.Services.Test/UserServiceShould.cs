@@ -83,12 +83,14 @@ namespace TodoPagos.Web.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void FailWithArgumentExceptionIfToBeCreatedNewUserIsNotComplete()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsNotComplete()
         {
             User receivedUser = new User("Bruno", "bferr42@gmail.com", "#ElBizagra1996", AdminRole.GetInstance());
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(receivedUser.Email, UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.UserRepository.Get(
+               It.IsAny<System.Linq.Expressions.Expression<Func<User, bool>>>(), null, "")).Returns(new List<User>());
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             User singleUser = new User();

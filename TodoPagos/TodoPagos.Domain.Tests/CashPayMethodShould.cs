@@ -62,16 +62,5 @@ namespace TodoPagos.Domain.Tests
 
             Assert.AreEqual(oneDate, payMethod.PayDate);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void FailWhenTheProvidedDateIsNotInGMTFormat()
-        {
-            int paymentTotal = 1000;
-            int moneyPayedWith = 2500;
-            DateTime oneDate = DateTime.Parse("05/05/2010");
-
-            PayMethod payMethod = new CashPayMethod(oneDate);
-        }
     }
 }

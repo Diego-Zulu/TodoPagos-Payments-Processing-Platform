@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -14,6 +15,9 @@ namespace TodoPagos.Web.Api.Models
 {
     public class PaymentModelBinder : IModelBinder
     {
+        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
+                    "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
+
         public PaymentModelBinder()
         {
 
@@ -58,13 +62,18 @@ namespace TodoPagos.Web.Api.Models
         {
             string className = payMethodJsonParameters.Type;
             string payDateString = payMethodJsonParameters.PayDate;
-            DateTime payDate = DateTime.Parse(payDateString);
+            DateTime payDate = ParseToGMTDate(payDateString);
 
             Type payMethodType = Type.GetType("TodoPagos.Domain." + className + ",Domain");
             ConstructorInfo payMethodConstructor = payMethodType.GetConstructor(new[] { typeof(DateTime) });
             dynamic payMethodInstance = payMethodConstructor.Invoke(new object[] { payDate });
 
             return payMethodInstance;
+        }
+        private DateTime ParseToGMTDate(string dataToBeFilledWith)
+        {
+            return DateTime.ParseExact(dataToBeFilledWith, ACCEPTED_DATE_FORMATS,
+                CultureInfo.InvariantCulture, DateTimeStyles.None);
         }
 
         private ICollection<Receipt> ParseReceiptsFromJsonArray(JArray receiptsJsonArray)

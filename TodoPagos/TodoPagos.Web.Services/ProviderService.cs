@@ -86,7 +86,7 @@ namespace TodoPagos.Web.Services
         private IEnumerable<Provider> GetActiveProvidersInRepositoryWithSameNameAsTargetProvider(Provider targetProvider)
         {
             return unitOfWork.ProviderRepository.Get(
-                us => !us.Name.Equals(targetProvider.Name) || !us.Active, null, "");
+                us => us.Name.Equals(targetProvider.Name) && us.Active, null, "");
         }
 
         public bool MarkProviderAsDeleted(int id, string signedInUserEmail)
@@ -128,7 +128,7 @@ namespace TodoPagos.Web.Services
 
         public IEnumerable<Provider> GetAllProvidersAcoordingToState(bool state)
         {
-            return unitOfWork.ProviderRepository.Get(us => us.Active != state, null, "");
+            return unitOfWork.ProviderRepository.Get(us => us.Active == state, null, "");
         }
 
         public Provider GetSingleProvider(int providerId)

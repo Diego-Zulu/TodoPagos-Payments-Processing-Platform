@@ -11,101 +11,114 @@ using TodoPagos.Domain;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Net;
+using System.Collections;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
-    
+    [TestClass]
     public class ProvidersControllerShould
     {
+        static User ADMIN_USER;
+        static ICollection<Provider> TESTS_PROVIDERS;
+        static Provider RESERVED_PROVIDER;
+        static Provider MODIFICABLE_PROVIDER;
+        static ICollection<Provider> ALL_PROVIDERS_IN_REPOSITORY;
+
+        static ProvidersController CONTROLLER;
+
+        [ClassInitialize()]
+        public static void SetReservedProviderInfoForTests(TestContext testContext)
+        {
+            ADMIN_USER = new User("Hola", "hola@hola.com", "HolaHola11", AdminRole.GetInstance());
+
+            RESERVED_PROVIDER = new Provider("Claro", 5, new List<IField>());
+
+            MODIFICABLE_PROVIDER = new Provider("Movistar", 10, new List<IField>());
+
+            TESTS_PROVIDERS = new[]
+{
+                new Provider("Antel", 20, new List<IField>() { new NumberField("Monto")}),
+                new Provider("OSE", 10, new List<IField>())
+            };
+
+            CONTROLLER = new ProvidersController(ADMIN_USER.Email);
+            CONTROLLER.PostProvider(MODIFICABLE_PROVIDER);
+            CONTROLLER.PostProvider(RESERVED_PROVIDER);
+            foreach (Provider aProvider in TESTS_PROVIDERS)
+            {
+                CONTROLLER.PostProvider(aProvider);
+            }
+            //UsersController uController = new UsersController("bla");
+            //uController.PostUser(ADMIN_USER);
+            //int bla = 0;
+        }
+
+        [TestInitialize()]
+        public void InsertTestsProviderInfoForTest()
+        {
+            ICollection<Provider> reservedProviders = new[] { RESERVED_PROVIDER, MODIFICABLE_PROVIDER };
+            ALL_PROVIDERS_IN_REPOSITORY = reservedProviders.Concat(TESTS_PROVIDERS).ToList();
+        }
+
         [TestMethod]
         public void ReceiveAProviderServiceOnCreation()
         {
-            var mockProviderService = new Mock<IProviderService>();
+            string username = "Test User";
 
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+            ProvidersController controller = new ProvidersController(username);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void FailIfProviderServiceIsNullOnCreation()
+        public void FailIfUsernameIsNullOnCreation()
         {
-            IProviderService nullProviderService = null;
+            string username = null;
 
-            ProvidersController controller = new ProvidersController(nullProviderService);
+            ProvidersController controller = new ProvidersController(username);
         }
 
         [TestMethod]
         public void BeAbleToReturnAllProvidersInRepository()
         {
-            var allProviders = new[]
-            {
-                new Provider("Antel", 10, new List<IField>()),
-            new Provider("Devoto", 15, new List<IField>())
-            };
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.GetAllProviders()).Returns(allProviders);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
-
-            IHttpActionResult actionResult = controller.GetProviders();
+            IHttpActionResult actionResult = CONTROLLER.GetProviders();
             OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
 
-            Assert.AreSame(contentResult.Content, allProviders);
+            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection)ALL_PROVIDERS_IN_REPOSITORY);
         }
 
         [TestMethod]
         public void BeAbleToReturnAllActiveProvidersInRepository()
         {
-            var allProviders = new[]
-            {
-                new Provider("Antel", 10, new List<IField>()),
-            new Provider("Devoto", 15, new List<IField>())
-            };
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.GetAllProvidersAcoordingToState(true)).Returns(allProviders);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
-
-            bool getActives = true;
-            IHttpActionResult actionResult = controller.GetProviders(getActives);
+            IHttpActionResult actionResult = CONTROLLER.GetProviders(true);
             OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
 
-            Assert.AreSame(contentResult.Content, allProviders);
+            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection)ALL_PROVIDERS_IN_REPOSITORY);
         }
 
         [TestMethod]
         public void BeAbleToReturnASingleProviderFromRepository()
         {
-            Provider singleProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.GetSingleProvider(singleProvider.ID)).Returns(singleProvider);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+            IHttpActionResult actionResult = CONTROLLER.GetProvider(RESERVED_PROVIDER.ID);
+            OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
 
-            IHttpActionResult actionResult = controller.GetProvider(singleProvider.ID);
-            OkNegotiatedContentResult<Provider> contentResult = (OkNegotiatedContentResult<Provider>)actionResult;
-
-            Assert.AreSame(contentResult.Content, singleProvider);
+            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection)RESERVED_PROVIDER);
         }
 
         [TestMethod]
-        public void FailWithNotFoundIfUserIdIsNotInRepository()
+        public void FailWithNotFoundIfProviderIdIsNotInRepository()
         {
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.GetSingleProvider(1)).Throws(new ArgumentOutOfRangeException());
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
-
-            IHttpActionResult actionResult = controller.GetProvider(1);
+            IHttpActionResult actionResult = CONTROLLER.GetProvider(0);
 
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public void BeAbleToUpdateUserInRepositoryAndReturnNoContent()
+        public void BeAbleToUpdateProviderInRepositoryAndReturnNoContent()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider, It.IsAny<string>())).Returns(true);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+            MODIFICABLE_PROVIDER.Name = "UTE";
 
-            IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
+            IHttpActionResult actionResult = CONTROLLER.PutProvider(MODIFICABLE_PROVIDER.ID, MODIFICABLE_PROVIDER);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
@@ -114,12 +127,9 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestMethod]
         public void FailWithBadRequestIfToBeUpdatedProviderIdAndSuppliedIdDontMatch()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID + 1, oneProvider, It.IsAny<string>())).Returns(false);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+            MODIFICABLE_PROVIDER.Name = "Movistar";
 
-            IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID + 1, oneProvider);
+            IHttpActionResult actionResult = CONTROLLER.PutProvider(MODIFICABLE_PROVIDER.ID + 1, MODIFICABLE_PROVIDER);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -128,11 +138,8 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         public void FailWithBadRequestIfToBeUpdatedProviderIsNull()
         {
             Provider nullProvider = null;
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(1, nullProvider, It.IsAny<string>())).Returns(false);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
-            IHttpActionResult actionResult = controller.PutProvider(1, nullProvider);
+            IHttpActionResult actionResult = CONTROLLER.PutProvider(1, nullProvider);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -140,12 +147,9 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestMethod]
         public void FailWithNotFoundIfToBeUpdatedProviderIsNotInRepository()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider, It.IsAny<string>())).Returns(false);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
+            Provider oneProvider = new Provider("Google", 10, new List<IField>());
 
-            IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
+            IHttpActionResult actionResult = CONTROLLER.PutProvider(oneProvider.ID, oneProvider);
 
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
@@ -154,25 +158,19 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         public void BeAbleToPostNewProviderIntoRepository()
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.CreateProvider(oneProvider, It.IsAny<string>())).Returns(1);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
-            IHttpActionResult actionResult = controller.PostProvider(oneProvider);
-            CreatedAtRouteNegotiatedContentResult<Provider> contentResult = (CreatedAtRouteNegotiatedContentResult<Provider>)actionResult;
+            IHttpActionResult actionResult = CONTROLLER.PostProvider(oneProvider);
+            CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
 
-            Assert.AreSame(contentResult.Content, oneProvider);
+            Assert.AreEqual(contentResult.Content, oneProvider);
+
+            CONTROLLER.DeleteProvider(oneProvider.ID);
         }
 
         [TestMethod]
         public void FailWithBadRequestIfPostedNewProviderIsAlreadyInRepository()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.CreateProvider(oneProvider, It.IsAny<string>())).Throws(new InvalidOperationException());
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
-
-            IHttpActionResult actionResult = controller.PostProvider(oneProvider);
+            IHttpActionResult actionResult = CONTROLLER.PostProvider(RESERVED_PROVIDER);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -181,11 +179,8 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         public void FailWithBadRequestIfPostedNewProviderIsNull()
         {
             Provider nullProvider = null;
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.CreateProvider(nullProvider, It.IsAny<string>())).Throws(new ArgumentNullException());
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
-            IHttpActionResult actionResult = controller.PostProvider(nullProvider);
+            IHttpActionResult actionResult = CONTROLLER.PostProvider(nullProvider);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }
@@ -193,12 +188,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestMethod]
         public void BeAbleToDeleteAProvider()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID, It.IsAny<string>())).Returns(true);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
-
-            IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);
+            IHttpActionResult actionResult = CONTROLLER.DeleteProvider(TESTS_PROVIDERS.First().ID);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
@@ -208,11 +198,8 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         public void FailWithNotFoundIfToBeDeletedProviderDoesntExistInRepository()
         {
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
-            var mockProviderService = new Mock<IProviderService>();
-            mockProviderService.Setup(x => x.MarkProviderAsDeleted(oneProvider.ID, It.IsAny<string>())).Returns(false);
-            ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
-            IHttpActionResult actionResult = controller.DeleteProvider(oneProvider.ID);
+            IHttpActionResult actionResult = CONTROLLER.DeleteProvider(oneProvider.ID);
 
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }

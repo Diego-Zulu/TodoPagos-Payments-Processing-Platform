@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TodoPagos.UserAPI
@@ -43,12 +44,14 @@ namespace TodoPagos.UserAPI
 
         public bool HasPrivilege(Privilege onePrivilege)
         {
-            bool hasPrivilege = false;
             if (onePrivilege != null)
             {
-                hasPrivilege = Privileges.Contains(onePrivilege);
+                foreach(Privilege privilege in Privileges)
+                {
+                    if (privilege.Equals(onePrivilege)) return true;
+                }
             }
-            return hasPrivilege;
+            return false;
         }
 
         public int GetPrivilegeCount()

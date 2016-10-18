@@ -38,10 +38,16 @@ namespace TodoPagos.Web.Api.Controllers
 
         public ProvidersController(string oneUsername)
         {
+            FailIfUsernameIsNull(oneUsername);
             TodoPagosContext context = new TodoPagosContext();
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             signedInUsername = oneUsername;
             providerService = new ProviderService(unitOfWork);
+        }
+
+        private void FailIfUsernameIsNull(string oneUsername)
+        {
+            if (oneUsername == null) throw new ArgumentException();
         }
 
         private void MakeSureProvidedProviderServiceIsNotNull(IProviderService providedProviderService)
@@ -74,7 +80,7 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 Provider targetProvider = providerService.GetSingleProvider(id);
                 return Ok(targetProvider);
-            } catch (ArgumentOutOfRangeException)
+            } catch (ArgumentException)
             {
                 return NotFound();
             }

@@ -201,15 +201,14 @@ namespace TodoPagos.UserAPI
 
         public bool HasPrivilege(Privilege onePrivilege)
         {
-            bool hasPrivilege = false;
-            for (int index = 0; index < Roles.Count && !hasPrivilege; index++)
+            foreach (Role role in this.Roles)
             {
-                if (Roles.ElementAt(index).HasPrivilege(onePrivilege))
+                if (role.HasPrivilege(onePrivilege))
                 {
-                    hasPrivilege = true;
+                    return true;
                 }
             }
-            return hasPrivilege;
+            return false;
         }
 
         public void UpdateInfoWithTargetUsersInfo(User targetUser)

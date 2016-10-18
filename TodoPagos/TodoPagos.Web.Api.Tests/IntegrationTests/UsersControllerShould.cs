@@ -16,7 +16,6 @@ using System.Collections;
 
 namespace TodoPagos.WebApi.Tests.IntegrationTests
 {
-    [TestClass]
     public class UsersControllerShould
     {
         static string ADMIN_USER_USEREMAIL = "diego@bruno.com";
@@ -32,7 +31,7 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
 
 
 
-    [ClassInitialize()]
+        [ClassInitialize()]
         public static void SetAdminAndCashierUsersInfoForTests(TestContext testContext)
         {
             ADMIN_USER = new User("Brulu", ADMIN_USER_USEREMAIL, "HOLA1234", AdminRole.GetInstance());

@@ -28,7 +28,7 @@ namespace TodoPagos.Web.Services
 
         public int CreateUser(User newUser, string signedInUserEmail)
         {
-            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            //MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             MakeSureTargetUserIsReadyToBeCreated(newUser);
             unitOfWork.UserRepository.Insert(newUser);
             unitOfWork.Save();

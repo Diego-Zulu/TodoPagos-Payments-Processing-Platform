@@ -80,6 +80,8 @@ namespace TodoPagos.Web.Services.Tests
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.RoleRepository.Get(
+                It.IsAny<System.Linq.Expressions.Expression<Func<Role, bool>>>(), null, "")).Returns(new[] { AdminRole.GetInstance()}); ;
             mockUnitOfWork.Setup(un => un.UserRepository.Insert(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
             UserService userService = new UserService(mockUnitOfWork.Object);

@@ -99,7 +99,7 @@ namespace TodoPagos.Web.Api.Controllers
                 User user = userService.GetSingleUser(id, signedInUsername);
                 return Ok(user.CloneAndReturnNewUserWithoutPasswordAndSalt());
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentException)
             {
                 return NotFound();
             }

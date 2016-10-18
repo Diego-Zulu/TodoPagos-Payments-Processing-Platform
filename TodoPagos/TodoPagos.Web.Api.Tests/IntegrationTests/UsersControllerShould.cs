@@ -16,6 +16,7 @@ using System.Collections;
 
 namespace TodoPagos.WebApi.Tests.IntegrationTests
 {
+    [TestClass]
     public class UsersControllerShould
     {
         static string ADMIN_USER_USEREMAIL = "diego@bruno.com";
@@ -65,7 +66,7 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
             }
 
             ICollection<User> reservedUsers = new[] { ADMIN_USER, CASHIER_USER};
-            ALL_USERS_IN_REPOSITORY = (ICollection<User>) reservedUsers.Concat(TESTS_USERS);
+            ALL_USERS_IN_REPOSITORY = reservedUsers.Concat(TESTS_USERS).ToList();
         }
 
         [TestCleanup()]
@@ -103,7 +104,7 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
             IHttpActionResult actionResult = CONTROLLER.GetUsers();
             OkNegotiatedContentResult<IEnumerable<User>> contentResult = (OkNegotiatedContentResult<IEnumerable<User>>)actionResult;
 
-            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection)ALL_USERS_IN_REPOSITORY);
+            CollectionAssert.AreEqual((ICollection)contentResult.Content, (ICollection)ALL_USERS_IN_REPOSITORY);
         }
 
         [TestMethod]
@@ -218,7 +219,7 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
         [TestMethod]
         public void BeAbleToUpdateAnUserInTheRepository()
         {
-            User updatedUser = new User(TESTS_USERS.ElementAt(TESTS_USERS.Count - 1));
+            User updatedUser = new User(TESTS_USERS.Last());
             updatedUser.Name = "Nuevo Nombre";
             IHttpActionResult actionResult = CONTROLLER.PutUser(updatedUser.ID, updatedUser);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;

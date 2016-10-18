@@ -16,7 +16,7 @@ using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
-    [TestClass]
+   
     public class ProvidersControllerShould
     {
         static User ADMIN_USER;

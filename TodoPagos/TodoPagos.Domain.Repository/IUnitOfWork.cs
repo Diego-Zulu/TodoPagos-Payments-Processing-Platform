@@ -13,6 +13,10 @@ namespace TodoPagos.Domain.Repository
 
         IRepository<Receipt> ReceiptRepository { get; }
 
+        IRepository<Role> RoleRepository { get; }
+
+        IRepository<Privilege> PrivilegeRepository { get; }
+
         void Save();
 
         bool CurrentSignedInUserHasRequiredPrivilege(string userEmail, Privilege somePrivilege);

@@ -13,14 +13,6 @@ namespace TodoPagos.UserAPI
         protected AdminRole()
         {
             this.Name = "Admin";
-            AddAdminPrivileges();
-        }
-
-        private void AddAdminPrivileges()
-        {
-            this.Privileges.Add(UserManagementPrivilege.GetInstance());
-            this.Privileges.Add(ProviderManagementPrivilege.GetInstance());
-            this.Privileges.Add(EarningQueriesPrivilege.GetInstance());
         }
 
         public static AdminRole GetInstance()
@@ -28,8 +20,16 @@ namespace TodoPagos.UserAPI
             if (instance == null)
             {
                 instance = new AdminRole();
+                instance.AddAdminPrivileges();
             }
             return instance;
         }
+        private void AddAdminPrivileges()
+        {
+            this.Privileges.Add(UserManagementPrivilege.GetInstance());
+            this.Privileges.Add(ProviderManagementPrivilege.GetInstance());
+            this.Privileges.Add(EarningQueriesPrivilege.GetInstance());
+        }
+
     }
 }

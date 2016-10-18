@@ -30,18 +30,14 @@ namespace TodoPagos.UserAPI
 
         public User(User toBeCopiedUser)
         {
-            if (toBeCopiedUser.IsComplete())
-            {
-                ID = toBeCopiedUser.ID;
-                Name = toBeCopiedUser.Name;
-                Email = toBeCopiedUser.Email;
-                Roles = toBeCopiedUser.Roles;
-                Salt = toBeCopiedUser.Salt;
-                Password = toBeCopiedUser.Password;
-            } else
-            {
-                throw new ArgumentException();
-            }
+
+             ID = toBeCopiedUser.ID;
+             Name = toBeCopiedUser.Name;
+             Email = toBeCopiedUser.Email;
+             Roles = toBeCopiedUser.Roles.ToList();
+             Salt = toBeCopiedUser.Salt;
+             Password = toBeCopiedUser.Password;
+
         }
 
         public User(string newUserName, string newUserEmail, string newPassword, Role newUserRole)

@@ -31,11 +31,11 @@ namespace TodoPagos.Domain.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                 .HasMany<Role>(u => u.Roles).WithOptional(
-                r => r.userThatHasThisRole).WillCascadeOnDelete(true);
+                 .HasMany<Role>(u => u.Roles).WithMany(
+                r => r.UsersThatHaveThisRole);
 
             modelBuilder.Entity<Role>().HasMany<Privilege>(
-                r => r.Privileges).WithOptional(p => p.InRole).WillCascadeOnDelete(true);
+                r => r.Privileges).WithMany(p => p.InRoles);
         }
     }
 }

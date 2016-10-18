@@ -12,6 +12,8 @@ namespace TodoPagos.Domain.Repository
         private GenericRepository<Receipt> receiptRepository;
         private GenericRepository<Provider> providerRepository;
         private GenericRepository<Payment> paymentRepository;
+        private GenericRepository<Role> roleRepository;
+        private GenericRepository<Privilege> privilegeRepository;
 
         public UnitOfWork(TodoPagosContext todoPagosContext)
         {
@@ -70,6 +72,30 @@ namespace TodoPagos.Domain.Repository
                     this.paymentRepository = new GenericRepository<Payment>(context);
                 }
                 return paymentRepository;
+            }
+        }
+
+        public IRepository<Role> RoleRepository
+        {
+            get
+            {
+                if (this.roleRepository == null)
+                {
+                    this.roleRepository = new GenericRepository<Role>(context);
+                }
+                return roleRepository;
+            }
+        }
+
+        public IRepository<Privilege> PrivilegeRepository
+        {
+            get
+            {
+                if (this.privilegeRepository == null)
+                {
+                    this.privilegeRepository = new GenericRepository<Privilege>(context);
+                }
+                return privilegeRepository;
             }
         }
 

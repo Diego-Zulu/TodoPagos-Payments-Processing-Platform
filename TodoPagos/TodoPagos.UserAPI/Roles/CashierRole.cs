@@ -13,12 +13,6 @@ namespace TodoPagos.UserAPI
         protected CashierRole()
         {
             this.Name = "Cashier";
-            AddCashierPrivileges();
-        }
-
-        private void AddCashierPrivileges()
-        {
-
         }
 
         public static CashierRole GetInstance()
@@ -26,8 +20,14 @@ namespace TodoPagos.UserAPI
             if (instance == null)
             {
                 instance = new CashierRole();
+                instance.AddCashierPrivileges();
             }
             return instance;
+        }
+
+        private void AddCashierPrivileges()
+        {
+
         }
     }
 }

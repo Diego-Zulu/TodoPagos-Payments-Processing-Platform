@@ -170,3 +170,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\System.We
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\obj\Debug\TodoPagos.Web.Api.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\obj\Debug\TodoPagos.Web.Api.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\obj\Debug\TodoPagos.Web.Api.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Api\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml

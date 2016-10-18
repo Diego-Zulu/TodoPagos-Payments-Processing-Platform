@@ -40,6 +40,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             CONTROLLER = new ProvidersController(ADMIN_USER.Email);
             CONTROLLER.PostProvider(MODIFICABLE_PROVIDER);
             CONTROLLER.PostProvider(RESERVED_PROVIDER);
+            CONTROLLER.Dispose();
             //UsersController uController = new UsersController("bla");
             //uController.PostUser(ADMIN_USER);
             //int bla = 0;
@@ -48,6 +49,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestInitialize()]
         public void InsertTestsProviderInfoForTest()
         {
+            CONTROLLER = new ProvidersController(ADMIN_USER.Email);
             IHttpActionResult actionResult = CONTROLLER.GetProviders();
             OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
             ALL_PROVIDERS_IN_REPOSITORY = contentResult.Content.ToList();
@@ -65,6 +67,12 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
                     RESERVED_PROVIDER.ID = provider.ID;
                 }
             }
+        }
+
+        [TestCleanup()]
+        public void FinalizeTest()
+        {
+            CONTROLLER.Dispose();
         }
 
         [TestMethod]
@@ -134,7 +142,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
-            Provider anotherUpdate = new Provider("Movistar"+MODIFICABLE_PROVIDER_ID*100, 10, new List<IField>());
+            Provider anotherUpdate = new Provider("Movistar", 10, new List<IField>());
             IHttpActionResult actionResultAfter = CONTROLLER.GetProviders();
             OkNegotiatedContentResult<IEnumerable<Provider>> contentResultAfter = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResultAfter;
             IEnumerable<Provider> providers = contentResultAfter.Content;

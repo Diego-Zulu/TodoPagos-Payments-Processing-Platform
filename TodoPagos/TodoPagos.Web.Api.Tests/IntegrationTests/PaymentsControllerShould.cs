@@ -10,7 +10,6 @@ using System.Web.Http.Results;
 
 namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
-   
     public class PaymentsControllerShould
     {
         [TestMethod]

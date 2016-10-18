@@ -22,9 +22,6 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
         static string ADMIN_USER_USEREMAIL = "diego@bruno.com";
         static User ADMIN_USER;
 
-        static string CASHIER_USER_USEREMAIL = "nacho@gabriel.com";
-        static User CASHIER_USER;
-
         static ICollection<User> TESTS_USERS;
         static ICollection<User> ALL_USERS_IN_REPOSITORY;
 
@@ -36,15 +33,12 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
         public static void SetAdminAndCashierUsersInfoForTests(TestContext testContext)
         {
             ADMIN_USER = new User("Brulu", ADMIN_USER_USEREMAIL, "HOLA1234", AdminRole.GetInstance());
-            CASHIER_USER = new User("Nariel", CASHIER_USER_USEREMAIL, "HOLA1234", CashierRole.GetInstance());
 
             ADMIN_USER.ID = 1;
-            CASHIER_USER.ID = 2;
 
             //UsersController controller = new UsersController("bla");
 
             //controller.PostUser(ADMIN_USER);
-            //controller.PostUser(CASHIER_USER);
 
             //int bla = 0;
         }
@@ -65,7 +59,7 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
                 CONTROLLER.PostUser(aTestUser);
             }
 
-            ICollection<User> reservedUsers = new[] { ADMIN_USER, CASHIER_USER};
+            ICollection<User> reservedUsers = new[] { ADMIN_USER};
             ALL_USERS_IN_REPOSITORY = reservedUsers.Concat(TESTS_USERS).ToList();
         }
 
@@ -158,10 +152,10 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
         public void NotReturnThePasswordNeitherTheSaltWhenSingleUserIsReturned()
         {
 
-            IHttpActionResult actionResult = CONTROLLER.GetUser(CASHIER_USER.ID);
+            IHttpActionResult actionResult = CONTROLLER.GetUser(ADMIN_USER.ID);
             OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
 
-            Assert.AreEqual(contentResult.Content, CASHIER_USER);
+            Assert.AreEqual(contentResult.Content, ADMIN_USER);
             Assert.IsFalse(contentResult.Content.HasPassword());
             Assert.IsFalse(contentResult.Content.HasSalt());
         }

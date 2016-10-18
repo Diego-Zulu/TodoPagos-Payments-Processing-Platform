@@ -16,39 +16,32 @@ using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
-   
+    [TestClass]
     public class ProvidersControllerShould
     {
         static User ADMIN_USER;
-        static ICollection<Provider> TESTS_PROVIDERS;
+        static string ADMIN_USER_USEREMAIL = "diego@bruno.com";
         static Provider RESERVED_PROVIDER;
         static Provider MODIFICABLE_PROVIDER;
         static ICollection<Provider> ALL_PROVIDERS_IN_REPOSITORY;
+        static int MODIFICABLE_PROVIDER_ID;
+        static int RESERVED_PROVIDER_ID;
 
         static ProvidersController CONTROLLER;
 
         [ClassInitialize()]
         public static void SetReservedProviderInfoForTests(TestContext testContext)
         {
-            ADMIN_USER = new User("Hola", "hola@hola.com", "HolaHola11", AdminRole.GetInstance());
+            ADMIN_USER = new User("Brulu", ADMIN_USER_USEREMAIL, "HOLA1234", AdminRole.GetInstance());
 
             RESERVED_PROVIDER = new Provider("Claro", 5, new List<IField>());
 
             MODIFICABLE_PROVIDER = new Provider("Movistar", 10, new List<IField>());
 
-            TESTS_PROVIDERS = new[]
-{
-                new Provider("Antel", 20, new List<IField>() { new NumberField("Monto")}),
-                new Provider("OSE", 10, new List<IField>())
-            };
-
             CONTROLLER = new ProvidersController(ADMIN_USER.Email);
             CONTROLLER.PostProvider(MODIFICABLE_PROVIDER);
             CONTROLLER.PostProvider(RESERVED_PROVIDER);
-            foreach (Provider aProvider in TESTS_PROVIDERS)
-            {
-                CONTROLLER.PostProvider(aProvider);
-            }
+            CONTROLLER.Dispose();
             //UsersController uController = new UsersController("bla");
             //uController.PostUser(ADMIN_USER);
             //int bla = 0;
@@ -57,8 +50,30 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestInitialize()]
         public void InsertTestsProviderInfoForTest()
         {
-            ICollection<Provider> reservedProviders = new[] { RESERVED_PROVIDER, MODIFICABLE_PROVIDER };
-            ALL_PROVIDERS_IN_REPOSITORY = reservedProviders.Concat(TESTS_PROVIDERS).ToList();
+            CONTROLLER = new ProvidersController(ADMIN_USER.Email);
+            IHttpActionResult actionResult = CONTROLLER.GetProviders();
+            OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
+            ALL_PROVIDERS_IN_REPOSITORY = contentResult.Content.ToList();
+            IEnumerable<Provider> providers = contentResult.Content;
+            foreach (Provider provider in providers)
+            {
+                if (provider.Name.Equals(MODIFICABLE_PROVIDER.Name) && provider.Active)
+                {
+                    MODIFICABLE_PROVIDER_ID = provider.ID;
+                    MODIFICABLE_PROVIDER.ID = provider.ID;
+                }
+                if (provider.Name.Equals(RESERVED_PROVIDER.Name) && provider.Active)
+                {
+                    RESERVED_PROVIDER_ID = provider.ID;
+                    RESERVED_PROVIDER.ID = provider.ID;
+                }
+            }
+        }
+
+        [TestCleanup()]
+        public void FinalizeTest()
+        {
+            CONTROLLER.Dispose();
         }
 
         [TestMethod]
@@ -93,16 +108,22 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             IHttpActionResult actionResult = CONTROLLER.GetProviders(true);
             OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
 
-            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection)ALL_PROVIDERS_IN_REPOSITORY);
+            ICollection<Provider> activeProviders = new List<Provider>();
+            foreach(Provider provider in ALL_PROVIDERS_IN_REPOSITORY)
+            {
+                if (provider.Active) activeProviders.Add(provider);
+            }
+
+            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection) activeProviders);
         }
 
         [TestMethod]
         public void BeAbleToReturnASingleProviderFromRepository()
         {
-            IHttpActionResult actionResult = CONTROLLER.GetProvider(RESERVED_PROVIDER.ID);
-            OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResult;
+            IHttpActionResult actionResult = CONTROLLER.GetProvider(RESERVED_PROVIDER_ID);
+            OkNegotiatedContentResult<Provider> contentResult = (OkNegotiatedContentResult<Provider>)actionResult;
 
-            CollectionAssert.AreEquivalent((ICollection)contentResult.Content, (ICollection)RESERVED_PROVIDER);
+            Assert.AreEqual(contentResult.Content, RESERVED_PROVIDER);
         }
 
         [TestMethod]
@@ -116,12 +137,21 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestMethod]
         public void BeAbleToUpdateProviderInRepositoryAndReturnNoContent()
         {
-            MODIFICABLE_PROVIDER.Name = "UTE";
-
-            IHttpActionResult actionResult = CONTROLLER.PutProvider(MODIFICABLE_PROVIDER.ID, MODIFICABLE_PROVIDER);
+            Provider update = new Provider("UTE", 10, new List<IField>());
+            update.ID = MODIFICABLE_PROVIDER_ID;
+            IHttpActionResult actionResult = CONTROLLER.PutProvider(MODIFICABLE_PROVIDER_ID, update);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
+            Provider anotherUpdate = new Provider("Movistar", 10, new List<IField>());
+            IHttpActionResult actionResultAfter = CONTROLLER.GetProviders();
+            OkNegotiatedContentResult<IEnumerable<Provider>> contentResultAfter = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResultAfter;
+            IEnumerable<Provider> providers = contentResultAfter.Content;
+            foreach (Provider provider in providers)
+            {
+                if (provider.IsCompletelyEqualTo(update)) anotherUpdate.ID = provider.ID;
+            }
+            CONTROLLER.PutProvider(anotherUpdate.ID, anotherUpdate);
         }
 
         [TestMethod]
@@ -160,11 +190,10 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
 
             IHttpActionResult actionResult = CONTROLLER.PostProvider(oneProvider);
-            CreatedAtRouteNegotiatedContentResult<User> contentResult = (CreatedAtRouteNegotiatedContentResult<User>)actionResult;
+            CreatedAtRouteNegotiatedContentResult<Provider> contentResult = (CreatedAtRouteNegotiatedContentResult<Provider>)actionResult;
 
             Assert.AreEqual(contentResult.Content, oneProvider);
-
-            CONTROLLER.DeleteProvider(oneProvider.ID);
+            CONTROLLER.DeleteProvider(contentResult.Content.ID);
         }
 
         [TestMethod]
@@ -188,7 +217,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestMethod]
         public void BeAbleToDeleteAProvider()
         {
-            IHttpActionResult actionResult = CONTROLLER.DeleteProvider(TESTS_PROVIDERS.First().ID);
+            IHttpActionResult actionResult = CONTROLLER.DeleteProvider(MODIFICABLE_PROVIDER_ID);
             StatusCodeResult contentResult = (StatusCodeResult)actionResult;
 
             Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
@@ -197,7 +226,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestMethod]
         public void FailWithNotFoundIfToBeDeletedProviderDoesntExistInRepository()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            Provider oneProvider = new Provider("Facebook", 10, new List<IField>());
 
             IHttpActionResult actionResult = CONTROLLER.DeleteProvider(oneProvider.ID);
 

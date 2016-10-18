@@ -182,7 +182,7 @@ namespace TodoPagos.Web.Services
         private bool IsTargetProvidersNameAlreadyInADifferentActiveProviderInRepository(Provider targetProvider)
         {
             IEnumerable<Provider> diferentActiveProvidersWithSameName = unitOfWork.ProviderRepository.Get(
-                us => !us.Name.Equals(targetProvider.Name) || !us.Active || us.ID == targetProvider.ID, null, "");
+                us => us.Name.Equals(targetProvider.Name) && us.Active && us.ID != targetProvider.ID, null, "");
             return diferentActiveProvidersWithSameName.Count() > 0;
         }
 

@@ -48,14 +48,14 @@ namespace TodoPagos.Web.Api.Models
 
         private Payment ParsePaymentFromJsonParameters(dynamic jsonParameters)
         {
-            double amountPayed = jsonParameters.AmountPayed;
+            double amountPaid = jsonParameters.AmountPaid;
             PayMethod payMethod = ParsePayMethodFromJsonParameters(jsonParameters.PayMethod);
 
             JArray receiptsJsonArray = (JArray)jsonParameters.Receipts;
             ICollection<Receipt> receipts = ParseReceiptsFromJsonArray(receiptsJsonArray);
 
 
-            return new Payment(payMethod, amountPayed, receipts);
+            return new Payment(payMethod, amountPaid, receipts);
         }
 
         private PayMethod ParsePayMethodFromJsonParameters(dynamic payMethodJsonParameters)

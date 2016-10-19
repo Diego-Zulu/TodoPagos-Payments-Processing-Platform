@@ -75,10 +75,9 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void BeAbleToReturnEarningsPerProviderInACertainTimePeriod()
         {
-            
-            DateTime from = DateTime.ParseExact("Mon, 15 Sep 2008 09:30:41 GMT", 
-                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            DateTime to = DateTime.Today;    
+
+            string from = "Mon, 15 Sep 2008 09:30:41 GMT";
+            string to = DateTime.Today.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'");    
 
             IHttpActionResult actionResult = EARNINGS_CONTROLLER.GetEarningsPerProvider(from, to);
             OkNegotiatedContentResult<IDictionary<Provider, double>> contentResult = 
@@ -102,9 +101,8 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void BeAbleToReturnEarningsInACertainTimePeriod()
         {
-            DateTime from = DateTime.ParseExact("Mon, 15 Sep 2008 09:30:41 GMT",
-                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
-            DateTime to = DateTime.Today;
+            string from = "Mon, 15 Sep 2008 09:30:41 GMT";
+            string to = DateTime.Today.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'");
             int earnings = 300;
            
             IHttpActionResult actionResult = EARNINGS_CONTROLLER.GetAllEarnings(from, to);

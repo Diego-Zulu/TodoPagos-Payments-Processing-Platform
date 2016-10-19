@@ -18,10 +18,11 @@ namespace TodoPagos.Web.Api.Controllers
     public class EarningQueriesController : ApiController
     {
         private readonly IEarningQueriesService earningQueriesService;
-        private readonly DateTime DEFAULT_FROM_DATE = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
-                "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+        private readonly DateTime DEFAULT_FROM_DATE = DateTime.MinValue;
         private readonly DateTime DEFAULT_TO_DATE = DateTime.Today;
         private readonly string signedInUsername;
+        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
+                    "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
 
         public EarningQueriesController()
         {
@@ -63,17 +64,26 @@ namespace TodoPagos.Web.Api.Controllers
         [HttpGet]
         [ResponseType(typeof(IDictionary<Provider, int>))]
         [Route("earningsPerProvider")]
-        public IHttpActionResult GetEarningsPerProvider(DateTime? from = null, DateTime? to = null)
+        public IHttpActionResult GetEarningsPerProvider(string from = null, string to = null)
         {
-            from = AssignFromDateInCaseOfNull(from);
-            to = AssignToDateInCaseOfNull(to);
+            DateTime dateFrom;
+            DateTime dateTo;
+            try
+            {
+                dateFrom = AssignFromDateInCaseOfNull(from);
+                dateTo = AssignToDateInCaseOfNull(to);
+            }
+            catch (FormatException)
+            {
+                return BadRequest();
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                return TryToProcessRequestToGetEarningsPerProvider(from, to);
+                return TryToProcessRequestToGetEarningsPerProvider(dateFrom, dateTo);
             }
         }
 
@@ -89,32 +99,43 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-        private DateTime? AssignFromDateInCaseOfNull(DateTime? from)
+        private DateTime AssignFromDateInCaseOfNull(string from)
         {
-            if (from == null) from = DEFAULT_FROM_DATE;
-            return from;
+            if (from == null) return DEFAULT_FROM_DATE;
+            return DateTime.ParseExact(from, ACCEPTED_DATE_FORMATS,
+                CultureInfo.InvariantCulture, DateTimeStyles.None);
         }
 
-        private DateTime? AssignToDateInCaseOfNull(DateTime? to)
+        private DateTime AssignToDateInCaseOfNull(string to)
         {
-            if (to == null) to = DEFAULT_TO_DATE;
-            return to;
+            if (to == null) return DEFAULT_TO_DATE;
+            return DateTime.ParseExact(to, ACCEPTED_DATE_FORMATS,
+                CultureInfo.InvariantCulture, DateTimeStyles.None);
         }
 
         [HttpGet]
         [ResponseType(typeof(int))]
         [Route("allEarnings")]
-        public IHttpActionResult GetAllEarnings(DateTime? from = null, DateTime? to = null)
+        public IHttpActionResult GetAllEarnings(string from = null, string to = null)
         {
-            from = AssignFromDateInCaseOfNull(from);
-            to = AssignToDateInCaseOfNull(to);
+            DateTime dateFrom;
+            DateTime dateTo;
+            try
+            {
+                dateFrom = AssignFromDateInCaseOfNull(from);
+                dateTo = AssignToDateInCaseOfNull(to);
+            } catch (FormatException)
+            {
+                return BadRequest();
+            }
             if (!ModelState.IsValid)
+
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                return TryToProcessRequestToGetAllEarnings(from, to);
+                return TryToProcessRequestToGetAllEarnings(dateFrom, dateTo);
             }
         }
 

@@ -152,7 +152,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, [ModelBinder(typeof(UserModelBinder))] User user)
+        public IHttpActionResult PutUser([FromUri]int id, [ModelBinder(typeof(UserModelBinder))] User user)
         {
             if (!ModelState.IsValid)
             {

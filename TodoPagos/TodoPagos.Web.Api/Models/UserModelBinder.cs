@@ -25,7 +25,15 @@ namespace TodoPagos.Web.Api.Models
             try
             {
                 dynamic jsonParameters = ParseJsonObjectAndReturnAsDynamic(actionContext);
-                User parsedUser = ParseUserFromJsonParameters(jsonParameters);
+                User parsedUser;
+
+                if (actionContext.Request.Method != HttpMethod.Put)
+                {
+                    parsedUser = ParseUserFromJsonParameters(jsonParameters);
+                } else
+                {
+                    parsedUser = ParseUserFromJsonParametersForPut(jsonParameters);
+                }
                 AddIDToParsedUserIfNeeded(actionContext, jsonParameters, parsedUser);
 
                 bindingContext.Model = parsedUser;
@@ -53,7 +61,23 @@ namespace TodoPagos.Web.Api.Models
             JArray rolesJsonArray = (JArray)jsonParameters.Roles;
 
             ICollection<Role> processedRoles = FillRolesListUsingClassesNamesInJson(rolesJsonArray);
+
             return new User(userName, userEmail, userPassword, processedRoles);
+        }
+
+        private User ParseUserFromJsonParametersForPut(dynamic jsonParameters)
+        {
+            JArray rolesJsonArray = (JArray)jsonParameters.Roles;
+
+            ICollection<Role> processedRoles = FillRolesListUsingClassesNamesInJson(rolesJsonArray);
+
+            User updatedInfoUser = new User();
+            updatedInfoUser.Name = jsonParameters.Name;
+            updatedInfoUser.Email = jsonParameters.Email;
+            updatedInfoUser.Password = jsonParameters.Password;
+            updatedInfoUser.Roles = processedRoles;
+
+            return updatedInfoUser;
         }
 
         private ICollection<Role> FillRolesListUsingClassesNamesInJson(JArray rolesJsonArray)

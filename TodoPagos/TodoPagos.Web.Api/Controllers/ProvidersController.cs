@@ -89,7 +89,7 @@ namespace TodoPagos.Web.Api.Controllers
 
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProvider(int id, [ModelBinder(typeof(ProviderModelBinder))] Provider oneProvider)
+        public IHttpActionResult PutProvider([FromUri]int id, [ModelBinder(typeof(ProviderModelBinder))] Provider oneProvider)
         {
             if (!ModelState.IsValid)
             {

@@ -51,7 +51,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
             mockEarningQueriesService.Setup(x => x.GetEarningsPerProvider(from, to, It.IsAny<string>())).Returns(result);
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
-            IHttpActionResult actionResult = controller.GetEarningsPerProvider(from, to);
+            IHttpActionResult actionResult = controller.GetEarningsPerProvider(from.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"), to.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"));
             OkNegotiatedContentResult<IDictionary<Provider, double>> contentResult = 
                 (OkNegotiatedContentResult<IDictionary<Provider, double>>)actionResult;
 
@@ -61,8 +61,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToReturnEarningsPerProviderWithDefaultDates()
         {
-            DateTime from = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
-                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            DateTime from = DateTime.MinValue;
             DateTime to = DateTime.Today;
             IDictionary<Provider, double> result = new Dictionary<Provider, double>();
             result.Add(new Provider("Antel", 10, new List<IField>()), 100);
@@ -89,7 +88,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
             mockEarningQueriesService.Setup(x => x.GetAllEarnings(from, to, It.IsAny<string>())).Returns(earnings);
             EarningQueriesController controller = new EarningQueriesController(mockEarningQueriesService.Object);
 
-            IHttpActionResult actionResult = controller.GetAllEarnings(from, to);
+            IHttpActionResult actionResult = controller.GetAllEarnings(from.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"), to.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'"));
             OkNegotiatedContentResult<double> contentResult = (OkNegotiatedContentResult<double>)actionResult;
 
             Assert.AreEqual(contentResult.Content, earnings);
@@ -98,8 +97,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToReturnAllEarningsWithDefaultDates()
         {
-            DateTime from = DateTime.ParseExact("Wed, 29 Aug 1962 00:00:00 GMT",
-                 "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'", CultureInfo.InvariantCulture);
+            DateTime from = DateTime.MinValue;
             DateTime to = DateTime.Today;
             int earnings = 1000;
             var mockEarningQueriesService = new Mock<IEarningQueriesService>();

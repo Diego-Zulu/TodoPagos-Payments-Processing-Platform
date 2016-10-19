@@ -23,6 +23,7 @@ namespace TodoPagos.Domain
         {
             Name = aName;
             Empty = true;
+            Data = DateTime.MaxValue;
         }
 
         public override IField FillAndClone(string dataToBeFilledWith)

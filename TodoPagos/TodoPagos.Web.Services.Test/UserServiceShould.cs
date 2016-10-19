@@ -181,7 +181,7 @@ namespace TodoPagos.Web.Services.Tests
 
             mockUnitOfWork.Verify(un => un.UserRepository.Update(It.IsAny<User>()), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
-            Assert.AreEqual(toBeUpdatedUser.Name, updatedUser.Name);
+            Assert.AreEqual(toBeUpdatedUser.Name, "Diego");
         }
 
         private void SetMockUpdateRoutine2(Mock<IUnitOfWork> mockUnitOfWork, User toBeUpdatedUser)

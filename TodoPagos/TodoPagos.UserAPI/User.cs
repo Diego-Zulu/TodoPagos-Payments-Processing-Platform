@@ -145,7 +145,7 @@ namespace TodoPagos.UserAPI
 
         private void CheckIfNameAndEmailAreCorrect(string aName, string anEmail)
         {
-            if (IsValidName(aName) || NotValidEmail(anEmail))
+            if (!IsValidName(aName) || NotValidEmail(anEmail))
             {
                 throw new ArgumentException();
             }
@@ -163,6 +163,10 @@ namespace TodoPagos.UserAPI
                 return true;
             }
             catch (ArgumentNullException)
+            {
+                return true;
+            }
+            catch (ArgumentException)
             {
                 return true;
             }
@@ -247,7 +251,7 @@ namespace TodoPagos.UserAPI
 
         private bool IsValidName(string aName)
         {
-            return String.IsNullOrWhiteSpace(aName);
+            return !String.IsNullOrWhiteSpace(aName);
         }
 
         public void UpdatePasswordIfPasswordIsCorrect(User targetUser)

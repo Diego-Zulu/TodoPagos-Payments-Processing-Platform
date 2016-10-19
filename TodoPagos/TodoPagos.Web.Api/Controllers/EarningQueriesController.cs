@@ -39,10 +39,19 @@ namespace TodoPagos.Web.Api.Controllers
 
         public EarningQueriesController(string oneUsername)
         {
+            FailIfUsernameArgumentIsNull(oneUsername);
             TodoPagosContext context = new TodoPagosContext();
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             earningQueriesService = new EarningQueriesService(unitOfWork);
             signedInUsername = oneUsername;
+        }
+
+        private void FailIfUsernameArgumentIsNull(string oneUsername)
+        {
+            if (oneUsername == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckForNullEarningQueriesService(IEarningQueriesService service)

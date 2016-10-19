@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="CashPayMethod.cs" />
     <Compile Include="DebitPayMethod.cs" />
-    <Compile Include="Hashing.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PayMethod.cs" />
     <Compile Include="DateField.cs" />

@@ -26,6 +26,7 @@ namespace TodoPagos.Web.Api.Controllers
             TodoPagosContext context = new TodoPagosContext();
             IUnitOfWork unitOfWork = new UnitOfWork(context);
             paymentService = new PaymentService(unitOfWork);
+            signedInUsername = HttpContext.Current.User.Identity.Name;
         }
 
         public PaymentsController(IPaymentService service)
@@ -35,11 +36,21 @@ namespace TodoPagos.Web.Api.Controllers
             signedInUsername = "TESTING";
         }
 
-        public PaymentsController(IPaymentService service, string oneUsername)
+        public PaymentsController(string oneUsername)
         {
-            CheckForNullPaymentService(service);
-            paymentService = service;
+            FailIfUsernameArgumentIsNull(oneUsername);
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            paymentService = new PaymentService(unitOfWork);
             signedInUsername = oneUsername;
+        }
+
+        private void FailIfUsernameArgumentIsNull(string oneUsername)
+        {
+            if (oneUsername == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         private void CheckForNullPaymentService(IPaymentService service)

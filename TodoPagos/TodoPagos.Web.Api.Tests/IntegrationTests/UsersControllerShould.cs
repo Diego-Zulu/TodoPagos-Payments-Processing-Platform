@@ -30,17 +30,11 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
 
 
         [ClassInitialize()]
-        public static void SetAdminAndCashierUsersInfoForTests(TestContext testContext)
+        public static void SetAdminUsersInfoForTests(TestContext testContext)
         {
             ADMIN_USER = new User("Brulu", ADMIN_USER_USEREMAIL, "HOLA1234", AdminRole.GetInstance());
 
             ADMIN_USER.ID = 1;
-
-            //UsersController controller = new UsersController("bla");
-
-            //controller.PostUser(ADMIN_USER);
-
-            //int bla = 0;
         }
 
         [TestInitialize()]
@@ -75,7 +69,7 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
         }
 
         [TestMethod]
-        public void ReceiveAUserServiceAndASignedInUsernameOnCreation()
+        public void ReceiveASignedInUsernameOnCreation()
         {
             string username = "TestUser";
 
@@ -122,22 +116,6 @@ namespace TodoPagos.WebApi.Tests.IntegrationTests
             }
             return true;
         }
-
-        //private User[] GetAllUsersWithoutPasswordsAndSalts()
-        //{
-        //    User firstUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
-        //    User secondUser = new User("Ignacio", "valle@gmail.com", "#designPatternsLover123", AdminRole.GetInstance());
-        //    firstUser.ClearPassword();
-        //    firstUser.ClearSalt();
-        //    secondUser.ClearPassword();
-        //    secondUser.ClearSalt();
-        //    return new[]
-        //    {
-        //        firstUser,
-        //        secondUser
-        //    };
-
-        //}
 
         [TestMethod]
         public void BeAbleToReturnSingleUserInRepository()

@@ -47,7 +47,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             providerController.Dispose();
             FIRST_PAYMENT = CreateFirstPayment();
             SECOND_PAYMENT = CreateNewRandomPayment();
-            CONTROLLER = new PaymentsController();
+            CONTROLLER = new PaymentsController(ADMIN_USER_USEREMAIL);
             CONTROLLER.PostPayment(FIRST_PAYMENT);
             CONTROLLER.PostPayment(SECOND_PAYMENT);
             CONTROLLER.Dispose();
@@ -56,7 +56,7 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [TestInitialize()]
         public void InsertTestsProviderInfoForTest()
         {
-            CONTROLLER = new PaymentsController();
+            CONTROLLER = new PaymentsController(ADMIN_USER_USEREMAIL);
             IHttpActionResult actionResult = CONTROLLER.GetPayments();
             OkNegotiatedContentResult<IEnumerable<Payment>> contentResult = 
                 (OkNegotiatedContentResult<IEnumerable<Payment>>)actionResult;

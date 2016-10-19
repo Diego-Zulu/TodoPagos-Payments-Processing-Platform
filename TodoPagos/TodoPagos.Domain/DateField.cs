@@ -70,14 +70,31 @@ namespace TodoPagos.Domain
             try
             {
                 DateField otherDateField = (DateField)otherIField;
-                return GetData().Equals(otherDateField.GetData()) &&
-                    Name.Equals(otherDateField.Name);
+                return UseCorrectComparationAcoordingIfTheyAreEmptyOrNot(otherDateField);
             }
             catch (InvalidCastException)
             {
                 return false;
             }
         }
+        private bool UseCorrectComparationAcoordingIfTheyAreEmptyOrNot(DateField otherDateField)
+        {
+            if (this.IsEmpty() && otherDateField.IsEmpty())
+            {
+                return Name.Equals(otherDateField.Name);
+            }
+            else if (otherDateField.IsEmpty())
+            {
+                return false;
+
+            }
+            else
+            {
+                return GetData().Equals(otherDateField.GetData()) &&
+                Name.Equals(otherDateField.Name);
+            }
+        }
+
 
         private bool IsNull(object anObject)
         {

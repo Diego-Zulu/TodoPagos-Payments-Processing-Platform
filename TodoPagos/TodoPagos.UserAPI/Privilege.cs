@@ -12,7 +12,7 @@ namespace TodoPagos.UserAPI
 
         public int ID { get; set; }
 
-        public ICollection<Role> InRoles { get; set; } = new List<Role>();
+        public virtual ICollection<Role> InRoles { get; set; } = new List<Role>();
 
         public override bool Equals(Object anObject)
         {

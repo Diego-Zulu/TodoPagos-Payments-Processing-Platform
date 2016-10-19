@@ -128,5 +128,14 @@ namespace TodoPagos.Web.Api.Controllers
                 return Unauthorized();
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                earningQueriesService.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

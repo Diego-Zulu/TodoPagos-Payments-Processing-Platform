@@ -12,7 +12,7 @@ namespace TodoPagos.UserAPI
 
         public int ID { get; set; }
 
-        public ICollection<User> UsersThatHaveThisRole { get; set; } = new List<User>();
+        public virtual ICollection<User> UsersThatHaveThisRole { get; set; } = new List<User>();
 
         public virtual ICollection<Privilege> Privileges { get; set; } = new List<Privilege>();
 

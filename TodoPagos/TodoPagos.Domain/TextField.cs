@@ -57,12 +57,30 @@ namespace TodoPagos.Domain
             try
             {
                 TextField otherTextField = (TextField)otherIField;
-                return GetData().Equals(otherTextField.GetData()) &&
-                    Name.Equals(otherTextField.Name);
+
+                return UseCorrectComparationAcoordingIfTheyAreEmptyOrNot(otherTextField);
             }
             catch (InvalidCastException)
             {
                 return false;
+            }
+        }
+
+        private bool UseCorrectComparationAcoordingIfTheyAreEmptyOrNot(TextField otherTextField)
+        {
+            if (this.IsEmpty() && otherTextField.IsEmpty())
+            {
+                return Name.Equals(otherTextField.Name);
+            }
+            else if (otherTextField.IsEmpty())
+            {
+                return false;
+
+            }
+            else
+            {
+                return GetData().Equals(otherTextField.GetData()) &&
+                Name.Equals(otherTextField.Name);
             }
         }
 

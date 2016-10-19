@@ -60,14 +60,31 @@ namespace TodoPagos.Domain
             try
             {
                 NumberField otherNumberField = (NumberField)otherIField;
-                return GetData().Equals(otherNumberField.GetData()) &&
-                    Name.Equals(otherNumberField.Name);
+                return UseCorrectComparationAcoordingIfTheyAreEmptyOrNot(otherNumberField);
             }
             catch (InvalidCastException)
             {
                 return false;
             }
         }
+        private bool UseCorrectComparationAcoordingIfTheyAreEmptyOrNot(NumberField otherNumberField)
+        {
+            if (this.IsEmpty() && otherNumberField.IsEmpty())
+            {
+                return Name.Equals(otherNumberField.Name);
+            }
+            else if (otherNumberField.IsEmpty())
+            {
+                return false;
+
+            }
+            else
+            {
+                return GetData().Equals(otherNumberField.GetData()) &&
+                Name.Equals(otherNumberField.Name);
+            }
+        }
+
 
         private bool IsNull(object anObject)
         {

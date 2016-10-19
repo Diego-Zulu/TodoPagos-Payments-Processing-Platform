@@ -148,5 +148,34 @@ namespace TodoPagos.Domain
                 overallValue += receipt.CalculateEarnings();
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            try
+            {
+                if (IsNull(obj)) return false;
+                Payment otherPayment = (Payment)obj;
+                return (TheTwoReceiptsListsAreEqual(this.Receipts, otherPayment.Receipts) || this.ID == otherPayment.ID);
+            }
+            catch (InvalidCastException)
+            {
+                return false;
+            }
+        }
+
+        private bool IsNull(object objectToCheck)
+        {
+            return objectToCheck == null;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
+
+        private bool TheTwoReceiptsListsAreEqual(ICollection<Receipt> firstList, ICollection<Receipt> secondList)
+        {
+            return firstList.All(x => secondList.Contains(x)) && secondList.All(x => firstList.Contains(x));
+        }
     }
 }

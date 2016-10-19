@@ -63,7 +63,7 @@ namespace TodoPagos.Web.Api.Controllers
                 Payment payment = paymentService.GetSinglePayment(id);
                 return Ok(payment);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentException)
             {
                 return NotFound();
             }

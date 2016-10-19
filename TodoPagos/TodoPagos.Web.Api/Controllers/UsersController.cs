@@ -127,7 +127,7 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return TryToCreateUserWhileCheckingForInvalidOperationException(newUser);
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
+            catch (ArgumentException)
             {
                 return BadRequest();
             }

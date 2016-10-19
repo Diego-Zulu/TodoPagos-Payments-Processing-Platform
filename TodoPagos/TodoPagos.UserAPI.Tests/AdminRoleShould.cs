@@ -32,6 +32,14 @@ namespace TodoPagos.UserAPI.Tests
         }
 
         [TestMethod]
+        public void BeAbleToTellItDoesNotHaveANullPrivilege()
+        {
+            AdminRole adminRole = AdminRole.GetInstance();
+
+            Assert.IsFalse(adminRole.HasPrivilege(null));
+        }
+
+        [TestMethod]
         public void HaveItsNamesHashCode()
         {
             AdminRole adminRole = AdminRole.GetInstance();

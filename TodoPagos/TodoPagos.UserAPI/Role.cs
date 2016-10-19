@@ -46,10 +46,7 @@ namespace TodoPagos.UserAPI
         {
             if (onePrivilege != null)
             {
-                foreach(Privilege privilege in Privileges)
-                {
-                    if (privilege.Equals(onePrivilege)) return true;
-                }
+                return Privileges.Contains(onePrivilege);
             }
             return false;
         }

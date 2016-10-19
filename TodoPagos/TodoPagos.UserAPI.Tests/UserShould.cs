@@ -283,5 +283,73 @@ namespace TodoPagos.UserAPI.Tests
 
             Assert.AreEqual(firstUser, secondUser);
         }
+
+        [TestMethod]
+        public void BeAbleToTellItHasAPassword()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            Assert.IsTrue(newUser.HasPassword());
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItHasASalt()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            Assert.IsTrue(newUser.HasSalt());
+        }
+
+        [TestMethod]
+        public void BeAbleToClearItsSalt()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            newUser.ClearSalt();
+
+            Assert.IsNull(newUser.Salt);
+        }
+
+        [TestMethod]
+        public void BeAbleToClearItsPassword()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            newUser.ClearPassword();
+
+            Assert.IsNull(newUser.Password);
+        }
+
+        [TestMethod]
+        public void BeAbleToCloneItselfAndReturnTheCloneWithoutPassowordOrSalt()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            User clonedUser = newUser.CloneAndReturnNewUserWithoutPasswordAndSalt();
+
+            Assert.IsNull(clonedUser.Password);
+            Assert.IsNull(clonedUser.Salt);
+            Assert.AreEqual(newUser, clonedUser);
+        }
     }
 }

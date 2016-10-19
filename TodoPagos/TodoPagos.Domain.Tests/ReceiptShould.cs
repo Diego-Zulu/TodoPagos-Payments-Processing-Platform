@@ -269,19 +269,71 @@ namespace TodoPagos.Domain.Tests
 
         }
 
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void FailIfCompletedFieldsAreNotTheSameAsProvidersFieldsIgnoringData()
         {
-
-            List<IField> emptyFieldsList = new List<IField>();
-            Provider provider = new Provider("Antel", 20, emptyFieldsList);
-            double amount = 10000;
+            List<IField> list = new List<IField>();
             NumberField aNumberField = new NumberField("Coordenada X");
-            IField completedNumberField = aNumberField.FillAndClone("8000");
+            NumberField anotherNumberField = new NumberField("Coordenada Y");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 10000;
+            IField completedNumberField = anotherNumberField.FillAndClone("8000");
             List<IField> completedFields = new List<IField>();
             completedFields.Add(completedNumberField);
 
-            Receipt firstReceipt = CreateReceipt(provider, completedFields, amount);
+            Receipt receipt = CreateReceipt(provider, completedFields, amount);
+        }
+
+        [TestMethod]
+        public void BeAbleToTellIfItContainsCertainField()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 10000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+            Receipt receipt = CreateReceipt(provider, completedFields, amount);
+
+            Assert.IsTrue(receipt.ContainsField(completedNumberField));
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItNotComplete()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            list.Add(aNumberField);
+            Provider provider = new Provider("Antel", 20, list);
+            double amount = 10000;
+            IField completedNumberField = aNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+            Receipt receipt = CreateReceipt(provider, completedFields, amount);
+
+            receipt.Amount = -10;
+
+            Assert.IsFalse(receipt.IsComplete());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfProviderIsNull()
+        {
+            List<IField> list = new List<IField>();
+            NumberField aNumberField = new NumberField("Coordenada X");
+            NumberField anotherNumberField = new NumberField("Coordenada Y");
+            list.Add(aNumberField);
+            double amount = 10000;
+            IField completedNumberField = anotherNumberField.FillAndClone("8000");
+            List<IField> completedFields = new List<IField>();
+            completedFields.Add(completedNumberField);
+
+            Receipt receipt = CreateReceipt(null, completedFields, amount);
         }
     }
 }

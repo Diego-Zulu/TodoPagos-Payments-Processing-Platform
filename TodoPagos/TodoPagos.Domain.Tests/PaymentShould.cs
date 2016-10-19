@@ -149,5 +149,56 @@ namespace TodoPagos.Domain.Tests
             int amountPayed = 10000;
             return new Payment(paymentMethod, amountPayed, receipts);
         }
+
+        [TestMethod]
+        public void BeAbleToTellIfItIsEqualToAnotherPayment()
+        {
+            Payment firstPayment = CreatePayment();
+            Payment secondPayment = CreatePayment();
+
+            Assert.IsTrue(firstPayment.Equals(secondPayment));
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToANullObject()
+        {
+            Payment payment = CreatePayment();
+
+            Assert.IsFalse(payment.Equals(null));
+        }
+
+        [TestMethod]
+        public void BeAbleToTellItIsNotEqualToAnotherTypeOfObject()
+        {
+            Provider provider = new Provider("Antel", 20, new List<IField>());
+            Payment payment = CreatePayment();
+
+            Assert.IsFalse(payment.Equals(provider));
+        }
+
+        [TestMethod]
+        public void TellItIsNotCompleteWhenPaymentTotalIsNotEqualToTheSumOfItsReceipts()
+        {
+
+            Payment payment = CreatePayment();
+            payment.Receipts.Add(CreateReceipt());
+
+            Assert.IsFalse(payment.IsComplete());
+        }
+
+        private Receipt CreateReceipt()
+        {
+            List<IField> emptyFieldList = new List<IField>();
+            NumberField aNumberField = new NumberField("Numerito");
+            emptyFieldList.Add(aNumberField);
+
+            Provider provider = new Provider("Antel", 20, emptyFieldList);
+
+            IField aCompleteNumberField = aNumberField.FillAndClone("1234");
+            List<IField> completeFieldList = new List<IField>();
+            completeFieldList.Add(aCompleteNumberField);
+            double amount = 1500;
+            return new Receipt(provider, completeFieldList, amount);
+        }
     }
 }

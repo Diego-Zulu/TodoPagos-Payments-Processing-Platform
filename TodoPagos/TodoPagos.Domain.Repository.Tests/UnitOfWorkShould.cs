@@ -118,6 +118,50 @@ namespace TodoPagos.Domain.Repository.Tests
         }
 
         [TestMethod]
+        public void ReturnANewRoleRepositoryInCaseThereIsNotOneAlready()
+        {
+            var mockContext = new Mock<TodoPagosContext>();
+            UnitOfWork unitOfWork = new UnitOfWork(mockContext.Object);
+
+            IRepository<Role> repository = unitOfWork.RoleRepository;
+
+            Assert.IsNotNull(repository);
+        }
+
+        [TestMethod]
+        public void ReturnTheSameRoleRepositoryInCaseThereIsOneAlready()
+        {
+            var mockContext = new Mock<TodoPagosContext>();
+            UnitOfWork unitOfWork = new UnitOfWork(mockContext.Object);
+
+            IRepository<Role> repository = unitOfWork.RoleRepository;
+
+            Assert.AreSame(unitOfWork.RoleRepository, repository);
+        }
+
+        [TestMethod]
+        public void ReturnANewPrivilegeRepositoryInCaseThereIsNotOneAlready()
+        {
+            var mockContext = new Mock<TodoPagosContext>();
+            UnitOfWork unitOfWork = new UnitOfWork(mockContext.Object);
+
+            IRepository<Privilege> repository = unitOfWork.PrivilegeRepository;
+
+            Assert.IsNotNull(repository);
+        }
+
+        [TestMethod]
+        public void ReturnTheSamePrivilegeRepositoryInCaseThereIsOneAlready()
+        {
+            var mockContext = new Mock<TodoPagosContext>();
+            UnitOfWork unitOfWork = new UnitOfWork(mockContext.Object);
+
+            IRepository<Privilege> repository = unitOfWork.PrivilegeRepository;
+
+            Assert.AreSame(unitOfWork.PrivilegeRepository, repository);
+        }
+
+        [TestMethod]
         public void BeAbleToDiposeItself()
         {
             List<User> data = new List<User>();

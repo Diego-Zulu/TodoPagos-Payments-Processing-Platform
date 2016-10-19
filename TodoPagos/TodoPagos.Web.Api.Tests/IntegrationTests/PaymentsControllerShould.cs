@@ -7,151 +7,142 @@ using TodoPagos.Domain;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Results;
+using System.Linq;
+using System.Collections;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Api.Tests.IntegrationTests
 {
+    [TestClass]
     public class PaymentsControllerShould
     {
-        [TestMethod]
-        public void RecieveAPaymentServiceOnCreation()
-        {
-            var mockPaymentService = new Mock<IPaymentService>();
+        static string ADMIN_USER_USEREMAIL = "diego@bruno.com";
+        static User ADMIN_USER;
+        static PaymentsController CONTROLLER;
+        static Payment FIRST_PAYMENT;
+        static Payment SECOND_PAYMENT;
+        static ICollection<Payment> ALL_PAYMENTS;
+        static Provider DESIGNED_PROVIDER;
 
-            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
+        [ClassInitialize()]
+        public static void SetReservedProviderInfoForTests(TestContext testContext)
+        {
+            ADMIN_USER = new User("Brulu", ADMIN_USER_USEREMAIL, "HOLA1234", AdminRole.GetInstance());
+            List<IField> emptyFields = new List<IField>();
+            TextField field = new TextField("NumeroCliente");
+            emptyFields.Add(field);
+            DESIGNED_PROVIDER = new Provider("Apple", 3, emptyFields);
+            ProvidersController providerController = new ProvidersController(ADMIN_USER.Email);
+            providerController.PostProvider(DESIGNED_PROVIDER);
+            IHttpActionResult actionResultProvider = providerController.GetProviders();
+            OkNegotiatedContentResult<IEnumerable<Provider>> contentResult = (OkNegotiatedContentResult<IEnumerable<Provider>>)actionResultProvider;
+            IEnumerable<Provider> providers = contentResult.Content;
+            foreach (Provider provider in providers)
+            {
+                if (provider.Name.Equals(DESIGNED_PROVIDER.Name))
+                {
+                    DESIGNED_PROVIDER.ID = provider.ID;
+                }
+            }
+            providerController.Dispose();
+            FIRST_PAYMENT = CreateFirstPayment();
+            SECOND_PAYMENT = CreateNewRandomPayment();
+            CONTROLLER = new PaymentsController();
+            CONTROLLER.PostPayment(FIRST_PAYMENT);
+            CONTROLLER.PostPayment(SECOND_PAYMENT);
+            CONTROLLER.Dispose();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void FailCreationIfServiceIsNull()
+        [TestInitialize()]
+        public void InsertTestsProviderInfoForTest()
         {
-            IPaymentService service = null;
+            CONTROLLER = new PaymentsController();
+            IHttpActionResult actionResult = CONTROLLER.GetPayments();
+            OkNegotiatedContentResult<IEnumerable<Payment>> contentResult = 
+                (OkNegotiatedContentResult<IEnumerable<Payment>>)actionResult;
+            ALL_PAYMENTS = contentResult.Content.ToList();
+            foreach(Payment payment in ALL_PAYMENTS)
+            {
+                if(payment.Equals(FIRST_PAYMENT)) FIRST_PAYMENT.ID = payment.ID;
+                if (payment.Equals(SECOND_PAYMENT)) SECOND_PAYMENT.ID = payment.ID;
+            }
+        }
 
-            PaymentsController controller = new PaymentsController(service);
+        [TestCleanup()]
+        public void FinalizeTest()
+        {
+            CONTROLLER.Dispose();
+        }
+
+        private static Payment CreateFirstPayment()
+        {
+            TextField field = new TextField("NumeroCliente");
+            IField firstFilledField = field.FillAndClone(Guid.NewGuid().ToString());
+            List<IField> firstFullFields = new List<IField>();
+            firstFullFields.Add(firstFilledField);
+            IField secondFilledField = field.FillAndClone(Guid.NewGuid().ToString());
+            List<IField> secondFullFields = new List<IField>();
+            secondFullFields.Add(secondFilledField);
+            Receipt firstReceipt = new Receipt(DESIGNED_PROVIDER, firstFullFields, 100);
+            Receipt secondReceipt = new Receipt(DESIGNED_PROVIDER, secondFullFields, 100);
+            List<Receipt> firstList = new List<Receipt>();
+            firstList.Add(firstReceipt);
+            firstList.Add(secondReceipt);
+            return new Payment(new CashPayMethod(DateTime.Now), 200, firstList);
         }
 
         [TestMethod]
         public void BeAbleToReturnAllPaymentsInRepository()
         {
-            List<IField> emptyFields = new List<IField>();
-            NumberField field = new NumberField("Monto");
-            emptyFields.Add(field);
-            IField firstFilledField = field.FillAndClone("100");
-            List<IField> firstFullFields = new List<IField>();
-            firstFullFields.Add(firstFilledField);
-            IField secondFilledField = field.FillAndClone("101");
-            List<IField> secondFullFields = new List<IField>();
-            secondFullFields.Add(secondFilledField);
-            Provider provider = new Provider("Antel", 3, emptyFields);
-            Receipt firstReceipt = new Receipt(provider, firstFullFields, 100);
-            Receipt secondReceipt = new Receipt(provider, secondFullFields, 100);
-            List<Receipt> firstList = new List<Receipt>();
-            List<Receipt> secondList = new List<Receipt>();
-            firstList.Add(firstReceipt);
-            secondList.Add(secondReceipt);
-            var allPayments = new[]
-            {
-                new Payment(new CashPayMethod(DateTime.Now), 100, firstList),
-                new Payment(new DebitPayMethod(DateTime.Now), 100, secondList)
-            };
-            var mockPaymentService = new Mock<IPaymentService>();
-            mockPaymentService.Setup(x => x.GetAllPayments()).Returns(allPayments);
-            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
-
-            IHttpActionResult actionResult = controller.GetPayments();
+            IHttpActionResult actionResult = CONTROLLER.GetPayments();
             OkNegotiatedContentResult<IEnumerable<Payment>> contentResult = (OkNegotiatedContentResult<IEnumerable<Payment>>)actionResult;
 
-            Assert.AreSame(contentResult.Content, allPayments);
+            CollectionAssert.AreEquivalent((ICollection) contentResult.Content, (ICollection) ALL_PAYMENTS);
         }
 
         [TestMethod]
         public void BeAbleToReturnASinglePaymentInRepository()
         {
-            List<IField> emptyFields = new List<IField>();
-            NumberField field = new NumberField("Monto");
-            emptyFields.Add(field);
-            IField filledField = field.FillAndClone("100");
-            List<IField> fullFields = new List<IField>();
-            fullFields.Add(filledField);
-            Provider provider = new Provider("Antel", 3, emptyFields);
-            Receipt receipt = new Receipt(provider, fullFields, 100);
-            List<Receipt> list = new List<Receipt>();
-            list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
-            var mockPaymentService = new Mock<IPaymentService>();
-            mockPaymentService.Setup(x => x.GetSinglePayment(payment.ID)).Returns(payment);
-            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
-
-            IHttpActionResult actionResult = controller.GetPayment(payment.ID);
+            IHttpActionResult actionResult = CONTROLLER.GetPayment(FIRST_PAYMENT.ID);
             OkNegotiatedContentResult<Payment> contentResult = (OkNegotiatedContentResult<Payment>)actionResult;
 
-            Assert.AreSame(contentResult.Content, payment);
+            Assert.AreEqual(contentResult.Content, FIRST_PAYMENT);
         }
 
         [TestMethod]
         public void FailIfSinglePaymentIdDoesntExistInRepository()
         {
-            List<IField> emptyFields = new List<IField>();
-            NumberField field = new NumberField("Monto");
-            emptyFields.Add(field);
-            IField filledField = field.FillAndClone("100");
-            List<IField> fullFields = new List<IField>();
-            fullFields.Add(filledField);
-            Provider provider = new Provider("Antel", 3, emptyFields);
-            Receipt receipt = new Receipt(provider, fullFields, 100);
-            List<Receipt> list = new List<Receipt>();
-            list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
-            var mockPaymentService = new Mock<IPaymentService>();
-            mockPaymentService.Setup(x => x.GetSinglePayment(payment.ID + 1)).Throws(new ArgumentOutOfRangeException());
-            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
-
-            IHttpActionResult actionResult = controller.GetPayment(payment.ID + 1);
+            IHttpActionResult actionResult = CONTROLLER.GetPayment(0);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
 
         [TestMethod]
         public void BeAbleToPostNewPaymentIntoRepository()
         {
-            List<IField> emptyFields = new List<IField>();
-            NumberField field = new NumberField("Monto");
-            emptyFields.Add(field);
-            IField filledField = field.FillAndClone("100");
-            List<IField> fullFields = new List<IField>();
-            fullFields.Add(filledField);
-            Provider provider = new Provider("Antel", 3, emptyFields);
-            Receipt receipt = new Receipt(provider, fullFields, 100);
-            List<Receipt> list = new List<Receipt>();
-            list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
-            var mockPaymentService = new Mock<IPaymentService>();
-            mockPaymentService.Setup(x => x.CreatePayment(payment)).Returns(1);
-            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
+            Payment payment = CreateNewRandomPayment();
 
-            IHttpActionResult actionResult = controller.PostPayment(payment);
+            IHttpActionResult actionResult = CONTROLLER.PostPayment(payment);
             CreatedAtRouteNegotiatedContentResult<Payment> contentResult = (CreatedAtRouteNegotiatedContentResult<Payment>)actionResult;
 
-            Assert.AreSame(contentResult.Content, payment);
+            Assert.AreEqual(contentResult.Content, payment);
+        }
+
+        private static Payment CreateNewRandomPayment()
+        {
+            TextField field = new TextField("NumeroCliente");
+            IField filledField = field.FillAndClone(Guid.NewGuid().ToString());
+            List<IField> fullFields = new List<IField>();
+            fullFields.Add(filledField);
+            Receipt firstReceipt = new Receipt(DESIGNED_PROVIDER, fullFields, 100);
+            List<Receipt> list = new List<Receipt>();
+            list.Add(firstReceipt);
+            return new Payment(new CashPayMethod(DateTime.Now), 100, list);
         }
 
         [TestMethod]
         public void FailIfPostedNewPaymentIsAlreadyInRepository()
         {
-            List<IField> emptyFields = new List<IField>();
-            NumberField field = new NumberField("Monto");
-            emptyFields.Add(field);
-            IField filledField = field.FillAndClone("100");
-            List<IField> fullFields = new List<IField>();
-            fullFields.Add(filledField);
-            Provider provider = new Provider("Antel", 3, emptyFields);
-            Receipt receipt = new Receipt(provider, fullFields, 100);
-            List<Receipt> list = new List<Receipt>();
-            list.Add(receipt);
-            Payment payment = new Payment(new CashPayMethod(DateTime.Now), 100, list);
-            var mockPaymentService = new Mock<IPaymentService>();
-            mockPaymentService.Setup(x => x.CreatePayment(payment)).Throws(new ArgumentException());
-            PaymentsController controller = new PaymentsController(mockPaymentService.Object);
-
-            IHttpActionResult actionResult = controller.PostPayment(payment);
+            IHttpActionResult actionResult = CONTROLLER.PostPayment(FIRST_PAYMENT);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
         }

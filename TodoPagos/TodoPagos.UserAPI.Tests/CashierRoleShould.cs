@@ -31,6 +31,14 @@ namespace TodoPagos.UserAPI.Tests
         }
 
         [TestMethod]
+        public void BeAbleToTellItDoesNotHaveANullPrivilege()
+        {
+            CashierRole adminRole = CashierRole.GetInstance();
+
+            Assert.IsFalse(adminRole.HasPrivilege(null));
+        }
+
+        [TestMethod]
         public void HaveItsNamesHashCode()
         {
             CashierRole cashierRole = CashierRole.GetInstance();

@@ -34,6 +34,7 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Web.Services.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\UserAPI.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.DataAccess.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.Repository.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\Domain.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\UserAPI.pdb
@@ -43,6 +44,7 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\Moq.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Web.Services.Test\obj\Debug\TodoPagos.Web.Services.Test.pdb

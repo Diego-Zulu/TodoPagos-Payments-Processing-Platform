@@ -24,8 +24,8 @@ namespace TodoPagos.Web.Api
 
            using (TodoPagosContext db = new TodoPagosContext())
             {
-                var user = db.Users.FirstOrDefault(u => u.Email == context.UserName && Hashing.VerifyHash(context.Password, u.Salt, u.Password));
-                if (user == null)
+                var user = db.Users.FirstOrDefault(u => u.Email == context.UserName);
+                if (user == null || !Hashing.VerifyHash(context.Password, user.Salt, user.Password))
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return Task.FromResult<Object>(null);

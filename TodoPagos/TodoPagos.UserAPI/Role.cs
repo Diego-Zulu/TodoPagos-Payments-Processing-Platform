@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace TodoPagos.UserAPI
 {
@@ -12,6 +13,7 @@ namespace TodoPagos.UserAPI
 
         public int ID { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<User> UsersThatHaveThisRole { get; set; } = new List<User>();
 
         public virtual ICollection<Privilege> Privileges { get; set; } = new List<Privilege>();

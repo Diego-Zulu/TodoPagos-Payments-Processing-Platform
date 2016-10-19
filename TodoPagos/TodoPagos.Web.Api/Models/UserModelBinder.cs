@@ -29,6 +29,7 @@ namespace TodoPagos.Web.Api.Models
                 AddIDToParsedUserIfNeeded(actionContext, jsonParameters, parsedUser);
 
                 bindingContext.Model = parsedUser;
+
                 return true;
             }
             catch (Exception)
@@ -62,8 +63,8 @@ namespace TodoPagos.Web.Api.Models
             foreach (string oneRoleName in rolesJsonArray)
             {
                 Type roleType = Type.GetType("TodoPagos.UserAPI." + oneRoleName + ",UserAPI");
-                ConstructorInfo roleConstructor = roleType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[0], null);
-                dynamic roleInstance = roleConstructor.Invoke(null);
+                MethodInfo instanceRoleMethod = roleType.GetMethod("GetInstance", BindingFlags.Public | BindingFlags.Static);
+                dynamic roleInstance = instanceRoleMethod.Invoke(null, null);
                 processedRoles.Add(roleInstance);
             }
 
@@ -75,7 +76,7 @@ namespace TodoPagos.Web.Api.Models
             if (actionContext.Request.Method == HttpMethod.Put
                     || actionContext.Request.Method == HttpMethod.Delete)
             {
-                int id = int.Parse(jsonParameters["Id"]);
+                int id = jsonParameters.ID;
                 parsedUser.ID = id;
             }
         }

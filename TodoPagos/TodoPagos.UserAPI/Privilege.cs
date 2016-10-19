@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,8 @@ namespace TodoPagos.UserAPI
 
         public int ID { get; set; }
 
-        public virtual ICollection<Role> InRoles { get; set; } = new List<Role>();
+        [JsonIgnore]
+        public virtual ICollection<Role> InRoles { get; set; } = new List<Role>();      
 
         public override bool Equals(Object anObject)
         {

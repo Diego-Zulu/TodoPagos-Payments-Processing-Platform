@@ -26,3 +26,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\obj\Debug\TodoPagos.Domain.DataAccess.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.DataAccess\bin\Debug\Newtonsoft.Json.xml

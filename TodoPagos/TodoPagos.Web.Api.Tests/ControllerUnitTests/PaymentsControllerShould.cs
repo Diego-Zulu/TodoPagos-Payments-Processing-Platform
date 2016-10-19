@@ -8,11 +8,18 @@ using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Results;
 
-namespace TodoPagos.Web.Api.Tests.UnitTests
+namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 {
     [TestClass]
     public class PaymentsControllerShould
     {
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void FailWithNullReferenceExceptionWhenNoUserIsLogedIn()
+        {
+            PaymentsController controller = new PaymentsController();
+        }
+
         [TestMethod]
         public void RecieveAPaymentServiceOnCreation()
         {

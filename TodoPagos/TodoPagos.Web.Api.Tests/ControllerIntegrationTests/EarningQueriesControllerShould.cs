@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using TodoPagos.UserAPI;
 
-namespace TodoPagos.Web.Api.Tests.IntegrationTests
+namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 {
     [TestClass]
     public class EarningQueriesControllerShould
@@ -26,19 +26,10 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
         [ClassInitialize()]
         public static void SetAdminInfoForTests(TestContext testContext)
         {
-            //UsersController usersController = new UsersController("bla");
-
             ADMIN_USER = new User("Brulu", ADMIN_USER_USEREMAIL, "HOLA1234", AdminRole.GetInstance());
             ADMIN_USER.ID = 1;
 
-            //usersController.PostUser(ADMIN_USER);
-
-            //usersController.Dispose();
-
             ProvidersController providersController = new ProvidersController(ADMIN_USER_USEREMAIL);
-
-            //IField firstProviderEmptyField = new NumberField("Cedula");
-            //IField secondProviderEmptyField = new TextField("Nombre");
 
             OkNegotiatedContentResult<Provider> result =
                 (OkNegotiatedContentResult<Provider>)providersController.GetProvider(1);
@@ -48,35 +39,6 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             result = (OkNegotiatedContentResult<Provider>)providersController.GetProvider(2);
 
             SECOND_TEST_PROVIDER = result.Content;
-
-
-            //FIRST_TEST_PROVIDER = new Provider("EARNING QUERIES TEST PROVIDER 1", 10, new[] { firstProviderEmptyField });
-
-            //SECOND_TEST_PROVIDER = new Provider("EARNING QUERIES TEST PROVIDER 2", 5, new[] { secondProviderEmptyField});
-
-            //providersController.PostProvider(FIRST_TEST_PROVIDER);
-            //providersController.PostProvider(SECOND_TEST_PROVIDER);
-
-            //providersController.Dispose();
-
-            //IField firstProviderCompleteField = firstProviderEmptyField.FillAndClone("123456");
-            //IField secondProviderCompleteField = secondProviderEmptyField.FillAndClone("Diego");
-
-            //Receipt firstProviderReceipt = new Receipt(
-            //    FIRST_TEST_PROVIDER, new[] { firstProviderCompleteField }, 1000);
-            //Receipt secondProviderReceipt = new Receipt(
-            //    SECOND_TEST_PROVIDER, new[] { secondProviderCompleteField }, 4000);
-
-
-            //Payment firstPayment = new Payment(new DebitPayMethod(DateTime.Today), 1000, new[] { firstProviderReceipt });
-            //Payment secondPayment = new Payment(new CashPayMethod(DateTime.Today.AddDays(-1)), 4020, new[] { secondProviderReceipt });
-
-            //PaymentsController paymentsController = new PaymentsController(ADMIN_USER_USEREMAIL);
-
-            //paymentsController.PostPayment(firstPayment);
-            //paymentsController.PostPayment(secondPayment);
-
-            //paymentsController.Dispose();
         }
 
         [TestInitialize()]

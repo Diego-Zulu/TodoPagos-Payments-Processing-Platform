@@ -19,6 +19,7 @@ namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/users")]
     [Authorize]
+   
     public class UsersController : ApiController
     {
         private readonly IUserService userService;

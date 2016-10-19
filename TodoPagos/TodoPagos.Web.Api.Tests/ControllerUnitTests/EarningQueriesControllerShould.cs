@@ -9,11 +9,18 @@ using TodoPagos.Domain;
 using System.Web.Http;
 using System.Web.Http.Results;
 
-namespace TodoPagos.Web.Api.Tests.UnitTests
+namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 {
     [TestClass]
     public class EarningQueriesControllerShould
     {
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void FailWithNullReferenceExceptionWhenNoUserIsLogedIn()
+        {
+            EarningQueriesController controller = new EarningQueriesController();
+        }
+
         [TestMethod]
         public void ReceiveAnEarningQueriesServiceOnCreation()
         {

@@ -12,11 +12,18 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Net;
 
-namespace TodoPagos.Web.Api.Tests.UnitTests
+namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 {
     [TestClass]
     public class ProvidersControllerShould
     {
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void FailWithNullReferenceExceptionWhenNoUserIsLogedIn()
+        {
+            ProvidersController controller = new ProvidersController();
+        }
+
         [TestMethod]
         public void ReceiveAProviderServiceOnCreation()
         {

@@ -12,3 +12,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\Dom
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\TodoPagos.UserAPI.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\Newtonsoft.Json.xml

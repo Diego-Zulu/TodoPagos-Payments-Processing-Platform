@@ -14,7 +14,7 @@ using System.Text;
 using System.Linq;
 using System.Collections;
 
-namespace TodoPagos.WebApi.Tests.IntegrationTests
+namespace TodoPagos.WebApi.Tests.ControllerIntegrationTests
 {
     [TestClass]
     public class UsersControllerShould

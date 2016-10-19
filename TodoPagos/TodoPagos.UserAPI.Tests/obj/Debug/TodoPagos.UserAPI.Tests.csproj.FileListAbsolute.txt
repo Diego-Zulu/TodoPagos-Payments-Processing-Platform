@@ -16,3 +16,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI.Tests\bin\Deb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI.Tests\obj\Debug\TodoPagos.UserAPI.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI.Tests\obj\Debug\TodoPagos.UserAPI.Tests.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI.Tests\obj\Debug\TodoPagos.UserAPI.Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI.Tests\bin\Debug\Newtonsoft.Json.xml

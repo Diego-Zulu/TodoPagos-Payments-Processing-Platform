@@ -11,11 +11,19 @@ using System.Collections.Generic;
 using System.Net;
 using System.Linq;
 
-namespace TodoPagos.WebApi.Tests.UnitTests
+namespace TodoPagos.WebApi.Tests.ControllerUnitTests
 {
     [TestClass]
     public class UsersControllerShould
     {
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void FailWithNullReferenceExceptionWhenNoUserIsLogedIn()
+        {
+            UsersController controller = new UsersController();
+        }
+
         [TestMethod]
         public void ReceiveAUserServiceOnCreation()
         {

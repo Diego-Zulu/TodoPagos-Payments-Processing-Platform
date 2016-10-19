@@ -14,7 +14,7 @@ using System.Net;
 using System.Collections;
 using TodoPagos.UserAPI;
 
-namespace TodoPagos.Web.Api.Tests.IntegrationTests
+namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 {
     [TestClass]
     public class ProvidersControllerShould
@@ -42,9 +42,6 @@ namespace TodoPagos.Web.Api.Tests.IntegrationTests
             CONTROLLER.PostProvider(MODIFICABLE_PROVIDER);
             CONTROLLER.PostProvider(RESERVED_PROVIDER);
             CONTROLLER.Dispose();
-            //UsersController uController = new UsersController("bla");
-            //uController.PostUser(ADMIN_USER);
-            //int bla = 0;
         }
 
         [TestInitialize()]

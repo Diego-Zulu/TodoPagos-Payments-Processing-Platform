@@ -11,7 +11,7 @@ using System.Linq;
 using System.Collections;
 using TodoPagos.UserAPI;
 
-namespace TodoPagos.Web.Api.Tests.IntegrationTests
+namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 {
     [TestClass]
     public class PaymentsControllerShould

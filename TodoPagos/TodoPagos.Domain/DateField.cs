@@ -44,7 +44,7 @@ namespace TodoPagos.Domain
             }
             catch (FormatException)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El argumento es nulo o no válido");
             }
 
         }

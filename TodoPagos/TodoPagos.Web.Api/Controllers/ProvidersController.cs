@@ -48,14 +48,14 @@ namespace TodoPagos.Web.Api.Controllers
 
         private void FailIfUsernameIsNull(string oneUsername)
         {
-            if (oneUsername == null) throw new ArgumentException();
+            if (oneUsername == null) throw new ArgumentException("El nombre de usuario no puede ser nulo");
         }
 
         private void MakeSureProvidedProviderServiceIsNotNull(IProviderService providedProviderService)
         {
             if (providedProviderService == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El servicio no puede ser nulo");
             }
         }
 
@@ -121,7 +121,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (oneProvider == null || id != oneProvider.ID)
             {
-                return BadRequest();
+                return BadRequest("El nuevo proveedor es nulo o su id no coincide con la del proveedor a actualizar");
             }
             else
             {
@@ -146,9 +146,9 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return TryToCreateProviderWhileCheckingForInvalidOperationException(newProvider);
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -158,9 +158,9 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return TryToCreateProviderWhileCheckingForArgumentException(newProvider);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -170,9 +170,9 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return TryToCreateProviderWhileCheckingForUnauthorizedAccessException(newProvider);
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

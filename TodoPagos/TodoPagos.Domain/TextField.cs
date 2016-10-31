@@ -33,7 +33,7 @@ namespace TodoPagos.Domain
 
         private void CheckForNullArgument(string dataToBeFilledWith)
         {
-            if (IsNull(dataToBeFilledWith)) throw new ArgumentException();
+            if (IsNull(dataToBeFilledWith)) throw new ArgumentException("El argumento no puede ser nulo");
         }
 
         private bool IsNull(object anObject)

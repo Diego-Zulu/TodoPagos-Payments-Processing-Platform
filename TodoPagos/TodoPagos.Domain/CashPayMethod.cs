@@ -20,7 +20,7 @@ namespace TodoPagos.Domain
         {
             if (DateTime.Now < date)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("No se puede pagar con una fecha futura");
             }
         }
 
@@ -35,7 +35,7 @@ namespace TodoPagos.Domain
         {
             if (amountPayed < total)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("El monto pago tiene que ser mayor o igual al total");
             }
         }
 
@@ -43,7 +43,7 @@ namespace TodoPagos.Domain
         {
             if (total < 0)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("El total debe ser positivo");
             }
         }
     }

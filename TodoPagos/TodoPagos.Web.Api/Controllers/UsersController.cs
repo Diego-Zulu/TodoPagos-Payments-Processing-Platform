@@ -53,7 +53,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (oneUsername == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El nombre de usuario no puede ser nulo");
             }
         }
 
@@ -61,7 +61,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (oneService == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El servicio no puede ser nulo");
             }
         }
 
@@ -128,9 +128,9 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return TryToCreateUserWhileCheckingForInvalidOperationException(newUser);
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -141,9 +141,9 @@ namespace TodoPagos.Web.Api.Controllers
                 int id = userService.CreateUser(newUser, signedInUsername);
                 return CreatedAtRoute("TodoPagosApi", new { id = newUser.ID }, newUser.CloneAndReturnNewUserWithoutPasswordAndSalt());
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             catch (UnauthorizedAccessException)
             {
@@ -167,7 +167,6 @@ namespace TodoPagos.Web.Api.Controllers
         {
             try
             {
-
                 if (!userService.UpdateUser(id, user, signedInUsername))
                 {
                     return DecideWhatErrorMessageToReturn(id, user);
@@ -184,7 +183,7 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (user == null || id != user.ID)
             {
-                return BadRequest();
+                return BadRequest("El usuario actualizado es nulo o su id no coincide con la del usuario a actualizar");
             }
             else
             {

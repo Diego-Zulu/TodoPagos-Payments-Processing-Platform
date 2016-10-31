@@ -53,7 +53,7 @@ namespace TodoPagos.Domain
         {
             if (paymentReceipts.Count < 1)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El pago debe tener al menos un recibo");
             }
         }
 
@@ -63,7 +63,7 @@ namespace TodoPagos.Domain
             {
                 if (!oneReceipt.IsComplete())
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Todos los recibos deben estar completos");
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace TodoPagos.Domain
         {
             if (paymentReceipts == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Los recibos no pueden ser nulos");
             }
         }
 
@@ -80,14 +80,14 @@ namespace TodoPagos.Domain
         {
             if (theAmountPaid < 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El monto pago debe ser positivo");
             }
         }
         private void CheckIfPayMethodIsNotNull(PayMethod aPayMethod)
         {
             if (aPayMethod == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El medio de pago no puede ser nulo");
             }
         }
 
@@ -109,7 +109,7 @@ namespace TodoPagos.Domain
         {
             if (payment != this.CalculatePaymentTotal())
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El total del pago debe ser igual a la suma de los totales de todos los recibos");
             }
         }
 

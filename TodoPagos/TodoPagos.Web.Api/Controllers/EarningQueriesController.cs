@@ -52,13 +52,13 @@ namespace TodoPagos.Web.Api.Controllers
         {
             if (oneUsername == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El nombre de usuario no puede ser nulo");
             }
         }
 
         private void CheckForNullEarningQueriesService(IEarningQueriesService service)
         {
-            if (service == null) throw new ArgumentException();
+            if (service == null) throw new ArgumentException("El servicio no puede ser nulo");
         }
 
         [HttpGet]
@@ -73,9 +73,9 @@ namespace TodoPagos.Web.Api.Controllers
                 dateFrom = AssignFromDateInCaseOfNull(from);
                 dateTo = AssignToDateInCaseOfNull(to);
             }
-            catch (FormatException)
+            catch (FormatException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             if (!ModelState.IsValid)
             {
@@ -124,9 +124,9 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 dateFrom = AssignFromDateInCaseOfNull(from);
                 dateTo = AssignToDateInCaseOfNull(to);
-            } catch (FormatException)
+            } catch (FormatException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             if (!ModelState.IsValid)
 

@@ -45,7 +45,7 @@ namespace TodoPagos.Domain
 
         private void CheckForNullOrWhitespaceName(string aName)
         {
-            if (String.IsNullOrWhiteSpace(aName)) throw new ArgumentException();
+            if (String.IsNullOrWhiteSpace(aName)) throw new ArgumentException("El nombre es nulo o whitespace");
         }
 
         private void CheckForCompleteField(ICollection<IField> fields)
@@ -54,7 +54,7 @@ namespace TodoPagos.Domain
             {
                 if (!oneField.IsEmpty())
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Todos los campos deben estar completos");
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace TodoPagos.Domain
         {
             if (aCommission > 100)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("La comisión debe ser menor o igual a 100%");
             }
         }
 
@@ -71,13 +71,13 @@ namespace TodoPagos.Domain
         {
             if (IsNull(fields))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("La lista de campos no puede ser nula");
             }
         }
 
         private void CheckForNegativeCommission(double newValue)
         {
-            if (newValue < 0) throw new ArgumentException();
+            if (newValue < 0) throw new ArgumentException("La comisión no puede ser negativa");
         }
 
         public void ChangeCommission(double newValue)
@@ -110,7 +110,8 @@ namespace TodoPagos.Domain
 
         private void CheckIfFieldIsContainedInFieldsList(IField fieldToBeRemoved)
         {
-            if (!ContainsField(fieldToBeRemoved)) throw new ArgumentException();
+            if (!ContainsField(fieldToBeRemoved)) throw new ArgumentException("El campo a eliminar debe estar contenido " + 
+                "en la lista de campos");
         }
 
         public override bool Equals(object anotherProvider)

@@ -51,7 +51,7 @@ namespace TodoPagos.Domain
         {
             if (aProvider == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El proveedor no puede ser nulo");
             }
         }
 
@@ -59,7 +59,7 @@ namespace TodoPagos.Domain
         {
             if (!aProvider.IsCompleteAndActive())
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El proveedor no puede estar incompleto");
             }
         }
 
@@ -67,7 +67,7 @@ namespace TodoPagos.Domain
         {
             if (!aProvider.AllTargetFieldsAndThisFieldsAreEqualNotRegardingData(completedFields))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Los campos completos deben ser los campos del proveedor");
             }
         }
 
@@ -77,7 +77,7 @@ namespace TodoPagos.Domain
             {
                 if (oneField.IsEmpty())
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Los campos completos no pueden estar vacíos");
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace TodoPagos.Domain
         {
             if (completedFields == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("La lista de campos completos no puede ser nula");
             }
         }
 
@@ -94,7 +94,7 @@ namespace TodoPagos.Domain
         {
             if (amountToBePaid < 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("El monto a pagar no puede ser negativo");
             }
         }
 
@@ -150,7 +150,7 @@ namespace TodoPagos.Domain
             {
                 if (field.IsEmpty() || !field.IsValid())
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Campo inválido");
                 }
             }
         }

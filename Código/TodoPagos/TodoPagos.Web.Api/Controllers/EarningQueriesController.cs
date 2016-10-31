@@ -14,15 +14,13 @@ namespace TodoPagos.Web.Api.Controllers
 {
 
     [RoutePrefix("api/v1/query/earnings")]
-    [Authorize]
     public class EarningQueriesController : ApiController
     {
         private readonly IEarningQueriesService earningQueriesService;
         private readonly DateTime DEFAULT_FROM_DATE = DateTime.MinValue;
-        private readonly DateTime DEFAULT_TO_DATE = DateTime.Today;
+        private readonly DateTime DEFAULT_TO_DATE = DateTime.Now.ToUniversalTime();
         private readonly string signedInUsername;
-        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
-                    "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
+        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{ "yyyy-MM-ddTHH:mm:ssZ" };
 
         public EarningQueriesController()
         {
@@ -87,11 +85,11 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-        private IHttpActionResult TryToProcessRequestToGetEarningsPerProvider(DateTime? from, DateTime? to)
+        private IHttpActionResult TryToProcessRequestToGetEarningsPerProvider(DateTime from, DateTime to)
         {
             try
             {
-                return Ok(earningQueriesService.GetEarningsPerProvider(from.Value, to.Value, signedInUsername));
+                return Ok(earningQueriesService.GetEarningsPerProvider(from, to, signedInUsername));
             }
             catch (UnauthorizedAccessException)
             {
@@ -139,11 +137,11 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
-        private IHttpActionResult TryToProcessRequestToGetAllEarnings(DateTime? from, DateTime? to)
+        private IHttpActionResult TryToProcessRequestToGetAllEarnings(DateTime from, DateTime to)
         {
             try
             {
-                return Ok(earningQueriesService.GetAllEarnings(from.Value, to.Value, signedInUsername));
+                return Ok(earningQueriesService.GetAllEarnings(from, to, signedInUsername));
             }
             catch (UnauthorizedAccessException)
             {

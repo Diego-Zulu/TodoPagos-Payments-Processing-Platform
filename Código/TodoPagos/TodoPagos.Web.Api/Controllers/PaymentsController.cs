@@ -14,7 +14,6 @@ using TodoPagos.Web.Services;
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/payments")]
-    [Authorize]
     public class PaymentsController : ApiController
     {
 

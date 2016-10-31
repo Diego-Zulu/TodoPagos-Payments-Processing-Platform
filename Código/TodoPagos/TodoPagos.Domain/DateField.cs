@@ -9,29 +9,23 @@ namespace TodoPagos.Domain
 {
     public class DateField : IField
     {
-        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
-                    "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
-        public virtual DateTime Data { get; set; }
-
-        public string Name { get; set; }
-
-        public bool Empty { get; set; }
+        private readonly string[] ACCEPTED_DATE_FORMATS = new[] { "yyyy-MM-ddTHH:mm:ssZ" };
+        public virtual DateTime? Data { get; set; }
 
         protected DateField() { }
 
         public DateField(string aName)
         {
             Name = aName;
-            Empty = true;
-            Data = DateTime.MaxValue;
+            Data = null;
         }
 
         public override IField FillAndClone(string dataToBeFilledWith)
         {
             CheckForNullOrNotValidDateTimeArgument(dataToBeFilledWith);
             DateField newDateField = new DateField(Name);
-            newDateField.Data = ParseToGMTDate(dataToBeFilledWith);
-            newDateField.Empty = false;
+            newDateField.Data = ParseToISO8061Date(dataToBeFilledWith);
+
             return newDateField;
         }
 
@@ -40,7 +34,7 @@ namespace TodoPagos.Domain
             if (String.IsNullOrWhiteSpace(dataToBeFilledWith)) throw new ArgumentException();
             try
             {
-                ParseToGMTDate(dataToBeFilledWith);
+                ParseToISO8061Date(dataToBeFilledWith);
             }
             catch (FormatException)
             {
@@ -49,7 +43,7 @@ namespace TodoPagos.Domain
 
         }
 
-        private DateTime ParseToGMTDate(string dataToBeFilledWith)
+        private DateTime ParseToISO8061Date(string dataToBeFilledWith)
         {
             return DateTime.ParseExact(dataToBeFilledWith, ACCEPTED_DATE_FORMATS,
                 CultureInfo.InvariantCulture, DateTimeStyles.None);
@@ -57,7 +51,11 @@ namespace TodoPagos.Domain
 
         public override string GetData()
         {
-            return Data.ToShortDateString();
+            if (Data == null)
+            {
+                return null;
+            }
+            return Data.Value.ToString("yyyy-MM-ddTHH:mm:ssZ");
         }
 
         public override bool IsValid()
@@ -109,7 +107,7 @@ namespace TodoPagos.Domain
 
         public override bool IsEmpty()
         {
-            return Empty;
+            return Data == null;
         }
 
         public override IField ClearDataAndClone()

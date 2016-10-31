@@ -12,9 +12,9 @@ namespace TodoPagos.Domain.Tests
         {
             NumberField numberField = new NumberField("Monto");
 
-            string expectedResult = "0";
+            string expectedResult = null;
 
-            Assert.AreEqual(expectedResult, numberField.GetData());
+            Assert.AreEqual(null, numberField.GetData());
         }
 
 

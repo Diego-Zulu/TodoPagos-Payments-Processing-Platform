@@ -184,7 +184,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void BeAbleToPostNewProviderIntoRepository()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            Provider oneProvider = new Provider("Microsoft", 10, new List<IField>());
 
             IHttpActionResult actionResult = CONTROLLER.PostProvider(oneProvider);
             CreatedAtRouteNegotiatedContentResult<Provider> contentResult = (CreatedAtRouteNegotiatedContentResult<Provider>)actionResult;

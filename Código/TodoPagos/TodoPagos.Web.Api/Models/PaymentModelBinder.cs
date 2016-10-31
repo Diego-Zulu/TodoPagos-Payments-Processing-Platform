@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -15,8 +17,7 @@ namespace TodoPagos.Web.Api.Models
 {
     public class PaymentModelBinder : IModelBinder
     {
-        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
-                    "ddd, d MMM yyyy HH':'mm':'ss 'GMT'"};
+        private readonly string[] ACCEPTED_DATE_FORMATS = new[]{"yyyy-MM-ddTHH:mm:ssZ"};
 
         public PaymentModelBinder()
         {
@@ -43,7 +44,9 @@ namespace TodoPagos.Web.Api.Models
         {
             Task<string> content = actionContext.Request.Content.ReadAsStringAsync();
             string body = content.Result;
-            return JObject.Parse(body);
+            JsonReader reader = new JsonTextReader(new StringReader(body));
+            reader.DateParseHandling = DateParseHandling.None;
+            return JObject.Load(reader);
         }
 
         private Payment ParsePaymentFromJsonParameters(dynamic jsonParameters)
@@ -54,15 +57,18 @@ namespace TodoPagos.Web.Api.Models
             JArray receiptsJsonArray = (JArray)jsonParameters.Receipts;
             ICollection<Receipt> receipts = ParseReceiptsFromJsonArray(receiptsJsonArray);
 
-
-            return new Payment(payMethod, amountPaid, receipts);
+            Payment parsedPayment = new Payment();
+            parsedPayment.PaymentMethod = payMethod;
+            parsedPayment.Receipts = receipts;
+            parsedPayment.SetPaidWithAndCalculateChange(amountPaid);
+            return parsedPayment;
         }
 
         private PayMethod ParsePayMethodFromJsonParameters(dynamic payMethodJsonParameters)
         {
             string className = payMethodJsonParameters.Type;
             string payDateString = payMethodJsonParameters.PayDate;
-            DateTime payDate = ParseToGMTDate(payDateString);
+            DateTime payDate = ParseToISO8061Date(payDateString);
 
             Type payMethodType = Type.GetType("TodoPagos.Domain." + className + ",Domain");
             ConstructorInfo payMethodConstructor = payMethodType.GetConstructor(new[] { typeof(DateTime) });
@@ -70,7 +76,7 @@ namespace TodoPagos.Web.Api.Models
 
             return payMethodInstance;
         }
-        private DateTime ParseToGMTDate(string dataToBeFilledWith)
+        private DateTime ParseToISO8061Date(string dataToBeFilledWith)
         {
             return DateTime.ParseExact(dataToBeFilledWith, ACCEPTED_DATE_FORMATS,
                 CultureInfo.InvariantCulture, DateTimeStyles.None);
@@ -83,29 +89,33 @@ namespace TodoPagos.Web.Api.Models
             foreach (dynamic oneJsonObject in receiptsJsonArray)
             {
                 double amount = oneJsonObject.Amount;
-                Provider receiptProvider = ParseReceiptProviderFromJsonParameters(oneJsonObject.ReceiptProvider);
+                Provider receiptProvider = ParseReceiptProviderFromJsonParameters(oneJsonObject);
 
                 JArray completedFieldsJsonArray = (JArray)oneJsonObject.CompletedFields;
                 ICollection<IField> completedFields = ParseCompletedFieldsFromJsonArray(completedFieldsJsonArray);
 
-                receipts.Add(new Receipt(receiptProvider, completedFields, amount));
+                Receipt oneReceipt = ReturnNewReceiptWithFilledProperties(completedFields, amount, receiptProvider);
+                receipts.Add(oneReceipt);
             }
 
             return receipts;
         }
 
-        private Provider ParseReceiptProviderFromJsonParameters(dynamic providerJsonParameters)
+        private Receipt ReturnNewReceiptWithFilledProperties(ICollection<IField> completedFields, double amount, Provider receiptProvider)
         {
-            int id = providerJsonParameters.ID;
-            double commission = providerJsonParameters.Commission;
-            string name = providerJsonParameters.Name;
-            bool active = providerJsonParameters.Active;
+            Receipt oneReceipt = new Receipt();
+            oneReceipt.CompletedFields = completedFields;
+            oneReceipt.Amount = amount;
+            oneReceipt.ReceiptProvider = receiptProvider;
 
-            JArray providerFieldsJsonArray = (JArray)providerJsonParameters.Fields;
-            ICollection<IField> providerFields = ParseProviderFieldsFromJsonArray(providerFieldsJsonArray);
+            return oneReceipt;
+        }
 
-            Provider parsedProvider = new Provider(name, commission, providerFields);
-            parsedProvider.Active = active;
+        private Provider ParseReceiptProviderFromJsonParameters(dynamic oneJsonObject)
+        {
+            int id = oneJsonObject.ReceiptProviderID;
+
+            Provider parsedProvider = new Provider();
             parsedProvider.ID = id;
 
             return parsedProvider;

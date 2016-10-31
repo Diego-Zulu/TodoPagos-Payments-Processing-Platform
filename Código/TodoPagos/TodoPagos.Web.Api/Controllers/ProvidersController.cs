@@ -16,7 +16,6 @@ using System.Web;
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/providers")]
-    [Authorize]
     public class ProvidersController : ApiController
     {
         private readonly IProviderService providerService;

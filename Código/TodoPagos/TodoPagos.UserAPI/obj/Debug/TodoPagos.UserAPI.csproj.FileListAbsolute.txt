@@ -14,3 +14,12 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Debug\New
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\TodoPagos.UserAPI.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\bin\Debug\UserAPI.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\bin\Debug\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\bin\Debug\Domain.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\obj\Debug\TodoPagos.UserAPI.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.UserAPI\obj\Debug\UserAPI.pdb

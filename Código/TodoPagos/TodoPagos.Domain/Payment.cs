@@ -30,6 +30,14 @@ namespace TodoPagos.Domain
             Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
         }
 
+        public void SetPaidWithAndCalculateChange(double theAmountPaid)
+        {
+            CheckIfAmountPaidIsPositive(theAmountPaid);
+            PaidWith = theAmountPaid;
+            PaymentTotal = CalculatePaymentTotal();
+            Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
+        }
+
         private double CalculatePaymentTotal()
         {
             double total = 0;

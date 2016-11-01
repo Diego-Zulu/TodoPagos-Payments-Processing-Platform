@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.DataAccess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository.Tests", "TodoPagos.Domain.Repository.Tests\TodoPagos.Domain.Repository.Tests.csproj", "{2DAED29E-A6E4-4987-AB74-18038CEB5085}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminUserInterface", "AdminUserInterface\AdminUserInterface.csproj", "{78672CCA-2D59-498E-ACB2-495C5E07C566}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78672CCA-2D59-498E-ACB2-495C5E07C566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78672CCA-2D59-498E-ACB2-495C5E07C566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78672CCA-2D59-498E-ACB2-495C5E07C566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78672CCA-2D59-498E-ACB2-495C5E07C566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

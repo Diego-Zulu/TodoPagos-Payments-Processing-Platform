@@ -30,5 +30,16 @@ namespace TodoPagos.Domain.Tests
 
             Client newClient = new Client(name, idCard, phone);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfIDCardIsNotValid()
+        {
+            string name = "Diego Zuluaga";
+            int idCard = 49018830;
+            int phone = 26666666;
+
+            Client newClient = new Client(name, idCard, phone);
+        }
     }
 }

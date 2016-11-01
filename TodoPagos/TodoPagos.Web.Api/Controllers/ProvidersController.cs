@@ -123,9 +123,12 @@ namespace TodoPagos.Web.Api.Controllers
             {
                 return BadRequest("El nuevo proveedor es nulo o su id no coincide con la del proveedor a actualizar");
             }
-            else
+            else if (this.GetProvider(id).GetType() == NotFound().GetType())
             {
                 return NotFound();
+            } else
+            {
+                return BadRequest("Los datos del proveedor no son válidos");
             }
         }
 

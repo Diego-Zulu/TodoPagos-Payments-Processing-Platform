@@ -30,6 +30,14 @@ namespace TodoPagos.Domain
             Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
         }
 
+        public void SetPaidWithAndCalculateChange(double theAmountPaid)
+        {
+            CheckIfAmountPaidIsPositive(theAmountPaid);
+            PaidWith = theAmountPaid;
+            PaymentTotal = CalculatePaymentTotal();
+            Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
+        }
+
         private double CalculatePaymentTotal()
         {
             double total = 0;
@@ -127,9 +135,13 @@ namespace TodoPagos.Domain
         {
             foreach (Receipt receipt in Receipts)
             {
-                double actualValue;
-                earningsPerProvider.TryGetValue(receipt.ReceiptProvider, out actualValue);
-                earningsPerProvider.Add(receipt.ReceiptProvider, actualValue + receipt.CalculateEarnings());
+                if (earningsPerProvider.ContainsKey(receipt.ReceiptProvider))
+                {
+                    earningsPerProvider[receipt.ReceiptProvider] += receipt.CalculateEarnings();
+                } else
+                {
+                    earningsPerProvider.Add(receipt.ReceiptProvider, receipt.CalculateEarnings());
+                }
             }
         }
 

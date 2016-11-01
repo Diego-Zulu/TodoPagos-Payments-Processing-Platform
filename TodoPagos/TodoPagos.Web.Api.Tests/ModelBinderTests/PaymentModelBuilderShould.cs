@@ -39,9 +39,7 @@ namespace TodoPagos.Web.Api.Tests.ModelBinderTests
         public void BeAbleToCastJsonToPayment()
         {
             JObject paymentInJson = JObject.Parse("{\"AmountPaid\" : 1000, \"PayMethod\" : {\"Type\" : \"DebitPayMethod\", " +
-            "\"PayDate\" : \"Mon, 15 Sep 2008 09:30:41 GMT\"}, \"Receipts\" : [{\"Amount\" :    1000, \"ReceiptProvider\" : {\"ID\" : 1, " +
-            "\"Commission\" : 2, \"Name\" : \"Antel\", \"Active\" : true, \"Fields\" : [{ \"Type\" : \"NumberField\", " +
-            "\"Name\" : \"Total\"}]},\"CompletedFields\" : [{\"Type\" : \"NumberField\",\"Data\" : \"123456\",\"Name\" : \"Total\" " +
+            "\"PayDate\" : \"2016-10-31T14:37:54Z\"}, \"Receipts\" : [{\"Amount\" :    1000, \"ReceiptProviderID\" : 1, \"CompletedFields\" : [{\"Type\" : \"NumberField\",\"Data\" : \"123456\",\"Name\" : \"Total\" " +
             "}]}]}");
 
             Payment processedPayment = CreatePayment();

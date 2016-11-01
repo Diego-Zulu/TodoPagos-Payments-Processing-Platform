@@ -8,18 +8,14 @@ namespace TodoPagos.Domain
 {
     public class NumberField : IField
     {
-        public long Data { get; set; }
-
-        public string Name { get; set; }
-
-        public bool Empty { get; set; }
+        public long? Data { get; set; }
 
         protected NumberField() { }
 
         public NumberField(string aName)
         {
             Name = aName;
-            Empty = true;
+            Data = null;
         }
 
         public override IField FillAndClone(string dataToFillWith)
@@ -27,7 +23,6 @@ namespace TodoPagos.Domain
             CheckForNullOrNotNumericArgument(dataToFillWith);
             NumberField newNumberField = new NumberField(Name);
             newNumberField.Data = long.Parse(dataToFillWith);
-            newNumberField.Empty = false;
             return newNumberField;
         }
 
@@ -46,6 +41,10 @@ namespace TodoPagos.Domain
 
         public override string GetData()
         {
+            if (Data == null)
+            {
+                return null;
+            }
             return Data.ToString();
         }
 
@@ -98,7 +97,7 @@ namespace TodoPagos.Domain
 
         public override bool IsEmpty()
         {
-            return Empty;
+            return Data == null;
         }
 
         public override IField ClearDataAndClone()

@@ -76,15 +76,15 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         public void BeAbleToReturnEarningsPerProviderInACertainTimePeriod()
         {
 
-            string from = "Mon, 15 Sep 2008 09:30:41 GMT";
-            string to = DateTime.Today.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'");    
+            string from = "2007-09-17T22:02:51Z";
+            string to = DateTime.Today.ToString("yyyy-MM-ddTHH:mm:ssZ");    
 
             IHttpActionResult actionResult = EARNINGS_CONTROLLER.GetEarningsPerProvider(from, to);
             OkNegotiatedContentResult<IDictionary<Provider, double>> contentResult = 
                 (OkNegotiatedContentResult<IDictionary<Provider, double>>)actionResult;
 
-            Assert.AreEqual(contentResult.Content[FIRST_TEST_PROVIDER], 100);
-            Assert.AreEqual(contentResult.Content[SECOND_TEST_PROVIDER], 200);
+            Assert.AreEqual(contentResult.Content[FIRST_TEST_PROVIDER], 25);
+            Assert.AreEqual(contentResult.Content[SECOND_TEST_PROVIDER], 25);
         }
 
         [TestMethod]
@@ -94,16 +94,16 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
             OkNegotiatedContentResult<IDictionary<Provider, double>> contentResult =
                 (OkNegotiatedContentResult<IDictionary<Provider, double>>)actionResult;
 
-            Assert.AreEqual(contentResult.Content[FIRST_TEST_PROVIDER], 100);
-            Assert.AreEqual(contentResult.Content[SECOND_TEST_PROVIDER], 200);
+            Assert.AreEqual(contentResult.Content[FIRST_TEST_PROVIDER], 25);
+            Assert.AreEqual(contentResult.Content[SECOND_TEST_PROVIDER], 25);
         }
 
         [TestMethod]
         public void BeAbleToReturnEarningsInACertainTimePeriod()
         {
-            string from = "Mon, 15 Sep 2008 09:30:41 GMT";
-            string to = DateTime.Today.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'");
-            int earnings = 300;
+            string from = "2007-09-17T22:02:51Z";
+            string to = DateTime.Today.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            int earnings = 50;
            
             IHttpActionResult actionResult = EARNINGS_CONTROLLER.GetAllEarnings(from, to);
             OkNegotiatedContentResult<double> contentResult = (OkNegotiatedContentResult<double>)actionResult;
@@ -114,12 +114,12 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void BeAbleToReturnAllEarningsWithDefaultDates()
         {
-            int earnings = 300;
+            int earnings = 50;
 
             IHttpActionResult actionResult = EARNINGS_CONTROLLER.GetAllEarnings();
             OkNegotiatedContentResult<double> contentResult = (OkNegotiatedContentResult<double>)actionResult;
 
-            Assert.AreEqual(contentResult.Content, earnings);
+            Assert.IsTrue(contentResult.Content - earnings >= 0);
         }
     }
 }

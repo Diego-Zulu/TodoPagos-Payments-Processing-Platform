@@ -158,7 +158,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 
             IHttpActionResult actionResult = CONTROLLER.PutProvider(MODIFICABLE_PROVIDER.ID + 1, MODIFICABLE_PROVIDER);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -168,7 +168,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 
             IHttpActionResult actionResult = CONTROLLER.PutProvider(1, nullProvider);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -184,7 +184,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void BeAbleToPostNewProviderIntoRepository()
         {
-            Provider oneProvider = new Provider("Antel", 10, new List<IField>());
+            Provider oneProvider = new Provider("Microsoft", 10, new List<IField>());
 
             IHttpActionResult actionResult = CONTROLLER.PostProvider(oneProvider);
             CreatedAtRouteNegotiatedContentResult<Provider> contentResult = (CreatedAtRouteNegotiatedContentResult<Provider>)actionResult;
@@ -198,7 +198,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         {
             IHttpActionResult actionResult = CONTROLLER.PostProvider(RESERVED_PROVIDER);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -208,7 +208,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 
             IHttpActionResult actionResult = CONTROLLER.PostProvider(nullProvider);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]

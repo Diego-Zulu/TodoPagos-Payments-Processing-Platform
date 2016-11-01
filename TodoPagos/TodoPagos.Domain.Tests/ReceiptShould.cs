@@ -49,7 +49,7 @@ namespace TodoPagos.Domain.Tests
             list.Add(numberField);
             list.Add(datefield);
             Provider provider = new Provider("Antel", 20, list);
-            IField completedDateField = datefield.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
+            IField completedDateField = datefield.FillAndClone("2012-09-17T22:02:51Z");
             IField completedNumberField = numberField.FillAndClone("8000");
             List<IField> completedFields = new List<IField>();
             completedFields.Add(completedDateField);

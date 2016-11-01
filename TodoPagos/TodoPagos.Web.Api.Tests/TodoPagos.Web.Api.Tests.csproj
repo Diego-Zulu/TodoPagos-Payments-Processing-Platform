@@ -139,7 +139,7 @@
       <Name>TodoPagos.UserAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\TodoPagos.Web.Api\TodoPagos.Web.Api.csproj">
-      <Project>{5D6CBE0D-4DA2-4514-AD79-5B3E6A0F3DD4}</Project>
+      <Project>{5d6cbe0d-4da2-4514-ad79-5b3e6a0f3dd4}</Project>
       <Name>TodoPagos.Web.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\TodoPagos.Web.Services\TodoPagos.Web.Services.csproj">

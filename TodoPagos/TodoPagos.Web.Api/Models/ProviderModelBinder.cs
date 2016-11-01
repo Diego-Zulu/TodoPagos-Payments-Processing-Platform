@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
@@ -25,6 +26,8 @@ namespace TodoPagos.Web.Api.Models
                 dynamic jsonParameters = ParseJsonObjectAndReturnAsDynamic(actionContext);
                 Provider parsedProvider = ParseProviderFromJsonParameters(jsonParameters);
 
+                AddIDToParsedProviderIfNeeded(actionContext, jsonParameters, parsedProvider);
+
                 bindingContext.Model = parsedProvider;
                 return true;
             }
@@ -45,13 +48,11 @@ namespace TodoPagos.Web.Api.Models
         {
             double commission = providerJsonParameters.Commission;
             string name = providerJsonParameters.Name;
-            bool active = providerJsonParameters.Active;
 
             JArray providerFieldsJsonArray = (JArray)providerJsonParameters.Fields;
             ICollection<IField> providerFields = ParseProviderFieldsFromJsonArray(providerFieldsJsonArray);
 
             Provider parsedProvider = new Provider(name, commission, providerFields);
-            parsedProvider.Active = active;
 
             return parsedProvider;
         }
@@ -73,6 +74,16 @@ namespace TodoPagos.Web.Api.Models
             }
 
             return fields;
+        }
+
+        private void AddIDToParsedProviderIfNeeded(HttpActionContext actionContext, dynamic jsonParameters, Provider parsedProvider)
+        {
+            if (actionContext.Request.Method == HttpMethod.Put
+                    || actionContext.Request.Method == HttpMethod.Delete)
+            {
+                int id = jsonParameters.ID;
+                parsedProvider.ID = id;
+            }
         }
     }
 }

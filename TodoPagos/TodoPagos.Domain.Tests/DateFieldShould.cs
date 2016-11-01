@@ -14,7 +14,7 @@ namespace TodoPagos.Domain.Tests
 
             DateTime date = DateTime.Today;
             dateField.Data = date;
-            string expectedResult = date.ToShortDateString();
+            string expectedResult = date.ToString("yyyy-MM-ddTHH:mm:ssZ");
 
             Assert.AreEqual(expectedResult, dateField.GetData());
         }
@@ -24,7 +24,7 @@ namespace TodoPagos.Domain.Tests
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
+            IField newDateField = dateField.FillAndClone("2008-09-22T14:01:54Z");
 
             Assert.AreNotSame(dateField, newDateField);
         }
@@ -34,10 +34,10 @@ namespace TodoPagos.Domain.Tests
         {
             DateField dateField = new DateField("Fecha");
 
-            IField newDateField = dateField.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
-            DateTime expectedResult = DateTime.Parse("Mon, 15 Sep 2008 09:30:41 GMT");
+            IField newDateField = dateField.FillAndClone("2008-09-22T14:01:54Z");
+            DateTime expectedResult = DateTime.Parse("2008-09-22T14:01:54Z");
 
-            Assert.AreEqual(expectedResult.ToShortDateString(), newDateField.GetData());
+            Assert.AreEqual(expectedResult.ToString("yyyy-MM-ddTHH:mm:ssZ"), newDateField.GetData());
         }
 
         [TestMethod]
@@ -73,8 +73,8 @@ namespace TodoPagos.Domain.Tests
             DateField firstDateField = new DateField("Fecha");
             DateField secondDateField = new DateField("Fecha");
 
-            IField firstNewDateField = firstDateField.FillAndClone("Sun, 25 Oct 2015 10:30:41 GMT");
-            IField secondNewDateField = secondDateField.FillAndClone("Sun, 25 Oct 2015 10:30:41 GMT");
+            IField firstNewDateField = firstDateField.FillAndClone("2015-10-26T14:01:54Z");
+            IField secondNewDateField = secondDateField.FillAndClone("2015-10-26T14:01:54Z");
 
             Assert.IsTrue(firstNewDateField.Equals(secondNewDateField));
         }
@@ -85,8 +85,8 @@ namespace TodoPagos.Domain.Tests
             DateField firstDateField = new DateField("Fecha");
             DateField secondDateField = new DateField("Fecha");
 
-            IField firstNewDateField = firstDateField.FillAndClone("Mon, 15 Sep 2008 09:30:41 GMT");
-            IField secondNewDateField = secondDateField.FillAndClone("Sun, 25 Oct 2015 10:30:41 GMT");
+            IField firstNewDateField = firstDateField.FillAndClone("2008-09-22T14:01:54Z");
+            IField secondNewDateField = secondDateField.FillAndClone("2015-10-26T14:01:54Z");
 
             Assert.IsFalse(firstNewDateField.Equals(secondNewDateField));
         }
@@ -96,7 +96,7 @@ namespace TodoPagos.Domain.Tests
         {
             DateField firstDateField = new DateField("Fecha");
 
-            IField firstNewDateField = firstDateField.FillAndClone("Mon, 11 Jan 2010 15:31:15 GMT");
+            IField firstNewDateField = firstDateField.FillAndClone("2008-09-22T14:01:54Z");
 
             Assert.IsFalse(firstNewDateField.Equals(null));
         }
@@ -106,7 +106,7 @@ namespace TodoPagos.Domain.Tests
         {
             DateField aDateField = new DateField("Fecha");
 
-            IField aNewDateField = aDateField.FillAndClone("Sun, 25 Oct 2015 10:30:41 GMT");
+            IField aNewDateField = aDateField.FillAndClone("2008-09-22T14:01:54Z");
 
             NumberField aNumberField = new NumberField("Monto");
 

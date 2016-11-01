@@ -183,7 +183,7 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PostUser(singleUser);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -196,7 +196,7 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PostUser(incompleteUser);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -209,7 +209,7 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PostUser(nullUser);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -235,7 +235,7 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PutUser(singleUser.ID + 1, singleUser);
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -247,7 +247,7 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.PutUser(1, nullUser);
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]

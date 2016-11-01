@@ -161,7 +161,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PostPayment(payment);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
     }
 }

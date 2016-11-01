@@ -18,7 +18,7 @@ namespace TodoPagos.Domain
 
         public int ID { get; set; }
 
-        protected Receipt()
+        public Receipt()
         {
             CompletedFields = new List<IField>();
         }

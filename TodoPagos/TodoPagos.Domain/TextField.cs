@@ -10,16 +10,12 @@ namespace TodoPagos.Domain
     {
         public string Data { get; set; }
 
-        public string Name { get; set; }
-
-        public bool Empty { get; set; }
-
         protected TextField() { }
 
         public TextField(string aName)
         {
             Name = aName;
-            Empty = true;
+            Data = null;
         }
 
         public override IField FillAndClone(string dataToBeFilledWith)
@@ -27,7 +23,6 @@ namespace TodoPagos.Domain
             CheckForNullArgument(dataToBeFilledWith);
             TextField newTextField = new TextField(Name);
             newTextField.Data = dataToBeFilledWith;
-            newTextField.Empty = false;
             return newTextField;
         }
 
@@ -91,7 +86,7 @@ namespace TodoPagos.Domain
 
         public override bool IsEmpty()
         {
-            return Empty;
+            return Data == null;
         }
 
         public override IField ClearDataAndClone()

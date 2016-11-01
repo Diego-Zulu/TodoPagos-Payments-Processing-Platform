@@ -18,8 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/users")]
-    [Authorize]
-   
+   [Authorize]
     public class UsersController : ApiController
     {
         private readonly IUserService userService;

@@ -128,7 +128,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID + 1, oneProvider);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -141,7 +141,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PutProvider(1, nullProvider);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -150,6 +150,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
             Provider oneProvider = new Provider("Antel", 10, new List<IField>());
             var mockProviderService = new Mock<IProviderService>();
             mockProviderService.Setup(x => x.UpdateProvider(oneProvider.ID, oneProvider, It.IsAny<string>())).Returns(false);
+            mockProviderService.Setup(x => x.GetSingleProvider(oneProvider.ID)).Throws(new ArgumentOutOfRangeException());
             ProvidersController controller = new ProvidersController(mockProviderService.Object);
 
             IHttpActionResult actionResult = controller.PutProvider(oneProvider.ID, oneProvider);
@@ -181,7 +182,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PostProvider(oneProvider);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]
@@ -194,7 +195,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.PostProvider(nullProvider);
 
-            Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
 
         [TestMethod]

@@ -10,6 +10,8 @@ namespace TodoPagos.Domain
     {
         public abstract bool IsValid();
 
+        public string Name { get; set; }
+
         public abstract IField FillAndClone(string dataToBeFilledWith);
 
         public abstract string GetData();

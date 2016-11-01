@@ -17,13 +17,18 @@ namespace TodoPagos.Domain
 
         public Client(string newName, int newIDCard, int newPhoneNumber)
         {
-            if (string.IsNullOrWhiteSpace(newName))
-            {
-                throw new ArgumentException("El nombre de un cliente no puede ser vacío");
-            }
+            MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             Name = newName;
             IDCard = newIDCard;
             PhoneNumber = newPhoneNumber;
+        }
+
+        private void MakeSureTargetNameIsNotNullOrWhiteSpace(string targetName)
+        {
+            if (string.IsNullOrWhiteSpace(targetName))
+            {
+                throw new ArgumentException("El nombre de un cliente no puede ser vacío");
+            }
         }
     }
 }

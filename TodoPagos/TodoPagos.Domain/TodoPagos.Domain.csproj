@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CashPayMethod.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="DebitPayMethod.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PayMethod.cs" />

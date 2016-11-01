@@ -19,5 +19,16 @@ namespace TodoPagos.Domain.Tests
 
             Client newClient = new Client(name, idCard, phone);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfNameIsNullOrWhitespaceOnCreation()
+        {
+            string name = null;
+            int idCard = 49018830;
+            int phone = 26666666;
+
+            Client newClient = new Client(name, idCard, phone);
+        }
     }
 }

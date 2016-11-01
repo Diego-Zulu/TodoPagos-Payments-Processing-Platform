@@ -135,9 +135,13 @@ namespace TodoPagos.Domain
         {
             foreach (Receipt receipt in Receipts)
             {
-                double actualValue;
-                earningsPerProvider.TryGetValue(receipt.ReceiptProvider, out actualValue);
-                earningsPerProvider.Add(receipt.ReceiptProvider, actualValue + receipt.CalculateEarnings());
+                if (earningsPerProvider.ContainsKey(receipt.ReceiptProvider))
+                {
+                    earningsPerProvider[receipt.ReceiptProvider] += receipt.CalculateEarnings();
+                } else
+                {
+                    earningsPerProvider.Add(receipt.ReceiptProvider, receipt.CalculateEarnings());
+                }
             }
         }
 

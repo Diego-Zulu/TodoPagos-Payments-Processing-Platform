@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.UserAPI.Tests", "TodoPagos.UserAPI.Tests\TodoPagos.UserAPI.Tests.csproj", "{994859B7-5316-4F64-9191-891434423306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain", "TodoPagos.Domain\TodoPagos.Domain.csproj", "{A5B13880-C1F7-4165-B35F-C71219DC146E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Tests", "TodoPagos.Domain.Tests\TodoPagos.Domain.Tests.csproj", "{C37CAFAB-47AF-44A9-A208-93C37032F049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.UserAPI", "TodoPagos.UserAPI\TodoPagos.UserAPI.csproj", "{306F6FB4-9659-4714-AA36-56EA590935C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Api", "TodoPagos.Web.Api\TodoPagos.Web.Api.csproj", "{5D6CBE0D-4DA2-4514-AD79-5B3E6A0F3DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Api.Tests", "TodoPagos.Web.Api.Tests\TodoPagos.Web.Api.Tests.csproj", "{5B9FBC1F-F2AE-46B3-AC7A-490D3855CD3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Services", "TodoPagos.Web.Services\TodoPagos.Web.Services.csproj", "{00A57FCA-90F7-48A4-9689-1D3CA5114999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Web.Services.Tests", "TodoPagos.Web.Services.Test\TodoPagos.Web.Services.Tests.csproj", "{67554477-0507-4BF0-A493-2812D91AF561}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository", "TodoPagos.Domain.Repository\TodoPagos.Domain.Repository.csproj", "{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.DataAccess", "TodoPagos.Domain.DataAccess\TodoPagos.Domain.DataAccess.csproj", "{93599674-97E1-49D7-909E-CF01AF2A8AE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository.Tests", "TodoPagos.Domain.Repository.Tests\TodoPagos.Domain.Repository.Tests.csproj", "{2DAED29E-A6E4-4987-AB74-18038CEB5085}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{994859B7-5316-4F64-9191-891434423306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994859B7-5316-4F64-9191-891434423306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994859B7-5316-4F64-9191-891434423306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994859B7-5316-4F64-9191-891434423306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B13880-C1F7-4165-B35F-C71219DC146E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B13880-C1F7-4165-B35F-C71219DC146E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B13880-C1F7-4165-B35F-C71219DC146E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B13880-C1F7-4165-B35F-C71219DC146E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C37CAFAB-47AF-44A9-A208-93C37032F049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C37CAFAB-47AF-44A9-A208-93C37032F049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C37CAFAB-47AF-44A9-A208-93C37032F049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C37CAFAB-47AF-44A9-A208-93C37032F049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306F6FB4-9659-4714-AA36-56EA590935C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306F6FB4-9659-4714-AA36-56EA590935C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306F6FB4-9659-4714-AA36-56EA590935C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306F6FB4-9659-4714-AA36-56EA590935C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D6CBE0D-4DA2-4514-AD79-5B3E6A0F3DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D6CBE0D-4DA2-4514-AD79-5B3E6A0F3DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D6CBE0D-4DA2-4514-AD79-5B3E6A0F3DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D6CBE0D-4DA2-4514-AD79-5B3E6A0F3DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B9FBC1F-F2AE-46B3-AC7A-490D3855CD3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B9FBC1F-F2AE-46B3-AC7A-490D3855CD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B9FBC1F-F2AE-46B3-AC7A-490D3855CD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B9FBC1F-F2AE-46B3-AC7A-490D3855CD3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A57FCA-90F7-48A4-9689-1D3CA5114999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A57FCA-90F7-48A4-9689-1D3CA5114999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A57FCA-90F7-48A4-9689-1D3CA5114999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A57FCA-90F7-48A4-9689-1D3CA5114999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67554477-0507-4BF0-A493-2812D91AF561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67554477-0507-4BF0-A493-2812D91AF561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67554477-0507-4BF0-A493-2812D91AF561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67554477-0507-4BF0-A493-2812D91AF561}.Release|Any CPU.Build.0 = Release|Any CPU
+		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248F52DB-A0B6-4ED2-825C-5C2C8AB4856F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93599674-97E1-49D7-909E-CF01AF2A8AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DAED29E-A6E4-4987-AB74-18038CEB5085}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

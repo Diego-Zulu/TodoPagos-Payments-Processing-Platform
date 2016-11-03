@@ -52,5 +52,17 @@ namespace TodoPagos.Domain.Tests
 
             Client newClient = new Client(name, idCard, phone);
         }
+
+        [TestMethod]
+        public void BeCreatedWith0Points()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            int phone = 1;
+
+            Client newClient = new Client(name, idCard, phone);
+
+            Assert.AreEqual(0, newClient.Points);
+        }
     }
 }

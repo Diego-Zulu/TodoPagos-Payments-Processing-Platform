@@ -17,12 +17,16 @@ namespace TodoPagos.Domain
         private int MAXIMUM_IDCARD_LENGTH = 8;
         private int[] NUMBERS_TO_MULTIPLY_IDCARD_WITH = { 2, 9, 8, 7, 6, 3, 4 };
 
+        private int HOUSE_PHONE_LENGTH = 8;
+        private int MOBILE_PHONE_LENGTH = 9;
+
         protected Client() { }
 
         public Client(string newName, string newIDCard, int newPhoneNumber)
         {
             MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             MakeSureTargetIDCardIsValid(newIDCard);
+            MakeSureTargetPhoneNumberIsValid(newPhoneNumber);
             Name = newName.Trim();
             IDCard = newIDCard.Trim();
             PhoneNumber = newPhoneNumber;
@@ -34,6 +38,26 @@ namespace TodoPagos.Domain
             {
                 throw new ArgumentException("El nombre de un cliente no puede ser vacío");
             }
+        }
+
+        private void MakeSureTargetPhoneNumberIsValid(int targetPhoneNumber)
+        {
+            string targetPhoneNumberInString = targetPhoneNumber + "";
+            if (targetPhoneNumber < 0 || !TargetPhoneNumberSeemsValid(targetPhoneNumberInString))
+            {
+                throw new ArgumentException("El número de teléfono del cliente no es válido");
+            }
+        }
+
+        private bool TargetPhoneNumberSeemsValid(string targetPhoneNumber)
+        {
+            if (targetPhoneNumber.Length == MOBILE_PHONE_LENGTH)
+            {
+                return targetPhoneNumber[0] == '0' && targetPhoneNumber[1] == '9'; 
+
+            }
+
+            return targetPhoneNumber.Length == HOUSE_PHONE_LENGTH;
         }
 
         private void MakeSureTargetIDCardIsValid(string targetIDCard)

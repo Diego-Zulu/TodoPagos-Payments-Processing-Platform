@@ -36,8 +36,19 @@ namespace TodoPagos.Domain.Tests
         public void FailWithArgumentExceptionIfIDCardIsNotValid()
         {
             string name = "Diego Zuluaga";
-            string idCard = "49018830";
+            string idCard = "49018834";
             int phone = 26666666;
+
+            Client newClient = new Client(name, idCard, phone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfPhoneNumberIsNotValid()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            int phone = 1;
 
             Client newClient = new Client(name, idCard, phone);
         }

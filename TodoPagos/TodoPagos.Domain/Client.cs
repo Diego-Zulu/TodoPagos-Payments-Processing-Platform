@@ -83,10 +83,11 @@ namespace TodoPagos.Domain
             int checkSum = 0;
             for (int i = 0; i < targetIDCard.Length - 1; i++)
             {
-                checkSum += (NUMBERS_TO_MULTIPLY_IDCARD_WITH[i] * (targetIDCard[i] - '0')) % 10;
+                checkSum += NUMBERS_TO_MULTIPLY_IDCARD_WITH[i] * (targetIDCard[i] - '0');
             }
+            checkSum = checkSum % 10;
 
-            return 10 - (checkSum % 10);
+            return (10 - checkSum) % 10;
         }
     }
 }

@@ -29,5 +29,13 @@ namespace TodoPagos.Domain
 
             return instance;
         }
+
+        public void AddProviderToBlacklist(Provider targetProvider)
+        {
+            if (!this.Blacklist.Contains(targetProvider))
+            {
+                this.Blacklist.Add(targetProvider);
+            }
+        }
     }
 }

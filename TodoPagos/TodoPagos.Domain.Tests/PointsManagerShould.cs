@@ -35,7 +35,7 @@ namespace Tests
             Provider repeatedProvider = new Provider("Antel", 10, new List<IField>());
 
             newPointsManager.AddProviderToBlacklist(newProvider);
-            repeatedProvider.AddProviderToBlacklist(repeatedProvider);
+            newPointsManager.AddProviderToBlacklist(repeatedProvider);
 
             Assert.AreEqual(1, newPointsManager.Blacklist.Count);
         }

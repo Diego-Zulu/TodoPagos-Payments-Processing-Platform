@@ -98,5 +98,17 @@ namespace TodoPagos.Domain.Tests
 
             Assert.AreEqual(firstNewClient, secondNewClient);
         }
+
+        [TestMethod]
+        public void HaveIDCardHashCode()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            int phone = 26666666;
+
+            Client newClient = new Client(name, idCard, phone);
+
+            Assert.AreEqual(idCard.GetHashCode(), newClient.GetHashCode());
+        }
     }
 }

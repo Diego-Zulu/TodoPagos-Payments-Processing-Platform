@@ -113,5 +113,22 @@ namespace TodoPagos.Domain
 
             return (10 - checkSum) % 10;
         }
+
+        public override bool Equals(object obj)
+        {
+            Client objAsClient = obj as Client;
+
+            if (objAsClient == null)
+            {
+                return false;
+            }
+
+            return objAsClient.ID == this.ID || object.Equals(objAsClient.IDCard, this.IDCard);
+        }
+
+        //public override int GetHashCode()
+        //{
+        //    return IDCard.GetHashCode();
+        //}
     }
 }

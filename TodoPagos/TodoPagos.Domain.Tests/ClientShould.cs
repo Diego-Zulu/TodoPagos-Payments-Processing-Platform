@@ -171,5 +171,18 @@ namespace TodoPagos.Domain.Tests
             Assert.AreEqual(name, newClient.Name);
             Assert.AreEqual(phone, newClient.PhoneNumber);
         }
+
+        [TestMethod]
+        public void BeAbleToKnowIfItIsComplete()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            string phone = "26666666";
+
+            Client newClient = new Client(name, idCard, phone);
+            newClient.Name = "";
+
+            Assert.IsTrue(newClient.IsComplete());
+        }
     }
 }

@@ -135,11 +135,14 @@ namespace TodoPagos.Domain
 
         public void UpdateName(string newName)
         {
-            if (string.IsNullOrWhiteSpace(newName))
-            {
-                throw new ArgumentException("El nombre nuevo de un cliente no puede ser vacío");
-            }
+            MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             Name = newName;
+        }
+
+        public void UpdateIDCard(string newIDCard)
+        {
+            MakeSureTargetIDCardIsValid(newIDCard);
+            IDCard = newIDCard;
         }
     }
 }

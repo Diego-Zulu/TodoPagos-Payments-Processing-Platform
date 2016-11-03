@@ -110,5 +110,19 @@ namespace TodoPagos.Domain.Tests
 
             Assert.AreEqual(idCard.GetHashCode(), newClient.GetHashCode());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeUpdatedNameIsNullOrWhiteSpace()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            int phone = 26666666;
+            string newName = "";
+
+            Client newClient = new Client(name, idCard, phone);
+
+            newClient.UpdateName(newName);
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace TodoPagos.Domain
 {
     public class PointsManager
     {
+        public int ID { get; set; }
         public double MoneyPerPoint { get; set; }
 
         public ICollection<Provider> Blacklist { get; set; }

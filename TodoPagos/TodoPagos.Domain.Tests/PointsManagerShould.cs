@@ -39,5 +39,32 @@ namespace Tests
 
             Assert.AreEqual(1, newPointsManager.Blacklist.Count);
         }
+
+        [TestMethod]
+        public void BeAbleToRemoveABlacklistedProvider()
+        {
+            PointsManager newPointsManager = PointsManager.GetInstance();
+
+            Provider newProvider = new Provider("Antel", 10, new List<IField>());
+
+            newPointsManager.AddProviderToBlacklist(newProvider);
+            newPointsManager.RemoveProviderFromBlacklist(newProvider);
+
+            Assert.AreEqual(0, newPointsManager.Blacklist.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeRemovedBlacklistedProviderIsNotInBlacklist()
+        {
+            PointsManager newPointsManager = PointsManager.GetInstance();
+
+            Provider newProvider = new Provider("Antel", 10, new List<IField>());
+
+            newPointsManager.AddProviderToBlacklist(newProvider);
+            newPointsManager.RemoveProviderFromBlacklist(newProvider);
+
+            Assert.AreEqual(0, newPointsManager.Blacklist.Count);
+        }
     }
 }

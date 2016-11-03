@@ -44,13 +44,18 @@ namespace TodoPagos.Domain
         }
 
         private void MakeSureTargetPhoneNumberIsValid(string targetPhoneNumber)
-        {
-            int targetPhoneNumberInInt;    
-            if (!int.TryParse(targetPhoneNumber, out targetPhoneNumberInInt) 
-                || targetPhoneNumberInInt < 0 || !TargetPhoneNumberSeemsValid(targetPhoneNumber))
+        {          
+            if (TargetPhoneNumberIsInvalid(targetPhoneNumber))
             {
                 throw new ArgumentException("El número de teléfono del cliente no es válido");
             }
+        }
+
+        private bool TargetPhoneNumberIsInvalid(string targetPhoneNumber)
+        {
+            int targetPhoneNumberInInt;
+            return !int.TryParse(targetPhoneNumber, out targetPhoneNumberInInt)
+                || targetPhoneNumberInInt < 0 || !TargetPhoneNumberSeemsValid(targetPhoneNumber);
         }
 
         private bool TargetPhoneNumberSeemsValid(string targetPhoneNumber)
@@ -79,12 +84,17 @@ namespace TodoPagos.Domain
 
         private void MakeSureTargetIDCardHasValidFormat(string targetIDCard)
         {
-            int id;
-            if (string.IsNullOrWhiteSpace(targetIDCard) || !int.TryParse(targetIDCard, out id) || id < 0 
-                || targetIDCard.Length > MAXIMUM_IDCARD_LENGTH || targetIDCard.Length < MINIMUM_IDCARD_LENGTH)
+            if (IDCardHasIncorrectFormat(targetIDCard))
             {
                 throw new ArgumentException("La cédula del cliente no tiene formato válido");
             }
+        }
+
+        private bool IDCardHasIncorrectFormat(string targetIDCard)
+        {
+            int id;
+            return string.IsNullOrWhiteSpace(targetIDCard) || !int.TryParse(targetIDCard, out id) || id < 0
+                || targetIDCard.Length > MAXIMUM_IDCARD_LENGTH || targetIDCard.Length < MINIMUM_IDCARD_LENGTH;
         }
 
         private bool TargetIDCardHasValidVerificationDigit(string targetIDCard)
@@ -150,6 +160,47 @@ namespace TodoPagos.Domain
         {
             MakeSureTargetPhoneNumberIsValid(newPhone);
             PhoneNumber = newPhone;
+        }
+
+        public void UpdateClientWithCompletedInfoFromTargetClient(Client updatedInfoUser)
+        {
+            UpdateIDCardIfValid(updatedInfoUser.IDCard);
+            UpdateNameIfValid(updatedInfoUser.Name);
+            UpdatePhoneNumberIfValid(updatedInfoUser.PhoneNumber);
+            UpdatePointsIfValid(updatedInfoUser.Points);
+        }
+
+        private void UpdateIDCardIfValid(string targetIDCard)
+        {
+            if (!IDCardHasIncorrectFormat(targetIDCard)
+                && TargetIDCardHasValidVerificationDigit(targetIDCard))
+            {
+                this.IDCard = targetIDCard;
+            }
+        }
+
+        private void UpdateNameIfValid(string targetName)
+        {
+            if (!string.IsNullOrWhiteSpace(targetName))
+            {
+                this.Name = targetName;
+            }
+        }
+
+        private void UpdatePhoneNumberIfValid(string targetPhoneNumber)
+        {
+            if (!TargetPhoneNumberIsInvalid(targetPhoneNumber))
+            {
+                this.PhoneNumber = targetPhoneNumber;
+            }
+        }
+
+        private void UpdatePointsIfValid(int targetPoints)
+        {
+            if (targetPoints >= 0)
+            {
+                this.Points = targetPoints;
+            }
         }
     }
 }

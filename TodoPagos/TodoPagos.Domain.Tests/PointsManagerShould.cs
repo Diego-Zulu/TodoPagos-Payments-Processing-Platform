@@ -72,5 +72,19 @@ namespace Tests
 
             newPointsManager.ChangeMoneyPerPointRatio(-1);
         }
+
+        [TestMethod]
+        public void BeAbleToAddPointsToClientIfProviderIsNotBlacklisted()
+        {
+            PointsManager newPointsManager = PointsManager.GetInstance();
+            Client newClient = new Client("Diego", "49018830", "26666666");
+            Provider blacklistedProvider = new Provider("Antel", 10, new List<IField>());
+            double paidMoney = 200;
+
+            bool couldAdd = newPointsManager.AddPointsToClientIfProviderIsNotBlacklisted(
+                paidMoney, newClient, blacklistedProvider);
+
+            Assert.IsTrue(couldAdd);
+        }
     }
 }

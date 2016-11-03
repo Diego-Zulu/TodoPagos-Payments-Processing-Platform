@@ -10,13 +10,24 @@ namespace TodoPagos.Domain
     {
         public int ID { get; set; }
         public double MoneyPerPoint { get; set; }
-
         public ICollection<Provider> Blacklist { get; set; }
 
-        public PointsManager()
+        static private PointsManager instance;
+
+        protected PointsManager()
         {
-            MoneyPerPoint = 150;
             Blacklist = new List<Provider>();
+        }
+
+        static public PointsManager GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new PointsManager();
+                instance.MoneyPerPoint = 150;
+            }
+
+            return instance;
         }
     }
 }

@@ -130,5 +130,14 @@ namespace TodoPagos.Domain
         {
             return IDCard.GetHashCode();
         }
+
+        public void UpdateName(string newName)
+        {
+            if (string.IsNullOrWhiteSpace(newName))
+            {
+                throw new ArgumentException("El nombre nuevo de un cliente no puede ser vacío");
+            }
+            Name = newName;
+        }
     }
 }

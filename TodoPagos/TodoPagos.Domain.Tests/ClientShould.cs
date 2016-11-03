@@ -14,7 +14,7 @@ namespace TodoPagos.Domain.Tests
         public void RecieveNameIDCardAndPhoneAtCreation()
         {
             string name = "Diego Zuluaga";
-            int idCard = 49018830;
+            string idCard = "49018830";
             int phone = 26666666;
 
             Client newClient = new Client(name, idCard, phone);
@@ -25,7 +25,7 @@ namespace TodoPagos.Domain.Tests
         public void FailWithArgumentExceptionIfNameIsNullOrWhitespaceOnCreation()
         {
             string name = null;
-            int idCard = 49018830;
+            string idCard = "49018830";
             int phone = 26666666;
 
             Client newClient = new Client(name, idCard, phone);
@@ -36,7 +36,7 @@ namespace TodoPagos.Domain.Tests
         public void FailWithArgumentExceptionIfIDCardIsNotValid()
         {
             string name = "Diego Zuluaga";
-            int idCard = 49018830;
+            string idCard = "49018830";
             int phone = 26666666;
 
             Client newClient = new Client(name, idCard, phone);

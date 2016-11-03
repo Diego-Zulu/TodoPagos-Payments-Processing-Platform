@@ -8,13 +8,14 @@ namespace TodoPagos.Domain
 {
     public class Client
     {
-        int ID { get; set; }
-        string Name { get; set; }
-        string IDCard { get; set; }
-        int PhoneNumber { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string IDCard { get; set; }
+        public int PhoneNumber { get; set; }
 
-        int MINIMUM_IDCARD_LENGTH = 7;
-        int MAXIMUM_IDCARD_LENGTH = 8;
+        private int MINIMUM_IDCARD_LENGTH = 7;
+        private int MAXIMUM_IDCARD_LENGTH = 8;
+        private int[] NUMBERS_TO_MULTIPLY_IDCARD_WITH = { 2, 9, 8, 7, 6, 3, 4 };
 
         protected Client() { }
 
@@ -37,35 +38,55 @@ namespace TodoPagos.Domain
 
         private void MakeSureTargetIDCardIsValid(string targetIDCard)
         {
-            if (string.IsNullOrWhiteSpace(targetIDCard) || !TargetIDCardHasValidVerificationDigit(targetIDCard))
+            MakeSureTargetIDCardHasValidFormat(targetIDCard);
+            MakeSureTargetIDCardHasValidVerificationDigit(targetIDCard);
+        }
+
+        private void MakeSureTargetIDCardHasValidVerificationDigit(string targetIDCard)
+        {
+            if (!TargetIDCardHasValidVerificationDigit(targetIDCard))
             {
-                throw new ArgumentException("La cédula del cliente no es válida");
+                throw new ArgumentException("El número verificador de la cédula del cliente no coincide con la misma");
+            }
+        }
+
+        private void MakeSureTargetIDCardHasValidFormat(string targetIDCard)
+        {
+            int id;
+            if (string.IsNullOrWhiteSpace(targetIDCard) || !int.TryParse(targetIDCard, out id) || id < 0 
+                || targetIDCard.Length > MAXIMUM_IDCARD_LENGTH || targetIDCard.Length < MINIMUM_IDCARD_LENGTH)
+            {
+                throw new ArgumentException("La cédula del cliente no tiene formato válido");
             }
         }
 
         private bool TargetIDCardHasValidVerificationDigit(string targetIDCard)
         {
-            int id;
-            if (!int.TryParse(targetIDCard, out id) || id > 0 || targetIDCard.Length > MAXIMUM_IDCARD_LENGTH 
-                || targetIDCard.Length < MINIMUM_IDCARD_LENGTH)
-            {
-                throw new ArgumentException();
-            }
+            targetIDCard = Add0ToTheStartOfTheIDCardIfLengthDemandsIt(targetIDCard);
 
+            int checkSum = CalculateCheckSumToCompareWithVerificationDigit(targetIDCard);
+
+            return checkSum == (targetIDCard[targetIDCard.Length - 1] - '0');
+        }
+
+        private string Add0ToTheStartOfTheIDCardIfLengthDemandsIt(string targetIDCard)
+        {
             if (targetIDCard.Length == MINIMUM_IDCARD_LENGTH)
             {
                 targetIDCard = "0" + targetIDCard;
             }
+            return targetIDCard;
+        }
 
+        private int CalculateCheckSumToCompareWithVerificationDigit(string targetIDCard)
+        {
             int checkSum = 0;
-            for(int i=0; i<targetIDCard.Length - 1; i++)
+            for (int i = 0; i < targetIDCard.Length - 1; i++)
             {
-                checkSum += (targetIDCard[0] - '0') % 10;
+                checkSum += (NUMBERS_TO_MULTIPLY_IDCARD_WITH[i] * (targetIDCard[i] - '0')) % 10;
             }
 
-            checkSum = 10 - (checkSum % 10);
-
-            return checkSum == (targetIDCard[targetIDCard.Length - 1] - '0');
+            return 10 - (checkSum % 10);
         }
     }
 }

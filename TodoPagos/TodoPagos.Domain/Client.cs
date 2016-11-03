@@ -202,5 +202,12 @@ namespace TodoPagos.Domain
                 this.Points = targetPoints;
             }
         }
+
+        public bool IsComplete()
+        {
+            return !IDCardHasIncorrectFormat(this.IDCard)
+                && TargetIDCardHasValidVerificationDigit(this.IDCard) && !string.IsNullOrWhiteSpace(this.Name)
+                && !TargetPhoneNumberIsInvalid(this.PhoneNumber) && this.Points >= 0;
+        }
     }
 }

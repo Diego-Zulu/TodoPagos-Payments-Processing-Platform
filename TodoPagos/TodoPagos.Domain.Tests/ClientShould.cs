@@ -182,7 +182,7 @@ namespace TodoPagos.Domain.Tests
             Client newClient = new Client(name, idCard, phone);
             newClient.Name = "";
 
-            Assert.IsTrue(newClient.IsComplete());
+            Assert.IsFalse(newClient.IsComplete());
         }
     }
 }

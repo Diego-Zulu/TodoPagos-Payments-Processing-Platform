@@ -13,7 +13,7 @@ namespace TodoPagos.Domain
         public int ID { get; set; }
         public string Name { get; set; }
         public string IDCard { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public int Points { get; set; }
 
         private int MINIMUM_IDCARD_LENGTH = 7;
@@ -25,13 +25,13 @@ namespace TodoPagos.Domain
 
         protected Client() { }
 
-        public Client(string newName, string newIDCard, int newPhoneNumber)
+        public Client(string newName, string newIDCard, string newPhoneNumber)
         {
             MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             MakeSureTargetIDCardIsValid(newIDCard);
             MakeSureTargetPhoneNumberIsValid(newPhoneNumber);
             Name = newName.Trim();
-            IDCard = newIDCard.Trim();
+            IDCard = newIDCard;
             PhoneNumber = newPhoneNumber;
         }
 
@@ -43,10 +43,11 @@ namespace TodoPagos.Domain
             }
         }
 
-        private void MakeSureTargetPhoneNumberIsValid(int targetPhoneNumber)
+        private void MakeSureTargetPhoneNumberIsValid(string targetPhoneNumber)
         {
-            string targetPhoneNumberInString = targetPhoneNumber + "";
-            if (targetPhoneNumber < 0 || !TargetPhoneNumberSeemsValid(targetPhoneNumberInString))
+            int targetPhoneNumberInInt;    
+            if (!int.TryParse(targetPhoneNumber, out targetPhoneNumberInInt) 
+                || targetPhoneNumberInInt < 0 || !TargetPhoneNumberSeemsValid(targetPhoneNumber))
             {
                 throw new ArgumentException("El número de teléfono del cliente no es válido");
             }
@@ -143,6 +144,12 @@ namespace TodoPagos.Domain
         {
             MakeSureTargetIDCardIsValid(newIDCard);
             IDCard = newIDCard;
+        }
+
+        public void UpdatePhone(string newPhone)
+        {
+            MakeSureTargetPhoneNumberIsValid(newPhone);
+            PhoneNumber = newPhone;
         }
     }
 }

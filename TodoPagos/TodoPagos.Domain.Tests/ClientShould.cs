@@ -15,7 +15,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 26666666;
+            string phone = "26666666";
 
             Client newClient = new Client(name, idCard, phone);
         }
@@ -26,7 +26,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = null;
             string idCard = "49018830";
-            int phone = 26666666;
+            string phone = "26666666";
 
             Client newClient = new Client(name, idCard, phone);
         }
@@ -37,7 +37,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018834";
-            int phone = 26666666;
+            string phone = "26666666";
 
             Client newClient = new Client(name, idCard, phone);
         }
@@ -48,7 +48,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 1;
+            string phone = "1";
 
             Client newClient = new Client(name, idCard, phone);
         }
@@ -58,7 +58,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 26666666;
+            string phone = "26666666";
 
             Client newClient = new Client(name, idCard, phone);
 
@@ -69,9 +69,9 @@ namespace TodoPagos.Domain.Tests
         public void BeEqualToAnotherOneWithEqualIDCard()
         {
             string firstName = "Diego Zuluaga";
-            int firstPhone = 26666666;
+            string firstPhone = "26666666";
             string secondName = "Bruno Ferrari";
-            int secondPhone = 25555555;
+            string secondPhone = "36666666";
             string idCard = "49018830";
 
             Client firstNewClient = new Client(firstName, idCard, firstPhone);
@@ -85,11 +85,11 @@ namespace TodoPagos.Domain.Tests
         {
             string firstName = "Diego Zuluaga";
             string firstIDCard = "49018830";
-            int firstPhone = 26666666;
+            string firstPhone = "26666666";
             string secondName = "Bruno Ferrari";
             string secondIDCard = "12345672";
-            int secondPhone = 25555555;
-            
+            string secondPhone = "26666665";
+
 
             Client firstNewClient = new Client(firstName, firstIDCard, firstPhone);
             Client secondNewClient = new Client(secondName, secondIDCard, secondPhone);
@@ -104,7 +104,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 26666666;
+            string phone = "26666666";
 
             Client newClient = new Client(name, idCard, phone);
 
@@ -117,7 +117,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 26666666;
+            string phone = "26666666";
             string newName = "";
 
             Client newClient = new Client(name, idCard, phone);
@@ -131,7 +131,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 26666666;
+            string phone = "26666666";
             string newIDCard = "49018834";
 
             Client newClient = new Client(name, idCard, phone);
@@ -145,12 +145,31 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 26666666;
-            int newPhone = 099694651;
+            string phone = "26666666";
+            string newPhone = "8729663";
 
             Client newClient = new Client(name, idCard, phone);
 
             newClient.UpdatePhone(newPhone);
+        }
+
+        [TestMethod]
+        public void OnlyUpdateInfoFromRecievedClientThatIsComplete()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            string phone = "26666666";
+
+            Client newClient = new Client(name, idCard, phone);
+
+            Client updatedClient = new Client(name, idCard, phone);
+            updatedClient.PhoneNumber = "";
+
+            newClient.UpdateClientWithCompletedInfoFromTargetClient(updatedClient);
+
+            Assert.AreEqual(idCard, newClient.IDCard);
+            Assert.AreEqual(name, newClient.Name);
+            Assert.AreEqual(phone, newClient.PhoneNumber);
         }
     }
 }

@@ -48,5 +48,14 @@ namespace TodoPagos.Domain
                 throw new ArgumentException("Este proveedor no está en la lista negra");
             }
         }
+
+        public void ChangeMoneyPerPointRatio(int newRatio)
+        {
+            if (newRatio < 0)
+            {
+                throw new ArgumentException("El ratio de dinero a puntos no puede ser negativo");
+            }
+            MoneyPerPoint = newRatio;
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace TodoPagos.Domain
         public string Name { get; set; }
         public string IDCard { get; set; }
         public int PhoneNumber { get; set; }
+        public int Points { get; set; }
 
         private int MINIMUM_IDCARD_LENGTH = 7;
         private int MAXIMUM_IDCARD_LENGTH = 8;
@@ -54,7 +55,6 @@ namespace TodoPagos.Domain
             if (targetPhoneNumber.Length == MOBILE_PHONE_LENGTH)
             {
                 return targetPhoneNumber[0] == '0' && targetPhoneNumber[1] == '9'; 
-
             }
 
             return targetPhoneNumber.Length == HOUSE_PHONE_LENGTH;

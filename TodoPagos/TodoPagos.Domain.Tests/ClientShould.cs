@@ -58,7 +58,7 @@ namespace TodoPagos.Domain.Tests
         {
             string name = "Diego Zuluaga";
             string idCard = "49018830";
-            int phone = 1;
+            int phone = 26666666;
 
             Client newClient = new Client(name, idCard, phone);
 

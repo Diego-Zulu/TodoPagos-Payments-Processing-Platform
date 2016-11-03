@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TodoPagos.Domain;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -23,6 +24,20 @@ namespace Tests
             PointsManager secondPointsManager = PointsManager.GetInstance();
 
             Assert.AreSame(firstPointsManager, secondPointsManager);
+        }
+
+        [TestMethod]
+        public void BeAbleToAddProvidersWithoutRepetitionToBlacklist()
+        {
+            PointsManager newPointsManager = PointsManager.GetInstance();
+
+            Provider newProvider = new Provider("Antel", 10, new List<IField>());
+            Provider repeatedProvider = new Provider("Antel", 10, new List<IField>());
+
+            newPointsManager.AddProviderToBlacklist(newProvider);
+            repeatedProvider.AddProviderToBlacklist(repeatedProvider);
+
+            Assert.AreEqual(1, newPointsManager.Blacklist.Count);
         }
     }
 }

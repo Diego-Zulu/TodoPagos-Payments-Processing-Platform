@@ -37,5 +37,16 @@ namespace TodoPagos.Domain
                 this.Blacklist.Add(targetProvider);
             }
         }
+
+        public void RemoveProviderFromBlacklist(Provider blacklistedProvider)
+        {
+            if (this.Blacklist.Contains(blacklistedProvider))
+            {
+                this.Blacklist.Remove(blacklistedProvider);
+            } else
+            {
+                throw new ArgumentException("Este proveedor no está en la lista negra");
+            }
+        }
     }
 }

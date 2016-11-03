@@ -61,10 +61,7 @@ namespace Tests
 
             Provider newProvider = new Provider("Antel", 10, new List<IField>());
 
-            newPointsManager.AddProviderToBlacklist(newProvider);
             newPointsManager.RemoveProviderFromBlacklist(newProvider);
-
-            Assert.AreEqual(0, newPointsManager.Blacklist.Count);
         }
     }
 }

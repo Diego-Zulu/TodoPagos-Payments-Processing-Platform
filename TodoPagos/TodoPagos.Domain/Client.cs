@@ -126,9 +126,9 @@ namespace TodoPagos.Domain
             return objAsClient.ID == this.ID || object.Equals(objAsClient.IDCard, this.IDCard);
         }
 
-        //public override int GetHashCode()
-        //{
-        //    return IDCard.GetHashCode();
-        //}
+        public override int GetHashCode()
+        {
+            return IDCard.GetHashCode();
+        }
     }
 }

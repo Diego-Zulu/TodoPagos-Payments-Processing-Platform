@@ -63,5 +63,14 @@ namespace Tests
 
             newPointsManager.RemoveProviderFromBlacklist(newProvider);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeChangedMoneyPerPointIsNegative()
+        {
+            PointsManager newPointsManager = PointsManager.GetInstance();
+
+            newPointsManager.ChangeMoneyPerPointRatio(-1);
+        }
     }
 }

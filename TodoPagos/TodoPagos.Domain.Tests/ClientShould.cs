@@ -64,5 +64,39 @@ namespace TodoPagos.Domain.Tests
 
             Assert.AreEqual(0, newClient.Points);
         }
+
+        [TestMethod]
+        public void BeEqualToAnotherOneWithEqualIDCard()
+        {
+            string firstName = "Diego Zuluaga";
+            int firstPhone = 26666666;
+            string secondName = "Bruno Ferrari";
+            int secondPhone = 25555555;
+            string idCard = "49018830";
+
+            Client firstNewClient = new Client(firstName, idCard, firstPhone);
+            Client secondNewClient = new Client(secondName, idCard, secondPhone);
+
+            Assert.AreEqual(firstNewClient, secondNewClient);
+        }
+
+        [TestMethod]
+        public void BeEqualToAnotherOneWithEqualID()
+        {
+            string firstName = "Diego Zuluaga";
+            string firstIDCard = "49018830";
+            int firstPhone = 26666666;
+            string secondName = "Bruno Ferrari";
+            string secondIDCard = "12345672";
+            int secondPhone = 25555555;
+            
+
+            Client firstNewClient = new Client(firstName, firstIDCard, firstPhone);
+            Client secondNewClient = new Client(secondName, secondIDCard, secondPhone);
+
+            firstNewClient.ID = secondNewClient.ID;
+
+            Assert.AreEqual(firstNewClient, secondNewClient);
+        }
     }
 }

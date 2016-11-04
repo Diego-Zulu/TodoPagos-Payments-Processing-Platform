@@ -20,5 +20,10 @@ namespace Domain
             Date = DateTime.UtcNow;
             Action = actionType;
         }
+
+        public bool IsBetweenDates(DateTime from, DateTime to)
+        {
+            return Date >= from && Date <= to;
+        }
     }
 }

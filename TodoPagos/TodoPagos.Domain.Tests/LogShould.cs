@@ -31,7 +31,7 @@ namespace Tests
             ICollection<LogEntry> allEntries = new List<LogEntry>() { newLogEntry };
 
             newLog.AddEntry(newLogEntry);
-            ICollection<LogEntry> returnedEntries = Log.CheckLogBetweenDates(DateTime.MinValue, DateTime.MaxValue);
+            ICollection<LogEntry> returnedEntries = newLog.CheckLogBetweenDates(DateTime.MinValue, DateTime.MaxValue);
 
             CollectionAssert.AreEqual((ICollection)allEntries, (ICollection)returnedEntries);
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -14,6 +16,19 @@ namespace Domain
         public void AddEntry(LogEntry newEntry)
         {
             Entries.Add(newEntry);
+        }
+
+        public ICollection<LogEntry> CheckLogBetweenDates(DateTime from, DateTime to)
+        {
+            ICollection<LogEntry> resultingLogEntries = new List<LogEntry>();
+            foreach(LogEntry entry in Entries)
+            {
+                if(entry.IsBetweenDates(from, to))
+                {
+                    resultingLogEntries.Add(entry);
+                }
+            }
+            return resultingLogEntries;
         }
     }
 }

@@ -139,5 +139,11 @@ namespace TodoPagos.Domain
                 this.Stock = targetStock;
             }
         }
+
+        public bool IsComplete()
+        {
+            return !string.IsNullOrWhiteSpace(this.Name) && this.Description != null 
+                && this.Stock >= 0 && this.NeededPoints >= 0;
+        }
     }
 }

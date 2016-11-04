@@ -10,8 +10,11 @@ namespace Domain
     { 
         public ActionType Action { get; set; }
 
+        public DateTime Date { get; set; }
+
         public LogEntry(ActionType actionType)
         {
+            Date = DateTime.UtcNow;
             Action = actionType;
         }
     }

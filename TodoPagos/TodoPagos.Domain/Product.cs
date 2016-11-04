@@ -145,5 +145,21 @@ namespace TodoPagos.Domain
             return !string.IsNullOrWhiteSpace(this.Name) && this.Description != null 
                 && this.Stock >= 0 && this.NeededPoints >= 0;
         }
+
+        public override bool Equals(object obj)
+        {
+            Product objAsProduct = obj as Product;
+
+            if (objAsProduct != null)
+            {
+                return object.Equals(this.Name, objAsProduct.Name) || this.ID == objAsProduct.ID;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
     }
 }

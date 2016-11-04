@@ -72,5 +72,11 @@ namespace TodoPagos.Domain
                 throw new ArgumentException("No se puede cambiar el stock de un producto para que el mismo quede negativo");
             }
         }
+
+        public void UpdateName(string newName)
+        {
+            MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
+            this.Name = newName;
+        }
     }
 }

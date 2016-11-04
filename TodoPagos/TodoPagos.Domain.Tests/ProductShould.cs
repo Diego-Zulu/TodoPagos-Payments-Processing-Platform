@@ -76,6 +76,7 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailWithArgumentExceptionIfToBeUpdatedNameIsNullOrWhiteSpace()
         {
             string name = "Manzana Roja";

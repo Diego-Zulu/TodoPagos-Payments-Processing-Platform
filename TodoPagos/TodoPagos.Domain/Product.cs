@@ -78,5 +78,11 @@ namespace TodoPagos.Domain
             MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             this.Name = newName;
         }
+
+        public void UpdateDescription(string newDescription)
+        {
+            MakeSureTargetDescriptionIsNotNull(newDescription);
+            this.Description = newDescription;
+        }
     }
 }

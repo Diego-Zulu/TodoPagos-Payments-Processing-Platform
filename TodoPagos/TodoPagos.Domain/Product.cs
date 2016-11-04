@@ -23,6 +23,10 @@ namespace TodoPagos.Domain
         {
             MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             MakeSureTargetDescriptionIsNotNull(newDescription);
+            if (newNeededPoints < 0)
+            {
+                throw new ArgumentException("La cantidad de puntos necesarios para intercambiar un producto no puede ser negativa");
+            }
             Name = newName;
             Description = newDescription;
             NeededPoints = newNeededPoints;

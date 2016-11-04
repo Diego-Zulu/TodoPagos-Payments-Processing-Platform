@@ -12,8 +12,11 @@ namespace Domain
 
         public DateTime Date { get; set; }
 
-        public LogEntry(ActionType actionType)
+        public string UserEmail { get; set; }
+
+        public LogEntry(ActionType actionType, string userEmail)
         {
+            UserEmail = userEmail;
             Date = DateTime.UtcNow;
             Action = actionType;
         }

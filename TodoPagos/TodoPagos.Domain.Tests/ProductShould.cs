@@ -113,5 +113,24 @@ namespace Tests
 
             newProduct.UpdateNeededPoints(-10);
         }
+
+        [TestMethod]
+        public void NotModifyProductDataThatIsNotValidFromTargetProduct()
+        {
+            string name = "Manzana Roja";
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product baseProduct = new Product(name, description, neededPoints);
+            Product updatedInfoProduct = new Product(name, "", 12);
+
+            updatedInfoProduct.Name = null;
+
+            baseProduct.UpdateWithValidInfoFromTargetProduct(updatedInfoProduct);
+
+            Assert.AreEqual(updatedInfoProduct.Name, baseProduct.Name);
+            Assert.AreEqual("", baseProduct.Description);
+            Assert.AreEqual(12, baseProduct.NeededPoints);
+        }
     }
 }

@@ -84,5 +84,11 @@ namespace TodoPagos.Domain
             MakeSureTargetDescriptionIsNotNull(newDescription);
             this.Description = newDescription;
         }
+
+        public void UpdateNeededPoints(int newNeededPoints)
+        {
+            MakeSureTargetNeededPointsAreNotNegative(newNeededPoints);
+            this.NeededPoints = newNeededPoints;
+        }
     }
 }

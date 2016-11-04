@@ -162,12 +162,21 @@ namespace TodoPagos.Domain
             PhoneNumber = newPhone;
         }
 
-        public void UpdateClientWithCompletedInfoFromTargetClient(Client updatedInfoUser)
+        public void UpdateClientWithCompletedInfoFromTargetClient(Client updatedInfoClient)
         {
-            UpdateIDCardIfValid(updatedInfoUser.IDCard);
-            UpdateNameIfValid(updatedInfoUser.Name);
-            UpdatePhoneNumberIfValid(updatedInfoUser.PhoneNumber);
-            UpdatePointsIfValid(updatedInfoUser.Points);
+            MakeSureTargetClientIsNotNull(updatedInfoClient);
+            UpdateIDCardIfValid(updatedInfoClient.IDCard);
+            UpdateNameIfValid(updatedInfoClient.Name);
+            UpdatePhoneNumberIfValid(updatedInfoClient.PhoneNumber);
+            UpdatePointsIfValid(updatedInfoClient.Points);
+        }
+
+        private void MakeSureTargetClientIsNotNull(Client targetClient)
+        {
+            if (targetClient == null)
+            {
+                throw new ArgumentException("El cliente con información actualizada es nulo");
+            }
         }
 
         private void UpdateIDCardIfValid(string targetIDCard)

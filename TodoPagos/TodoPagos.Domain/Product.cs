@@ -93,10 +93,19 @@ namespace TodoPagos.Domain
 
         public void UpdateWithValidInfoFromTargetProduct(Product updatedInfo)
         {
+            MakeSureTargetProductIsNotNull(updatedInfo);
             UpdateNameIfValid(updatedInfo.Name);
             UpdateDescriptionIfValid(updatedInfo.Description);
             UpdateNeededPointsIfValid(updatedInfo.NeededPoints);
             UpdateStockIfValid(updatedInfo.Stock);
+        }
+
+        private void MakeSureTargetProductIsNotNull(Product targetProduct)
+        {
+            if (targetProduct == null)
+            {
+                throw new ArgumentException("El producto con información actualizada es nulo");
+            }
         }
 
         private void UpdateNameIfValid(string targetName)

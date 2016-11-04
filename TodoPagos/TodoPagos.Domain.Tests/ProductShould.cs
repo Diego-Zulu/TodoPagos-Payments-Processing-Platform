@@ -28,5 +28,16 @@ namespace Tests
 
             Assert.AreEqual(0, newProduct.Stock);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfNameIsNullOrWhiteSpace()
+        {
+            string name = null;
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product newProduct = new Product(name, description, neededPoints);
+        }
     }
 }

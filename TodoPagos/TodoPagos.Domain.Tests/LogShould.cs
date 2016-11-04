@@ -21,5 +21,19 @@ namespace Tests
 
             CollectionAssert.AreEqual((ICollection)allEntries, (ICollection)newLog.Entries);
         }
+
+        [TestMethod]
+        public void BeAbleToReturnAllEntriesBetweenTwoDates()
+        {
+            string userEmail = "bferr42@gmail.com";
+            Log newLog = new Log();
+            LogEntry newLogEntry = new LogEntry(ActionType.LOGIN, userEmail);
+            ICollection<LogEntry> allEntries = new List<LogEntry>() { newLogEntry };
+
+            newLog.AddEntry(newLogEntry);
+            ICollection<LogEntry> returnedEntries = Log.CheckLogBetweenDates(DateTime.MinValue, DateTime.MaxValue);
+
+            CollectionAssert.AreEqual((ICollection)allEntries, (ICollection)returnedEntries);
+        }
     }
 }

@@ -27,4 +27,3 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Ent
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\TodoPagos.Domain.csprojResolveAssemblyReference.cache

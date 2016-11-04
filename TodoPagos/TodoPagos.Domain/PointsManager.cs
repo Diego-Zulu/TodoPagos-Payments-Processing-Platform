@@ -57,5 +57,17 @@ namespace TodoPagos.Domain
             }
             MoneyPerPoint = newRatio;
         }
+
+        public bool AddPointsToClientIfProviderIsNotBlacklisted(double paidMoney, 
+            Client clientWhoBought, Provider providerFromReceipt)
+        {
+            if (!this.Blacklist.Contains(providerFromReceipt))
+            {
+                int newPoints = (int) (paidMoney / MoneyPerPoint);
+                clientWhoBought.AddPoints(newPoints);
+                return true;
+            }
+            return false;
+        }
     }
 }

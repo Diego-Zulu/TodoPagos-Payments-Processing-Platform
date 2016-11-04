@@ -184,5 +184,18 @@ namespace TodoPagos.Domain.Tests
 
             Assert.IsFalse(newClient.IsComplete());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfAddedPointsMakeTheOverallNegative()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            string phone = "26666666";
+
+            Client newClient = new Client(name, idCard, phone);
+
+            newClient.AddPoints(-60);
+        }
     }
 }

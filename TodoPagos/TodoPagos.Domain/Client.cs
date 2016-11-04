@@ -209,5 +209,14 @@ namespace TodoPagos.Domain
                 && TargetIDCardHasValidVerificationDigit(this.IDCard) && !string.IsNullOrWhiteSpace(this.Name)
                 && !TargetPhoneNumberIsInvalid(this.PhoneNumber) && this.Points >= 0;
         }
+
+        public void AddPoints(int newPoints)
+        {
+            if (this.Points + newPoints < 0)
+            {
+                throw new ArgumentException("No puede agregar puntos a un cliente de modo que el mismo tenga puntos negativos");
+            }
+            this.Points += newPoints;
+        }
     }
 }

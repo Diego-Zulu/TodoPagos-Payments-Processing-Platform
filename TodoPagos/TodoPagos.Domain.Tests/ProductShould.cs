@@ -158,5 +158,35 @@ namespace Tests
 
             Assert.IsTrue(baseProduct.IsComplete());
         }
+
+        [TestMethod]
+        public void BeEqualToAnotherProductWithEqualNameOrEqualID()
+        {
+            string firstName = "Manzana Roja";
+            string secondName = "Manzana Verde";
+            string firstDescription = "Son mas frescas por la tarde";
+            string secondDescription = "Hola";
+            int firstNeededPoints = 10;
+            int secondNeededPoints = 0;
+
+            Product firstProduct = new Product(firstName, firstDescription, firstNeededPoints);
+            Product secondProduct = new Product(secondName, secondDescription, secondNeededPoints);
+
+            firstProduct.ID = secondProduct.ID;
+
+            Assert.AreEqual(firstProduct, secondProduct);
+        }
+
+        [TestMethod]
+        public void HaveItsNamesHashcodeAsHashcode()
+        {
+            string name = "Manzana Roja";
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product baseProduct = new Product(name, description, neededPoints);
+
+            Assert.AreEqual(name.GetHashCode(), baseProduct.GetHashCode());
+        }
     }
 }

@@ -21,15 +21,17 @@ namespace TodoPagos.Domain
 
         public Product(string newName, string newDescription, int newNeededPoints)
         {
-            MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
-            MakeSureTargetDescriptionIsNotNull(newDescription);
-            if (newNeededPoints < 0)
-            {
-                throw new ArgumentException("La cantidad de puntos necesarios para intercambiar un producto no puede ser negativa");
-            }
+            MakeSureNeededInformationIsValid(newName, newDescription, newNeededPoints);
             Name = newName;
             Description = newDescription;
             NeededPoints = newNeededPoints;
+        }
+
+        private void MakeSureNeededInformationIsValid(string targetName, string targetDescription, int targetNeededPoints)
+        {
+            MakeSureTargetNameIsNotNullOrWhiteSpace(targetName);
+            MakeSureTargetDescriptionIsNotNull(targetDescription);
+            MakeSureTargetNeededPointsAreNotNegative(targetNeededPoints);
         }
 
         private void MakeSureTargetNameIsNotNullOrWhiteSpace(string targetName)
@@ -45,6 +47,15 @@ namespace TodoPagos.Domain
             if (targetDescription == null)
             {
                 throw new ArgumentException("La descripción de un producto puede ser vacía pero no nula");
+            }
+        }
+
+        private void MakeSureTargetNeededPointsAreNotNegative(int targetNeededPoints)
+        {
+            if (targetNeededPoints < 0)
+            {
+                throw new ArgumentException("La cantidad de puntos necesarios para intercambiar un " 
+                    + "producto no puede ser negativa");
             }
         }
     }

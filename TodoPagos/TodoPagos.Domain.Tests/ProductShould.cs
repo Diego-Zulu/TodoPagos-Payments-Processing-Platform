@@ -87,5 +87,18 @@ namespace Tests
 
             newProduct.UpdateName("");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfToBeUpdatedDescriptionIsNull()
+        {
+            string name = "Manzana Roja";
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product newProduct = new Product(name, description, neededPoints);
+
+            newProduct.UpdateDescription(null);
+        }
     }
 }

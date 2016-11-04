@@ -21,14 +21,20 @@ namespace Domain
         public ICollection<LogEntry> CheckLogBetweenDates(DateTime from, DateTime to)
         {
             ICollection<LogEntry> resultingLogEntries = new List<LogEntry>();
-            foreach(LogEntry entry in Entries)
+            FilterEntriesAndAddThemToResultingList(resultingLogEntries, from, to);
+            return resultingLogEntries;
+        }
+
+        private void FilterEntriesAndAddThemToResultingList
+            (ICollection<LogEntry> resultingLogEntries, DateTime from, DateTime to)
+        {
+            foreach (LogEntry entry in Entries)
             {
-                if(entry.IsBetweenDates(from, to))
+                if (entry.IsBetweenDates(from, to))
                 {
                     resultingLogEntries.Add(entry);
                 }
             }
-            return resultingLogEntries;
         }
     }
 }

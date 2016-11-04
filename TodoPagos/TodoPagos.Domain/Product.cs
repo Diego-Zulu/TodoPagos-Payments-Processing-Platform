@@ -58,5 +58,19 @@ namespace TodoPagos.Domain
                     + "producto no puede ser negativa");
             }
         }
+
+        public void AddTargetQuantityToStock(int targetQuantity)
+        {
+            MakeSureStockWillNotBecomeNegative(this.Stock, targetQuantity);
+            this.Stock = targetQuantity;
+        }
+
+        private void MakeSureStockWillNotBecomeNegative(int actualStock, int targetQuantity)
+        {
+            if (actualStock + targetQuantity < 0)
+            {
+                throw new ArgumentException("No se puede cambiar el stock de un producto para que el mismo quede negativo");
+            }
+        }
     }
 }

@@ -74,4 +74,5 @@ namespace Tests
 
             newProduct.AddTargetQuantityToStock(-10);
         }
+    }
 }

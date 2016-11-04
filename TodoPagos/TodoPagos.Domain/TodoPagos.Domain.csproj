@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionType.cs" />
     <Compile Include="CashPayMethod.cs" />
     <Compile Include="DebitPayMethod.cs" />
+    <Compile Include="LogEntry.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PayMethod.cs" />
     <Compile Include="DateField.cs" />

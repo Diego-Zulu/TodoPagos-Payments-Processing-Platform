@@ -61,6 +61,7 @@
     <Compile Include="TextFieldShould.cs" />
     <Compile Include="DateFieldShould.cs" />
     <Compile Include="ProviderShould.cs" />
+    <Compile Include="LogEntryShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">

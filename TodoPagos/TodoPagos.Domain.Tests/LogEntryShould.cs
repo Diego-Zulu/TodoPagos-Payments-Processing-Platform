@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain;
 
 namespace Tests
 {
@@ -11,7 +12,7 @@ namespace Tests
         {
             LogEntry newLogEntry = new LogEntry(ActionType.LOGIN);
 
-            Assert.IsNotNull(newLogEntry.ActionType);
+            Assert.IsNotNull(newLogEntry.Action);
         }
     }
 }

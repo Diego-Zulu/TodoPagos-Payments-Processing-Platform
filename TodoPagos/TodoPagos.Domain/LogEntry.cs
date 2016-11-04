@@ -8,9 +8,9 @@ namespace Domain
 {
     public class LogEntry
     { 
-        public ActionType Action { get; set; }
+        public virtual ActionType Action { get; set; }
 
-        public DateTime Date { get; set; }
+        public virtual DateTime Date { get; set; }
 
         public string UserEmail { get; set; }
 

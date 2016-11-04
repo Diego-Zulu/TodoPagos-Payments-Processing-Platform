@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Tests
 {
@@ -14,11 +15,11 @@ namespace Tests
             string userEmail = "bferr42@gmail.com";
             Log newLog = new Log();
             LogEntry newLogEntry = new LogEntry(ActionType.LOGIN, userEmail);
-            List<LogEntry> allEntries = new List<LogEntry>(){ newLogEntry};
+            ICollection<LogEntry> allEntries = new List<LogEntry>(){ newLogEntry};
 
             newLog.AddEntry(newLogEntry);
 
-            Assert.AreSame(allEntries, newLog.Entries);
+            CollectionAssert.AreEqual((ICollection)allEntries, (ICollection)newLog.Entries);
         }
     }
 }

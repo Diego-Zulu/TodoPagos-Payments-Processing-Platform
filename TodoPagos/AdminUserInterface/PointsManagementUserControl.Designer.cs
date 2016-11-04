@@ -39,6 +39,9 @@
             this.lblAddToBlacklist = new System.Windows.Forms.Label();
             this.lstAddToBlacklist = new System.Windows.Forms.ListBox();
             this.btnAddToBlacklist = new System.Windows.Forms.Button();
+            this.lblRemoveProvidersFromBlacklist = new System.Windows.Forms.Label();
+            this.lstRemoveFromBlacklist = new System.Windows.Forms.ListBox();
+            this.btnRemoveFromBlacklist = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblPoints
@@ -55,7 +58,7 @@
             // 
             this.lblActualValue.AutoSize = true;
             this.lblActualValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActualValue.Location = new System.Drawing.Point(167, 100);
+            this.lblActualValue.Location = new System.Drawing.Point(133, 105);
             this.lblActualValue.Name = "lblActualValue";
             this.lblActualValue.Size = new System.Drawing.Size(181, 20);
             this.lblActualValue.TabIndex = 1;
@@ -64,7 +67,7 @@
             // lblActualValueLoad
             // 
             this.lblActualValueLoad.AutoSize = true;
-            this.lblActualValueLoad.Location = new System.Drawing.Point(355, 102);
+            this.lblActualValueLoad.Location = new System.Drawing.Point(321, 107);
             this.lblActualValueLoad.Name = "lblActualValueLoad";
             this.lblActualValueLoad.Size = new System.Drawing.Size(0, 17);
             this.lblActualValueLoad.TabIndex = 2;
@@ -73,7 +76,7 @@
             // 
             this.lblNewValue.AutoSize = true;
             this.lblNewValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNewValue.Location = new System.Drawing.Point(168, 174);
+            this.lblNewValue.Location = new System.Drawing.Point(134, 179);
             this.lblNewValue.Name = "lblNewValue";
             this.lblNewValue.Size = new System.Drawing.Size(180, 20);
             this.lblNewValue.TabIndex = 3;
@@ -81,14 +84,14 @@
             // 
             // txtNewPointValue
             // 
-            this.txtNewPointValue.Location = new System.Drawing.Point(372, 174);
+            this.txtNewPointValue.Location = new System.Drawing.Point(338, 179);
             this.txtNewPointValue.Name = "txtNewPointValue";
             this.txtNewPointValue.Size = new System.Drawing.Size(90, 22);
             this.txtNewPointValue.TabIndex = 4;
             // 
             // btnNewPointValue
             // 
-            this.btnNewPointValue.Location = new System.Drawing.Point(473, 174);
+            this.btnNewPointValue.Location = new System.Drawing.Point(439, 179);
             this.btnNewPointValue.Name = "btnNewPointValue";
             this.btnNewPointValue.Size = new System.Drawing.Size(98, 23);
             this.btnNewPointValue.TabIndex = 5;
@@ -99,7 +102,7 @@
             // 
             this.lblActualBlacklist.AutoSize = true;
             this.lblActualBlacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActualBlacklist.Location = new System.Drawing.Point(167, 225);
+            this.lblActualBlacklist.Location = new System.Drawing.Point(133, 230);
             this.lblActualBlacklist.Name = "lblActualBlacklist";
             this.lblActualBlacklist.Size = new System.Drawing.Size(275, 20);
             this.lblActualBlacklist.TabIndex = 6;
@@ -107,9 +110,9 @@
             // 
             // lstActualBlacklist
             // 
-            this.lstActualBlacklist.Location = new System.Drawing.Point(171, 248);
+            this.lstActualBlacklist.Location = new System.Drawing.Point(140, 253);
             this.lstActualBlacklist.Name = "lstActualBlacklist";
-            this.lstActualBlacklist.Size = new System.Drawing.Size(541, 116);
+            this.lstActualBlacklist.Size = new System.Drawing.Size(600, 116);
             this.lstActualBlacklist.TabIndex = 7;
             this.lstActualBlacklist.UseCompatibleStateImageBehavior = false;
             // 
@@ -117,34 +120,65 @@
             // 
             this.lblAddToBlacklist.AutoSize = true;
             this.lblAddToBlacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddToBlacklist.Location = new System.Drawing.Point(170, 378);
+            this.lblAddToBlacklist.Location = new System.Drawing.Point(136, 383);
             this.lblAddToBlacklist.Name = "lblAddToBlacklist";
-            this.lblAddToBlacklist.Size = new System.Drawing.Size(292, 20);
+            this.lblAddToBlacklist.Size = new System.Drawing.Size(170, 20);
             this.lblAddToBlacklist.TabIndex = 8;
-            this.lblAddToBlacklist.Text = "Agregar a lista negra de Proveedores:";
+            this.lblAddToBlacklist.Text = "Agregar a lista negra:";
             // 
             // lstAddToBlacklist
             // 
             this.lstAddToBlacklist.FormattingEnabled = true;
             this.lstAddToBlacklist.ItemHeight = 16;
-            this.lstAddToBlacklist.Location = new System.Drawing.Point(174, 402);
+            this.lstAddToBlacklist.Location = new System.Drawing.Point(140, 407);
             this.lstAddToBlacklist.Name = "lstAddToBlacklist";
-            this.lstAddToBlacklist.Size = new System.Drawing.Size(538, 100);
+            this.lstAddToBlacklist.Size = new System.Drawing.Size(288, 100);
             this.lstAddToBlacklist.TabIndex = 9;
             // 
             // btnAddToBlacklist
             // 
-            this.btnAddToBlacklist.Location = new System.Drawing.Point(599, 508);
+            this.btnAddToBlacklist.Location = new System.Drawing.Point(315, 513);
             this.btnAddToBlacklist.Name = "btnAddToBlacklist";
             this.btnAddToBlacklist.Size = new System.Drawing.Size(113, 35);
             this.btnAddToBlacklist.TabIndex = 10;
             this.btnAddToBlacklist.Text = "Agregar";
             this.btnAddToBlacklist.UseVisualStyleBackColor = true;
             // 
+            // lblRemoveProvidersFromBlacklist
+            // 
+            this.lblRemoveProvidersFromBlacklist.AutoSize = true;
+            this.lblRemoveProvidersFromBlacklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemoveProvidersFromBlacklist.Location = new System.Drawing.Point(447, 383);
+            this.lblRemoveProvidersFromBlacklist.Name = "lblRemoveProvidersFromBlacklist";
+            this.lblRemoveProvidersFromBlacklist.Size = new System.Drawing.Size(171, 20);
+            this.lblRemoveProvidersFromBlacklist.TabIndex = 11;
+            this.lblRemoveProvidersFromBlacklist.Text = "Quitar de lista negra: ";
+            // 
+            // lstRemoveFromBlacklist
+            // 
+            this.lstRemoveFromBlacklist.FormattingEnabled = true;
+            this.lstRemoveFromBlacklist.ItemHeight = 16;
+            this.lstRemoveFromBlacklist.Location = new System.Drawing.Point(452, 407);
+            this.lstRemoveFromBlacklist.Name = "lstRemoveFromBlacklist";
+            this.lstRemoveFromBlacklist.Size = new System.Drawing.Size(288, 100);
+            this.lstRemoveFromBlacklist.TabIndex = 12;
+            // 
+            // btnRemoveFromBlacklist
+            // 
+            this.btnRemoveFromBlacklist.Location = new System.Drawing.Point(627, 513);
+            this.btnRemoveFromBlacklist.Name = "btnRemoveFromBlacklist";
+            this.btnRemoveFromBlacklist.Size = new System.Drawing.Size(113, 35);
+            this.btnRemoveFromBlacklist.TabIndex = 13;
+            this.btnRemoveFromBlacklist.Text = "Quitar";
+            this.btnRemoveFromBlacklist.UseVisualStyleBackColor = true;
+            // 
             // PointsManagementUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnRemoveFromBlacklist);
+            this.Controls.Add(this.lstRemoveFromBlacklist);
+            this.Controls.Add(this.lblRemoveProvidersFromBlacklist);
             this.Controls.Add(this.btnAddToBlacklist);
             this.Controls.Add(this.lstAddToBlacklist);
             this.Controls.Add(this.lblAddToBlacklist);
@@ -176,5 +210,8 @@
         private System.Windows.Forms.Label lblAddToBlacklist;
         private System.Windows.Forms.ListBox lstAddToBlacklist;
         private System.Windows.Forms.Button btnAddToBlacklist;
+        private System.Windows.Forms.Label lblRemoveProvidersFromBlacklist;
+        private System.Windows.Forms.ListBox lstRemoveFromBlacklist;
+        private System.Windows.Forms.Button btnRemoveFromBlacklist;
     }
 }

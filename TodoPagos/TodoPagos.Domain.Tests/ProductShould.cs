@@ -74,5 +74,17 @@ namespace Tests
 
             newProduct.AddTargetQuantityToStock(-10);
         }
+
+        [TestMethod]
+        public void FailWithArgumentExceptionIfToBeUpdatedNameIsNullOrWhiteSpace()
+        {
+            string name = "Manzana Roja";
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product newProduct = new Product(name, description, neededPoints);
+
+            newProduct.UpdateName("");
+        }
     }
 }

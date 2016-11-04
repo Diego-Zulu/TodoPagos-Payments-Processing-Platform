@@ -10,7 +10,8 @@ namespace Tests
         [TestMethod]
         public void HaveAnActionType()
         {
-            LogEntry newLogEntry = new LogEntry(ActionType.LOGIN);
+            string userEmail = "bferr42@gmail.com";
+            LogEntry newLogEntry = new LogEntry(ActionType.LOGIN, userEmail);
 
             Assert.IsNotNull(newLogEntry.Action);
         }
@@ -18,9 +19,19 @@ namespace Tests
         [TestMethod]
         public void HaveAnOcurrenceDate()
         {
-            LogEntry newLogEntry = new LogEntry(ActionType.PRODUCT_LOAD);
+            string userEmail = "bferr42@gmail.com";
+            LogEntry newLogEntry = new LogEntry(ActionType.PRODUCT_LOAD, userEmail);
 
             Assert.IsNotNull(newLogEntry.Date);
+        }
+
+        [TestMethod]
+        public void HaveTheRelatedUserEmail()
+        {
+            string userEmail = "bferr42@gmail.com";
+            LogEntry newLogEntry = new LogEntry(ActionType.LOGIN, userEmail);
+
+            Assert.IsNotNull(newLogEntry.UserEmail);
         }
     }
 }

@@ -26,9 +26,24 @@ namespace AdminUserInterface
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            if (UserIsValid())
+            {
+                ChangeActivePanel(new PrincipalUserControl());
+            }
+        }
+
+        private bool UserIsValid()
+        {
+            string email = this.txtEmailLogin.Text;
+            string password = this.txtPasswordLogin.Text;
+            return true;
+        }
+
+        public void ChangeActivePanel(UserControl userControl)
+        {
             activePanel.Visible = false;
             activePanel.Controls.Clear();
-            activePanel.Controls.Add(new PrincipalUserControl());
+            activePanel.Controls.Add(userControl);
             activePanel.Visible = true;
         }
     }

@@ -46,6 +46,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailableProductsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvailableProductsUserControl.Designer.cs">
+      <DependentUpon>AvailableProductsUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoadNewProductsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LoadNewProductsUserControl.Designer.cs">
+      <DependentUpon>LoadNewProductsUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LogUserControl.Designer.cs">
+      <DependentUpon>LogUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PointsManagementUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PointsManagementUserControl.Designer.cs">
+      <DependentUpon>PointsManagementUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrincipalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +83,18 @@
       <DependentUpon>PrincipalUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AvailableProductsUserControl.resx">
+      <DependentUpon>AvailableProductsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadNewProductsUserControl.resx">
+      <DependentUpon>LoadNewProductsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogUserControl.resx">
+      <DependentUpon>LogUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PointsManagementUserControl.resx">
+      <DependentUpon>PointsManagementUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PrincipalForm.resx">
       <DependentUpon>PrincipalForm.cs</DependentUpon>
     </EmbeddedResource>

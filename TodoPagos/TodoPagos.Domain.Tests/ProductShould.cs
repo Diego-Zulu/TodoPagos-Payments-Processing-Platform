@@ -128,9 +128,10 @@ namespace Tests
 
             baseProduct.UpdateWithValidInfoFromTargetProduct(updatedInfoProduct);
 
-            Assert.AreEqual(updatedInfoProduct.Name, baseProduct.Name);
-            Assert.AreEqual("", baseProduct.Description);
-            Assert.AreEqual(12, baseProduct.NeededPoints);
+            Assert.AreEqual("Manzana Roja", baseProduct.Name);
+            Assert.AreEqual(updatedInfoProduct.Description, baseProduct.Description);
+            Assert.AreEqual(updatedInfoProduct.NeededPoints, baseProduct.NeededPoints);
+            Assert.AreEqual(updatedInfoProduct.Stock, baseProduct.Stock);
         }
     }
 }

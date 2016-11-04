@@ -90,5 +90,28 @@ namespace TodoPagos.Domain
             MakeSureTargetNeededPointsAreNotNegative(newNeededPoints);
             this.NeededPoints = newNeededPoints;
         }
+
+        public void UpdateWithValidInfoFromTargetProduct(Product updatedInfo)
+        {
+            if (!string.IsNullOrWhiteSpace(updatedInfo.Name))
+            {
+                this.Name = updatedInfo.Name;
+            }
+
+            if (updatedInfo.Description != null)
+            {
+                this.Description = updatedInfo.Description;
+            }
+
+            if (updatedInfo.NeededPoints >= 0)
+            {
+                this.NeededPoints = updatedInfo.NeededPoints;
+            }
+
+            if (updatedInfo.Stock >= 0)
+            {
+                this.Stock = updatedInfo.Stock;
+            }
+        }
     }
 }

@@ -146,5 +146,17 @@ namespace Tests
 
             baseProduct.UpdateWithValidInfoFromTargetProduct(null);
         }
+
+        [TestMethod]
+        public void KnowIfItIsComplete()
+        {
+            string name = "Manzana Roja";
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product baseProduct = new Product(name, description, neededPoints);
+
+            Assert.IsTrue(baseProduct.IsComplete());
+        }
     }
 }

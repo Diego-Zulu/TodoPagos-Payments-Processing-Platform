@@ -14,5 +14,13 @@ namespace Tests
 
             Assert.IsNotNull(newLogEntry.Action);
         }
+
+        [TestMethod]
+        public void HaveAnOcurrenceDate()
+        {
+            LogEntry newLogEntry = new LogEntry(ActionType.PRODUCT_LOAD);
+
+            Assert.IsNotNull(newLogEntry.Date);
+        }
     }
 }

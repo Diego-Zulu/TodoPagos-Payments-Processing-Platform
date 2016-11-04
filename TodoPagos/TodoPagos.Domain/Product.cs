@@ -93,24 +93,41 @@ namespace TodoPagos.Domain
 
         public void UpdateWithValidInfoFromTargetProduct(Product updatedInfo)
         {
-            if (!string.IsNullOrWhiteSpace(updatedInfo.Name))
-            {
-                this.Name = updatedInfo.Name;
-            }
+            UpdateNameIfValid(updatedInfo.Name);
+            UpdateDescriptionIfValid(updatedInfo.Description);
+            UpdateNeededPointsIfValid(updatedInfo.NeededPoints);
+            UpdateStockIfValid(updatedInfo.Stock);
+        }
 
-            if (updatedInfo.Description != null)
+        private void UpdateNameIfValid(string targetName)
+        {
+            if (!string.IsNullOrWhiteSpace(targetName))
             {
-                this.Description = updatedInfo.Description;
+                this.Name = targetName;
             }
+        }
 
-            if (updatedInfo.NeededPoints >= 0)
+        private void UpdateDescriptionIfValid(string targetDescription)
+        {
+            if (targetDescription != null)
             {
-                this.NeededPoints = updatedInfo.NeededPoints;
+                this.Description = targetDescription;
             }
+        }
 
-            if (updatedInfo.Stock >= 0)
+        private void UpdateNeededPointsIfValid(int targetNeededPoints)
+        {
+            if (targetNeededPoints >= 0)
             {
-                this.Stock = updatedInfo.Stock;
+                this.NeededPoints = targetNeededPoints;
+            }
+        }
+
+        private void UpdateStockIfValid(int targetStock)
+        {
+            if (targetStock >= 0)
+            {
+                this.Stock = targetStock;
             }
         }
     }

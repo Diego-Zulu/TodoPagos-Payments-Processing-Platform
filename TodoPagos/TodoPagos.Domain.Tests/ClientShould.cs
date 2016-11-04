@@ -173,6 +173,19 @@ namespace TodoPagos.Domain.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfUpdatedInfoClientIsNull()
+        {
+            string name = "Diego Zuluaga";
+            string idCard = "49018830";
+            string phone = "26666666";
+
+            Client newClient = new Client(name, idCard, phone);
+
+            newClient.UpdateClientWithCompletedInfoFromTargetClient(null);
+        }
+
+        [TestMethod]
         public void BeAbleToKnowIfItIsComplete()
         {
             string name = "Diego Zuluaga";

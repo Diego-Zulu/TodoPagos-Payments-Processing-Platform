@@ -133,5 +133,18 @@ namespace Tests
             Assert.AreEqual(updatedInfoProduct.NeededPoints, baseProduct.NeededPoints);
             Assert.AreEqual(updatedInfoProduct.Stock, baseProduct.Stock);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfUpdatedInfoProductIsNull()
+        {
+            string name = "Manzana Roja";
+            string description = "Son mas frescas por la tarde";
+            int neededPoints = 10;
+
+            Product baseProduct = new Product(name, description, neededPoints);
+
+            baseProduct.UpdateWithValidInfoFromTargetProduct(null);
+        }
     }
 }

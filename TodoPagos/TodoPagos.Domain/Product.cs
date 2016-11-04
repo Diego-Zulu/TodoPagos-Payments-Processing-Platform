@@ -22,6 +22,10 @@ namespace TodoPagos.Domain
         public Product(string newName, string newDescription, int newNeededPoints)
         {
             MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
+            if (newDescription == null)
+            {
+                throw new ArgumentException("La descripción de un producto puede ser vacía pero no nula");
+            }
             Name = newName;
             Description = newDescription;
             NeededPoints = newNeededPoints;

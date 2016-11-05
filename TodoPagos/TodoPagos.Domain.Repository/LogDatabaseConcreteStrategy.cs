@@ -12,7 +12,13 @@ namespace TodoPagos.Domain.Repository
 
         public LogDatabaseConcreteStrategy(IUnitOfWork aUnitOfWork)
         {
+            CheckForNullUnitOfWork(aUnitOfWork);
             unitOfWork = aUnitOfWork;
+        }
+
+        private void CheckForNullUnitOfWork(IUnitOfWork aUnitOfWork)
+        {
+            if (aUnitOfWork == null) throw new ArgumentException();
         }
 
         public void SaveEntry(LogEntry newEntry)

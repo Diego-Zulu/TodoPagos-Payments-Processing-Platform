@@ -103,7 +103,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         {
             string from = "2007-09-17T22:02:51Z";
             string to = DateTime.Today.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            int earnings = 50;
+            int earnings = 119;
            
             IHttpActionResult actionResult = EARNINGS_CONTROLLER.GetAllEarnings(from, to);
             OkNegotiatedContentResult<double> contentResult = (OkNegotiatedContentResult<double>)actionResult;

@@ -1,13 +1,3 @@
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll.config
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.xml
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\TodoPagos.Domain.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll.config
 C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\Código\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.pdb
@@ -27,4 +17,12 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Ent
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\TodoPagos.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll.config
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\Domain.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain\obj\Debug\Domain.pdb

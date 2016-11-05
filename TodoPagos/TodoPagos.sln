@@ -27,9 +27,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.Domain.Repository
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminUserInterface", "AdminUserInterface\AdminUserInterface.csproj", "{78672CCA-2D59-498E-ACB2-495C5E07C566}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic", "TodoPagos.ProductImporters\TodoPagos.ProductImporterLogic.csproj", "{0EE7723A-CAC5-4164-991B-3E48098E844F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic", "TodoPagos.ProductImporterLogic\TodoPagos.ProductImporterLogic.csproj", "{0EE7723A-CAC5-4164-991B-3E48098E844F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic.Tests", "TodoPagos.ProductImporters.Tests\TodoPagos.ProductImporterLogic.Tests.csproj", "{5FF4CDB7-0F33-4185-A4CE-738CB866E350}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic.Tests", "TodoPagos.ProductImporterLogic.Tests\TodoPagos.ProductImporterLogic.Tests.csproj", "{5FF4CDB7-0F33-4185-A4CE-738CB866E350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic.XMLLogic", "TodoPagos.ProductImporterLogic.XMLLogic\TodoPagos.ProductImporterLogic.XMLLogic.csproj", "{20A98E7A-8816-41F5-9B97-7BF41E508200}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{5FF4CDB7-0F33-4185-A4CE-738CB866E350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FF4CDB7-0F33-4185-A4CE-738CB866E350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FF4CDB7-0F33-4185-A4CE-738CB866E350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

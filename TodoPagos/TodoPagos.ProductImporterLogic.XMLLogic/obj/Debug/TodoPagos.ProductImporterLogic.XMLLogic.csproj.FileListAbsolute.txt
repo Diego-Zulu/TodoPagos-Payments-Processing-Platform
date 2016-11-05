@@ -1,0 +1,11 @@
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\bin\Debug\TodoPagos.ProductImporterLogic.XMLLogic.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\bin\Debug\TodoPagos.ProductImporterLogic.XMLLogic.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\bin\Debug\TodoPagos.ProductImporters.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\bin\Debug\TodoPagos.ProductImporters.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\obj\Debug\TodoPagos.ProductImporterLogic.XMLLogic.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\obj\Debug\TodoPagos.ProductImporterLogic.XMLLogic.XMLProductImporterControl.resources
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\obj\Debug\TodoPagos.ProductImporterLogic.XMLLogic.csproj.GenerateResource.Cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\obj\Debug\TodoPagos.ProductImporterLogic.XMLLogic.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.XMLLogic\obj\Debug\TodoPagos.ProductImporterLogic.XMLLogic.pdb

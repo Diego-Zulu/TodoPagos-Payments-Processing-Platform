@@ -11,7 +11,7 @@ namespace TodoPagos.ProductImporterLogic.XMLLogic
     {
         public UserControl GetUIForNeededAttributes()
         {
-            throw new NotImplementedException();
+            return new XMLProductImporterControl();
         }
 
         public ICollection<Product> ImportProducts()

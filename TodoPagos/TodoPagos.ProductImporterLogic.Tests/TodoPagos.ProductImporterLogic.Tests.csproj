@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoPagos.ProductImporters\TodoPagos.ProductImporterLogic.csproj">
+    <ProjectReference Include="..\TodoPagos.ProductImporterLogic\TodoPagos.ProductImporterLogic.csproj">
       <Project>{0ee7723a-cac5-4164-991b-3e48098e844f}</Project>
       <Name>TodoPagos.ProductImporterLogic</Name>
     </ProjectReference>

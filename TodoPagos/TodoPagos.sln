@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic.XMLLogic", "TodoPagos.ProductImporterLogic.XMLLogic\TodoPagos.ProductImporterLogic.XMLLogic.csproj", "{20A98E7A-8816-41F5-9B97-7BF41E508200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPagos.ProductImporterLogic.JSONLogic", "TodoPagos.ProductImporterLogic.JSONLogic\TodoPagos.ProductImporterLogic.JSONLogic.csproj", "{F3BABB77-E29F-4C20-883E-7C4EDF9D2AD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20A98E7A-8816-41F5-9B97-7BF41E508200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3BABB77-E29F-4C20-883E-7C4EDF9D2AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3BABB77-E29F-4C20-883E-7C4EDF9D2AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3BABB77-E29F-4C20-883E-7C4EDF9D2AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3BABB77-E29F-4C20-883E-7C4EDF9D2AD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

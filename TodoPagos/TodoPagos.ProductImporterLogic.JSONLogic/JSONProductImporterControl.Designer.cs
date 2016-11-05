@@ -1,6 +1,6 @@
-﻿namespace TodoPagos.ProductImporterLogic.XMLLogic
+﻿namespace TodoPagos.ProductImporterLogic.JSONLogic
 {
-    partial class XMLProductImporterControl
+    partial class JSONProductImporterControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,47 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.openFileButton = new System.Windows.Forms.Button();
-            this.titleLabel = new System.Windows.Forms.Label();
             this.pathTextBox = new System.Windows.Forms.TextBox();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.openFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // openFileButton
+            // pathTextBox
             // 
-            this.openFileButton.Location = new System.Drawing.Point(411, 196);
-            this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(144, 42);
-            this.openFileButton.TabIndex = 0;
-            this.openFileButton.Text = "Seleccionar ...";
-            this.openFileButton.UseVisualStyleBackColor = true;
-            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
+            this.pathTextBox.Location = new System.Drawing.Point(107, 244);
+            this.pathTextBox.Name = "pathTextBox";
+            this.pathTextBox.ReadOnly = true;
+            this.pathTextBox.Size = new System.Drawing.Size(206, 26);
+            this.pathTextBox.TabIndex = 5;
+            this.pathTextBox.Text = "-Sin seleccionar-";
             // 
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
-            this.titleLabel.Location = new System.Drawing.Point(231, 128);
+            this.titleLabel.Location = new System.Drawing.Point(153, 164);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(199, 20);
-            this.titleLabel.TabIndex = 1;
-            this.titleLabel.Text = "Seleccione su archivo XML";
+            this.titleLabel.Size = new System.Drawing.Size(365, 20);
+            this.titleLabel.TabIndex = 4;
+            this.titleLabel.Text = "Seleccione su archivo TXT que contenga un JSON";
             // 
-            // pathTextBox
+            // openFileButton
             // 
-            this.pathTextBox.Location = new System.Drawing.Point(116, 204);
-            this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.ReadOnly = true;
-            this.pathTextBox.Size = new System.Drawing.Size(206, 26);
-            this.pathTextBox.TabIndex = 2;
-            this.pathTextBox.Text = "-Sin seleccionar-";
+            this.openFileButton.Location = new System.Drawing.Point(402, 236);
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(144, 42);
+            this.openFileButton.TabIndex = 3;
+            this.openFileButton.Text = "Seleccionar ...";
+            this.openFileButton.UseVisualStyleBackColor = true;
+            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
             // 
-            // XMLProductImporterControl
+            // JSONProductImporterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pathTextBox);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.openFileButton);
-            this.Name = "XMLProductImporterControl";
+            this.Name = "JSONProductImporterControl";
             this.Size = new System.Drawing.Size(652, 447);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -77,8 +77,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button openFileButton;
-        private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.TextBox pathTextBox;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Button openFileButton;
     }
 }

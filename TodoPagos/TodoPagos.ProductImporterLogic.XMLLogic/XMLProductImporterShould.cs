@@ -23,27 +23,14 @@ namespace TodoPagos.ProductImporterLogic.XMLLogic
         }
 
         [TestMethod]
-        public void BeAbleToRecieveAUserControlOnCreation()
+        public void BeAbleToReturnImportedProducts()
         {
-            var mockUserControl = new Mock<UserControl>();
+            XMLProductImporter importer = new XMLProductImporter();
 
-            XMLProductImporter importer = new XMLProductImporter(mockUserControl);
+            ICollection<Product> testProducts = importer.ImportProducts("products.xml");
 
-            UserControl importerUserControl = importer.GetUIForNeededAttributes();
-
-            Assert.IsNotNull(importerUserControl);
-        }
-
-        [TestMethod]
-        public void FailWithNullArgumentExceptionWhenUserControlIsNullOnCreation()
-        {
-            var mockUserControl = new Mock<UserControl>();
-
-            XMLProductImporter importer = new XMLProductImporter(mockUserControl);
-
-            UserControl importerUserControl = importer.GetUIForNeededAttributes();
-
-            Assert.IsNotNull(importerUserControl);
+            Assert.IsNotNull(testProducts);
+            Assert.IsFalse(testProducts.Count == 0);
         }
     }
 }

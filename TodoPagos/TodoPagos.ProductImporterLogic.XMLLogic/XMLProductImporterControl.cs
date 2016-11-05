@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace TodoPagos.ProductImporterLogic.XMLLogic
 {
-    internal partial class XMLProductImporterControl : UserControl
+    public partial class XMLProductImporterControl : UserControl
     {
         string xmlFilePath;
 

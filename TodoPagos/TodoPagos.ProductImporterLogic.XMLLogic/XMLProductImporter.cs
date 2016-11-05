@@ -9,9 +9,16 @@ namespace TodoPagos.ProductImporterLogic.XMLLogic
 {
     public class XMLProductImporter : IProductImporter
     {
+        private XMLProductImporterControl xmlControl;
+
+        public XMLProductImporter()
+        {
+            xmlControl = new XMLProductImporterControl();
+        }
+
         public UserControl GetUIForNeededAttributes()
         {
-            return new XMLProductImporterControl();
+            return xmlControl;
         }
 
         public ICollection<Product> ImportProducts()

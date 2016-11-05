@@ -21,7 +21,17 @@ namespace TodoPagos.AdminForm.Logic
         {
             IEnumerable<User> relatedUser = unitOfWork.UserRepository.Get(u => u.Email.Equals(email) &&
                                             Hashing.VerifyHash(password, u.Salt, u.Password), null, "");
+            CheckIfUserWasFound(relatedUser);
+            CheckIfUserHasRightRole(relatedUser);
+        }
+
+        private void CheckIfUserWasFound(IEnumerable<User> relatedUser)
+        {
             if (relatedUser.Count() == 0) throw new ArgumentException();
+        }
+
+        private void CheckIfUserHasRightRole(IEnumerable<User> relatedUser)
+        {
             User userToLogin = relatedUser.First();
             if (!userToLogin.HasThisRole(AdminRole.GetInstance())) throw new UnauthorizedAccessException();
         }

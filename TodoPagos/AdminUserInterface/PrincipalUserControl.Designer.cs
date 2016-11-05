@@ -1,4 +1,4 @@
-﻿namespace AdminUserInterface
+﻿namespace TodoPagos.AdminForm.Form
 {
     partial class PrincipalUserControl
     {

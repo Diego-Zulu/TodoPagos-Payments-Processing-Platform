@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using TodoPagos.UserAPI;
 
 namespace TodoPagos.Domain.Repository
@@ -16,6 +17,8 @@ namespace TodoPagos.Domain.Repository
         IRepository<Role> RoleRepository { get; }
 
         IRepository<Privilege> PrivilegeRepository { get; }
+
+        IRepository<LogEntry> EntriesRepository { get; }
 
         void Save();
 

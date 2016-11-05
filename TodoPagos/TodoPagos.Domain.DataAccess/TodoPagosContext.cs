@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace TodoPagos.Domain.DataAccess
         public virtual DbSet<Provider> Providers { get; set; }
 
         public virtual DbSet<PayMethod> PayMethods { get; set; }
+
+        public virtual DbSet<LogEntry> Entries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

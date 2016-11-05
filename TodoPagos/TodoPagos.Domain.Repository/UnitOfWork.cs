@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.UserAPI;
@@ -14,6 +15,7 @@ namespace TodoPagos.Domain.Repository
         private GenericRepository<Payment> paymentRepository;
         private GenericRepository<Role> roleRepository;
         private GenericRepository<Privilege> privilegeRepository;
+        private GenericRepository<LogEntry> entriesRepository;
 
         public UnitOfWork(TodoPagosContext todoPagosContext)
         {
@@ -96,6 +98,18 @@ namespace TodoPagos.Domain.Repository
                     this.privilegeRepository = new GenericRepository<Privilege>(context);
                 }
                 return privilegeRepository;
+            }
+        }
+
+        public IRepository<LogEntry> EntriesRepository
+        {
+            get
+            {
+                if (this.entriesRepository == null)
+                {
+                    this.entriesRepository = new GenericRepository<LogEntry>(context);
+                }
+                return entriesRepository;
             }
         }
 

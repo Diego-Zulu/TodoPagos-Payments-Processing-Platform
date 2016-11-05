@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AdminUserInterface
+namespace TodoPagos.AdminForm.Form
 {
-    public partial class PrincipalForm : Form
+    public partial class PrincipalForm : System.Windows.Forms.Form
     {
         [STAThread]
         private static void Main(string[] args)

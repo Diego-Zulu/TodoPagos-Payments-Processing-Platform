@@ -14,6 +14,8 @@ namespace Domain
 
         public string UserEmail { get; set; }
 
+        public int ID { get; set; }
+
         public LogEntry(ActionType actionType, string userEmail)
         {
             UserEmail = userEmail;

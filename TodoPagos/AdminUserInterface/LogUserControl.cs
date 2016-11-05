@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AdminUserInterface
+namespace TodoPagos.AdminForm.Form
 {
     public partial class LogUserControl : UserControl
     {

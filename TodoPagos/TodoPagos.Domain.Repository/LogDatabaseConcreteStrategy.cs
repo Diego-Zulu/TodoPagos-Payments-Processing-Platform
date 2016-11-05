@@ -1,24 +1,27 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain
+namespace TodoPagos.Domain.Repository
 {
-    public class Log
+    public class LogDatabaseConcreteStrategy : ILogStrategy
     {
-        public virtual ICollection<LogEntry> Entries { get; set; }
 
-        public Log()
+        private IUnitOfWork unitOfWork;
+
+        public LogDatabaseConcreteStrategy(IUnitOfWork aUnitOfWork)
         {
-            Entries = new List<LogEntry>();
+            unitOfWork = aUnitOfWork;
         }
 
-        public void AddEntry(LogEntry newEntry)
+        public void SaveEntry(LogEntry newEntry)
         {
-            Entries.Add(newEntry);
+            unitOfWork.EntriesRepository.Insert(newEntry);
+            unitOfWork.Save();
         }
 
-        public ICollection<LogEntry> CheckLogBetweenDates(DateTime from, DateTime to)
+        public ICollection<LogEntry> GetEntries(DateTime from, DateTime to)
         {
             ICollection<LogEntry> resultingLogEntries = new List<LogEntry>();
             FilterEntriesAndAddThemToResultingList(resultingLogEntries, from, to);
@@ -28,7 +31,7 @@ namespace Domain
         private void FilterEntriesAndAddThemToResultingList
             (ICollection<LogEntry> resultingLogEntries, DateTime from, DateTime to)
         {
-            foreach (LogEntry entry in Entries)
+            foreach (LogEntry entry in unitOfWork.EntriesRepository.Get())
             {
                 if (entry.IsBetweenDates(from, to))
                 {

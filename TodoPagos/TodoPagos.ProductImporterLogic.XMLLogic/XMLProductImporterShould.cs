@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,30 @@ namespace TodoPagos.ProductImporterLogic.XMLLogic
         public void BeAbleToReturnAUserControl()
         {
             XMLProductImporter importer = new XMLProductImporter();
+
+            UserControl importerUserControl = importer.GetUIForNeededAttributes();
+
+            Assert.IsNotNull(importerUserControl);
+        }
+
+        [TestMethod]
+        public void BeAbleToRecieveAUserControlOnCreation()
+        {
+            var mockUserControl = new Mock<UserControl>();
+
+            XMLProductImporter importer = new XMLProductImporter(mockUserControl);
+
+            UserControl importerUserControl = importer.GetUIForNeededAttributes();
+
+            Assert.IsNotNull(importerUserControl);
+        }
+
+        [TestMethod]
+        public void FailWithNullArgumentExceptionWhenUserControlIsNullOnCreation()
+        {
+            var mockUserControl = new Mock<UserControl>();
+
+            XMLProductImporter importer = new XMLProductImporter(mockUserControl);
 
             UserControl importerUserControl = importer.GetUIForNeededAttributes();
 

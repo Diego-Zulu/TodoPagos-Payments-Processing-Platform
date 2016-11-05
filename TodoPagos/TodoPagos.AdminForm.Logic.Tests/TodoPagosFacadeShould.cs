@@ -25,5 +25,35 @@ namespace TodoPagos.AdminForm.Logic.Tests
 
             facade.AdminLogin(email, password);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfEmailIsIncorrect()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork.Object);
+            string email = "hotmail.com";
+            string password = "Hola1234!";
+            User cashierUser = new User("Cajero", "soycajero@hotmail.com", "Hola1234!", CashierRole.GetInstance());
+            IEnumerable<User> allUsers = new List<User> { cashierUser };
+            mockUnitOfWork.Setup(u => u.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, "")).Returns(new List<User>());
+
+            facade.AdminLogin(email, password);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfPasswordIsIncorrect()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork.Object);
+            string email = "soycajero@hotmail.com";
+            string password = "hola1234!";
+            User cashierUser = new User("Cajero", "soycajero@hotmail.com", "Hola1234!", CashierRole.GetInstance());
+            IEnumerable<User> allUsers = new List<User> { cashierUser };
+            mockUnitOfWork.Setup(u => u.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, "")).Returns(new List<User>());
+
+            facade.AdminLogin(email, password);
+        }
     }
 }

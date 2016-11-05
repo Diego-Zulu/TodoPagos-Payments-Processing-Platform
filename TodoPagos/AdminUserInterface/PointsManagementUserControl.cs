@@ -12,11 +12,9 @@ namespace TodoPagos.AdminForm.Form
 {
     public partial class PointsManagementUserControl : UserControl
     {
-        private PrincipalUserControl principalUserControl;
 
-        public PointsManagementUserControl(PrincipalUserControl principalUserControl)
+        public PointsManagementUserControl()
         {
-            this.principalUserControl = principalUserControl;
             InitializeComponent();
         }
     }

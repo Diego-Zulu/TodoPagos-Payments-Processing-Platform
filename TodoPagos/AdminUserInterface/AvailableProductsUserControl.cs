@@ -12,11 +12,8 @@ namespace TodoPagos.AdminForm.Form
 {
     public partial class AvailableProductsUserControl : UserControl
     {
-        private PrincipalUserControl principalUserControl;
-
-        public AvailableProductsUserControl(PrincipalUserControl principalUserControl)
+        public AvailableProductsUserControl()
         {
-            this.principalUserControl = principalUserControl;
             InitializeComponent();
         }
     }

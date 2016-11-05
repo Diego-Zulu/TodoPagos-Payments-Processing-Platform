@@ -37,7 +37,7 @@ namespace TodoPagos.Domain.Repository
         private void FilterEntriesAndAddThemToResultingList
             (ICollection<LogEntry> resultingLogEntries, DateTime from, DateTime to)
         {
-            foreach (LogEntry entry in unitOfWork.EntriesRepository.Get())
+            foreach (LogEntry entry in unitOfWork.EntriesRepository.Get(null, null, ""))
             {
                 if (entry.IsBetweenDates(from, to))
                 {

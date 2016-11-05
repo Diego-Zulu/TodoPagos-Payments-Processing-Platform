@@ -33,7 +33,8 @@
             this.to = new System.Windows.Forms.DateTimePicker();
             this.lblTo = new System.Windows.Forms.Label();
             this.lblFrom = new System.Windows.Forms.Label();
-            this.lstLog = new System.Windows.Forms.ListView();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.lstLog = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lblLog
@@ -80,19 +81,31 @@
             this.lblFrom.TabIndex = 4;
             this.lblFrom.Text = "Desde: ";
             // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(645, 520);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(101, 35);
+            this.btnLoad.TabIndex = 6;
+            this.btnLoad.Text = "Cargar";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
             // lstLog
             // 
-            this.lstLog.Location = new System.Drawing.Point(138, 175);
+            this.lstLog.FormattingEnabled = true;
+            this.lstLog.ItemHeight = 16;
+            this.lstLog.Location = new System.Drawing.Point(138, 168);
             this.lstLog.Name = "lstLog";
-            this.lstLog.Size = new System.Drawing.Size(609, 338);
-            this.lstLog.TabIndex = 5;
-            this.lstLog.UseCompatibleStateImageBehavior = false;
+            this.lstLog.Size = new System.Drawing.Size(609, 340);
+            this.lstLog.TabIndex = 7;
             // 
             // LogUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lstLog);
+            this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.lblFrom);
             this.Controls.Add(this.lblTo);
             this.Controls.Add(this.to);
@@ -112,6 +125,7 @@
         private System.Windows.Forms.DateTimePicker to;
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.Label lblFrom;
-        private System.Windows.Forms.ListView lstLog;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.ListBox lstLog;
     }
 }

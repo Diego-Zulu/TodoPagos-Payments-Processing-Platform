@@ -34,7 +34,7 @@ namespace TodoPagos.AdminForm.Form
             {
                 CheckForValidUser();
                 AddEntryToLog();
-                ChangeActivePanel(new PrincipalUserControl());
+                ChangeActivePanel(new PrincipalUserControl(logStrategy));
             }
             catch (UnauthorizedAccessException)
             {

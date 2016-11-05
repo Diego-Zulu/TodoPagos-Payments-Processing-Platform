@@ -12,11 +12,9 @@ namespace TodoPagos.AdminForm.Form
 {
     public partial class LoadNewProductsUserControl : UserControl
     {
-        private PrincipalUserControl principalUserControl;
 
-        public LoadNewProductsUserControl(PrincipalUserControl principalUserControl)
+        public LoadNewProductsUserControl()
         {
-            this.principalUserControl = principalUserControl;
             InitializeComponent();
         }
 

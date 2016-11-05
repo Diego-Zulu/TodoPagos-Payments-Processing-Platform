@@ -16,6 +16,11 @@ namespace Domain
 
         public int ID { get; set; }
 
+        protected LogEntry()
+        {
+
+        }
+
         public LogEntry(string actionType, string userEmail)
         {
             UserEmail = userEmail;
@@ -26,6 +31,11 @@ namespace Domain
         public bool IsBetweenDates(DateTime from, DateTime to)
         {
             return Date >= from && Date <= to;
+        }
+
+        public override string ToString()
+        {
+            return "Acción: " + this.Action + " --- Fecha: " + this.Date + " --- Email: " + this.UserEmail;
         }
     }
 }

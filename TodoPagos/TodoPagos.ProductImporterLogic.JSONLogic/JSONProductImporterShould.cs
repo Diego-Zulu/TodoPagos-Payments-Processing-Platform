@@ -22,15 +22,15 @@ namespace TodoPagos.ProductImporterLogic.JSONLogic
             Assert.IsNotNull(importerUserControl);
         }
 
-        //[TestMethod]
-        //public void BeAbleToReturnImportedProducts()
-        //{
-        //    JSONProductImporter importer = new JSONProductImporter();
+        [TestMethod]
+        public void BeAbleToReturnImportedProducts()
+        {
+            JSONProductImporter importer = new JSONProductImporter();
 
-        //    ICollection<Product> testProducts = importer.ImportProducts("products.txt");
+            ICollection<Product> testProducts = importer.ImportProducts("products.txt");
 
-        //    Assert.IsNotNull(testProducts);
-        //    Assert.IsFalse(testProducts.Count == 0);
-        //}
+            Assert.IsNotNull(testProducts);
+            Assert.IsFalse(testProducts.Count == 0);
+        }
     }
 }

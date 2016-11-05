@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TodoPagos.Domain;
+using TodoPagos.ProductImporterLogic;
 
-namespace Tests
+namespace TodoPagos.ProductImporterLogic.Tests
 {
     [TestClass]
     public class ProductShould

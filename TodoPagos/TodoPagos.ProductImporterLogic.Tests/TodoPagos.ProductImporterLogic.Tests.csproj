@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C37CAFAB-47AF-44A9-A208-93C37032F049}</ProjectGuid>
+    <ProjectGuid>{5FF4CDB7-0F33-4185-A4CE-738CB866E350}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <RootNamespace>TodoPagos.ProductImporters.Tests</RootNamespace>
+    <AssemblyName>TodoPagos.ProductImporters.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,7 +24,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>0</WarningLevel>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,31 +45,18 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ClientShould.cs" />
+    <Compile Include="ProductShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CashPayMethodShould.cs" />
-    <Compile Include="ReceiptShould.cs" />
-    <Compile Include="DebitPayMethodShould.cs" />
-    <Compile Include="PaymentShould.cs" />
-    <Compile Include="NumberFieldShould.cs" />
-    <Compile Include="TextFieldShould.cs" />
-    <Compile Include="DateFieldShould.cs" />
-    <Compile Include="ProviderShould.cs" />
-    <Compile Include="PointsManagerShould.cs" />
-    <Compile Include="LogEntryShould.cs" />
-    <Compile Include="LogShould.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">
-      <Project>{a5b13880-c1f7-4165-b35f-c71219dc146e}</Project>
-      <Name>TodoPagos.Domain</Name>
+    <ProjectReference Include="..\TodoPagos.ProductImporters\TodoPagos.ProductImporterLogic.csproj">
+      <Project>{0ee7723a-cac5-4164-991b-3e48098e844f}</Project>
+      <Name>TodoPagos.ProductImporterLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

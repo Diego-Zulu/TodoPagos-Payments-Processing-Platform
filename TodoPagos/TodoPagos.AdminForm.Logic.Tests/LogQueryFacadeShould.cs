@@ -9,6 +9,7 @@ namespace TodoPagos.AdminForm.Logic.Tests
     public class LogQueryFacadeShould
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailIfILogStrategyIsNullOnCreation()
         {
             ILogStrategy strategy = null;

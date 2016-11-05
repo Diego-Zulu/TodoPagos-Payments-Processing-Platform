@@ -1,7 +1,6 @@
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\TodoPagos.AdminForm.Logic.Tests.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\TodoPagos.AdminForm.Logic.Tests.pdb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\Castle.Core.dll
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\Moq.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\TodoPagos.AdminForm.Logic.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\TodoPagos.Domain.Repository.dll
@@ -19,7 +18,6 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Test
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\EntityFramework.xml
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\Domain.pdb
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\obj\Debug\TodoPagos.AdminForm.Logic.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\obj\Debug\TodoPagos.AdminForm.Logic.Tests.dll
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\obj\Debug\TodoPagos.AdminForm.Logic.Tests.pdb

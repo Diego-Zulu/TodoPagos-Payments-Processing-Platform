@@ -14,7 +14,7 @@ namespace TodoPagos.ProductImporterLogic
         public int NeededPoints { get; set; }
         public int Stock { get; set; }
 
-        protected Product()
+        public Product()
         {
 
         }

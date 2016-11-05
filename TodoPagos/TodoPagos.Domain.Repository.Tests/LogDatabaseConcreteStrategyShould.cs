@@ -12,6 +12,14 @@ namespace Tests
     public class LogShould
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailIfUnitOfWorkIsNullOnCreation()
+        {
+            IUnitOfWork unitOfWork = null;
+            LogDatabaseConcreteStrategy newLog = new LogDatabaseConcreteStrategy(unitOfWork);
+        }
+
+        [TestMethod]
         public void BeAbleToSaveALogEntry()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();

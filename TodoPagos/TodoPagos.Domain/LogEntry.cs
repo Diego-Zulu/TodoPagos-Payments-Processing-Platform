@@ -8,7 +8,7 @@ namespace Domain
 {
     public class LogEntry
     { 
-        public virtual ActionType Action { get; set; }
+        public virtual string Action { get; set; }
 
         public virtual DateTime Date { get; set; }
 
@@ -16,7 +16,7 @@ namespace Domain
 
         public int ID { get; set; }
 
-        public LogEntry(ActionType actionType, string userEmail)
+        public LogEntry(string actionType, string userEmail)
         {
             UserEmail = userEmail;
             Date = DateTime.UtcNow;

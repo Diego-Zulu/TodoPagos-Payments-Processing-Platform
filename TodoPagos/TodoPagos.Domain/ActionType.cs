@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public enum ActionType { LOGIN, PRODUCT_LOAD }
+    public class ActionType
+    {
+        public static string LOGIN { get { return "LOGIN"; } }
+
+        public static string PRODUCT_LOAD { get { return "PRODUCT_LOAD"; } }
+    }
 }

@@ -8,11 +8,11 @@ using TodoPagos.UserAPI;
 
 namespace TodoPagos.AdminForm.Logic
 {
-    public class TodoPagosFacade
+    public class LoginFacade
     {
         private IUnitOfWork unitOfWork;
 
-        public TodoPagosFacade(IUnitOfWork aUnitOfWork)
+        public LoginFacade(IUnitOfWork aUnitOfWork)
         {
             CheckForNullUnitOfWork(aUnitOfWork);
             unitOfWork = aUnitOfWork;
@@ -25,10 +25,10 @@ namespace TodoPagos.AdminForm.Logic
 
         public void AdminLogin(string email, string password)
         {
-            IEnumerable<User> relatedUser = unitOfWork.UserRepository.Get(u => u.Email.Equals(email) &&
-                                            Hashing.VerifyHash(password, u.Salt, u.Password), null, "");
+            IEnumerable<User> relatedUser = unitOfWork.UserRepository.Get(u => u.Email.Equals(email), null, "");
             CheckIfUserWasFound(relatedUser);
-            CheckIfUserHasRightRole(relatedUser);
+            CheckForCorrectPassword(relatedUser.First(), password);
+            CheckIfUserHasRightRole(relatedUser.First());
         }
 
         private void CheckIfUserWasFound(IEnumerable<User> relatedUser)
@@ -36,9 +36,16 @@ namespace TodoPagos.AdminForm.Logic
             if (relatedUser.Count() == 0) throw new ArgumentException();
         }
 
-        private void CheckIfUserHasRightRole(IEnumerable<User> relatedUser)
+        private void CheckForCorrectPassword(User userToLogin, string password)
         {
-            User userToLogin = relatedUser.First();
+             if(!Hashing.VerifyHash(password, userToLogin.Salt, userToLogin.Password))
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void CheckIfUserHasRightRole(User userToLogin)
+        {
             if (!userToLogin.HasThisRole(AdminRole.GetInstance())) throw new UnauthorizedAccessException();
         }
 

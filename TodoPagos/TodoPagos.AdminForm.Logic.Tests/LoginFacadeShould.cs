@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace TodoPagos.AdminForm.Logic.Tests
 {
     [TestClass]
-    public class TodoPagosFacadeShould
+    public class LoginFacadeShould
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void FailIfUnitOfWorkIsNullOnCreation()
         {
             IUnitOfWork mockUnitOfWork = null;
-            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork);
+            LoginFacade facade = new LoginFacade(mockUnitOfWork);
         }
 
         [TestMethod]
@@ -24,7 +24,7 @@ namespace TodoPagos.AdminForm.Logic.Tests
         public void FailIfUserDoesntHaveTheRightRole()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork.Object);
+            LoginFacade facade = new LoginFacade(mockUnitOfWork.Object);
             string email = "soycajero@hotmail.com";
             string password = "Hola1234!";
             User cashierUser = new User("Cajero", "soycajero@hotmail.com", "Hola1234!", CashierRole.GetInstance());
@@ -39,7 +39,7 @@ namespace TodoPagos.AdminForm.Logic.Tests
         public void FailIfEmailIsIncorrect()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork.Object);
+            LoginFacade facade = new LoginFacade(mockUnitOfWork.Object);
             string email = "hotmail.com";
             string password = "Hola1234!";
             User cashierUser = new User("Cajero", "soycajero@hotmail.com", "Hola1234!", CashierRole.GetInstance());
@@ -54,7 +54,7 @@ namespace TodoPagos.AdminForm.Logic.Tests
         public void FailIfPasswordIsIncorrect()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork.Object);
+            LoginFacade facade = new LoginFacade(mockUnitOfWork.Object);
             string email = "soycajero@hotmail.com";
             string password = "hola1234!";
             User cashierUser = new User("Cajero", "soycajero@hotmail.com", "Hola1234!", CashierRole.GetInstance());

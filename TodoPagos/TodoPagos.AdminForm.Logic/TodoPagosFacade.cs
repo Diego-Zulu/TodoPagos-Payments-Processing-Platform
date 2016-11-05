@@ -14,7 +14,13 @@ namespace TodoPagos.AdminForm.Logic
 
         public TodoPagosFacade(IUnitOfWork aUnitOfWork)
         {
+            CheckForNullUnitOfWork(aUnitOfWork);
             unitOfWork = aUnitOfWork;
+        }
+
+        private void CheckForNullUnitOfWork(IUnitOfWork aUnitOfWork)
+        {
+            if (aUnitOfWork == null) throw new ArgumentException();
         }
 
         public void AdminLogin(string email, string password)

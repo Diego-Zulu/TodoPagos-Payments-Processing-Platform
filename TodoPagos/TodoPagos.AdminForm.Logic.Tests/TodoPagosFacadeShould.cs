@@ -12,7 +12,7 @@ namespace TodoPagos.AdminForm.Logic.Tests
     public class TodoPagosFacadeShould
     {
         [TestMethod]
-        [ExpectedException(typeof(UnauthorizedAccessException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void FailIfUnitOfWorkIsNullOnCreation()
         {
             IUnitOfWork mockUnitOfWork = null;

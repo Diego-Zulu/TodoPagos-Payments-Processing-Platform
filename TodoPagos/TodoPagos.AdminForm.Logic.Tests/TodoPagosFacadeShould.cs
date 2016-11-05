@@ -13,6 +13,14 @@ namespace TodoPagos.AdminForm.Logic.Tests
     {
         [TestMethod]
         [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void FailIfUnitOfWorkIsNullOnCreation()
+        {
+            IUnitOfWork mockUnitOfWork = null;
+            TodoPagosFacade facade = new TodoPagosFacade(mockUnitOfWork);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
         public void FailIfUserDoesntHaveTheRightRole()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();

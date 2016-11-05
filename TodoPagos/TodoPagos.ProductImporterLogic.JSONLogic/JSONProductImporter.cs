@@ -32,42 +32,52 @@ namespace TodoPagos.ProductImporterLogic.JSONLogic
 
         public ICollection<Product> ImportProducts(string filePath)
         {
-            ICollection<Product> importedProducts = new List<Product>();
-
             var json = System.IO.File.ReadAllText(filePath);
-
             dynamic parentObject = JObject.Parse(json);
-
             JArray productsJsonArray = (JArray)parentObject.Productos;
+
+            return SearchJArrayAndTryToParseProducts(productsJsonArray);
+        }
+
+        private ICollection<Product> SearchJArrayAndTryToParseProducts(JArray productsJsonArray)
+        {
+            ICollection<Product> importedProducts = new List<Product>();
 
             foreach (dynamic jsonProduct in productsJsonArray)
             {
                 try
                 {
-                    Product newProduct = new Product();
-                    string productName = jsonProduct.Nombre;
-                    string productDescription = jsonProduct.Descripcion;
-                    int productNeededPoints = jsonProduct.CantidadPuntos;
-                    int productStock = jsonProduct.Stock;
-
-                    newProduct.Name = productName;
-                    newProduct.Description = productDescription;
-                    newProduct.NeededPoints = productNeededPoints;
-                    newProduct.Stock = productStock;
-
-                    if (newProduct.IsComplete())
-                    {
-                        importedProducts.Add(newProduct);
-                    }
-
+                    AddParsedProductFromJSONToImportedProductsIfCorrect(jsonProduct, importedProducts);
                 }
                 catch (Exception)
                 {
-
                 }
             }
 
             return importedProducts;
+        }
+
+        private void AddParsedProductFromJSONToImportedProductsIfCorrect(
+            dynamic jsonProduct, ICollection<Product> importedProducts)
+        {
+            Product newProduct = ParseProductFromJSON(jsonProduct);
+
+            if (newProduct.IsComplete())
+            {
+                importedProducts.Add(newProduct);
+            }
+        }
+
+        private Product ParseProductFromJSON(dynamic jsonProduct)
+        {
+            Product newProduct = new Product();
+
+            newProduct.Name = jsonProduct.Nombre;
+            newProduct.Description = jsonProduct.Descripcion;
+            newProduct.NeededPoints = jsonProduct.CantidadPuntos;
+            newProduct.Stock = jsonProduct.Stock;
+
+            return newProduct;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace TodoPagos.ProductImporterLogic.XMLLogic
             ICollection<Product> testProducts = importer.ImportProducts("products.xml");
 
             Assert.IsNotNull(testProducts);
-            Assert.IsFalse(testProducts.Count == 0);
+            Assert.IsTrue(testProducts.Count == 1);
         }
     }
 }

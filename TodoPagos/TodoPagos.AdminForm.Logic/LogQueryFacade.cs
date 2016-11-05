@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,11 @@ namespace TodoPagos.AdminForm.Logic
         private void CheckForNullILogStrategy(ILogStrategy aStrategy)
         {
             if (aStrategy == null) throw new ArgumentException();
+        }
+
+        public ICollection<LogEntry> GetEntries(DateTime from, DateTime to)
+        {
+            return logStrategy.GetEntries(from, to);
         }
     }
 }

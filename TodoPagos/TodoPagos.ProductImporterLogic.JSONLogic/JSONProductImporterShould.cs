@@ -27,7 +27,7 @@ namespace TodoPagos.ProductImporterLogic.JSONLogic
         {
             JSONProductImporter importer = new JSONProductImporter();
 
-            ICollection<Product> testProducts = importer.ImportProducts("products.txt");
+            ICollection<Product> testProducts = importer.ImportProducts("products.json");
 
             Assert.IsNotNull(testProducts);
             Assert.IsFalse(testProducts.Count == 0);

@@ -45,11 +45,11 @@
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
-            this.titleLabel.Location = new System.Drawing.Point(153, 164);
+            this.titleLabel.Location = new System.Drawing.Point(223, 158);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(365, 20);
+            this.titleLabel.Size = new System.Drawing.Size(212, 20);
             this.titleLabel.TabIndex = 4;
-            this.titleLabel.Text = "Seleccione su archivo TXT que contenga un JSON";
+            this.titleLabel.Text = "Seleccione su archivo JSON:";
             // 
             // openFileButton
             // 

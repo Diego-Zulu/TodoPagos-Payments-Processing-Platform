@@ -1,0 +1,16 @@
+{
+	"Productos" : [
+	
+		{
+			"Nombre" : "Manzana",
+			"CantidadPuntos" : 10,
+			"Stock" : 10
+		},
+		{
+			"Nombre" : "Manzana",
+			"Descripcion" : "Es Roja",
+			"CantidadPuntos" : 10,
+			"Stock" : 10
+		}			
+	]
+}

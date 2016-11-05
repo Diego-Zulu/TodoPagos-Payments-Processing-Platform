@@ -13,3 +13,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.csproj.GenerateResource.Cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Newtonsoft.Json.xml

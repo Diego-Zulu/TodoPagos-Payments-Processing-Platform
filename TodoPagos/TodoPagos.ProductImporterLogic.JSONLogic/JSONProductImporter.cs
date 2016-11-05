@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,49 @@ namespace TodoPagos.ProductImporterLogic.JSONLogic
 
         public ICollection<Product> ImportProducts()
         {
-            throw new NotImplementedException();
+            string path = jsonControl.GetJSONFilePath();
+
+            return ImportProducts(path);
         }
 
         public ICollection<Product> ImportProducts(string filePath)
         {
-            throw new NotImplementedException();
+            ICollection<Product> importedProducts = new List<Product>();
+
+            var json = System.IO.File.ReadAllText(filePath);
+
+            dynamic parentObject = JObject.Parse(json);
+
+            JArray productsJsonArray = (JArray)parentObject.Productos;
+
+            foreach (dynamic jsonProduct in productsJsonArray)
+            {
+                try
+                {
+                    Product newProduct = new Product();
+                    string productName = jsonProduct.Nombre;
+                    string productDescription = jsonProduct.Descripcion;
+                    int productNeededPoints = jsonProduct.CantidadPuntos;
+                    int productStock = jsonProduct.Stock;
+
+                    newProduct.Name = productName;
+                    newProduct.Description = productDescription;
+                    newProduct.NeededPoints = productNeededPoints;
+                    newProduct.Stock = productStock;
+
+                    if (newProduct.IsComplete())
+                    {
+                        importedProducts.Add(newProduct);
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            return importedProducts;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TodoPagos.ProductImporterLogic.JSONLogic
 {
     public partial class JSONProductImporterControl : UserControl
     {
-        private string txtWithJsonFilePath;
+        private string jsonFilePath;
 
         public JSONProductImporterControl()
         {
@@ -22,22 +22,22 @@ namespace TodoPagos.ProductImporterLogic.JSONLogic
         private void openFileButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "txt files (*.txt)|*.txt";
+            dialog.Filter = "json files (*.json)|*.json";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                txtWithJsonFilePath = dialog.FileName;
+                jsonFilePath = dialog.FileName;
                 this.pathTextBox.Text = dialog.FileName;
             }
             else
             {
-                txtWithJsonFilePath = null;
+                jsonFilePath = null;
                 this.pathTextBox.Text = "-Sin seleccionar-";
             }
         }
 
         public string GetJSONFilePath()
         {
-            return txtWithJsonFilePath;
+            return jsonFilePath;
         }
     }
 }

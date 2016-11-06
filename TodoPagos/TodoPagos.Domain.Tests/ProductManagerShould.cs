@@ -8,6 +8,15 @@ namespace Tests
     public class ProductManagerShould
     {
         [TestMethod]
+        public void HaveEmptyProductsListAndAvailableProductList()
+        {
+            ProductManager newProductManager = ProductManager.GetInstance();
+
+            Assert.AreEqual(0, newProductManager.Products.Count);
+            Assert.AreEqual(0, newProductManager.AvailableProducts.Count);
+        }
+
+        [TestMethod]
         public void AlwaysHaveOnlyOneInstance()
         {
             ProductManager firstProductManager = ProductManager.GetInstance();

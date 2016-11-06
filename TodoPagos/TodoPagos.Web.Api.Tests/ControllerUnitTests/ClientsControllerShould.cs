@@ -187,5 +187,31 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
             IHttpActionResult actionResult = controller.PutClient(singleClient.ID, singleClient);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
+
+        [TestMethod]
+        public void BeAbleToDeleteAClient()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.DeleteClient(singleClient.ID, It.IsAny<string>())).Returns(true);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.DeleteClient(singleClient.ID);
+            StatusCodeResult contentResult = (StatusCodeResult)actionResult;
+
+            Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
+        }
+
+        [TestMethod]
+        public void FailWithNotFoundIfToBeDeletedClientDoesntExistInRepository()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.DeleteClient(singleClient.ID, It.IsAny<string>())).Returns(false);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.DeleteClient(singleClient.ID);
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
     }
 }

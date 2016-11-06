@@ -48,5 +48,21 @@ namespace TodoPagos.AdminForm.Logic.Tests
             mockUnitOfWork.VerifyAll();
             CollectionAssert.AreEqual(allProducts, (ICollection)returnedProduts);
         }
+
+        [TestMethod]
+        public void NotAddAProductThatAlreadyIsInTheRepository()
+        {
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            ProductFacade facade = new ProductFacade(mockUnitOfWork.Object);
+            Product productToBeAdded = new Product("Cocina", "Una cocina", 200);
+            List<Product> allProducts = new List<Product>() { productToBeAdded };
+            mockUnitOfWork.Setup(u => u.ProductsRepository.Get(It.IsAny<Expression<Func<Product, bool>>>(), null, "")).Returns(allProducts);
+
+            facade.AddProduct(productToBeAdded);
+            IEnumerable<Product> returnedProduts = facade.GetProducts();
+
+            mockUnitOfWork.VerifyAll();
+            CollectionAssert.AreEqual(allProducts, (ICollection)returnedProduts);
+        }
     }
 }

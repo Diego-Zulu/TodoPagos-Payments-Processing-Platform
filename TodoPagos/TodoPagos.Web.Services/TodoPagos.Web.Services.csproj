@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EarningQueriesService.cs" />
+    <Compile Include="IClientService.cs" />
     <Compile Include="IEarningQueriesService.cs" />
     <Compile Include="IPaymentService.cs" />
     <Compile Include="IProviderService.cs" />

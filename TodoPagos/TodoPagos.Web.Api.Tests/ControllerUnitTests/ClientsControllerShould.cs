@@ -1,5 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TodoPagos.Web.Services;
+using TodoPagos.Web.Api.Controllers;
+using Moq;
 
 namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 {

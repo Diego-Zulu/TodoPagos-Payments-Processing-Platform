@@ -1,0 +1,17 @@
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\TodoPagos.ProductImporterLogic.JSONLogic.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\TodoPagos.ProductImporterLogic.JSONLogic.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Castle.Core.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Moq.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\TodoPagos.ProductImporters.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\TodoPagos.ProductImporters.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Castle.Core.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Moq.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.JSONProductImporterControl.resources
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.csproj.GenerateResource.Cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.JSONLogic\obj\Debug\TodoPagos.ProductImporterLogic.JSONLogic.pdb

@@ -115,6 +115,7 @@
     <Compile Include="ControllerIntegrationTests\PaymentsControllerShould.cs" />
     <Compile Include="ControllerIntegrationTests\ProvidersControllerShould.cs" />
     <Compile Include="ControllerIntegrationTests\UsersControllerShould.cs" />
+    <Compile Include="ControllerUnitTests\ClientsControllerShould.cs" />
     <Compile Include="ModelBinderTests\ProviderModelBuilderShould.cs" />
     <Compile Include="ModelBinderTests\PaymentModelBuilderShould.cs" />
     <Compile Include="ModelBinderTests\UserModelBinderShould.cs" />

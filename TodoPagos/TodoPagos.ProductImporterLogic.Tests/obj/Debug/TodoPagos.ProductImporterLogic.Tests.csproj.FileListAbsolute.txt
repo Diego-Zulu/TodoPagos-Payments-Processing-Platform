@@ -1,0 +1,9 @@
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Debug\TodoPagos.ProductImporters.Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Debug\TodoPagos.ProductImporters.Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Debug\TodoPagos.ProductImporters.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Debug\TodoPagos.ProductImporters.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Debug\TodoPagos.ProductImporterLogic.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Debug\TodoPagos.ProductImporters.Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Debug\TodoPagos.ProductImporters.Tests.pdb

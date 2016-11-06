@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TodoPagos.Domain;
 using TodoPagos.Domain.Repository;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.Web.Services
 {
@@ -36,24 +37,44 @@ namespace TodoPagos.Web.Services
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Client> GetAllClients(string signedInUserEmail)
         {
-            throw new NotImplementedException();
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            return unitOfWork.ClientRepository.Get(null, null, "");
         }
 
         public Client GetSingleClient(int id, string signedInUserEmail)
         {
-            throw new NotImplementedException();
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            Client foundClient = unitOfWork.ClientRepository.GetByID(id);
+            ThrowArgumentExceptionIfUserWasntFound(foundClient);
+            return foundClient;
+        }
+
+        private void ThrowArgumentExceptionIfUserWasntFound(Client foundClient)
+        {
+            if (foundClient == null)
+            {
+                throw new ArgumentException();
+            }
         }
 
         public bool UpdateClient(int clientId, Client client, string signedInUserEmail)
         {
             throw new NotImplementedException();
+        }
+
+        private void MakeSureUserHasRequiredPrivilege(string signedInUserEmail)
+        {
+            if (!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, UserManagementPrivilege.GetInstance()))
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
         }
     }
 }

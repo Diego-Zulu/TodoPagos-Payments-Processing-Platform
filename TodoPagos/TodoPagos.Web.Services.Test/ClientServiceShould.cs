@@ -52,7 +52,7 @@ namespace TodoPagos.Web.Services.Test
             .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(
                 It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
             .Returns(true);
-            mockUnitOfWork.Setup(un => un.ClientRepository.GetByID(It.IsAny<string>())).Returns(singleClient);
+            mockUnitOfWork.Setup(un => un.ClientRepository.GetByID(It.IsAny<int>())).Returns(singleClient);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
 
             Client returnedClient = clientService.GetSingleClient(singleClient.ID, It.IsAny<string>());

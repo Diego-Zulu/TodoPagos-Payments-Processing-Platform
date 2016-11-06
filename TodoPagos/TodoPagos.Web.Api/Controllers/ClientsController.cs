@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
+using TodoPagos.Domain;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.Domain.Repository;
 using TodoPagos.Web.Services;
@@ -36,6 +38,39 @@ namespace TodoPagos.Web.Api.Controllers
             if (oneService == null)
             {
                 throw new ArgumentException("El servicio de cliente en el controller de cliente no puede ser nulo");
+            }
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetClients()
+        {
+            try
+            {
+                IEnumerable<Client> clients = clientService.GetAllClients(signedInUsername);
+                return Ok(clients);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(Client))]
+        public IHttpActionResult GetClient(int id)
+        {
+            try
+            {
+                Client client = clientService.GetSingleClient(id, signedInUsername);
+                return Ok(client);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
             }
         }
     }

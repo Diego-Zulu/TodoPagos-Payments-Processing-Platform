@@ -44,7 +44,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
             List<Client> allClients = new List<Client>
             {
                 new Client("Manzana", "12345672", "26666666"),
-                new Client("Ruben Rada", "11111118", "26666666")
+                new Client("Ruben Rada", "11111111", "26666666")
             };
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.GetAllClients(It.IsAny<string>())).Returns(allClients);
@@ -60,7 +60,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToReturnSingleClientInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111118", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.GetSingleClient(singleClient.ID, It.IsAny<string>())).Returns(singleClient);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -74,9 +74,9 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithNotFoundIfSingleUserIdDoesntExistInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111118", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
             var mockClientService = new Mock<IClientService>();
-            mockClientService.Setup(x => x.GetSingleClient(singleClient.ID, It.IsAny<string>())).Returns(singleClient);
+            mockClientService.Setup(x => x.GetSingleClient(singleClient.ID + 1, It.IsAny<string>())).Throws(new ArgumentException());
             ClientsController controller = new ClientsController(mockClientService.Object);
 
             IHttpActionResult actionResult = controller.GetClient(singleClient.ID + 1);

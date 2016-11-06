@@ -155,5 +155,33 @@ namespace TodoPagos.Web.Api.Controllers
                 return NotFound();
             }
         }
+
+        [HttpDelete]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult DeleteClient(int id)
+        {
+            try
+            {
+                if (clientService.DeleteClient(id, signedInUsername))
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                return NotFound();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                clientService.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Linq;
+using System.Net;
 
 namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 {
@@ -135,6 +136,56 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
             IHttpActionResult actionResult = controller.PostClient(nullClient);
 
             Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void BeAbleToUpdateAnClientInTheRepository()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.UpdateClient(singleClient.ID, singleClient, It.IsAny<string>())).Returns(true);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PutClient(singleClient.ID, singleClient);
+            StatusCodeResult contentResult = (StatusCodeResult)actionResult;
+
+            Assert.AreEqual(contentResult.StatusCode, HttpStatusCode.NoContent);
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfUpdatedClientIdAndSuppliedIdAreDifferent()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.UpdateClient(singleClient.ID + 1, singleClient, It.IsAny<string>())).Returns(false);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PutClient(singleClient.ID + 1, singleClient);
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfUpdatedClientIsNull()
+        {
+            Client nullClient = null;
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.UpdateClient(1, nullClient, It.IsAny<string>())).Returns(false);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PutClient(1, nullClient);
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void FailWithNotFoundIfServiceCantFindToBeUpdatedClientInRepository()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.UpdateClient(singleClient.ID, singleClient, It.IsAny<string>())).Returns(false);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PutClient(singleClient.ID, singleClient);
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
     }
 }

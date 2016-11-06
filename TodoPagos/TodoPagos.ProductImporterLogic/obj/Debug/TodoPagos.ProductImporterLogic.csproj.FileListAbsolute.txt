@@ -1,4 +1,5 @@
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\bin\Debug\TodoPagos.ProductImporters.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\bin\Debug\TodoPagos.ProductImporters.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Debug\TodoPagos.ProductImporterLogic.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Debug\TodoPagos.ProductImporters.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Debug\TodoPagos.ProductImporters.pdb

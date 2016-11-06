@@ -72,6 +72,7 @@
     <Compile Include="ProviderServiceShould.cs" />
     <Compile Include="PaymentServiceShould.cs" />
     <Compile Include="EarningQueriesServiceShould.cs" />
+    <Compile Include="ClientServiceShould.cs" />
     <Compile Include="UserServiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

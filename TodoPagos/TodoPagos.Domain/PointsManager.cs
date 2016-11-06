@@ -49,7 +49,7 @@ namespace TodoPagos.Domain
             }
         }
 
-        public void ChangeMoneyPerPointRatio(int newRatio)
+        public void ChangeMoneyPerPointRatio(double newRatio)
         {
             if (newRatio < 0)
             {

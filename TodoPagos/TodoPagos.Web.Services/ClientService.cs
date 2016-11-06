@@ -77,7 +77,14 @@ namespace TodoPagos.Web.Services
 
         public bool DeleteClient(int id, string signedInUserEmail)
         {
-            throw new NotImplementedException();
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            if (ClientIdHasClientInRepository(id))
+            {
+                unitOfWork.ClientRepository.Delete(id);
+                unitOfWork.Save();
+                return true;
+            }
+            return false;
         }
 
         public IEnumerable<Client> GetAllClients(string signedInUserEmail)

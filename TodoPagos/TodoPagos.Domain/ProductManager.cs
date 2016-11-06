@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class ProductManager
+    public class ProductManager
     {
+        private static ProductManager instance;
+
+        static public ProductManager GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new ProductManager();
+            }
+
+            return instance;
+        }
+
     }
 }

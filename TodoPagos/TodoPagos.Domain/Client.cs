@@ -23,7 +23,7 @@ namespace TodoPagos.Domain
         private int HOUSE_PHONE_LENGTH = 8;
         private int MOBILE_PHONE_LENGTH = 9;
 
-        protected Client() { }
+        public Client() { }
 
         public Client(string newName, string newIDCard, string newPhoneNumber)
         {

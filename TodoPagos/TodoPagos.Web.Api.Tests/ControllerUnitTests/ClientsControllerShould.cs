@@ -72,7 +72,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         }
 
         [TestMethod]
-        public void FailWithNotFoundIfSingleUserIdDoesntExistInRepository()
+        public void FailWithNotFoundIfSingleClientIdDoesntExistInRepository()
         {
             Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
             var mockClientService = new Mock<IClientService>();
@@ -81,6 +81,59 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.GetClient(singleClient.ID + 1);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void BeAbleToPostNewClientIntoRepository()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.CreateClient(singleClient, It.IsAny<String>())).Returns(1);
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PostClient(singleClient);
+            CreatedAtRouteNegotiatedContentResult<Client> contentResult = (CreatedAtRouteNegotiatedContentResult<Client>)actionResult;
+
+            Assert.AreEqual(contentResult.Content, singleClient);
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsAlreadyInRepository()
+        {
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.CreateClient(singleClient, It.IsAny<String>())).Throws(new InvalidOperationException());
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PostClient(singleClient);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsNotCompleteInRepository()
+        {
+            Client incompleteClient = new Client();
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.CreateClient(incompleteClient, It.IsAny<String>())).Throws(new ArgumentException());
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PostClient(incompleteClient);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void FailWithBadRequestIfPostedNewUserIsNull()
+        {
+            Client nullClient = null;
+            var mockClientService = new Mock<IClientService>();
+            mockClientService.Setup(x => x.CreateClient(nullClient, It.IsAny<String>())).Throws(new ArgumentNullException());
+            ClientsController controller = new ClientsController(mockClientService.Object);
+
+            IHttpActionResult actionResult = controller.PostClient(nullClient);
+
+            Assert.IsInstanceOfType(actionResult, typeof(BadRequestErrorMessageResult));
         }
     }
 }

@@ -5,6 +5,7 @@ using Moq;
 using TodoPagos.ProductImporterLogic;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Collections;
 
 namespace TodoPagos.AdminForm.Logic.Tests
 {
@@ -31,6 +32,21 @@ namespace TodoPagos.AdminForm.Logic.Tests
             facade.AddProduct(productToBeAdded);
 
             mockUnitOfWork.VerifyAll();
+        }
+
+        [TestMethod]
+        public void BeAbleToGetAllProducts()
+        {
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            ProductFacade facade = new ProductFacade(mockUnitOfWork.Object);
+            Product productToBeAdded = new Product("Cocina", "Una cocina", 200);
+            List<Product> allProducts = new List<Product>() { productToBeAdded };
+            mockUnitOfWork.Setup(u => u.ProductsRepository.Get(It.IsAny<Expression<Func<Product, bool>>>(), null, "")).Returns(allProducts);
+
+            IEnumerable<Product> returnedProduts = facade.GetProducts();
+
+            mockUnitOfWork.VerifyAll();
+            CollectionAssert.AreEqual(allProducts, (ICollection)returnedProduts);
         }
     }
 }

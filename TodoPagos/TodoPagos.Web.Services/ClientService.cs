@@ -104,7 +104,24 @@ namespace TodoPagos.Web.Services
 
         public bool UpdateClient(int clientId, Client client, string signedInUserEmail)
         {
-            throw new NotImplementedException();
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            if (client != null && clientId == client.ID && ClientIdHasClientInRepository(clientId) 
+                && !AnotherDifferentUserAlreadyHasThisIDCard(client))
+            {
+                Client clientEntity = unitOfWork.ClientRepository.GetByID(clientId);
+                clientEntity.UpdateClientWithCompletedInfoFromTargetClient(client);
+                unitOfWork.ClientRepository.Update(clientEntity);
+                unitOfWork.Save();
+                return true;
+            }
+            return false;
+        }
+
+        private bool AnotherDifferentUserAlreadyHasThisIDCard(Client clientToBeChecked)
+        {
+            IEnumerable<Client> clientsThatExists = unitOfWork.ClientRepository.Get(
+                cli => cli.ID != clientToBeChecked.ID && cli.IDCard.Equals(clientToBeChecked.IDCard), null, "");
+            return clientsThatExists.Count() > 0;
         }
 
         private void MakeSureUserHasRequiredPrivilege(string signedInUserEmail)
@@ -113,6 +130,12 @@ namespace TodoPagos.Web.Services
             {
                 throw new UnauthorizedAccessException();
             }
+        }
+
+        private bool ClientIdHasClientInRepository(int clientId)
+        {
+            Client client = unitOfWork.ClientRepository.GetByID(clientId);
+            return client != null;
         }
 
         public void Dispose()

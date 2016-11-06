@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TodoPagos.ProductImporterLogic;
 using TodoPagos.UserAPI;
 
 namespace TodoPagos.Domain.DataAccess
@@ -32,6 +33,8 @@ namespace TodoPagos.Domain.DataAccess
         public virtual DbSet<LogEntry> Entries { get; set; }
 
         public virtual DbSet<PointsManager> PointsManager { get; set; }
+
+        public virtual DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

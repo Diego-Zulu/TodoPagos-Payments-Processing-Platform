@@ -44,3 +44,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\obj\Debug\TodoPagos.AdminForm.Logic.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\obj\Debug\TodoPagos.AdminForm.Logic.Tests.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\obj\Debug\TodoPagos.AdminForm.Logic.Tests.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\TodoPagos.ProductImporters.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic.Tests\bin\Debug\TodoPagos.ProductImporters.pdb

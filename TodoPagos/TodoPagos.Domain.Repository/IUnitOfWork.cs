@@ -1,5 +1,6 @@
 ﻿using Domain;
 using System;
+using TodoPagos.ProductImporterLogic;
 using TodoPagos.UserAPI;
 
 namespace TodoPagos.Domain.Repository
@@ -21,6 +22,8 @@ namespace TodoPagos.Domain.Repository
         IRepository<LogEntry> EntriesRepository { get; }
 
         IRepository<PointsManager> PointsManagerRepository { get; }
+
+        IRepository<Product> ProductsRepository { get; }
 
         void Save();
 

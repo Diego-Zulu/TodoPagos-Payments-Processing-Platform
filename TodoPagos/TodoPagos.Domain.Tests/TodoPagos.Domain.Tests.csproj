@@ -64,7 +64,6 @@
     <Compile Include="ProviderShould.cs" />
     <Compile Include="PointsManagerShould.cs" />
     <Compile Include="LogEntryShould.cs" />
-    <Compile Include="ProductManagerShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">

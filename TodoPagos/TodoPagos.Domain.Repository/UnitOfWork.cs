@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TodoPagos.Domain.DataAccess;
+using TodoPagos.ProductImporterLogic;
 using TodoPagos.UserAPI;
 
 namespace TodoPagos.Domain.Repository
@@ -17,6 +18,7 @@ namespace TodoPagos.Domain.Repository
         private GenericRepository<Privilege> privilegeRepository;
         private GenericRepository<LogEntry> entriesRepository;
         private GenericRepository<PointsManager> pointsManagerRepository;
+        private GenericRepository<Product> productsRepository;
 
         public UnitOfWork(TodoPagosContext todoPagosContext)
         {
@@ -123,6 +125,18 @@ namespace TodoPagos.Domain.Repository
                     this.pointsManagerRepository = new GenericRepository<PointsManager>(context);
                 }
                 return pointsManagerRepository;
+            }
+        }
+
+        public IRepository<Product> ProductsRepository
+        {
+            get
+            {
+                if (this.productsRepository == null)
+                {
+                    this.productsRepository = new GenericRepository<Product>(context);
+                }
+                return productsRepository;
             }
         }
 

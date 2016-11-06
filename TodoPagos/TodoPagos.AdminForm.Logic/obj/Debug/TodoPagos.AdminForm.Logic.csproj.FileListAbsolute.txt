@@ -32,3 +32,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic\bin\D
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic\obj\Debug\TodoPagos.AdminForm.Logic.csprojResolveAssemblyReference.cache
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic\obj\Debug\TodoPagos.AdminForm.Logic.dll
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic\obj\Debug\TodoPagos.AdminForm.Logic.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic\bin\Debug\TodoPagos.ProductImporters.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Logic\bin\Debug\TodoPagos.ProductImporters.pdb

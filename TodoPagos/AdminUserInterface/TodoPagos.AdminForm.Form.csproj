@@ -150,6 +150,10 @@
       <Project>{a5b13880-c1f7-4165-b35f-c71219dc146e}</Project>
       <Name>TodoPagos.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TodoPagos.UserAPI\TodoPagos.UserAPI.csproj">
+      <Project>{306f6fb4-9659-4714-aa36-56ea590935c5}</Project>
+      <Name>TodoPagos.UserAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

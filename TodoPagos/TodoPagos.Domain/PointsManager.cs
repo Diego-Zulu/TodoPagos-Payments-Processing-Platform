@@ -10,7 +10,7 @@ namespace TodoPagos.Domain
     {
         public int ID { get; set; }
         public double MoneyPerPoint { get; set; }
-        public ICollection<Provider> Blacklist { get; set; }
+        public virtual ICollection<Provider> Blacklist { get; set; }
 
         static private PointsManager instance;
 
@@ -49,7 +49,7 @@ namespace TodoPagos.Domain
             }
         }
 
-        public void ChangeMoneyPerPointRatio(int newRatio)
+        public void ChangeMoneyPerPointRatio(double newRatio)
         {
             if (newRatio < 0)
             {

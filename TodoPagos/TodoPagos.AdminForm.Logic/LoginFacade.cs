@@ -23,12 +23,13 @@ namespace TodoPagos.AdminForm.Logic
             if (aUnitOfWork == null) throw new ArgumentException();
         }
 
-        public void AdminLogin(string email, string password)
+        public User AdminLogin(string email, string password)
         {
             IEnumerable<User> relatedUser = unitOfWork.UserRepository.Get(u => u.Email.Equals(email), null, "");
             CheckIfUserWasFound(relatedUser);
             CheckForCorrectPassword(relatedUser.First(), password);
             CheckIfUserHasRightRole(relatedUser.First());
+            return relatedUser.First();
         }
 
         private void CheckIfUserWasFound(IEnumerable<User> relatedUser)

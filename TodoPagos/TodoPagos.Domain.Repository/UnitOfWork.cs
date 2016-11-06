@@ -16,6 +16,7 @@ namespace TodoPagos.Domain.Repository
         private GenericRepository<Role> roleRepository;
         private GenericRepository<Privilege> privilegeRepository;
         private GenericRepository<LogEntry> entriesRepository;
+        private GenericRepository<PointsManager> pointsManagerRepository;
 
         public UnitOfWork(TodoPagosContext todoPagosContext)
         {
@@ -110,6 +111,18 @@ namespace TodoPagos.Domain.Repository
                     this.entriesRepository = new GenericRepository<LogEntry>(context);
                 }
                 return entriesRepository;
+            }
+        }
+
+        public IRepository<PointsManager> PointsManagerRepository
+        {
+            get
+            {
+                if (this.pointsManagerRepository == null)
+                {
+                    this.pointsManagerRepository = new GenericRepository<PointsManager>(context);
+                }
+                return pointsManagerRepository;
             }
         }
 

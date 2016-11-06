@@ -31,6 +31,8 @@ namespace TodoPagos.Domain.DataAccess
 
         public virtual DbSet<LogEntry> Entries { get; set; }
 
+        public virtual DbSet<PointsManager> PointsManager { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

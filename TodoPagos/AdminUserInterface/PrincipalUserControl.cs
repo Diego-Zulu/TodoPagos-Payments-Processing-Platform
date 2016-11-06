@@ -15,16 +15,24 @@ namespace TodoPagos.AdminForm.Form
     {
 
         private ILogStrategy logStrategy;
+        private IUnitOfWork unitOfWork;
 
-        public PrincipalUserControl(ILogStrategy aStrategy)
+        public PrincipalUserControl(ILogStrategy aStrategy, IUnitOfWork aUnitOfWork, string nameOfUser)
         {
             InitializeComponent();
+            LoadWelcomeMessage(nameOfUser);
             logStrategy = aStrategy;
+            unitOfWork = aUnitOfWork;
+        }
+
+        private void LoadWelcomeMessage(string nameOfUser)
+        {
+            this.lblWelcomeLoad.Text = nameOfUser + " !";
         }
 
         private void btnPoints_Click(object sender, EventArgs e)
         {
-            ChangeSecondPanel(new PointsManagementUserControl());
+            ChangeSecondPanel(new PointsManagementUserControl(unitOfWork));
         }
 
         public void ChangeSecondPanel(UserControl userControl)

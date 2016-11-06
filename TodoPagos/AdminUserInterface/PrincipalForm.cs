@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using TodoPagos.AdminForm.Logic;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.Domain.Repository;
+using TodoPagos.UserAPI;
 
 namespace TodoPagos.AdminForm.Form
 {
@@ -11,6 +12,7 @@ namespace TodoPagos.AdminForm.Form
     {
         private LoginFacade todoPagosFacade;
         private ILogStrategy logStrategy;
+        private IUnitOfWork unitOfWork;
 
         [STAThread]
         private static void Main(string[] args)
@@ -23,7 +25,7 @@ namespace TodoPagos.AdminForm.Form
         {
             InitializeComponent();
             TodoPagosContext context = new TodoPagosContext();
-            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            unitOfWork = new UnitOfWork(context);
             logStrategy = new LogDatabaseConcreteStrategy(unitOfWork);
             todoPagosFacade = new LoginFacade(unitOfWork);
         }
@@ -32,9 +34,9 @@ namespace TodoPagos.AdminForm.Form
         {
             try
             {
-                CheckForValidUser();
+                User loggedInUser = CheckForValidUser();
                 AddEntryToLog();
-                ChangeActivePanel(new PrincipalUserControl(logStrategy));
+                ChangeActivePanel(new PrincipalUserControl(logStrategy, unitOfWork, loggedInUser.Name));
             }
             catch (UnauthorizedAccessException)
             {
@@ -68,11 +70,11 @@ namespace TodoPagos.AdminForm.Form
                 , MessageBoxIcon.Error);
         }
 
-        private void CheckForValidUser()
+        private User CheckForValidUser()
         {
             string email = this.txtEmailLogin.Text;
             string password = this.txtPasswordLogin.Text;
-            todoPagosFacade.AdminLogin(email, password);
+            return todoPagosFacade.AdminLogin(email, password);
         }
 
         public void ChangeActivePanel(UserControl userControl)

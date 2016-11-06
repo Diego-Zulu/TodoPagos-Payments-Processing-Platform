@@ -35,13 +35,13 @@
             this.txtNewPointValue = new System.Windows.Forms.TextBox();
             this.btnNewPointValue = new System.Windows.Forms.Button();
             this.lblActualBlacklist = new System.Windows.Forms.Label();
-            this.lstActualBlacklist = new System.Windows.Forms.ListView();
             this.lblAddToBlacklist = new System.Windows.Forms.Label();
             this.lstAddToBlacklist = new System.Windows.Forms.ListBox();
             this.btnAddToBlacklist = new System.Windows.Forms.Button();
             this.lblRemoveProvidersFromBlacklist = new System.Windows.Forms.Label();
             this.lstRemoveFromBlacklist = new System.Windows.Forms.ListBox();
             this.btnRemoveFromBlacklist = new System.Windows.Forms.Button();
+            this.lstActualBlacklist = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lblPoints
@@ -67,9 +67,10 @@
             // lblActualValueLoad
             // 
             this.lblActualValueLoad.AutoSize = true;
-            this.lblActualValueLoad.Location = new System.Drawing.Point(321, 107);
+            this.lblActualValueLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblActualValueLoad.Location = new System.Drawing.Point(325, 105);
             this.lblActualValueLoad.Name = "lblActualValueLoad";
-            this.lblActualValueLoad.Size = new System.Drawing.Size(0, 17);
+            this.lblActualValueLoad.Size = new System.Drawing.Size(0, 20);
             this.lblActualValueLoad.TabIndex = 2;
             // 
             // lblNewValue
@@ -84,19 +85,20 @@
             // 
             // txtNewPointValue
             // 
-            this.txtNewPointValue.Location = new System.Drawing.Point(338, 179);
+            this.txtNewPointValue.Location = new System.Drawing.Point(329, 180);
             this.txtNewPointValue.Name = "txtNewPointValue";
             this.txtNewPointValue.Size = new System.Drawing.Size(90, 22);
             this.txtNewPointValue.TabIndex = 4;
             // 
             // btnNewPointValue
             // 
-            this.btnNewPointValue.Location = new System.Drawing.Point(439, 179);
+            this.btnNewPointValue.Location = new System.Drawing.Point(435, 179);
             this.btnNewPointValue.Name = "btnNewPointValue";
-            this.btnNewPointValue.Size = new System.Drawing.Size(98, 23);
+            this.btnNewPointValue.Size = new System.Drawing.Size(103, 24);
             this.btnNewPointValue.TabIndex = 5;
             this.btnNewPointValue.Text = "Cambiar";
             this.btnNewPointValue.UseVisualStyleBackColor = true;
+            this.btnNewPointValue.Click += new System.EventHandler(this.btnNewPointValue_Click);
             // 
             // lblActualBlacklist
             // 
@@ -107,14 +109,6 @@
             this.lblActualBlacklist.Size = new System.Drawing.Size(275, 20);
             this.lblActualBlacklist.TabIndex = 6;
             this.lblActualBlacklist.Text = "Lista negra de Proveedores actual: ";
-            // 
-            // lstActualBlacklist
-            // 
-            this.lstActualBlacklist.Location = new System.Drawing.Point(140, 253);
-            this.lstActualBlacklist.Name = "lstActualBlacklist";
-            this.lstActualBlacklist.Size = new System.Drawing.Size(600, 116);
-            this.lstActualBlacklist.TabIndex = 7;
-            this.lstActualBlacklist.UseCompatibleStateImageBehavior = false;
             // 
             // lblAddToBlacklist
             // 
@@ -143,6 +137,7 @@
             this.btnAddToBlacklist.TabIndex = 10;
             this.btnAddToBlacklist.Text = "Agregar";
             this.btnAddToBlacklist.UseVisualStyleBackColor = true;
+            this.btnAddToBlacklist.Click += new System.EventHandler(this.btnAddToBlacklist_Click);
             // 
             // lblRemoveProvidersFromBlacklist
             // 
@@ -171,18 +166,29 @@
             this.btnRemoveFromBlacklist.TabIndex = 13;
             this.btnRemoveFromBlacklist.Text = "Quitar";
             this.btnRemoveFromBlacklist.UseVisualStyleBackColor = true;
+            this.btnRemoveFromBlacklist.Click += new System.EventHandler(this.btnRemoveFromBlacklist_Click);
+            // 
+            // lstActualBlacklist
+            // 
+            this.lstActualBlacklist.FormattingEnabled = true;
+            this.lstActualBlacklist.ItemHeight = 16;
+            this.lstActualBlacklist.Location = new System.Drawing.Point(137, 254);
+            this.lstActualBlacklist.Name = "lstActualBlacklist";
+            this.lstActualBlacklist.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.lstActualBlacklist.Size = new System.Drawing.Size(603, 116);
+            this.lstActualBlacklist.TabIndex = 14;
             // 
             // PointsManagementUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lstActualBlacklist);
             this.Controls.Add(this.btnRemoveFromBlacklist);
             this.Controls.Add(this.lstRemoveFromBlacklist);
             this.Controls.Add(this.lblRemoveProvidersFromBlacklist);
             this.Controls.Add(this.btnAddToBlacklist);
             this.Controls.Add(this.lstAddToBlacklist);
             this.Controls.Add(this.lblAddToBlacklist);
-            this.Controls.Add(this.lstActualBlacklist);
             this.Controls.Add(this.lblActualBlacklist);
             this.Controls.Add(this.btnNewPointValue);
             this.Controls.Add(this.txtNewPointValue);
@@ -206,12 +212,12 @@
         private System.Windows.Forms.TextBox txtNewPointValue;
         private System.Windows.Forms.Button btnNewPointValue;
         private System.Windows.Forms.Label lblActualBlacklist;
-        private System.Windows.Forms.ListView lstActualBlacklist;
         private System.Windows.Forms.Label lblAddToBlacklist;
         private System.Windows.Forms.ListBox lstAddToBlacklist;
         private System.Windows.Forms.Button btnAddToBlacklist;
         private System.Windows.Forms.Label lblRemoveProvidersFromBlacklist;
         private System.Windows.Forms.ListBox lstRemoveFromBlacklist;
         private System.Windows.Forms.Button btnRemoveFromBlacklist;
+        private System.Windows.Forms.ListBox lstActualBlacklist;
     }
 }

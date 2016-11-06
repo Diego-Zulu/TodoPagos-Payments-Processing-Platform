@@ -20,6 +20,8 @@ namespace TodoPagos.Domain.Repository
 
         IRepository<LogEntry> EntriesRepository { get; }
 
+        IRepository<PointsManager> PointsManagerRepository { get; }
+
         void Save();
 
         bool CurrentSignedInUserHasRequiredPrivilege(string userEmail, Privilege somePrivilege);

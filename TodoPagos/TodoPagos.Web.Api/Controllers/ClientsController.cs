@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -111,6 +112,47 @@ namespace TodoPagos.Web.Api.Controllers
             catch (UnauthorizedAccessException)
             {
                 return Unauthorized();
+            }
+        }
+
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutClient(int id, Client client)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return TryToUpdateClient(id, client);
+            }
+        }
+
+        private IHttpActionResult TryToUpdateClient(int id, Client client)
+        {
+            try
+            {
+                if (!clientService.UpdateClient(id, client, signedInUsername))
+                {
+                    return DecideWhatErrorMessageToReturn(id, client);
+                }
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
+
+        private IHttpActionResult DecideWhatErrorMessageToReturn(int id, Client client)
+        {
+            if (client == null || id != client.ID)
+            {
+                return BadRequest("El cliente actualizado es nulo o su id no coincide con la del cliente a actualizar");
+            }
+            else
+            {
+                return NotFound();
             }
         }
     }

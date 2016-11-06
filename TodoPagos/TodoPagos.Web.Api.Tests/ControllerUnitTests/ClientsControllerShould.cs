@@ -98,7 +98,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         }
 
         [TestMethod]
-        public void FailWithBadRequestIfPostedNewUserIsAlreadyInRepository()
+        public void FailWithBadRequestIfPostedNewClientIsAlreadyInRepository()
         {
             Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
             var mockClientService = new Mock<IClientService>();
@@ -111,9 +111,10 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         }
 
         [TestMethod]
-        public void FailWithBadRequestIfPostedNewUserIsNotCompleteInRepository()
+        public void FailWithBadRequestIfPostedNewClientIsNotCompleteInRepository()
         {
-            Client incompleteClient = new Client();
+            Client incompleteClient = new Client("Ruben Rada", "11111111", "26666666");
+            incompleteClient.Name = "";
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.CreateClient(incompleteClient, It.IsAny<String>())).Throws(new ArgumentException());
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -124,7 +125,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         }
 
         [TestMethod]
-        public void FailWithBadRequestIfPostedNewUserIsNull()
+        public void FailWithBadRequestIfPostedNewClientIsNull()
         {
             Client nullClient = null;
             var mockClientService = new Mock<IClientService>();

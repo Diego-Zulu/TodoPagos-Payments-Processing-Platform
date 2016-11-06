@@ -73,5 +73,45 @@ namespace TodoPagos.Web.Api.Controllers
                 return Unauthorized();
             }
         }
+
+        [HttpPost]
+        [ResponseType(typeof(Client))]
+        public IHttpActionResult PostClient(Client newClient)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return TryToCreateClientWhileCheckingForArgumentNullAndArgumentException(newClient);
+        }
+
+        private IHttpActionResult TryToCreateClientWhileCheckingForArgumentNullAndArgumentException(Client newClient)
+        {
+            try
+            {
+                return TryToCreateClientWhileCheckingForInvalidOperationException(newClient);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        private IHttpActionResult TryToCreateClientWhileCheckingForInvalidOperationException(Client newClient)
+        {
+            try
+            {
+                int id = clientService.CreateClient(newClient, signedInUsername);
+                return CreatedAtRoute("TodoPagosApi", new { id = newClient.ID }, newClient);
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
     }
 }

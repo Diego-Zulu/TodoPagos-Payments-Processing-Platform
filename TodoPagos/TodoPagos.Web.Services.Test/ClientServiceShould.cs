@@ -5,6 +5,7 @@ using Moq;
 using TodoPagos.UserAPI;
 using TodoPagos.Domain;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace TodoPagos.Web.Services.Test
 {
@@ -120,7 +121,7 @@ namespace TodoPagos.Web.Services.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void FailWithInvalidOperationExceptionIfToBeCreatedNewUserIsAlreadyInRepository()
+        public void FailWithInvalidOperationExceptionIfToBeCreatedNewClientIsAlreadyInRepository()
         {
             Client repeatedClient = new Client("Ruben Rada", "11111111", "26666666");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -214,7 +215,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void NotUpdateNullUser()
+        public void NotUpdateNullClient()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine4(mockUnitOfWork);
@@ -238,7 +239,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void NotUpdateUserWithDifferentIdThanSupplied()
+        public void NotUpdateClientWithDifferentIdThanSupplied()
         {
             Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -263,7 +264,7 @@ namespace TodoPagos.Web.Services.Test
         }
 
         [TestMethod]
-        public void NotUpdateUserWithEmailOfAnotherUserInRepository()
+        public void NotUpdateClientWithIDCardOfAnotherClientInRepository()
         {
             Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -291,6 +292,76 @@ namespace TodoPagos.Web.Services.Test
                .Setup(un => un.ClientRepository.Get(
                It.IsAny<System.Linq.Expressions.Expression<Func<Client, bool>>>(), null, ""))
                .Returns(new[] { clientWithSameIDCard });
+        }
+
+        [TestMethod]
+        public void BeAbleToDeleteClientFromRepository()
+        {
+            Client singleClient = new Client("Rada", "11111111", "26666667");
+            singleClient.ID = 1;
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockDeleteRoutine1(mockUnitOfWork, singleClient);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool deleted = clientService.DeleteClient(1, "diego_i_zuluaga@outlook.com");
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Delete(It.IsAny<int>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
+            Assert.IsTrue(deleted);
+        }
+
+        private void SetMockDeleteRoutine1(Mock<IUnitOfWork> mockUnitOfWork, Client singleClient)
+        {
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(
+                    "diego_i_zuluaga@outlook.com", ClientManagementPrivilege.GetInstance()))
+                .Returns(true);
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => singleClient);
+            mockUnitOfWork.Setup(un => un.ClientRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
+
+        [TestMethod]
+        public void NotDeleteAnythingIfClientIdDoesntExistInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockDeleteRoutine2(mockUnitOfWork);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool deleted = clientService.DeleteClient(2, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Delete(It.IsAny<int>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(deleted);
+        }
+
+        private void SetMockDeleteRoutine2(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => null);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+            .Returns(true);
+            mockUnitOfWork.Setup(un => un.ClientRepository.Delete(It.IsAny<int>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void FailWithUnauthorizedAccessExceptionIfUserTriesToPostANewClientWithoutHavingClientManagementPrivilege()
+        {
+            Client singleClient = new Client("Rada", "11111111", "26666667");
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+                .Returns(false);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            int id = clientService.CreateClient(singleClient, It.IsAny<string>());
         }
     }
 }

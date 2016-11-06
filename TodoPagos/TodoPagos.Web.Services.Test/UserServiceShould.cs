@@ -307,7 +307,7 @@ namespace TodoPagos.Web.Services.Tests
             SetMockDeleteRoutine1(mockUnitOfWork, adminUser);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            bool deleted = userService.DeleteUser(2, adminUser.Email);
+            bool deleted = userService.DeleteUser(1, adminUser.Email);
 
             mockUnitOfWork.Verify(un => un.UserRepository.Delete(It.IsAny<int>()), Times.Exactly(1));
             mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));

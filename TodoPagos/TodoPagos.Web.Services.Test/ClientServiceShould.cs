@@ -34,7 +34,7 @@ namespace TodoPagos.Web.Services.Test
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork
             .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(
-                It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
             .Returns(true);
             mockUnitOfWork.Setup(un => un.ClientRepository.Get(null, null, ""));
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -50,7 +50,7 @@ namespace TodoPagos.Web.Services.Test
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork
             .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(
-                It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
             .Returns(true);
             mockUnitOfWork.Setup(un => un.ClientRepository.GetByID(It.IsAny<int>())).Returns(singleClient);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -69,7 +69,7 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()));
             mockUnitOfWork
             .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(
-                It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+                It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
             .Returns(true);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
 
@@ -80,7 +80,7 @@ namespace TodoPagos.Web.Services.Test
         public void BeAbleToCreateNewClientInRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.ClientRepository.Insert(It.IsAny<Client>()));
             mockUnitOfWork.Setup(un => un.Save());
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -96,7 +96,7 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithInvalidOperationExceptionIfToBeCreatedNewClientIsNotComplete()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork.Setup(un => un.ClientRepository.Get(
                It.IsAny<System.Linq.Expressions.Expression<Func<Client, bool>>>(), null, "")).Returns(new List<Client>());
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -111,7 +111,7 @@ namespace TodoPagos.Web.Services.Test
         public void FailWithArgumentNullExceptionIfToBeCreatedNewClientIsNull()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance())).Returns(true);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
 
             Client nullClient = null;
@@ -124,7 +124,7 @@ namespace TodoPagos.Web.Services.Test
         {
             Client repeatedClient = new Client("Ruben Rada", "11111111", "26666666");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance())).Returns(true);
+            mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork
                 .Setup(un => un.ClientRepository.Get(
                 It.IsAny<System.Linq.Expressions.Expression<Func<Client, bool>>>(), null, ""))
@@ -132,6 +132,165 @@ namespace TodoPagos.Web.Services.Test
 
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
             int id = clientService.CreateClient(repeatedClient, It.IsAny<string>());
+        }
+
+        [TestMethod]
+        public void BeAbleToUpdateExistingClient()
+        {
+            Client toBeUpdatedClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client updatedClient = new Client("Rada", "49018830", "26666667");
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine1(mockUnitOfWork, toBeUpdatedClient);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool updated = clientService.UpdateClient(toBeUpdatedClient.ID, updatedClient, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Update(It.IsAny<Client>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
+            Assert.IsTrue(updated);
+        }
+
+        private void SetMockUpdateRoutine1(Mock<IUnitOfWork> mockUnitOfWork, Client toBeUpdatedClient)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => toBeUpdatedClient);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+            .Returns(true);
+            mockUnitOfWork.Setup(un => un.ClientRepository.Update(It.IsAny<Client>()));
+            mockUnitOfWork.Setup(un => un.Save());
+        }
+
+        [TestMethod]
+        public void NotUpdateNotFilledInformation()
+        {
+            Client toBeUpdatedClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client updatedClient = new Client("Ruben Rada", "49018830", "26666667");
+            updatedClient.Name = "";
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine2(mockUnitOfWork, toBeUpdatedClient);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool updated = clientService.UpdateClient(toBeUpdatedClient.ID, updatedClient, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Update(It.IsAny<Client>()), Times.Exactly(1));
+            mockUnitOfWork.Verify(un => un.Save(), Times.Exactly(1));
+            Assert.AreEqual(toBeUpdatedClient.Name, "Ruben Rada");
+        }
+
+        private void SetMockUpdateRoutine2(Mock<IUnitOfWork> mockUnitOfWork, Client toBeUpdatedClient)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => toBeUpdatedClient);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+                .Returns(true);
+        }
+
+        [TestMethod]
+        public void NotUpdateNonExistingClient()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine3(mockUnitOfWork);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool updated = clientService.UpdateClient(0, new Client() { }, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Update(It.IsAny<Client>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        private void SetMockUpdateRoutine3(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+                .Returns(true);
+        }
+
+        [TestMethod]
+        public void NotUpdateNullUser()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine4(mockUnitOfWork);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool updated = clientService.UpdateClient(0, null, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Update(It.IsAny<Client>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        private void SetMockUpdateRoutine4(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => null);
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+                .Returns(true);
+        }
+
+        [TestMethod]
+        public void NotUpdateUserWithDifferentIdThanSupplied()
+        {
+            Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666");
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine5(mockUnitOfWork);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool updated = clientService.UpdateClient(updatedClientInfo.ID + 1, updatedClientInfo, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Update(It.IsAny<Client>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        private void SetMockUpdateRoutine5(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => new Client());
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+                .Returns(true);
+        }
+
+        [TestMethod]
+        public void NotUpdateUserWithEmailOfAnotherUserInRepository()
+        {
+            Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666");
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            SetMockUpdateRoutine6(mockUnitOfWork);
+            ClientService clientService = new ClientService(mockUnitOfWork.Object);
+
+            bool updated = clientService.UpdateClient(updatedClientInfo.ID + 1, updatedClientInfo, It.IsAny<string>());
+
+            mockUnitOfWork.Verify(un => un.ClientRepository.Update(It.IsAny<Client>()), Times.Never());
+            mockUnitOfWork.Verify(un => un.Save(), Times.Never());
+            Assert.IsFalse(updated);
+        }
+
+        private void SetMockUpdateRoutine6(Mock<IUnitOfWork> mockUnitOfWork)
+        {
+            Client clientWithSameIDCard = new Client("Rada", "11111111", "26666667");
+            clientWithSameIDCard.ID = 5;
+            mockUnitOfWork
+                .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
+                .Returns(() => new Client());
+            mockUnitOfWork
+                .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))
+                .Returns(true);
+            mockUnitOfWork
+               .Setup(un => un.ClientRepository.Get(
+               It.IsAny<System.Linq.Expressions.Expression<Func<Client, bool>>>(), null, ""))
+               .Returns(new[] { clientWithSameIDCard });
         }
     }
 }

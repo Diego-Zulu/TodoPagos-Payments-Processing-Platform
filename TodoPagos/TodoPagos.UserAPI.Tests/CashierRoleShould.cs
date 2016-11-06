@@ -55,5 +55,15 @@ namespace TodoPagos.UserAPI.Tests
 
             Assert.AreNotEqual(cashierRole, nonRoleObject);
         }
+
+        [TestMethod]
+        public void HaveAtLeastOnePrivilege()
+        {
+            CashierRole cashierRole = CashierRole.GetInstance();
+
+            int numberOfPrivileges = cashierRole.GetPrivilegeCount();
+
+            Assert.IsTrue(numberOfPrivileges > 0);
+        }
     }
 }

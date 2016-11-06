@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hashing.cs" />
+    <Compile Include="Privileges\ClientManagementPrivilege.cs" />
     <Compile Include="Privileges\EarningQueriesPrivilege.cs" />
     <Compile Include="Privileges\ProviderManagementPrivilege.cs" />
     <Compile Include="Roles\AdminRole.cs" />

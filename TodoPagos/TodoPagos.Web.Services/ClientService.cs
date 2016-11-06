@@ -29,7 +29,50 @@ namespace TodoPagos.Web.Services
 
         public int CreateClient(Client newClient, string signedInUserEmail)
         {
-            throw new NotImplementedException();
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            MakeSureTargetClientIsReadyToBeCreated(newClient);
+            unitOfWork.ClientRepository.Insert(newClient);
+            unitOfWork.Save();
+            return newClient.ID;
+        }
+
+        private void MakeSureTargetClientIsReadyToBeCreated(Client targetClient)
+        {
+            MakeSureTargetClientIsNotNull(targetClient);
+            MakeSureTargetIsNotAlreadyInRepository(targetClient);
+            MakeSureClientIsComplete(targetClient);
+        }
+
+        private void MakeSureTargetClientIsNotNull(Client targetClient)
+        {
+            if (targetClient == null)
+            {
+                throw new ArgumentNullException("Un nuevo cliente no puede ser nulo");
+            }
+        }
+
+        private void MakeSureClientIsComplete(Client targetClient)
+        {
+            if (!targetClient.IsComplete())
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private void MakeSureTargetIsNotAlreadyInRepository(Client targetClient)
+        {
+            if (ExistsClient(targetClient))
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private bool ExistsClient(Client targetClient)
+        {
+            IEnumerable<Client> clientsThatExists = unitOfWork.ClientRepository.Get(
+             cli => cli.IDCard.Equals(targetClient.IDCard)
+             || cli.ID.Equals(targetClient.ID), null, "");
+            return clientsThatExists.Count() > 0;
         }
 
         public bool DeleteClient(int id, string signedInUserEmail)
@@ -66,7 +109,7 @@ namespace TodoPagos.Web.Services
 
         private void MakeSureUserHasRequiredPrivilege(string signedInUserEmail)
         {
-            if (!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, UserManagementPrivilege.GetInstance()))
+            if (!unitOfWork.CurrentSignedInUserHasRequiredPrivilege(signedInUserEmail, ClientManagementPrivilege.GetInstance()))
             {
                 throw new UnauthorizedAccessException();
             }

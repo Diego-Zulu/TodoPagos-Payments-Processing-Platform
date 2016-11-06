@@ -57,6 +57,7 @@
     <Compile Include="EarningQueriesPrivilegeShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderManagementPrivilegeShould.cs" />
+    <Compile Include="ClientManagementPrivilegeShould.cs" />
     <Compile Include="UserManagementPrivilegeShould.cs" />
     <Compile Include="UserShould.cs" />
   </ItemGroup>

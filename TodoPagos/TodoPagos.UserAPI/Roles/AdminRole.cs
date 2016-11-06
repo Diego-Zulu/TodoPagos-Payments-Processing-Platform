@@ -29,6 +29,7 @@ namespace TodoPagos.UserAPI
             this.Privileges.Add(UserManagementPrivilege.GetInstance());
             this.Privileges.Add(ProviderManagementPrivilege.GetInstance());
             this.Privileges.Add(EarningQueriesPrivilege.GetInstance());
+            this.Privileges.Add(ClientManagementPrivilege.GetInstance());
         }
 
     }

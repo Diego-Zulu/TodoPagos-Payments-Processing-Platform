@@ -111,6 +111,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerIntegrationTests\ClientsControllerShould.cs" />
     <Compile Include="ControllerIntegrationTests\EarningQueriesControllerShould.cs" />
     <Compile Include="ControllerIntegrationTests\PaymentsControllerShould.cs" />
     <Compile Include="ControllerIntegrationTests\ProvidersControllerShould.cs" />

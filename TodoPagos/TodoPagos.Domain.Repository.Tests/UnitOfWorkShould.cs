@@ -162,6 +162,28 @@ namespace TodoPagos.Domain.Repository.Tests
         }
 
         [TestMethod]
+        public void ReturnANewClientRepositoryInCaseThereIsNotOneAlready()
+        {
+            var mockContext = new Mock<TodoPagosContext>();
+            UnitOfWork unitOfWork = new UnitOfWork(mockContext.Object);
+
+            IRepository<Client> repository = unitOfWork.ClientRepository;
+
+            Assert.IsNotNull(repository);
+        }
+
+        [TestMethod]
+        public void ReturnTheSameClientRepositoryInCaseThereIsOneAlready()
+        {
+            var mockContext = new Mock<TodoPagosContext>();
+            UnitOfWork unitOfWork = new UnitOfWork(mockContext.Object);
+
+            IRepository<Client> repository = unitOfWork.ClientRepository;
+
+            Assert.AreSame(unitOfWork.ClientRepository, repository);
+        }
+
+        [TestMethod]
         public void BeAbleToDiposeItself()
         {
             List<User> data = new List<User>();

@@ -13,7 +13,6 @@ using TodoPagos.Web.Services;
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/clients")]
-    [Authorize]
     public class ClientsController : ApiController
     {
         private readonly IClientService clientService;
@@ -21,10 +20,27 @@ namespace TodoPagos.Web.Api.Controllers
 
         public ClientsController()
         {
-            //TodoPagosContext context = new TodoPagosContext();
-            //IUnitOfWork unitOfWork = new UnitOfWork(context);
-            //clientService = new ClientService(unitOfWork);
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            clientService = new ClientService(unitOfWork);
             signedInUsername = HttpContext.Current.User.Identity.Name;
+        }
+
+        public ClientsController(string username)
+        {
+            MakeSureUsernameIsNotNullOrWhiteSpace(username);
+            TodoPagosContext context = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(context);
+            clientService = new ClientService(unitOfWork);
+            signedInUsername = username;
+        }
+
+        private void MakeSureUsernameIsNotNullOrWhiteSpace(string aUsername)
+        {
+            if (string.IsNullOrWhiteSpace(aUsername))
+            {
+                throw new ArgumentException("El nombre de usuario para un controller no puede ser nulo");
+            }
         }
 
         public ClientsController(IClientService oneService)

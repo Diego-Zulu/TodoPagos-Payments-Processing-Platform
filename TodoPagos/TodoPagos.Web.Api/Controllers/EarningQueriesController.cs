@@ -19,7 +19,7 @@ namespace TodoPagos.Web.Api.Controllers
     {
         private readonly IEarningQueriesService earningQueriesService;
         private readonly DateTime DEFAULT_FROM_DATE = DateTime.MinValue;
-        private readonly DateTime DEFAULT_TO_DATE = DateTime.Now.ToUniversalTime();
+        private readonly DateTime DEFAULT_TO_DATE = DateTime.UtcNow;
         private readonly string signedInUsername;
         private readonly string[] ACCEPTED_DATE_FORMATS = new[]{ "yyyy-MM-ddTHH:mm:ssZ" };
 

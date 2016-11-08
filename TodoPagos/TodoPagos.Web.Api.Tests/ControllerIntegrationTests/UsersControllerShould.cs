@@ -27,8 +27,6 @@ namespace TodoPagos.WebApi.Tests.ControllerIntegrationTests
 
         UsersController CONTROLLER;
 
-
-
         [ClassInitialize()]
         public static void SetAdminUsersInfoForTests(TestContext testContext)
         {

@@ -33,6 +33,8 @@ namespace TodoPagos.Domain.DataAccess
 
         public virtual DbSet<PointsManager> PointsManager { get; set; }
 
+        public virtual DbSet<Client> Clients { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

@@ -9,13 +9,15 @@ namespace TodoPagos.AdminForm.Form
 
         private ILogStrategy logStrategy;
         private IUnitOfWork unitOfWork;
+        private string signedInUserEmail;
 
-        public PrincipalUserControl(ILogStrategy aStrategy, IUnitOfWork aUnitOfWork, string nameOfUser)
+        public PrincipalUserControl(ILogStrategy aStrategy, IUnitOfWork aUnitOfWork, string nameOfUser, string userEmail)
         {
             InitializeComponent();
             LoadWelcomeMessage(nameOfUser);
             logStrategy = aStrategy;
             unitOfWork = aUnitOfWork;
+            signedInUserEmail = userEmail;
         }
 
         private void LoadWelcomeMessage(string nameOfUser)
@@ -43,12 +45,12 @@ namespace TodoPagos.AdminForm.Form
 
         private void btnAvailableProducts_Click(object sender, EventArgs e)
         {
-            ChangeSecondPanel(new AvailableProductsUserControl());
+            ChangeSecondPanel(new AvailableProductsUserControl(unitOfWork));
         }
 
         private void btnProductLoad_Click(object sender, EventArgs e)
         {
-            ChangeSecondPanel(new LoadNewProductsUserControl());
+            ChangeSecondPanel(new LoadNewProductsUserControl(unitOfWork, logStrategy, signedInUserEmail));
         }
     }
 }

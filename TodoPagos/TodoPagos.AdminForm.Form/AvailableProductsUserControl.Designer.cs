@@ -30,7 +30,7 @@
         {
             this.lblProducts = new System.Windows.Forms.Label();
             this.lblActualAvailableProducts = new System.Windows.Forms.Label();
-            this.lstActualAvailableProducts = new System.Windows.Forms.ListView();
+            this.lstActualAvailableProducts = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lblProducts
@@ -47,7 +47,7 @@
             // 
             this.lblActualAvailableProducts.AutoSize = true;
             this.lblActualAvailableProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActualAvailableProducts.Location = new System.Drawing.Point(125, 102);
+            this.lblActualAvailableProducts.Location = new System.Drawing.Point(110, 102);
             this.lblActualAvailableProducts.Name = "lblActualAvailableProducts";
             this.lblActualAvailableProducts.Size = new System.Drawing.Size(280, 20);
             this.lblActualAvailableProducts.TabIndex = 1;
@@ -55,11 +55,12 @@
             // 
             // lstActualAvailableProducts
             // 
-            this.lstActualAvailableProducts.Location = new System.Drawing.Point(129, 125);
+            this.lstActualAvailableProducts.FormattingEnabled = true;
+            this.lstActualAvailableProducts.ItemHeight = 16;
+            this.lstActualAvailableProducts.Location = new System.Drawing.Point(114, 126);
             this.lstActualAvailableProducts.Name = "lstActualAvailableProducts";
-            this.lstActualAvailableProducts.Size = new System.Drawing.Size(620, 413);
+            this.lstActualAvailableProducts.Size = new System.Drawing.Size(634, 420);
             this.lstActualAvailableProducts.TabIndex = 2;
-            this.lstActualAvailableProducts.UseCompatibleStateImageBehavior = false;
             // 
             // AvailableProductsUserControl
             // 
@@ -79,6 +80,6 @@
 
         private System.Windows.Forms.Label lblProducts;
         private System.Windows.Forms.Label lblActualAvailableProducts;
-        private System.Windows.Forms.ListView lstActualAvailableProducts;
+        private System.Windows.Forms.ListBox lstActualAvailableProducts;
     }
 }

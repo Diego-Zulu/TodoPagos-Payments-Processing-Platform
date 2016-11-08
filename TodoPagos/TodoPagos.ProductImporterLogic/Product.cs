@@ -161,5 +161,11 @@ namespace TodoPagos.ProductImporterLogic
         {
             return Name.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return "Nombre: " + Name + " --- Descripción: " + Description + " --- Puntos: " + NeededPoints + 
+                " --- Stock: " + Stock;
+        }
     }
 }

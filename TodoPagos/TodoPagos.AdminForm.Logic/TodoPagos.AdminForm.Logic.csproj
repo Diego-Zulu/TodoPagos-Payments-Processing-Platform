@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginFacade.cs" />
+    <Compile Include="ProductFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\TodoPagos.Domain\TodoPagos.Domain.csproj">
       <Project>{a5b13880-c1f7-4165-b35f-c71219dc146e}</Project>
       <Name>TodoPagos.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoPagos.ProductImporterLogic\TodoPagos.ProductImporterLogic.csproj">
+      <Project>{0ee7723a-cac5-4164-991b-3e48098e844f}</Project>
+      <Name>TodoPagos.ProductImporterLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\TodoPagos.UserAPI\TodoPagos.UserAPI.csproj">
       <Project>{306f6fb4-9659-4714-aa36-56ea590935c5}</Project>

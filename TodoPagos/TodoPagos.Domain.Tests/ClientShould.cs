@@ -16,8 +16,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 27th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
         }
 
         [TestMethod]
@@ -27,8 +28,9 @@ namespace TodoPagos.Domain.Tests
             string name = null;
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 27th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
         }
 
         [TestMethod]
@@ -38,8 +40,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018834";
             string phone = "26666666";
+            string address = "1112 27th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
         }
 
         [TestMethod]
@@ -49,8 +52,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "1";
+            string address = "1112 27th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
         }
 
         [TestMethod]
@@ -59,8 +63,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 27th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             Assert.AreEqual(0, newClient.Points);
         }
@@ -70,12 +75,14 @@ namespace TodoPagos.Domain.Tests
         {
             string firstName = "Diego Zuluaga";
             string firstPhone = "26666666";
+            string firstAddress = "1112 27th NE";
             string secondName = "Bruno Ferrari";
             string secondPhone = "36666666";
+            string secondAddress = "1112 28th NE";
             string idCard = "49018830";
 
-            Client firstNewClient = new Client(firstName, idCard, firstPhone);
-            Client secondNewClient = new Client(secondName, idCard, secondPhone);
+            Client firstNewClient = new Client(firstName, idCard, firstPhone, firstAddress);
+            Client secondNewClient = new Client(secondName, idCard, secondPhone, secondAddress);
 
             Assert.AreEqual(firstNewClient, secondNewClient);
         }
@@ -86,13 +93,15 @@ namespace TodoPagos.Domain.Tests
             string firstName = "Diego Zuluaga";
             string firstIDCard = "49018830";
             string firstPhone = "26666666";
+            string firstAddress = "1112 27th NE";
             string secondName = "Bruno Ferrari";
             string secondIDCard = "12345672";
             string secondPhone = "26666665";
+            string secondAddress = "1112 28th NE";
 
 
-            Client firstNewClient = new Client(firstName, firstIDCard, firstPhone);
-            Client secondNewClient = new Client(secondName, secondIDCard, secondPhone);
+            Client firstNewClient = new Client(firstName, firstIDCard, firstPhone, firstAddress);
+            Client secondNewClient = new Client(secondName, secondIDCard, secondPhone, secondAddress);
 
             firstNewClient.ID = secondNewClient.ID;
 
@@ -105,8 +114,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             Assert.AreEqual(idCard.GetHashCode(), newClient.GetHashCode());
         }
@@ -119,8 +129,9 @@ namespace TodoPagos.Domain.Tests
             string idCard = "49018830";
             string phone = "26666666";
             string newName = "";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             newClient.UpdateName(newName);
         }
@@ -133,8 +144,9 @@ namespace TodoPagos.Domain.Tests
             string idCard = "49018830";
             string phone = "26666666";
             string newIDCard = "49018834";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             newClient.UpdateIDCard(newIDCard);
         }
@@ -147,8 +159,9 @@ namespace TodoPagos.Domain.Tests
             string idCard = "49018830";
             string phone = "26666666";
             string newPhone = "8729663";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             newClient.UpdatePhone(newPhone);
         }
@@ -159,10 +172,11 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
-            Client updatedClient = new Client(name, idCard, phone);
+            Client updatedClient = new Client(name, idCard, phone, address);
             updatedClient.PhoneNumber = "";
 
             newClient.UpdateClientWithCompletedInfoFromTargetClient(updatedClient);
@@ -179,8 +193,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             newClient.UpdateClientWithCompletedInfoFromTargetClient(null);
         }
@@ -191,8 +206,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
             newClient.Name = "";
 
             Assert.IsFalse(newClient.IsComplete());
@@ -205,8 +221,9 @@ namespace TodoPagos.Domain.Tests
             string name = "Diego Zuluaga";
             string idCard = "49018830";
             string phone = "26666666";
+            string address = "1112 28th NE";
 
-            Client newClient = new Client(name, idCard, phone);
+            Client newClient = new Client(name, idCard, phone, address);
 
             newClient.AddPoints(-60);
         }

@@ -31,9 +31,9 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
 
             TEST_CLIENTS = new[]
             {
-                new Client("Shigeru Miyamoto", "12345672", "26666666"),
-                new Client("Ruben Rada", "11111111", "26666666")
-            };
+                new Client("Shigeru Miyamoto", "12345672", "26666666", "1112 28th NE"),
+            new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE")
+        };
 
             foreach (Client aTestClient in TEST_CLIENTS)
             {
@@ -101,7 +101,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void BeAbleToPostNewClientIntoRepository()
         {
-            Client singleClient = new Client("Super Mega", "49018830", "26666666");
+            Client singleClient = new Client("Super Mega", "49018830", "26666666", "1112 28th NE");
             IHttpActionResult actionResult = CONTROLLER.PostClient(singleClient);
             CreatedAtRouteNegotiatedContentResult<Client> contentResult = (CreatedAtRouteNegotiatedContentResult<Client>)actionResult;
 
@@ -123,7 +123,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewClientIsNotCompleteInRepository()
         {
-            Client incompleteClient = new Client("Lala", "49018830", "26666666");
+            Client incompleteClient = new Client("Lala", "49018830", "26666666", "1112 28th NE");
             incompleteClient.Name = "";
 
             IHttpActionResult actionResult = CONTROLLER.PostClient(incompleteClient);
@@ -145,7 +145,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         public void BeAbleToUpdateAClientInTheRepository()
         {
             Client toBeUpdatedClient = TEST_CLIENTS.First();
-            Client updatedClient = new Client("Gunpei Yokoi", toBeUpdatedClient.IDCard, toBeUpdatedClient.PhoneNumber);
+            Client updatedClient = new Client("Gunpei Yokoi", toBeUpdatedClient.IDCard, toBeUpdatedClient.PhoneNumber, "1112 28th NE");
             updatedClient.ID = toBeUpdatedClient.ID;
 
             IHttpActionResult actionResult = CONTROLLER.PutClient(toBeUpdatedClient.ID, updatedClient);
@@ -175,7 +175,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestMethod]
         public void FailWithNotFoundIfServiceCantFindToBeUpdatedClientInRepository()
         {
-            Client updatedClient = new Client("Super Mega", "49018830", "26666666");
+            Client updatedClient = new Client("Super Mega", "49018830", "26666666", "1112 28th NE");
 
             IHttpActionResult actionResult = CONTROLLER.PutClient(0, updatedClient);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));

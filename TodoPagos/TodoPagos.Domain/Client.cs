@@ -16,6 +16,8 @@ namespace TodoPagos.Domain
         public string PhoneNumber { get; set; }
         public int Points { get; set; }
 
+        public string Address { get; set; }
+
         private int MINIMUM_IDCARD_LENGTH = 7;
         private int MAXIMUM_IDCARD_LENGTH = 8;
         private int[] NUMBERS_TO_MULTIPLY_IDCARD_WITH = { 2, 9, 8, 7, 6, 3, 4 };
@@ -25,14 +27,23 @@ namespace TodoPagos.Domain
 
         public Client() { }
 
-        public Client(string newName, string newIDCard, string newPhoneNumber)
+        public Client(string newName, string newIDCard, string newPhoneNumber, string newAddress)
         {
             MakeSureTargetNameIsNotNullOrWhiteSpace(newName);
             MakeSureTargetIDCardIsValid(newIDCard);
             MakeSureTargetPhoneNumberIsValid(newPhoneNumber);
+            MakeSureTargetAddressIsNotNullOrWhiteSpace(newAddress);
             Name = newName.Trim();
             IDCard = newIDCard;
             PhoneNumber = newPhoneNumber;
+        }
+
+        private void MakeSureTargetAddressIsNotNullOrWhiteSpace(string targetAddress)
+        {
+            if (string.IsNullOrWhiteSpace(targetAddress))
+            {
+                throw new ArgumentException("La dirección de un cliente no puede ser vacía");
+            }
         }
 
         private void MakeSureTargetNameIsNotNullOrWhiteSpace(string targetName)
@@ -162,6 +173,12 @@ namespace TodoPagos.Domain
             PhoneNumber = newPhone;
         }
 
+        public void UpdateAddress(string newAddress)
+        {
+            MakeSureTargetAddressIsNotNullOrWhiteSpace(newAddress);
+            Address = newAddress;
+        }
+
         public void UpdateClientWithCompletedInfoFromTargetClient(Client updatedInfoClient)
         {
             MakeSureTargetClientIsNotNull(updatedInfoClient);
@@ -169,6 +186,15 @@ namespace TodoPagos.Domain
             UpdateNameIfValid(updatedInfoClient.Name);
             UpdatePhoneNumberIfValid(updatedInfoClient.PhoneNumber);
             UpdatePointsIfValid(updatedInfoClient.Points);
+            UpdateAddressIfValid(updatedInfoClient.Address);
+        }
+
+        private void UpdateAddressIfValid(string newAddress)
+        {
+            if (!string.IsNullOrWhiteSpace(newAddress))
+            {
+                this.Address = newAddress;
+            }
         }
 
         private void MakeSureTargetClientIsNotNull(Client targetClient)
@@ -216,7 +242,7 @@ namespace TodoPagos.Domain
         {
             return !IDCardHasIncorrectFormat(this.IDCard)
                 && TargetIDCardHasValidVerificationDigit(this.IDCard) && !string.IsNullOrWhiteSpace(this.Name)
-                && !TargetPhoneNumberIsInvalid(this.PhoneNumber) && this.Points >= 0;
+                && !TargetPhoneNumberIsInvalid(this.PhoneNumber) && this.Points >= 0 && !string.IsNullOrWhiteSpace(this.Address);
         }
 
         public void AddPoints(int newPoints)

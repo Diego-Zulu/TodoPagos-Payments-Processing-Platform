@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>TodoPagos</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../scripts/jquery-1.10.2.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/app/app.js"></script>
+    <script src="../scripts/app/users/UsersCtrl.js"></script>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/todopagos.css" rel="stylesheet">
+    <link rel="icon" href="dist/img/favicon.png">
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:void(0)">TodoPagos</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            Clientes
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a href="javascript:void(0)">Registrar</a></li>
+                            <li><a href="javascript:void(0)">Modificar</a></li>
+                            <li><a href="javascript:void(0)">Eliminar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            Usuarios
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a href="javascript:void(0)">Registrar</a></li>
+                            <li><a href="javascript:void(0)">Modificar</a></li>
+                            <li><a href="javascript:void(0)">Eliminar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            Proveedores
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a href="javascript:void(0)">Registrar</a></li>
+                            <li><a href="javascript:void(0)">Modificar</a></li>
+                            <li><a href="javascript:void(0)">Eliminar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            Pagos
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a href="javascript:void(0)">Registrar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            Reportes
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">Por Proveedor</a></li>
+                            <li><a href="javascript:void(0)">Total</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:void(0)">Iniciar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="well container" id="CreateClientDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Crear Cliente</legend>
+                <div class="form-group row">
+                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
+                        <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="DeleteClientDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Eliminar Cliente</legend>
+                <div class="form-group container">
+                    <label for="deleteClientSelect">Elija el cliente a eliminar:</label>
+                    <select class="form-control" id="deleteUserSelect">
+                        <option>1.Carlos (11111111)</option>
+                        <option>2.Raul (22222222)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="UpdateClientDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Actualizar Cliente</legend>
+                <div class="form-group container">
+                    <label for="updateClientSelect">Elija el cliente a actualizar:</label>
+                    <select class="form-control" id="updateClientSelect">
+                        <option>1.Carlos (11111111)</option>
+                        <option>2.Raul (22222222)</option>
+                    </select>
+                </div>
+                <h4>Datos a modificar</h4>
+                <div class="form-group row">
+                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
+                        <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="ListClientDiv">
+        <h3>Clientes en el sistema:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Puntos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                    <td>Su casa</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="well container" id="CreateUserDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Crear Usuario</legend>
+                <div class="form-group row">
+                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
+                    <div class="col-xs-10">
+                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputConfirmEmail" class="col-xs-2 col-form-label">Confirmar Email</label>
+                    <div class="col-xs-10">
+                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-xs-2 col-form-label">Contraseña</label>
+                    <div class="col-xs-10">
+                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña">
+                        <small id="passwordHelp" class="form-text text-muted">Tiene que tener mínimo 8 caractéres, un número y una mayuscula incluidas al menos</small>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirmar Contraseña</label>
+                    <div class="col-xs-10">
+                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Roles</label>
+                    <div class="col-xs-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox">Admin</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox">Cajero</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="DeleteUserDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Eliminar Usuario</legend>
+                <div class="form-group container">
+                    <label for="deleteUserSelect">Elija el usuario a eliminar:</label>
+                    <select class="form-control" id="deleteUserSelect">
+                        <option>1.Carlos (hola@chau.com)</option>
+                        <option>2.Raul (hola@chau.net)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="UpdateUserDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Actualizar Usuario</legend>
+                <div class="form-group container">
+                    <label for="updateUserSelect">Elija el usuario a actualizar:</label>
+                    <select class="form-control" id="updateUserSelect">
+                        <option>1.Carlos (hola@chau.com)</option>
+                        <option>2.Raul (hola@chau.net)</option>
+                    </select>
+                </div>
+                <h4>Datos a modificar</h4>
+                <div class="form-group row">
+                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
+                    <div class="col-xs-10">
+                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputConfirmEmail" class="col-xs-2 col-form-label">Confirmar Email</label>
+                    <div class="col-xs-10">
+                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-xs-2 col-form-label">Contraseña</label>
+                    <div class="col-xs-10">
+                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña">
+                        <small id="passwordHelp" class="form-text text-muted">Tiene que tener mínimo 8 caractéres, un número y una mayuscula incluidas al menos</small>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirmar Contraseña</label>
+                    <div class="col-xs-10">
+                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Roles</label>
+                    <div class="col-xs-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox">Admin</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox">Cajero</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="ListUserDiv">
+        <h3>Usuarios en el sistema:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+</body>
+</html>

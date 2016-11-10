@@ -77,7 +77,7 @@ namespace Tests
         public void BeAbleToAddPointsToClientIfProviderIsNotBlacklisted()
         {
             PointsManager newPointsManager = PointsManager.GetInstance();
-            Client newClient = new Client("Diego", "49018830", "26666666");
+            Client newClient = new Client("Diego", "49018830", "26666666", "1112 28th NE");
             Provider blacklistedProvider = new Provider("Antel", 10, new List<IField>());
             double paidMoney = 200;
 

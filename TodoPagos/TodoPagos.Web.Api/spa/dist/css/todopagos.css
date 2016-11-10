@@ -1,0 +1,35 @@
+#ListUserDiv {
+	display: none
+}
+
+#UpdateUserDiv {
+	display: none
+}
+
+#CreateUserDiv {
+	display: none
+}
+
+#DeleteUserDiv {
+	display: none
+}
+
+#ListClientDiv {
+	display: none
+}
+
+#UpdateClientDiv {
+	display: none
+}
+
+#CreateClientDiv {
+	display: none
+}
+
+#DeleteClientDiv {
+	display: none
+}
+
+body {
+	background-color: #00BCD4
+}

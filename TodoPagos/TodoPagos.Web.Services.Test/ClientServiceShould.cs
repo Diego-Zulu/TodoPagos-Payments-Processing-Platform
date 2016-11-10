@@ -47,7 +47,7 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void BeAbleToReturnSingleClientsInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork
             .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(
@@ -86,7 +86,7 @@ namespace TodoPagos.Web.Services.Test
             mockUnitOfWork.Setup(un => un.Save());
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
 
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             int id = clientService.CreateClient(singleClient, It.IsAny<string>());
 
             mockUnitOfWork.VerifyAll();
@@ -102,7 +102,7 @@ namespace TodoPagos.Web.Services.Test
                It.IsAny<System.Linq.Expressions.Expression<Func<Client, bool>>>(), null, "")).Returns(new List<Client>());
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
 
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             singleClient.Name = "";
             int id = clientService.CreateClient(singleClient, It.IsAny<string>());
         }
@@ -123,7 +123,7 @@ namespace TodoPagos.Web.Services.Test
         [ExpectedException(typeof(InvalidOperationException))]
         public void FailWithInvalidOperationExceptionIfToBeCreatedNewClientIsAlreadyInRepository()
         {
-            Client repeatedClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client repeatedClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance())).Returns(true);
             mockUnitOfWork
@@ -138,8 +138,8 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void BeAbleToUpdateExistingClient()
         {
-            Client toBeUpdatedClient = new Client("Ruben Rada", "11111111", "26666666");
-            Client updatedClient = new Client("Rada", "49018830", "26666667");
+            Client toBeUpdatedClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
+            Client updatedClient = new Client("Rada", "49018830", "26666667", "1112 28th NE");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine1(mockUnitOfWork, toBeUpdatedClient);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -166,8 +166,8 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void NotUpdateNotFilledInformation()
         {
-            Client toBeUpdatedClient = new Client("Ruben Rada", "11111111", "26666666");
-            Client updatedClient = new Client("Ruben Rada", "49018830", "26666667");
+            Client toBeUpdatedClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
+            Client updatedClient = new Client("Ruben Rada", "49018830", "26666667", "1112 28th NE");
             updatedClient.Name = "";
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine2(mockUnitOfWork, toBeUpdatedClient);
@@ -241,7 +241,7 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void NotUpdateClientWithDifferentIdThanSupplied()
         {
-            Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666");
+            Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine5(mockUnitOfWork);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -266,7 +266,7 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void NotUpdateClientWithIDCardOfAnotherClientInRepository()
         {
-            Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666");
+            Client updatedClientInfo = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockUpdateRoutine6(mockUnitOfWork);
             ClientService clientService = new ClientService(mockUnitOfWork.Object);
@@ -280,7 +280,7 @@ namespace TodoPagos.Web.Services.Test
 
         private void SetMockUpdateRoutine6(Mock<IUnitOfWork> mockUnitOfWork)
         {
-            Client clientWithSameIDCard = new Client("Rada", "11111111", "26666667");
+            Client clientWithSameIDCard = new Client("Rada", "11111111", "26666667", "1112 28th NE");
             clientWithSameIDCard.ID = 5;
             mockUnitOfWork
                 .Setup(un => un.ClientRepository.GetByID(It.IsAny<int>()))
@@ -297,7 +297,7 @@ namespace TodoPagos.Web.Services.Test
         [TestMethod]
         public void BeAbleToDeleteClientFromRepository()
         {
-            Client singleClient = new Client("Rada", "11111111", "26666667");
+            Client singleClient = new Client("Rada", "11111111", "26666667", "1112 28th NE");
             singleClient.ID = 1;
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             SetMockDeleteRoutine1(mockUnitOfWork, singleClient);
@@ -354,7 +354,7 @@ namespace TodoPagos.Web.Services.Test
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void FailWithUnauthorizedAccessExceptionIfUserTriesToPostANewClientWithoutHavingClientManagementPrivilege()
         {
-            Client singleClient = new Client("Rada", "11111111", "26666667");
+            Client singleClient = new Client("Rada", "11111111", "26666667", "1112 28th NE");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork
                 .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), ClientManagementPrivilege.GetInstance()))

@@ -44,9 +44,9 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         {
             List<Client> allClients = new List<Client>
             {
-                new Client("Manzana", "12345672", "26666666"),
-                new Client("Ruben Rada", "11111111", "26666666")
-            };
+                new Client("Manzana", "12345672", "26666666", "1112 28th NE"),
+            new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE")
+        };
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.GetAllClients(It.IsAny<string>())).Returns(allClients);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -61,7 +61,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToReturnSingleClientInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.GetSingleClient(singleClient.ID, It.IsAny<string>())).Returns(singleClient);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -75,7 +75,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithNotFoundIfSingleClientIdDoesntExistInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.GetSingleClient(singleClient.ID + 1, It.IsAny<string>())).Throws(new ArgumentException());
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -87,7 +87,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToPostNewClientIntoRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.CreateClient(singleClient, It.IsAny<String>())).Returns(1);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -101,7 +101,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewClientIsAlreadyInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.CreateClient(singleClient, It.IsAny<String>())).Throws(new InvalidOperationException());
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -114,7 +114,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithBadRequestIfPostedNewClientIsNotCompleteInRepository()
         {
-            Client incompleteClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client incompleteClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             incompleteClient.Name = "";
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.CreateClient(incompleteClient, It.IsAny<String>())).Throws(new ArgumentException());
@@ -141,7 +141,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToUpdateAnClientInTheRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.UpdateClient(singleClient.ID, singleClient, It.IsAny<string>())).Returns(true);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -155,7 +155,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithBadRequestIfUpdatedClientIdAndSuppliedIdAreDifferent()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.UpdateClient(singleClient.ID + 1, singleClient, It.IsAny<string>())).Returns(false);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -179,7 +179,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithNotFoundIfServiceCantFindToBeUpdatedClientInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.UpdateClient(singleClient.ID, singleClient, It.IsAny<string>())).Returns(false);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -191,7 +191,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void BeAbleToDeleteAClient()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.DeleteClient(singleClient.ID, It.IsAny<string>())).Returns(true);
             ClientsController controller = new ClientsController(mockClientService.Object);
@@ -205,7 +205,7 @@ namespace TodoPagos.Web.Api.Tests.ControllerUnitTests
         [TestMethod]
         public void FailWithNotFoundIfToBeDeletedClientDoesntExistInRepository()
         {
-            Client singleClient = new Client("Ruben Rada", "11111111", "26666666");
+            Client singleClient = new Client("Ruben Rada", "11111111", "26666666", "1112 28th NE");
             var mockClientService = new Mock<IClientService>();
             mockClientService.Setup(x => x.DeleteClient(singleClient.ID, It.IsAny<string>())).Returns(false);
             ClientsController controller = new ClientsController(mockClientService.Object);

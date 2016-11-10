@@ -5,27 +5,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="../scripts/jquery-1.10.2.min.js"></script>
+    <script src="scripts/jquery-1.10.2.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
-    <script src="../scripts/angular.min.js"></script>
-    <script src="../scripts/app/app.js"></script>
-    <script src="../scripts/app/users/UsersCtrl.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/app/app.js"></script>
+    <script src="scripts/app/users/UsersCtrl.js"></script>
+    <script src="scripts/app/login/LoginCtrl.js"></script>
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/todopagos.css" rel="stylesheet">
     <link rel="icon" href="dist/img/favicon.png">
 </head>
-<body>
+<body ng-app="TodoPagos"  ng-controller="Users.Controller as usersCtrl">
+
     <div class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="javascript:void(0)">TodoPagos</a>
+                <a class="navbar-brand">TodoPagos</a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
@@ -47,7 +42,7 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a ng-href="" ng-click='go()'>Listar</a></li>
                             <li><a href="javascript:void(0)">Registrar</a></li>
                             <li><a href="javascript:void(0)">Modificar</a></li>
                             <li><a href="javascript:void(0)">Eliminar</a></li>
@@ -93,6 +88,18 @@
         </div>
     </div>
 
+    <div id="alert_placeholder"></div>
+
+    <div class="well container" id="loginDiv" ng-controller="Login.Controller as loginCtrl">
+        <form ng-submit="login()">
+            <fieldset>
+                <legend>Iniciar Sesion</legend>
+                <input ng-model="loginCtrl.namelogin" type="text" name="user" placeholder="Username" />
+                <input ng-model="loginCtrl.passlogin" type="password" name="pass" placeholder="Password" />
+                <input type="submit" value="Login" />
+            </fieldset>
+</form>
+    </div>
 
     <div class="well container" id="CreateClientDiv">
         <form class="form-horizontal">
@@ -229,14 +236,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>Su casa</td>
-                    <td>10</td>
-                </tr>
+
             </tbody>
         </table>
     </div>
@@ -396,11 +396,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
+                <tr ng-repeat="user in usersCtrl.users">
+                    <td>{{user.ID}}</td>
+                    <td>{{user.Name}}</td>
+                    <td>{{user.Email}}</td>
+                    <td>bla</td>
                 </tr>
             </tbody>
         </table>

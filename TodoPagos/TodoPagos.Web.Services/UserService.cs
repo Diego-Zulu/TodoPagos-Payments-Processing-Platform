@@ -158,7 +158,7 @@ namespace TodoPagos.Web.Services
             return foundUser;
         }
 
-        private void ThrowArgumentExceptionIfUserWasntFound(User foundUser)
+        private void ThrowArgumentExceptionIfUserWasntFound(object foundUser)
         {
             if (foundUser == null)
             {
@@ -169,8 +169,9 @@ namespace TodoPagos.Web.Services
         public IEnumerable<string> GetRolesOfUser(string emailOfUser, string signedInUserEmail)
         {
             MakeSureUserHasRequiredPrivilege(signedInUserEmail);
-            User foundUser = unitOfWork.UserRepository.Get(user => user.Email.Equals(emailOfUser), null, "").First();
-            return foundUser.GetRoles();
+            IEnumerable<User> foundUser = unitOfWork.UserRepository.Get(user => user.Email.Equals(emailOfUser), null, "");
+            ThrowArgumentExceptionIfUserWasntFound(foundUser);
+            return foundUser.First().GetRoles();
         }
 
         public bool UpdateUser(int userId, User user, string signedInUserEmail)

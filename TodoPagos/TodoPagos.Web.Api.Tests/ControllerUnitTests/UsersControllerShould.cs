@@ -170,9 +170,22 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetRolesOfUser(singleUser.Email);
-            OkNegotiatedContentResult<IEnumerable<string>> contentResult = (OkNegotiatedContentResult<IEnumerable<string>>)actionResult;
+            OkNegotiatedContentResult<IEnumerable<string>> contentResult = 
+                (OkNegotiatedContentResult<IEnumerable<string>>)actionResult;
 
             CollectionAssert.AreEqual((ICollection) contentResult.Content, (ICollection) rolesToReturn);
+        }
+
+        [TestMethod]
+        public void FailWithNotFoundIfUserEmailDoesntExistInRepository()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            mockUserService.Setup(x => x.GetRolesOfUser("pepito@pepe.com", It.IsAny<string>())).Throws(new ArgumentException());
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.GetRolesOfUser("pepito@pepe.com");
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
         }
 
         [TestMethod]

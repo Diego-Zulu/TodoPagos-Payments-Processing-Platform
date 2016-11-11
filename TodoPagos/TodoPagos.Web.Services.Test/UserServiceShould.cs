@@ -96,6 +96,20 @@ namespace TodoPagos.Web.Services.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FailWithArgumentExceptionIfAskedRolesUserDoesNotExistInRepository()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(un => un.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, ""));
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
+            .Returns(true);
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            IEnumerable<string> returnedRoles = userService.GetRolesOfUser("pepe@pepito.com", It.IsAny<string>());
+        }
+
+        [TestMethod]
         public void BeAbleToCreateNewUserInRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();

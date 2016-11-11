@@ -166,6 +166,13 @@ namespace TodoPagos.Web.Services
             }
         }
 
+        public IEnumerable<string> GetRolesOfUser(string emailOfUser, string signedInUserEmail)
+        {
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            User foundUser = unitOfWork.UserRepository.Get(user => user.Email.Equals(emailOfUser), null, "").First();
+            return foundUser.GetRoles();
+        }
+
         public bool UpdateUser(int userId, User user, string signedInUserEmail)
         {
             MakeSureUserHasRequiredPrivilege(signedInUserEmail);

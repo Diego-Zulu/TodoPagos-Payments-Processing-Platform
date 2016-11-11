@@ -5,6 +5,7 @@ using Moq;
 using System.Collections.Generic;
 using TodoPagos.UserAPI;
 using System.Linq.Expressions;
+using System.Collections;
 
 namespace TodoPagos.Web.Services.Tests
 {
@@ -79,18 +80,19 @@ namespace TodoPagos.Web.Services.Tests
         public void BeAbleToReturnAllRolesOfASingleUserInRepository()
         {
             User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            IEnumerable<User> user = new List<User> { singleUser };
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            string roles = "AdminRole";
-            mockUnitOfWork.Setup(un => un.UserRepository.GetRolesOfUser(singleUser.ID)).Returns(roles);
+            IEnumerable<string> roles = new List<string>() { "Admin" };
+            mockUnitOfWork.Setup(un => un.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, "")).Returns(user);
             mockUnitOfWork
             .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(singleUser.Email, UserManagementPrivilege.GetInstance()))
             .Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
-            string returnedRoles = userService.GetRolesOfUser(singleUser.Email, singleUser.Email);
+            IEnumerable<string> returnedRoles = userService.GetRolesOfUser(singleUser.Email, singleUser.Email);
 
             mockUnitOfWork.VerifyAll();
-            Assert.AreEqual(roles, returnedRoles);
+            CollectionAssert.AreEqual((ICollection)roles, (ICollection)returnedRoles);
         }
 
         [TestMethod]

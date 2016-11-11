@@ -371,5 +371,15 @@ namespace TodoPagos.UserAPI
 
             return newInstance;
         }
+
+        public IEnumerable<string> GetRoles()
+        {
+            ICollection<string> allRolesOfUser = new List<string>();
+            foreach(Role role in Roles)
+            {
+                allRolesOfUser.Add(role.Name);
+            }
+            return allRolesOfUser;
+        }
     }
 }

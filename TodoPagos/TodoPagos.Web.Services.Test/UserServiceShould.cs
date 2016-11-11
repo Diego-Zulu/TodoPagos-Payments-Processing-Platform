@@ -76,6 +76,24 @@ namespace TodoPagos.Web.Services.Tests
         }
 
         [TestMethod]
+        public void BeAbleToReturnAllRolesOfASingleUserInRepository()
+        {
+            User singleUser = new User("Diego", "diego_i_zuluaga@outlook.com", "#ElBizagra1995", AdminRole.GetInstance());
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            string roles = "AdminRole";
+            mockUnitOfWork.Setup(un => un.UserRepository.GetRolesOfUser(singleUser.ID)).Returns(roles);
+            mockUnitOfWork
+            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(singleUser.Email, UserManagementPrivilege.GetInstance()))
+            .Returns(true);
+            UserService userService = new UserService(mockUnitOfWork.Object);
+
+            string returnedRoles = userService.GetRolesOfUser(singleUser.Email, singleUser.Email);
+
+            mockUnitOfWork.VerifyAll();
+            Assert.AreEqual(roles, returnedRoles);
+        }
+
+        [TestMethod]
         public void BeAbleToCreateNewUserInRepository()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();

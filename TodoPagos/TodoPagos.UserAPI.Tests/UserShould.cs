@@ -5,6 +5,7 @@ using System.Linq;
 using TodoPagos.UserAPI;
 using System.Security.Cryptography;
 using TodoPagos.Domain;
+using System.Collections;
 
 namespace TodoPagos.UserAPI.Tests
 {
@@ -350,6 +351,21 @@ namespace TodoPagos.UserAPI.Tests
             Assert.IsNull(clonedUser.Password);
             Assert.IsNull(clonedUser.Salt);
             Assert.AreEqual(newUser, clonedUser);
+        }
+
+        [TestMethod]
+        public void BeAbleToReturnAllOfItRolesInAStringEnumerable()
+        {
+            Role cashierRole = CashierRole.GetInstance();
+            string userEmail = "LeUser@gmail.com";
+            string userName = "Andrea";
+            string password = "HolaCom1";
+            User newUser = new User(userName, userEmail, password, cashierRole);
+
+            IEnumerable<string> expectedRoles = new List<string> { "Cashier"};
+            IEnumerable<string> resultingRoles = newUser.GetRoles();
+
+            CollectionAssert.AreEqual((ICollection)expectedRoles, (ICollection)resultingRoles);
         }
     }
 }

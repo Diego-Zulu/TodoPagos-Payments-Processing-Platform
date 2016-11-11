@@ -109,6 +109,26 @@ namespace TodoPagos.Web.Api.Controllers
             }
         }
 
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<string>))]
+        [Route("getRoles")]
+        public IHttpActionResult GetRolesOfUser(string userEmail)
+        {
+            try
+            {
+                IEnumerable<string> rolesOfUser = userService.GetRolesOfUser(userEmail, signedInUsername);
+                return Ok(rolesOfUser);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
+
         [HttpPost]
         [ResponseType(typeof(User))]
         public IHttpActionResult PostUser([ModelBinder(typeof(UserModelBinder))] User newUser)

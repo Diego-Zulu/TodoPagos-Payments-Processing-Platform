@@ -170,7 +170,7 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
             UsersController controller = new UsersController(mockUserService.Object);
 
             IHttpActionResult actionResult = controller.GetRolesOfUser(singleUser.Email);
-            OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
+            OkNegotiatedContentResult<IEnumerable<string>> contentResult = (OkNegotiatedContentResult<IEnumerable<string>>)actionResult;
 
             CollectionAssert.AreEqual((ICollection) contentResult.Content, (ICollection) rolesToReturn);
         }

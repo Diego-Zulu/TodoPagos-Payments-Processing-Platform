@@ -147,7 +147,7 @@
                 <legend>Eliminar Cliente</legend>
                 <div class="form-group container">
                     <label for="deleteClientSelect">Elija el cliente a eliminar:</label>
-                    <select class="form-control" id="deleteUserSelect">
+                    <select class="form-control" id="deleteClientSelect">
                         <option>1.Carlos (11111111)</option>
                         <option>2.Raul (22222222)</option>
                     </select>
@@ -406,6 +406,283 @@
         </table>
     </div>
 
-    
+    <div class="well container" id="ListProviderDiv">
+        <h3>Proveedores en el sistema:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Comisión</th>
+                    <th>Activo</th>
+                    <th>Campos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Apple</td>
+                    <td>10</td>
+                    <td>Sí</td>
+                    <td><button type="button">Ver Campos</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="well container" id="DeleteProviderDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Eliminar Proveedor</legend>
+                <div class="form-group container">
+                    <label for="deleteProviderSelect">Elija el Proveedor a eliminar:</label>
+                    <select class="form-control" id="deleteProviderSelect">
+                        <option>1.Apple</option>
+                        <option>2.UTE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="CreateProviderDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Crear Proveedor</legend>
+                <div class="form-group row">
+                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputCommission" class="col-xs-2 col-form-label">Comisión</label>
+                    <div class="col-xs-10">
+                        <input type="number" class="form-control" id="inputCommission" name="Commission" placeholder="Comisión">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Activo</label>
+                    <div class="radio col-xs-10">
+                        <label><input type="radio" name="optradio">Sí</label>
+                        <br />
+                        <label><input type="radio" name="optradio">No</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Campos</label>
+                    <div class="col-xs-10">
+                        Tipo:
+                        <select>
+                            <option value="dateField">Fecha</option>
+                            <option value="numberField">Numérico</option>
+                            <option value="textField">Texto</option>
+                        </select>
+                        Nombre:
+                        <input type="text" class="form-control" id="inputFieldName" name="Nombre" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="ModifyProviderDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Modificar Proveedor</legend>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Elija el Proveedor:</label>
+                    <div class="col-xs-10">
+                        <select class="form-control" id="modifyProviderSelect">
+                            <option>1.Apple</option>
+                            <option>2.UTE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputCommission" class="col-xs-2 col-form-label">Comisión</label>
+                    <div class="col-xs-10">
+                        <input type="number" class="form-control" id="inputCommission" name="Commission" placeholder="Comisión">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Activo</label>
+                    <div class="radio col-xs-10">
+                        <label><input type="radio" name="optradio">Sí</label>
+                        <br />
+                        <label><input type="radio" name="optradio">No</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Campos</label>
+                    <div class="col-xs-10">
+                        Tipo:
+                        <select>
+                            <option value="dateField">Fecha</option>
+                            <option value="numberField">Numérico</option>
+                            <option value="textField">Texto</option>
+                        </select>
+                        Nombre:
+                        <input type="text" class="form-control" id="inputFieldName" name="Nombre" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="ListPaymentsDiv">
+        <h3>Pagos en el sistema:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Medio de Pago</th>
+                    <th>Importe pagado</th>
+                    <th>Cambio</th>
+                    <th>Total del Pago</th>
+                    <th>Recibos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Débito</td>
+                    <td>3000</td>
+                    <td>0</td>
+                    <td>3000</td>
+                    <td><button type="button">Ver Recibos</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="well container" id="CreatePaymentDiv">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Crear Pago</legend>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Medio de Pago</label>
+                    <div class="col-xs-10">
+                        <select class="form-control" id="paymentMethodSelect">
+                            <option>Débito</option>
+                            <option>Crédito</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPaidWith" class="col-xs-2 col-form-label">Importe pagado</label>
+                    <div class="col-xs-10">
+                        <input type="number" class="form-control" id="inputPaidWith" name="PaidWith" placeholder="Importe pagado">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputTotal" class="col-xs-2 col-form-label">Total del Pago</label>
+                    <div class="col-xs-10">
+                        <input type="number" class="form-control" id="inputTotal" name="Total" placeholder="Total del Pago">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-xs-2 col-form-label">Recibos</label>
+                    <div class="col-xs-10">
+                        Proveedor:
+                        <select>
+                            <option value="firstProvider">Apple</option>
+                            <option value="secondProvider">UTE</option>
+                            <option value="thirdProvider">OSE</option>
+                        </select>
+                        Monto:
+                        <input type="number" class="form-control" id="inputReceiptAmount" name="Amount" placeholder="Monto">
+                        Campo:
+                        <select>
+                            <option value="firstField">Fecha</option>
+                            <option value="secondField">Cliente</option>
+                        </select>
+                        <input type="text" class="form-control" id="inputFieldData" name="Value" placeholder="Valor">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="well container" id="ReportPerProvider">
+        <h3>Ganancias por Proveedor:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Ganancia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Apple</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="well container" id="ReportTotal">
+        <h3>Ganancias Totales:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ganancias</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container" id="loginContainer">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <h1 class="text-center">TodoPagos</h1>
+                <div class="account-wall">
+                    <form class="form-signin">
+                        <input type="text" class="form-control" placeholder="Email" required autofocus>
+                        <input type="password" class="form-control" placeholder="Password" required>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            Iniciar Sesión
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

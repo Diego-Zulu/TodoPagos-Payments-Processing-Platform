@@ -13,6 +13,8 @@ namespace TodoPagos.Web.Services
 
         User GetSingleUser(int id, string signedInUserEmail);
 
+        IEnumerable<string> GetRolesOfUser(string emailOfUser, string signedInUserEmail);
+
         int CreateUser(User newUser, string signedInUserEmail);
 
         bool UpdateUser(int userId, User user, string signedInUserEmail);

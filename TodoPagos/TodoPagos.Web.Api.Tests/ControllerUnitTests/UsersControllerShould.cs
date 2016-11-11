@@ -10,6 +10,7 @@ using TodoPagos.UserAPI;
 using System.Collections.Generic;
 using System.Net;
 using System.Linq;
+using System.Collections;
 
 namespace TodoPagos.WebApi.Tests.ControllerUnitTests
 {
@@ -157,6 +158,21 @@ namespace TodoPagos.WebApi.Tests.ControllerUnitTests
 
             IHttpActionResult actionResult = controller.GetUser(singleUser.ID + 1);
             Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void BeAbleToReturnAllRolesOfASpecificUser()
+        {
+            User singleUser = new User("Gabriel", "gpiffaretti@gmail.com", "Wololo1234!", CashierRole.GetInstance());
+            var mockUserService = new Mock<IUserService>();
+            IEnumerable<string> rolesToReturn = new List<string>() { "Cashier" };
+            mockUserService.Setup(x => x.GetRolesOfUser(singleUser.Email, It.IsAny<string>())).Returns(rolesToReturn);
+            UsersController controller = new UsersController(mockUserService.Object);
+
+            IHttpActionResult actionResult = controller.GetRolesOfUser(singleUser.Email);
+            OkNegotiatedContentResult<User> contentResult = (OkNegotiatedContentResult<User>)actionResult;
+
+            CollectionAssert.AreEqual((ICollection) contentResult.Content, (ICollection) rolesToReturn);
         }
 
         [TestMethod]

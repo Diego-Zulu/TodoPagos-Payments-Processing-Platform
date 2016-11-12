@@ -146,7 +146,7 @@ namespace TodoPagos.Web.Services
 
         public IEnumerable<User> GetAllUsers(string signedInUserEmail)
         {
-            //MakeSureUserHasRequiredPrivilege(signedInUserEmail);
+            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             return unitOfWork.UserRepository.Get(null, null, "");
         }
 

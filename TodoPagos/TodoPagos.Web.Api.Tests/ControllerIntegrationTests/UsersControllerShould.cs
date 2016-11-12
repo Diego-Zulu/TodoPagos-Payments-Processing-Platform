@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 using System.Collections;
+using TodoPagos.Domain;
 
 namespace TodoPagos.WebApi.Tests.ControllerIntegrationTests
 {

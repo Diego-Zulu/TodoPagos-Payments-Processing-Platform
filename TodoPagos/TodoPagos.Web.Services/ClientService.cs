@@ -55,7 +55,7 @@ namespace TodoPagos.Web.Services
         {
             if (!targetClient.IsComplete())
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Los datos del cliente no son correctos");
             }
         }
 
@@ -63,7 +63,7 @@ namespace TodoPagos.Web.Services
         {
             if (ExistsClient(targetClient))
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Ya existe un cliente con esta cédula");
             }
         }
 

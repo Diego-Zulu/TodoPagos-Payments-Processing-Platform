@@ -5,27 +5,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="../scripts/jquery-1.10.2.min.js"></script>
+    <script src="scripts/jquery-1.10.2.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
-    <script src="../scripts/angular.min.js"></script>
-    <script src="../scripts/app/app.js"></script>
-    <script src="../scripts/app/users/UsersCtrl.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/app/app.js"></script>
+    <script src="scripts/app/users/UsersCtrl.js"></script>
+    <script src="scripts/app/login/LoginCtrl.js"></script>
+    <script src="scripts/app/navButtons/NavButtonsCtrl.js"></script>
+    <script src="scripts/app/clients/ClientsCtrl.js"></script>
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/todopagos.css" rel="stylesheet">
     <link rel="icon" href="dist/img/favicon.png">
 </head>
-<body>
+<body ng-app="TodoPagos" ng-controller="NavButtons.Controller as navCtrl">
+
     <div class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="javascript:void(0)">TodoPagos</a>
+                <a class="navbar-brand">TodoPagos</a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
@@ -35,10 +32,10 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Listar</a></li>
-                            <li><a href="javascript:void(0)">Registrar</a></li>
-                            <li><a href="javascript:void(0)">Modificar</a></li>
-                            <li><a href="javascript:void(0)">Eliminar</a></li>
+                            <li><a ng-href="#" ng-click='ShowListClients()'>Listar</a></li>
+                            <li><a ng-href="#" ng-click='ShowCreateClients()'>Registrar</a></li>
+                            <li><a ng-href="#" ng-click='ShowUpdateClients()'>Modificar</a></li>
+                            <li><a ng-href="#" ng-click='ShowDeleteClients()'>Eliminar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -47,7 +44,7 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a ng-href="#" ng-click='ShowListUsers()'>Listar</a></li>
                             <li><a href="javascript:void(0)">Registrar</a></li>
                             <li><a href="javascript:void(0)">Modificar</a></li>
                             <li><a href="javascript:void(0)">Eliminar</a></li>
@@ -59,7 +56,7 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Listar</a></li>
+                            <li><a ng-href="#" ng-click='ShowListProviders()'>Listar</a></li>
                             <li><a href="javascript:void(0)">Registrar</a></li>
                             <li><a href="javascript:void(0)">Modificar</a></li>
                             <li><a href="javascript:void(0)">Eliminar</a></li>
@@ -93,47 +90,57 @@
         </div>
     </div>
 
+    <div class="well container" id="loginDiv" ng-controller="Login.Controller as loginCtrl">
+        <form ng-submit="Login()">
+            <fieldset>
+                <legend>Iniciar Sesion</legend>
+                <input ng-model="loginCtrl.namelogin" required type="text" name="user" placeholder="Username" />
+                <input ng-model="loginCtrl.passlogin" required type="password" name="pass" placeholder="Password" />
+                <input type="submit" value="Login" />
+            </fieldset>
+        </form>
+    </div>
 
-    <div class="well container" id="CreateClientDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="CreateClientDiv" ng-controller="Clients.Controller as clientCtrl">
+        <form class="form-horizontal" ng-submit="CreateClient()">
             <fieldset>
                 <legend>Crear Cliente</legend>
                 <div class="form-group row">
                     <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                        <input required ng-model="clientCtrl.namenewclient" type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
+                        <input required ng-model="clientCtrl.idcardnewclient" type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
                         <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
+                        <input required ng-model="clientCtrl.idcardconfirmnewclient" type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
+                        <input ng-model="clientCtrl.phonenewclient" type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
                     </div>
 
                 </div>
                 <div class="form-group row">
                     <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
+                        <input ng-model="clientCtrl.addressnewclient" type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
                     </div>
 
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Crear</button>
                     </div>
                 </div>
@@ -141,20 +148,19 @@
         </form>
     </div>
 
-    <div class="well container" id="DeleteClientDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="DeleteClientDiv" ng-controller="Clients.Controller as clientCtrl">
+        <form class="form-horizontal" ng-submit="DeleteClient()">
             <fieldset>
                 <legend>Eliminar Cliente</legend>
                 <div class="form-group container">
                     <label for="deleteClientSelect">Elija el cliente a eliminar:</label>
                     <select class="form-control" id="deleteClientSelect">
-                        <option>1.Carlos (11111111)</option>
-                        <option>2.Raul (22222222)</option>
+                        <option ng-repeat="client in clientCtrl.clients" value="{{client.ID}}">{{client.ID}}.{{client.Name}} ({{client.IDCard}})</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Eliminar</button>
                     </div>
                 </div>
@@ -162,52 +168,51 @@
         </form>
     </div>
 
-    <div class="well container" id="UpdateClientDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="UpdateClientDiv"  ng-controller="Clients.Controller as clientCtrl">
+        <form class="form-horizontal" ng-submit="UpdateClient()">
             <fieldset>
                 <legend>Actualizar Cliente</legend>
                 <div class="form-group container">
                     <label for="updateClientSelect">Elija el cliente a actualizar:</label>
                     <select class="form-control" id="updateClientSelect">
-                        <option>1.Carlos (11111111)</option>
-                        <option>2.Raul (22222222)</option>
+                        <option ng-repeat="client in clientCtrl.clients" value="{{client.ID}}">{{client.ID}}.{{client.Name}} ({{client.IDCard}})</option>
                     </select>
                 </div>
                 <h4>Datos a modificar</h4>
                 <div class="form-group row">
                     <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                        <input ng-model="clientCtrl.nameupdateclient" type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
+                        <input ng-model="clientCtrl.idcardupdateclient" type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
                         <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
+                        <input ng-model="clientCtrl.idcardconfirmupdateclient" type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
+                        <input ng-model="clientCtrl.phoneupdateclient" type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
+                        <input ng-model="clientCtrl.addressupdateclient" type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -228,14 +233,14 @@
                     <th>Puntos</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>Su casa</td>
-                    <td>10</td>
+            <tbody ng-controller="Clients.Controller as clientCtrl">
+                <tr ng-repeat="client in clientCtrl.clients">
+                    <td>{{client.ID}}</td>
+                    <td>{{client.Name}}</td>
+                    <td>{{client.IDCard}}</td>
+                    <td>{{client.PhoneNumber}}</td>
+                    <td>{{client.Address}}</td>
+                    <td>{{client.Points}}</td>
                 </tr>
             </tbody>
         </table>
@@ -395,12 +400,12 @@
                     <th>Roles</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
+            <tbody ng-controller="Users.Controller as userCtrl">
+                <tr ng-repeat="user in userCtrl.users">
+                    <td>{{user.ID}}</td>
+                    <td>{{user.Name}}</td>
+                    <td>{{user.Email}}</td>
+                    <td><span ng-repeat="role in user.Roles">{{role.Name}}<br /></span></td>
                 </tr>
             </tbody>
         </table>
@@ -684,5 +689,6 @@
             </div>
         </div>
     </div>
+    <div id="alert_placeholder"></div>
 </body>
 </html>

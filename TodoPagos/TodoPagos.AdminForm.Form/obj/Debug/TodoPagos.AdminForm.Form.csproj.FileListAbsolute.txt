@@ -32,8 +32,6 @@ C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\D
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.exe
 C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\bin\Debug\AdminUserInterface.exe.config
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.exe
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\bin\Debug\AdminUserInterface.exe
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\bin\Debug\AdminUserInterface.pdb
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\bin\Debug\Domain.dll
@@ -64,3 +62,5 @@ C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\De
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\TodoPagos.AdminForm.Form.PrincipalUserControl.resources
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.Properties.Resources.resources
 C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\TodoPagos.AdminForm.Form.csproj.GenerateResource.Cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.exe
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.AdminForm.Form\obj\Debug\AdminUserInterface.pdb

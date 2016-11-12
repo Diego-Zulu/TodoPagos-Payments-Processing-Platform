@@ -202,12 +202,14 @@
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
     <Content Include="scripts\app\app.js" />
+    <Content Include="scripts\app\navButtons\NavButtonsCtrl.js" />
     <Content Include="scripts\app\login\LoginCtrl.js" />
     <Content Include="scripts\app\users\UsersCtrl.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\angular.min.js.map" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\app\clients\ClientsCtrl.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />

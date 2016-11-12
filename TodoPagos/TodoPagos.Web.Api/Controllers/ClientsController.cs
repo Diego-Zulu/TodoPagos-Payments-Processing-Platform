@@ -13,6 +13,7 @@ using TodoPagos.Web.Services;
 namespace TodoPagos.Web.Api.Controllers
 {
     [RoutePrefix("api/v1/clients")]
+    [Authorize]
     public class ClientsController : ApiController
     {
         private readonly IClientService clientService;
@@ -132,7 +133,7 @@ namespace TodoPagos.Web.Api.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutClient(int id, Client client)
+        public IHttpActionResult PutClient([FromUri]int id, Client client)
         {
             if (!ModelState.IsValid)
             {

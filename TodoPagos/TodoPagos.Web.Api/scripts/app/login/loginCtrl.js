@@ -3,11 +3,11 @@
 
     var todoPagosApp = angular.module('TodoPagos');
 
-    todoPagosApp.controller('Login.Controller', ["$scope", "$http", "$window", function ($scope, $http, $window) {
+    todoPagosApp.controller('Login.Controller', function ($scope, $http, $window) {
 
         var ctrl = this;
         
-        $scope.login = function () {
+        $scope.Login = function () {
             var info = { grant_type: 'password', username: ctrl.namelogin, password: ctrl.passlogin };
             $http({
                 url: 'api/v1/login',
@@ -24,7 +24,6 @@
                 }
             }).success(function (data, status, headers, config) {
                 $window.sessionStorage.token = data.access_token;
-                console.log(data.access_token);
                   $('#alert_placeholder').html('<div class="alert alert-info"><a class="close" data-dismiss="alert">×</a><span>Bienvenido</span></div>')
               })
               .error(function (data, status, headers, config) {
@@ -32,8 +31,7 @@
                   delete $window.sessionStorage.token;
 
                   $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Email o Pass inválida</span></div>')
-                  console.log(info);
               });
         };
-    }])
+    })
 })();

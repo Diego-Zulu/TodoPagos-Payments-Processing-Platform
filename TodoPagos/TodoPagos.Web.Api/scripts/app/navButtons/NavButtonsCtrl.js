@@ -47,8 +47,6 @@
             $("#CreateClientDiv").show(400);
 
             $('#alert_placeholder').html("");
-
-            $scope.$broadcast('GetClients');
         };
 
         $scope.ShowListUsers = function () {
@@ -56,6 +54,37 @@
             $(".well").not("#ListUserDiv").hide(100);
 
             $("#ListUserDiv").show(400);
+
+            $('#alert_placeholder').html("");
+
+            $scope.$broadcast('GetUsers');
+        };
+
+        $scope.ShowCreateUsers = function () {
+
+            $(".well").not("#CreateUserDiv").hide(100);
+
+            $("#CreateUserDiv").show(400);
+
+            $('#alert_placeholder').html("");
+        };
+
+        $scope.ShowDeleteUsers = function () {
+
+            $(".well").not("#DeleteUserDiv").hide(100);
+
+            $("#DeleteUserDiv").show(400);
+
+            $('#alert_placeholder').html("");
+
+            $scope.$broadcast('GetUsers');
+        };
+
+        $scope.ShowUpdateUsers = function () {
+
+            $(".well").not("#UpdateUserDiv").hide(100);
+
+            $("#UpdateUserDiv").show(400);
 
             $('#alert_placeholder').html("");
 
@@ -70,7 +99,36 @@
 
             $('#alert_placeholder').html("");
 
-            $scope.$broadcast('GetProviders');
+            $scope.$broadcast('GetAllProviders');
+        };
+
+        $scope.ShowDeleteProviders = function () {
+
+            $(".well").not("#DeleteProviderDiv").hide(100);
+
+            $("#DeleteProviderDiv").show(400);
+
+            $('#alert_placeholder').html("");
+
+            $scope.$broadcast('GetActiveProviders');
+        };
+
+        $scope.ShowEarningsPerProvider = function () {
+
+            $(".well").not("#ReportPerProviderDiv").hide(100);
+
+            $("#ReportPerProviderDiv").show(400);
+
+            $('#alert_placeholder').html("");
+        };
+
+        $scope.ShowTotalEarnings = function () {
+
+            $(".well").not("#ReportTotalDiv").hide(100);
+
+            $("#ReportTotalDiv").show(400);
+
+            $('#alert_placeholder').html("");
         };
 
         $scope.CleanForm = function () {

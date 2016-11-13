@@ -5,17 +5,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="scripts/jquery-1.10.2.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="scripts/jquery-3.1.1.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/angular.min.js"></script>
+    <script src="scripts/moment.min.js"></script>
+    <script src="scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="scripts/todopagos.js"></script>
     <script src="scripts/app/app.js"></script>
     <script src="scripts/app/users/UsersCtrl.js"></script>
     <script src="scripts/app/login/LoginCtrl.js"></script>
     <script src="scripts/app/navButtons/NavButtonsCtrl.js"></script>
+    <script src="scripts/app/earningQueries/EarningQueriesCtrl.js"></script>
+    <script src="scripts/app/providers/ProvidersCtrl.js"></script>
     <script src="scripts/app/clients/ClientsCtrl.js"></script>
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/css/todopagos.css" rel="stylesheet">
-    <link rel="icon" href="dist/img/favicon.png">
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="Content/todopagos.css" rel="stylesheet">
+    <link rel="icon" href="Content/img/favicon.png">
 </head>
 <body ng-app="TodoPagos" ng-controller="NavButtons.Controller as navCtrl">
 
@@ -45,9 +51,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a ng-href="#" ng-click='ShowListUsers()'>Listar</a></li>
-                            <li><a href="javascript:void(0)">Registrar</a></li>
-                            <li><a href="javascript:void(0)">Modificar</a></li>
-                            <li><a href="javascript:void(0)">Eliminar</a></li>
+                            <li><a ng-href="#" ng-click='ShowCreateUsers()'>Registrar</a></li>
+                            <li><a ng-href="#" ng-click='ShowUpdateUsers()'>Modificar</a></li>
+                            <li><a ng-href="#" ng-click='ShowDeleteUsers()'>Eliminar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -59,7 +65,7 @@
                             <li><a ng-href="#" ng-click='ShowListProviders()'>Listar</a></li>
                             <li><a href="javascript:void(0)">Registrar</a></li>
                             <li><a href="javascript:void(0)">Modificar</a></li>
-                            <li><a href="javascript:void(0)">Eliminar</a></li>
+                            <li><a ng-href="#" ng-click='ShowDeleteProviders()'>Eliminar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -78,8 +84,8 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Por Proveedor</a></li>
-                            <li><a href="javascript:void(0)">Total</a></li>
+                            <li><a ng-href="#" ng-click='ShowEarningsPerProvider()'>Por Proveedor</a></li>
+                            <li><a ng-href="#" ng-click='ShowTotalEarnings()'>Total</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -90,15 +96,23 @@
         </div>
     </div>
 
-    <div class="well container" id="loginDiv" ng-controller="Login.Controller as loginCtrl">
-        <form ng-submit="Login()">
-            <fieldset>
-                <legend>Iniciar Sesion</legend>
-                <input ng-model="loginCtrl.namelogin" required type="text" name="user" placeholder="Username" />
-                <input ng-model="loginCtrl.passlogin" required type="password" name="pass" placeholder="Password" />
-                <input type="submit" value="Login" />
-            </fieldset>
-        </form>
+    <div class="container" id="loginContainer">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <h1 class="text-center">TodoPagos</h1>
+                <div class="account-wall" ng-controller="Login.Controller as loginCtrl">
+                    <form class="form-signin" ng-submit="Login()">
+                        <fieldset>
+                            <input type="text" ng-model="loginCtrl.namelogin" class="form-control" placeholder="Email" required autofocus>
+                            <input type="password" ng-model="loginCtrl.passlogin" class="form-control" placeholder="Password" required>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                Iniciar Sesión
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="well container" id="CreateClientDiv" ng-controller="Clients.Controller as clientCtrl">
@@ -168,7 +182,7 @@
         </form>
     </div>
 
-    <div class="well container" id="UpdateClientDiv"  ng-controller="Clients.Controller as clientCtrl">
+    <div class="well container" id="UpdateClientDiv" ng-controller="Clients.Controller as clientCtrl">
         <form class="form-horizontal" ng-submit="UpdateClient()">
             <fieldset>
                 <legend>Actualizar Cliente</legend>
@@ -246,32 +260,32 @@
         </table>
     </div>
 
-    <div class="well container" id="CreateUserDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="CreateUserDiv" ng-controller="Users.Controller as userCtrl">
+        <form class="form-horizontal" ng-submit="CreateUser()">
             <fieldset>
                 <legend>Crear Usuario</legend>
                 <div class="form-group row">
                     <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre" required ng-model="userCtrl.NewUserName">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
                     <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email" required ng-model="userCtrl.NewUserEmail">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputConfirmEmail" class="col-xs-2 col-form-label">Confirmar Email</label>
                     <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar">
+                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar" ng-model="userCtrl.NewUserEmailConfirm">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword" class="col-xs-2 col-form-label">Contraseña</label>
                     <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña" ng-model="userCtrl.NewUserPassword">
                         <small id="passwordHelp" class="form-text text-muted">Tiene que tener mínimo 8 caractéres, un número y una mayuscula incluidas al menos</small>
                     </div>
 
@@ -279,23 +293,23 @@
                 <div class="form-group row">
                     <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirmar Contraseña</label>
                     <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar">
+                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar" ng-model="userCtrl.NewUserPasswordConfirm">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" id="CreateUserRolesCheckboxes">
                     <label class="col-xs-2 col-form-label">Roles</label>
                     <div class="col-xs-10">
                         <div class="checkbox">
-                            <label><input type="checkbox">Admin</label>
+                            <label><input type="checkbox" name="NewRoles" value="AdminRole">Admin</label>
                         </div>
                         <div class="checkbox">
-                            <label><input type="checkbox">Cajero</label>
+                            <label><input type="checkbox" name="NewRoles" value="CashierRole">Cajero</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" class="btn btn-default" ng-click='CleanForm()'>Cancelar</button>
                         <button type="submit" class="btn btn-primary">Crear</button>
                     </div>
                 </div>
@@ -303,20 +317,19 @@
         </form>
     </div>
 
-    <div class="well container" id="DeleteUserDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="DeleteUserDiv" ng-controller="Users.Controller as userCtrl">
+        <form class="form-horizontal" ng-submit="DeleteUser()">
             <fieldset>
                 <legend>Eliminar Usuario</legend>
                 <div class="form-group container">
                     <label for="deleteUserSelect">Elija el usuario a eliminar:</label>
                     <select class="form-control" id="deleteUserSelect">
-                        <option>1.Carlos (hola@chau.com)</option>
-                        <option>2.Raul (hola@chau.net)</option>
+                        <option ng-repeat="user in userCtrl.users" value="{{user.ID}}">{{user.ID}}.{{user.Name}} ({{user.Email}})</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Eliminar</button>
                     </div>
                 </div>
@@ -324,40 +337,39 @@
         </form>
     </div>
 
-    <div class="well container" id="UpdateUserDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="UpdateUserDiv" ng-controller="Users.Controller as userCtrl">
+        <form class="form-horizontal" ng-submit="UpdateUser()">
             <fieldset>
                 <legend>Actualizar Usuario</legend>
                 <div class="form-group container">
                     <label for="updateUserSelect">Elija el usuario a actualizar:</label>
                     <select class="form-control" id="updateUserSelect">
-                        <option>1.Carlos (hola@chau.com)</option>
-                        <option>2.Raul (hola@chau.net)</option>
+                        <option ng-repeat="user in userCtrl.users" value="{{user.ID}}">{{user.ID}}.{{user.Name}} ({{user.Email}})</option>
                     </select>
                 </div>
                 <h4>Datos a modificar</h4>
                 <div class="form-group row">
                     <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
                     <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre" ng-model="userCtrl.UpdateUserName">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
                     <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email" ng-model="userCtrl.UpdateUserEmail">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputConfirmEmail" class="col-xs-2 col-form-label">Confirmar Email</label>
                     <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar">
+                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar" ng-model="userCtrl.UpdateUserEmailConfirm">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword" class="col-xs-2 col-form-label">Contraseña</label>
                     <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña" ng-model="userCtrl.UpdateUserPassword">
                         <small id="passwordHelp" class="form-text text-muted">Tiene que tener mínimo 8 caractéres, un número y una mayuscula incluidas al menos</small>
                     </div>
 
@@ -365,23 +377,23 @@
                 <div class="form-group row">
                     <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirmar Contraseña</label>
                     <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar">
+                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar" ng-model="userCtrl.UpdateUserPasswordConfirm">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-xs-2 col-form-label">Roles</label>
-                    <div class="col-xs-10">
+                    <div class="col-xs-10" id="UpdateUserRolesCheckboxes">
                         <div class="checkbox">
-                            <label><input type="checkbox">Admin</label>
+                            <label><input type="checkbox" name="UpdateRoles" value="AdminRole">Admin</label>
                         </div>
                         <div class="checkbox">
-                            <label><input type="checkbox">Cajero</label>
+                            <label><input type="checkbox" name="UpdateRoles" value="CashierRole">Cajero</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -423,7 +435,7 @@
                     <th>Campos</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody ng-controller="Providers.Controller as providersCtrl">
                 <tr>
                     <td>1</td>
                     <td>Apple</td>
@@ -435,15 +447,14 @@
         </table>
     </div>
 
-    <div class="well container" id="DeleteProviderDiv">
-        <form class="form-horizontal">
+    <div class="well container" id="DeleteProviderDiv" ng-controller="Providers.Controller as providersCtrl">
+        <form class="form-horizontal" ng-submit="DeleteProvider()">
             <fieldset>
                 <legend>Eliminar Proveedor</legend>
                 <div class="form-group container">
                     <label for="deleteProviderSelect">Elija el Proveedor a eliminar:</label>
                     <select class="form-control" id="deleteProviderSelect">
-                        <option>1.Apple</option>
-                        <option>2.UTE</option>
+                        <option ng-repeat="prov in providersCtrl.activeProviders" value="{{prov.ID}}">{{prov.ID}}.{{prov.Name}} (Comisión: {{prov.Comission}}%)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -456,7 +467,7 @@
         </form>
     </div>
 
-    <div class="well container" id="CreateProviderDiv">
+    <div class="well container" id="CreateProviderDiv" ng-controller="Providers.Controller as providersCtrl">
         <form class="form-horizontal">
             <fieldset>
                 <legend>Crear Proveedor</legend>
@@ -503,7 +514,7 @@
         </form>
     </div>
 
-    <div class="well container" id="ModifyProviderDiv">
+    <div class="well container" id="ModifyProviderDiv" ng-controller="Providers.Controller as providersCtrl">
         <form class="form-horizontal">
             <fieldset>
                 <legend>Modificar Proveedor</legend>
@@ -511,8 +522,7 @@
                     <label class="col-xs-2 col-form-label">Elija el Proveedor:</label>
                     <div class="col-xs-10">
                         <select class="form-control" id="modifyProviderSelect">
-                            <option>1.Apple</option>
-                            <option>2.UTE</option>
+                            <option ng-repeat="prov in providersCtrl.allProviders" value="{{prov.ID}}">{{prov.ID}}.{{prov.Name}} (Comisión: {{prov.Comission}}%)</option>
                         </select>
                     </div>
                 </div>
@@ -639,8 +649,43 @@
         </form>
     </div>
 
-    <div class="well container" id="ReportPerProvider">
+    <div class="well container" id="ReportPerProviderDiv" ng-controller="EarningQueries.Controller as queryCtrl">
         <h3>Ganancias por Proveedor:</h3>
+        <form ng-submit="GetEarningsPerProvider()">
+            <div class="container">
+                <div class="row container">
+                    <div class='col-md-3 col-md-offset-1'>
+                        <h4>Desde:</h4>
+                        <div class="form-group">
+                            <div class='input-group date' id='FromDatetimepickerPerProvider'>
+                                <input type='text' class="form-control" id="SelectFromDatePerProvider" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-3 col-md-offset-4'>
+                        <h4>Hasta:</h4>
+                        <div class="form-group">
+                            <div class='input-group date' id='ToDatetimepickerPerProvider'>
+                                <input type='text' class="form-control" id="SelectToDatePerProvider" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Ver</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -649,46 +694,56 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Apple</td>
-                    <td>10</td>
+                <tr ng-repeat="(provider, earnings) in queryCtrl.perProviderResults">
+                    <td>{{provider}}</td>
+                    <td>${{earnings}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="well container" id="ReportTotal">
+    <div class="well container" id="ReportTotalDiv" ng-controller="EarningQueries.Controller as queryCtrl">
         <h3>Ganancias Totales:</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Ganancias</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>10</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="container" id="loginContainer">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center">TodoPagos</h1>
-                <div class="account-wall">
-                    <form class="form-signin">
-                        <input type="text" class="form-control" placeholder="Email" required autofocus>
-                        <input type="password" class="form-control" placeholder="Password" required>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">
-                            Iniciar Sesión
-                        </button>
-                    </form>
+        <form ng-submit="GetTotalEarnings()">
+            <div class="container">
+                <div class="row container">
+                    <div class='col-md-3 col-md-offset-1'>
+                        <h4>Desde:</h4>
+                        <div class="form-group">
+                            <div class='input-group date' id='FromDatetimepickerTotalEarnings'>
+                                <input type='text' class="form-control" id="SelectFromDateTotalEarnings" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-3 col-md-offset-4'>
+                        <h4>Hasta:</h4>
+                        <div class="form-group">
+                            <div class='input-group date' id='ToDatetimepickerTotalEarnings'>
+                                <input type='text' class="form-control" id="SelectToDateTotalEarnings" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Ver</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+        <h3>Resultado:</h3>
+        <h4 class="text-center">${{queryCtrl.totalResult}}</h4>
     </div>
+
+    <br /><br />
     <div id="alert_placeholder"></div>
 </body>
 </html>

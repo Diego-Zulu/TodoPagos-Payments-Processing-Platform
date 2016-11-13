@@ -12,7 +12,7 @@ namespace TodoPagos.UserAPI
 
         protected CashierRole()
         {
-            this.Name = "Cashier";
+            this.Name = "Cajero";
         }
 
         public static CashierRole GetInstance()

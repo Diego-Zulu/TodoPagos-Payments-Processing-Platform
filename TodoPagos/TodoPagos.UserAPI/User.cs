@@ -240,7 +240,7 @@ namespace TodoPagos.UserAPI
             if (IsValidRolesList(targetUser.Roles))
             {
                 this.Roles.Clear();
-                this.Roles.Concat(targetUser.Roles);
+                this.Roles = this.Roles.Concat(targetUser.Roles).ToList();
             }
         }
 

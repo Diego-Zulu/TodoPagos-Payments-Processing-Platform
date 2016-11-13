@@ -14,12 +14,10 @@
 
         $scope.GetAllClients = function () {
 
-            var path = window.location.hostname;
-
             $http.get('/api/v1/clients')
             .success(function (result) {
                 if (result.length == 0) {
-                    ctrl.clients = { ID: '*', Name: '-Ninguno-', IDCard: '-Ninguna-', PhoneNumber: '-Ninguno-', Address: '-Ninguno-' };
+                    ctrl.clients = [{ ID: '*', Name: '-Ninguno-', IDCard: '-Ninguna-', PhoneNumber: '-Ninguno-', Address: '-Ninguno-', Points: '0' }];
                 } else {
                     ctrl.clients = result;
                 }
@@ -30,8 +28,6 @@
         }
 
         $scope.CreateClient = function () {
-
-            var path = window.location.hostname;
 
             var info = { Name: ctrl.namenewclient, IDCard: ctrl.idcardnewclient, PhoneNumber: ctrl.phonenewclient, Address: ctrl.addressnewclient};
 
@@ -49,7 +45,7 @@
                 $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + ctrl.idcardnewclient + ' creado</span></div>')
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + data.status + ': ' + data.Message + '</span></div>')
+                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
             });
             } else {
                 $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La cédula confirmada y la cédula escrita no coinciden</span></div>')
@@ -58,7 +54,6 @@
 
         $scope.UpdateClient = function () {
 
-            var path = window.location.hostname;
             var idOfSelectedClient = $("#updateClientSelect option:selected").val();
             var info = { ID: idOfSelectedClient, Name: ctrl.nameupdateclient, IDCard: ctrl.idcardupdateclient, PhoneNumber: ctrl.phoneupdateclient, Address: ctrl.addressupdateclient };
 
@@ -77,7 +72,7 @@
                     $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' actualizado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error '+data.status+': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error '+status+': ' + data.Message + '</span></div>')
                 });
             } else {
                 $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La cédula confirmada y la cédula escrita no coinciden</span></div>')
@@ -86,20 +81,19 @@
 
         $scope.DeleteClient = function () {
 
-            var path = window.location.hostname;
             var idOfSelectedClient = $("#deleteClientSelect option:selected").val();
 
                 $http({
-                    url: 'api/v1/clients/' + ctrl.idupdateclient,
+                    url: 'api/v1/clients/' + idOfSelectedClient,
                     method: 'DELETE'
                 })
                 .success(function (result) {
                     $scope.CleanForm();
                     $scope.GetAllClients();
-                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' actualizado</span></div>')
+                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' eliminado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + data.status + ': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
                 });
         }
     })

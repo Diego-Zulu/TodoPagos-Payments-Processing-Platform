@@ -12,6 +12,8 @@ namespace TodoPagos.Domain
 
         public string Name { get; set; }
 
+        public string Type { get; set; }
+
         public abstract IField FillAndClone(string dataToBeFilledWith);
 
         public abstract string GetData();

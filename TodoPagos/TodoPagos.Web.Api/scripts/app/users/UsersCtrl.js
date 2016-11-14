@@ -5,6 +5,7 @@
 
     todoPagosApp.controller('Users.Controller', function ($http, $scope) {
 
+        
         var ctrl = this;
 
         $scope.$on('GetUsers', function (e) {

@@ -10,10 +10,13 @@ namespace TodoPagos.Domain
     {
         public long? Data { get; set; }
 
-        protected NumberField() { }
+        protected NumberField() {
+            Type = "NumberField";
+        }
 
         public NumberField(string aName)
         {
+            Type = "NumberField";
             Name = aName;
             Data = null;
         }

@@ -7,6 +7,18 @@
 
         var ctrl = this;
 
+
+
+        
+
+        $scope.deleteProvider = function () {
+            $http.delete(ctrl.provider.id).then(function () {
+                $location.path('providers')
+            }, function (error) {
+
+            })
+        }
+
         $scope.GetEarningsPerProvider = function () {
 
             var fromDate = new Date($('#SelectFromDatePerProvider').val()).toISOString().split('.')[0] + "Z";

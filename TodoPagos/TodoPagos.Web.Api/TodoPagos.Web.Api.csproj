@@ -196,6 +196,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -211,9 +212,11 @@
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
     <Content Include="scripts\app\app.js" />
+    <Content Include="scripts\app\earningQueries\EarningQueries.html" />
     <Content Include="scripts\app\earningQueries\EarningQueriesCtrl.js" />
     <Content Include="scripts\app\navButtons\NavButtonsCtrl.js" />
     <Content Include="scripts\app\login\LoginCtrl.js" />
+    <Content Include="scripts\app\payments\PaymentsCtrl.js" />
     <Content Include="scripts\app\providers\ProvidersCtrl.js" />
     <Content Include="scripts\app\users\UsersCtrl.js" />
     <Content Include="scripts\bootstrap-datetimepicker.js" />

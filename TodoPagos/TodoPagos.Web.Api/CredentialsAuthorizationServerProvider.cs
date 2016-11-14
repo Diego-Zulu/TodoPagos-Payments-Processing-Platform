@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.UserAPI;
+using TodoPagos.Domain.Repository;
+using Domain;
 
 namespace TodoPagos.Web.Api
 {
@@ -35,8 +37,19 @@ namespace TodoPagos.Web.Api
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             context.Validated(identity);
+            LogThisLoginInDatabase(context.UserName);
      
             return Task.FromResult<Object>(null);
+        }
+
+        private void LogThisLoginInDatabase(string email)
+        {
+            TodoPagosContext databaseContext = new TodoPagosContext();
+            IUnitOfWork unitOfWork = new UnitOfWork(databaseContext);
+            ILogStrategy log = new LogDatabaseConcreteStrategy(unitOfWork);
+            LogEntry entry = new LogEntry(ActionType.LOGIN, email);
+            log.SaveEntry(entry);
+            unitOfWork.Dispose();
         }
     }
 }

@@ -12,10 +12,13 @@ namespace TodoPagos.Domain
         private readonly string[] ACCEPTED_DATE_FORMATS = new[] { "yyyy-MM-ddTHH:mm:ssZ" };
         public virtual DateTime? Data { get; set; }
 
-        protected DateField() { }
+        protected DateField() {
+            Type = "DateField";
+        }
 
         public DateField(string aName)
         {
+            Type = "DateField";
             Name = aName;
             Data = null;
         }

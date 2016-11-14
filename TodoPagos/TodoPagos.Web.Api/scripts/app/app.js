@@ -2,6 +2,16 @@
     'use strict';
 
     var todoPagosApp = angular.module('TodoPagos', []);
+
+    todoPagosApp.config(function ($routeProvider) {
+
+        $routeProvider.when('providers', {
+            controller: 'ProvidersController',
+            contrllerAs: 'ctrl',
+            templateUrl: 'providers/providers.html'
+        })
+
+    })
     
     todoPagosApp.factory('authInterceptor', function ($rootScope, $q, $window) {
         return {

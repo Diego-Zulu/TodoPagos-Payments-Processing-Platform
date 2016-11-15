@@ -53,7 +53,7 @@
             var chosenPayMethod = { Type: $("#paymentMethodSelect").val(), PayDate: thisPayDate };
 
             for (var i = 0; i < ctrl.NewPaymentReceiptAmount.length; i++) {
-                newPaymentReceipts.push({ Amount: ctrl.NewPaymentReceiptAmount[i], ReceiptProviderID: ctrl.selectedProvider, CompletedFields: ctrl.SelectedProviderFields });
+                newPaymentReceipts.push({ Amount: ctrl.NewPaymentReceiptAmount[i], ReceiptProviderID: ctrl.selectedProvider[i].ID, CompletedFields: ctrl.selectedProvider[i].Fields });
             }
 
             var info = { AmountPaid: ctrl.NewPaymentPaidWith, PayMethod: chosenPayMethod, Receipts: newPaymentReceipts };
@@ -68,8 +68,8 @@
             })
             .success(function (result) {
                 $scope.CleanForm();
-                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Pago por $' + result.Total + ' creado</span></div>')
-                console.log("hola");
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Pago por $' + (result.AmountPaid - result.Change) + ' creado</span></div>')
+                console.log(result);
             })
             .error(function (data, status) {
                 $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
@@ -88,12 +88,7 @@
             return numbersArray;
         }
 
-        $scope.LoadFieldsIntoReceiptFields = function (receiptNumber) {
-
-            ctrl.SelectedProviderFields[receiptNumber] = ctrl.selectedProvider[receiptNumber].Fields;
-            
-        }
-
+       
         $scope.CleanForm = function () {
 
             $('form').trigger("reset");

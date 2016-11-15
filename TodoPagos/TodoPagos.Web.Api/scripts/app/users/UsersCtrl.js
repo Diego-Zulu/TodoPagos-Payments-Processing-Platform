@@ -9,7 +9,6 @@
 
         $scope.GetAllUsers = function () {
 
-            console.log("prueba");
             $http.get('/api/v1/users')
             .success(function (result) {
                 if (result.length == 0) {

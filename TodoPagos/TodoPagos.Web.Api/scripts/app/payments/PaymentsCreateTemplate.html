@@ -38,14 +38,14 @@
                     <div class="col-xs-10">
                         Proveedor:      
                         <select ng-options="prov.Name for prov in providersCtrl.activeProviders"
-                                ng-model="ctrl.selectedProvider[i]" ng-change="LoadFieldsIntoReceiptFields(i)"></select>
+                                ng-model="ctrl.selectedProvider[i]" ></select>
                         Monto:
                         <input type="number" ng-model="ctrl.NewPaymentReceiptAmount[i]" min="0" class="form-control" id="inputReceiptAmount" name="Amount" placeholder="Monto">
                         Campo(s):
-                        <div class="col-xs-10" ng-repeat="field in ctrl.SelectedProviderFields[i]">
-                            <label for="inputPaidWith" class="col-xs-2 col-form-label">-{{field.Name (field.Type)}}</label>
+                        <div class="col-xs-10" ng-repeat="field in ctrl.selectedProvider[i].Fields">
+                            <label for="inputPaidWith" class="col-xs-2 col-form-label">-{{field.Name}} ({{field.Type}})</label>
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" required ng-model="field.Data" placeholder="Valor">
+                                <input type="text" class="form-control" ng-model="ctrl.ProviderField[i][field.Name+field.Type]" ng-change="field.Data = ctrl.ProviderField[i][field.Name+field.Type]" placeholder="Valor">
                             </div>
                         </div>
                     </div>

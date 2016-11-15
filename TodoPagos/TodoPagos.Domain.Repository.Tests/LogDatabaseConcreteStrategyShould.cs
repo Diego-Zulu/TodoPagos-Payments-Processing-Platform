@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain;
+using TodoPagos.Domain;
 using System.Collections.Generic;
 using System.Collections;
 using TodoPagos.Domain.Repository;

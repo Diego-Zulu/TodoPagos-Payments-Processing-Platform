@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TodoPagos.Domain.Repository;
-using Domain;
+using TodoPagos.Domain;
 
 namespace TodoPagos.AdminForm.Form
 {

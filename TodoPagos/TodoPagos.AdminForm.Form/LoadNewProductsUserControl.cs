@@ -13,7 +13,7 @@ using TodoPagos.ProductImporterLogic;
 using AdminUserInterface;
 using TodoPagos.Domain.Repository;
 using TodoPagos.AdminForm.Logic;
-using Domain;
+using TodoPagos.Domain;
 
 namespace TodoPagos.AdminForm.Form
 {

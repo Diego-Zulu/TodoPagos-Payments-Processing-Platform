@@ -8,7 +8,7 @@ using System.Security.Claims;
 using TodoPagos.Domain.DataAccess;
 using TodoPagos.UserAPI;
 using TodoPagos.Domain.Repository;
-using Domain;
+using TodoPagos.Domain;
 
 namespace TodoPagos.Web.Api
 {

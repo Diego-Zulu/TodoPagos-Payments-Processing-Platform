@@ -84,9 +84,6 @@ namespace TodoPagos.Web.Services.Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             IEnumerable<string> roles = new List<string>() { "Admin" };
             mockUnitOfWork.Setup(un => un.UserRepository.Get(It.IsAny<Expression<Func<User, bool>>>(), null, "")).Returns(user);
-            mockUnitOfWork
-            .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(singleUser.Email, UserManagementPrivilege.GetInstance()))
-            .Returns(true);
             UserService userService = new UserService(mockUnitOfWork.Object);
 
             IEnumerable<string> returnedRoles = userService.GetRolesOfUser(singleUser.Email, singleUser.Email);
@@ -199,6 +196,8 @@ namespace TodoPagos.Web.Services.Tests
             .Returns(true);
             mockUnitOfWork.Setup(un => un.UserRepository.Update(It.IsAny<User>()));
             mockUnitOfWork.Setup(un => un.Save());
+            mockUnitOfWork
+              .Setup(un => un.RoleRepository.Get(It.IsAny<System.Linq.Expressions.Expression<Func<Role, bool>>>(), null, "")).Returns(new[] { AdminRole.GetInstance() });
         }
 
         [TestMethod]
@@ -226,6 +225,8 @@ namespace TodoPagos.Web.Services.Tests
             mockUnitOfWork
                 .Setup(un => un.CurrentSignedInUserHasRequiredPrivilege(It.IsAny<string>(), UserManagementPrivilege.GetInstance()))
                 .Returns(true);
+            mockUnitOfWork
+               .Setup(un => un.RoleRepository.Get(It.IsAny<System.Linq.Expressions.Expression<Func<Role, bool>>>(), null, "")).Returns(new[] { AdminRole.GetInstance()});
         }
 
         [TestMethod]

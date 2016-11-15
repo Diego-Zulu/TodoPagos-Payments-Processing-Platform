@@ -36,6 +36,7 @@ namespace TodoPagos.Domain
             Name = newName.Trim();
             IDCard = newIDCard;
             PhoneNumber = newPhoneNumber;
+            Address = newAddress;
         }
 
         private void MakeSureTargetAddressIsNotNullOrWhiteSpace(string targetAddress)

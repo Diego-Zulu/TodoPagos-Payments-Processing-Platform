@@ -168,7 +168,6 @@ namespace TodoPagos.Web.Services
 
         public IEnumerable<string> GetRolesOfUser(string emailOfUser, string signedInUserEmail)
         {
-            MakeSureUserHasRequiredPrivilege(signedInUserEmail);
             IEnumerable<User> foundUser = unitOfWork.UserRepository.Get(user => user.Email.Equals(emailOfUser), null, "");
             ThrowArgumentExceptionIfUserWasntFound(foundUser);
             return foundUser.First().GetRoles();

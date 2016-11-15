@@ -362,7 +362,7 @@ namespace TodoPagos.UserAPI.Tests
             string password = "HolaCom1";
             User newUser = new User(userName, userEmail, password, cashierRole);
 
-            IEnumerable<string> expectedRoles = new List<string> { "Cashier"};
+            IEnumerable<string> expectedRoles = new List<string> { CashierRole.GetInstance().Name};
             IEnumerable<string> resultingRoles = newUser.GetRoles();
 
             CollectionAssert.AreEqual((ICollection)expectedRoles, (ICollection)resultingRoles);

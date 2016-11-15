@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using TodoPagos.Domain;
 using System;
 using System.Windows.Forms;
 using TodoPagos.AdminForm.Logic;

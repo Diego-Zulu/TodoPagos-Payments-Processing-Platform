@@ -27,7 +27,6 @@
 
         $scope.GetProviders = function (active) {
 
-            console.log(active);
             $http.get('/api/v1/providers?getActiveProviders=' + active)
             .success(function (result) {
                 if (result.length == 0) {
@@ -35,7 +34,6 @@
                 } else {
                     ctrl.activeProviders = result;
                 }
-                console.log(ctrl.activeProviders);
             })
             .error(function (data, status) {
                 $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los proveedores. Código: ' + status + '</span></div>')

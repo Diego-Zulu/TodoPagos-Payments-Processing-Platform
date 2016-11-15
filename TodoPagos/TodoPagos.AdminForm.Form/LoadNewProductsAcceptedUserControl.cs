@@ -11,7 +11,7 @@ using TodoPagos.ProductImporterLogic;
 using TodoPagos.AdminForm.Form;
 using TodoPagos.Domain.Repository;
 using TodoPagos.AdminForm.Logic;
-using Domain;
+using TodoPagos.Domain;
 
 namespace AdminUserInterface
 {

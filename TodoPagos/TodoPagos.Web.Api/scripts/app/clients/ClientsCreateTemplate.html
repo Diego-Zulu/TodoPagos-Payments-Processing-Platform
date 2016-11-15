@@ -1,0 +1,46 @@
+﻿<div class="well container" id="CreateClientDiv">
+    <form class="form-horizontal" ng-submit="CreateClient()">
+        <fieldset>
+            <legend>Crear Cliente</legend>
+            <div class="form-group row">
+                <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                <div class="col-xs-10">
+                    <input required ng-model="ctrl.namenewclient" type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
+                <div class="col-xs-10">
+                    <input required ng-model="ctrl.idcardnewclient" type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
+                    <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
+                <div class="col-xs-10">
+                    <input required ng-model="ctrl.idcardconfirmnewclient" type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
+                <div class="col-xs-10">
+                    <input ng-model="ctrl.phonenewclient" type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
+                <div class="col-xs-10">
+                    <input ng-model="ctrl.addressnewclient" type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

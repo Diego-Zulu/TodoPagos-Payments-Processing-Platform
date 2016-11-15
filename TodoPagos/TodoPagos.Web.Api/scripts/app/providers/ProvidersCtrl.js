@@ -9,16 +9,6 @@
 
         ctrl.NewFieldName = [];
 
-        $scope.$on('GetAllProviders', function (e) {
-
-            $scope.GetAllProviders();
-        });
-
-        $scope.$on('GetActiveProviders', function (e) {
-
-            $scope.GetProviders(true);
-        });
-
         $scope.GetAllProviders = function () {
 
             $http.get('/api/v1/providers')
@@ -30,7 +20,8 @@
                 }
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los proveedores. Código: ' + status + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los proveedores. Código: ' + status + '</span></div>')
+                $('#alertMessage').fadeOut(2000, null);
             });
         }
 
@@ -47,7 +38,8 @@
                 console.log(ctrl.activeProviders);
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los proveedores. Código: ' + status + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los proveedores. Código: ' + status + '</span></div>')
+                $('#alertMessage').fadeOut(2000, null);
             });
         }
 
@@ -62,11 +54,12 @@
             .success(function (result) {
                 $scope.CleanForm();
                 $scope.GetProviders(true);
-                $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Proveedor ' + idOfSelectedProvider + ' marcado como eliminado</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Proveedor ' + idOfSelectedProvider + ' marcado como eliminado</span></div>')
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
             });
+            $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.DisplayProviderFieldsOnDialog = function (aProvider) {
@@ -74,7 +67,7 @@
             var fieldsInHtml = "";
 
             for (var i = 0; i < aProvider.Fields.length; i++) {
-                fieldsInHtml += "<p>" + (i+1) + ". " + aProvider.Fields[i].Name + " (Tipo: " + aProvider.Fields[i].FieldTypeName + ")</p>";
+                fieldsInHtml += "<p>" + (i+1) + ". " + aProvider.Fields[i].Name + " (Tipo: " + aProvider.Fields[i].Type + ")</p>";
             }
 
             $("#ProviderFieldsModalTitle").text("Campos de " + aProvider.Name);
@@ -102,11 +95,12 @@
                 })
                 .success(function (result) {
                     $scope.CleanForm();
-                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Proveedor ' + ctrl.NewProviderName + ' creado</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Proveedor ' + ctrl.NewProviderName + ' creado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
                 });
+                $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.UpdateProvider = function () {
@@ -131,11 +125,12 @@
             .success(function (result) {
                 $scope.CleanForm();
                 $scope.GetProviders(true);
-                $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Proveedor ' + idOfSelectedProvider + ' actualizado</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Proveedor ' + idOfSelectedProvider + ' actualizado</span></div>')
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
             });
+            $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.GetTargetLengthArray = function (number) {
@@ -156,5 +151,10 @@
                 return "No";
             }
         }
+
+        $scope.CleanForm = function () {
+
+            $('form').trigger("reset");
+        };
     })
 })();

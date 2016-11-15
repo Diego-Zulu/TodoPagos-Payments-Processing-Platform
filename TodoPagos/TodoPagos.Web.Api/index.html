@@ -9,12 +9,11 @@
     <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/angular.min.js"></script>
     <script src="scripts/moment.min.js"></script>
+    <script src="scripts/angular-route.js"></script>
     <script src="scripts/bootstrap-datetimepicker.min.js"></script>
-    <script src="scripts/todopagos.js"></script>
     <script src="scripts/app/app.js"></script>
     <script src="scripts/app/users/UsersCtrl.js"></script>
     <script src="scripts/app/login/LoginCtrl.js"></script>
-    <script src="scripts/app/navButtons/NavButtonsCtrl.js"></script>
     <script src="scripts/app/earningQueries/EarningQueriesCtrl.js"></script>
     <script src="scripts/app/providers/ProvidersCtrl.js"></script>
     <script src="scripts/app/clients/ClientsCtrl.js"></script>
@@ -24,14 +23,7 @@
     <link href="Content/todopagos.css" rel="stylesheet">
     <link rel="icon" href="Content/img/favicon.png">
 </head>
-<body ng-app="TodoPagos" ng-controller="NavButtons.Controller as navCtrl">
-
-
-
-
-    <div ng-view></div>
-
-
+<body ng-app="TodoPagos">
     <div class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -40,747 +32,70 @@
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                             Clientes
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ng-href="#" ng-click='ShowListClients()'>Listar</a></li>
-                            <li><a ng-href="#" ng-click='ShowCreateClients()'>Registrar</a></li>
-                            <li><a ng-href="#" ng-click='ShowUpdateClients()'>Modificar</a></li>
-                            <li><a ng-href="#" ng-click='ShowDeleteClients()'>Eliminar</a></li>
+                            <li><a ng-href="/#/clients/get">Listar</a></li>
+                            <li><a ng-href="/#/clients/post">Registrar</a></li>
+                            <li><a ng-href="/#/clients/put">Modificar</a></li>
+                            <li><a ng-href="/#/clients/delete">Eliminar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                             Usuarios
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ng-href="" ng-click='ShowListUsers()'>Listar</a></li>
-                            <li><a ng-href="#" ng-click='ShowCreateUsers()'>Registrar</a></li>
-                            <li><a ng-href="#" ng-click='ShowUpdateUsers()'>Modificar</a></li>
-                            <li><a ng-href="#" ng-click='ShowDeleteUsers()'>Eliminar</a></li>
+                            <li><a ng-href="/#/users/get">Listar</a></li>
+                            <li><a ng-href="/#/users/post">Registrar</a></li>
+                            <li><a ng-href="/#/users/put">Modificar</a></li>
+                            <li><a ng-href="/#/users/delete">Eliminar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                             Proveedores
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ng-href="#" ng-click='ShowListProviders()'>Listar</a></li>
-                            <li><a ng-href="#" ng-click='ShowCreateProviders()'>Registrar</a></li>
-                            <li><a ng-href="#" ng-click='ShowUpdateProviders()'>Modificar</a></li>
-                            <li><a ng-href="#" ng-click='ShowDeleteProviders()'>Eliminar</a></li>
+                            <li><a ng-href="/#/providers/get">Listar</a></li>
+                            <li><a ng-href="/#/providers/post">Registrar</a></li>
+                            <li><a ng-href="/#/providers/put">Modificar</a></li>
+                            <li><a ng-href="/#/providers/delete">Eliminar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                             Pagos
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ng-href="#" ng-click='ShowListPayments()'>Listar</a></li>
-                            <li><a ng-href="#" ng-click='ShowCreatePayment()'>Registrar</a></li>
+                            <li><a ng-href="/#/payments/get">Listar</a></li>
+                            <li><a ng-href="/#/payments/post">Registrar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                             Reportes
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ng-href="#" ng-click='ShowEarningsPerProvider()'>Por Proveedor</a></li>
-                            <li><a ng-href="#" ng-click='ShowTotalEarnings()'>Total</a></li>
+                            <li><a ng-href="/#/query/earnings/earningsPerProvider">Por Proveedor</a></li>
+                            <li><a ng-href="/#/query/earnings/allEarnings">Total</a></li>
                         </ul>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" ng-controller="Login.Controller as loginCtrl">
-                    <li><a ng-href="#" ng-click='Logout()'  ng-show="IsLoggedIn">Cerrar Sesión</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ng-href="/#/login">Sesión</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container" id="loginContainer" ng-controller="Login.Controller as loginCtrl" ng-hide="IsLoggedIn">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center">TodoPagos</h1>
-                <div class="account-wall" >
-                    <form class="form-signin" ng-submit="Login()">
-                        <fieldset>
-                            <input type="text" ng-model="loginCtrl.namelogin" class="form-control" placeholder="Email" required autofocus>
-                            <input type="password" ng-model="loginCtrl.passlogin" class="form-control" placeholder="Password" required>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Iniciar Sesión
-                            </button>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="well container" id="CreateClientDiv" ng-controller="Clients.Controller as clientCtrl">
-        <form class="form-horizontal" ng-submit="CreateClient()">
-            <fieldset>
-                <legend>Crear Cliente</legend>
-                <div class="form-group row">
-                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="clientCtrl.namenewclient" type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="clientCtrl.idcardnewclient" type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
-                        <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="clientCtrl.idcardconfirmnewclient" type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.phonenewclient" type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.addressnewclient" type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Crear</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="DeleteClientDiv" ng-controller="Clients.Controller as clientCtrl">
-        <form class="form-horizontal" ng-submit="DeleteClient()">
-            <fieldset>
-                <legend>Eliminar Cliente</legend>
-                <div class="form-group container">
-                    <label for="deleteClientSelect">Elija el cliente a eliminar:</label>
-                    <select class="form-control" id="deleteClientSelect">
-                        <option ng-repeat="client in clientCtrl.clients" value="{{client.ID}}">{{client.ID}}.{{client.Name}} ({{client.IDCard}})</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="UpdateClientDiv" ng-controller="Clients.Controller as clientCtrl">
-        <form class="form-horizontal" ng-submit="UpdateClient()">
-            <fieldset>
-                <legend>Actualizar Cliente</legend>
-                <div class="form-group container">
-                    <label for="updateClientSelect">Elija el cliente a actualizar:</label>
-                    <select class="form-control" id="updateClientSelect">
-                        <option ng-repeat="client in clientCtrl.clients" value="{{client.ID}}">{{client.ID}}.{{client.Name}} ({{client.IDCard}})</option>
-                    </select>
-                </div>
-                <h4>Datos a modificar</h4>
-                <div class="form-group row">
-                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.nameupdateclient" type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputIDCard" class="col-xs-2 col-form-label">Cédula</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.idcardupdateclient" type="text" class="form-control" id="inputIDCard" name="IDCard" placeholder="XXXXXXX" aria-describedby="idCardHelp">
-                        <small id="idCardHelp" class="form-text text-muted">Ingrese todos los dígitos de su cédula sin puntos ni guiones</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputConfirmIDCard" class="col-xs-2 col-form-label">Confirmar Cédula</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.idcardconfirmupdateclient" type="text" class="form-control" id="inputConfirmIDCard" placeholder="Confirmar">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPhone" class="col-xs-2 col-form-label">Teléfono</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.phoneupdateclient" type="text" class="form-control" id="inputPhone" name="Phone" placeholder="XXXXXXXX">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputAddress" class="col-xs-2 col-form-label">Dirección</label>
-                    <div class="col-xs-10">
-                        <input ng-model="clientCtrl.addressupdateclient" type="text" class="form-control" id="inputAddress" name="Address" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="ListClientDiv">
-        <h3>Clientes en el sistema:</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Cédula</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>Puntos</th>
-                </tr>
-            </thead>
-            <tbody ng-controller="Clients.Controller as clientCtrl">
-                <tr ng-repeat="client in clientCtrl.clients">
-                    <td>{{client.ID}}</td>
-                    <td>{{client.Name}}</td>
-                    <td>{{client.IDCard}}</td>
-                    <td>{{client.PhoneNumber}}</td>
-                    <td>{{client.Address}}</td>
-                    <td>{{client.Points}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="well container" id="CreateUserDiv" ng-controller="Users.Controller as userCtrl">
-        <form class="form-horizontal" ng-submit="CreateUser()">
-            <fieldset>
-                <legend>Crear Usuario</legend>
-                <div class="form-group row">
-                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
-                    <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre" required ng-model="userCtrl.NewUserName">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
-                    <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email" required ng-model="userCtrl.NewUserEmail">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputConfirmEmail" class="col-xs-2 col-form-label">Confirmar Email</label>
-                    <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar" ng-model="userCtrl.NewUserEmailConfirm">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-xs-2 col-form-label">Contraseña</label>
-                    <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña" ng-model="userCtrl.NewUserPassword">
-                        <small id="passwordHelp" class="form-text text-muted">Tiene que tener mínimo 8 caractéres, un número y una mayuscula incluidas al menos</small>
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirmar Contraseña</label>
-                    <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar" ng-model="userCtrl.NewUserPasswordConfirm">
-                    </div>
-                </div>
-                <div class="form-group row" id="CreateUserRolesCheckboxes">
-                    <label class="col-xs-2 col-form-label">Roles</label>
-                    <div class="col-xs-10">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="NewRoles" value="AdminRole">Admin</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="NewRoles" value="CashierRole">Cajero</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" class="btn btn-default" ng-click='CleanForm()'>Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Crear</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="DeleteUserDiv" ng-controller="Users.Controller as userCtrl">
-        <form class="form-horizontal" ng-submit="DeleteUser()">
-            <fieldset>
-                <legend>Eliminar Usuario</legend>
-                <div class="form-group container">
-                    <label for="deleteUserSelect">Elija el usuario a eliminar:</label>
-                    <select class="form-control" id="deleteUserSelect">
-                        <option ng-repeat="user in userCtrl.users" value="{{user.ID}}">{{user.ID}}.{{user.Name}} ({{user.Email}})</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="UpdateUserDiv" ng-controller="Users.Controller as userCtrl">
-        <form class="form-horizontal" ng-submit="UpdateUser()">
-            <fieldset>
-                <legend>Actualizar Usuario</legend>
-                <div class="form-group container">
-                    <label for="updateUserSelect">Elija el usuario a actualizar:</label>
-                    <select class="form-control" id="updateUserSelect">
-                        <option ng-repeat="user in userCtrl.users" value="{{user.ID}}">{{user.ID}}.{{user.Name}} ({{user.Email}})</option>
-                    </select>
-                </div>
-                <h4>Datos a modificar</h4>
-                <div class="form-group row">
-                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
-                    <div class="col-xs-10">
-                        <input type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre" ng-model="userCtrl.UpdateUserName">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputEmail" class="col-xs-2 col-form-label">Email</label>
-                    <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputEmail" name="Email" placeholder="Email" ng-model="userCtrl.UpdateUserEmail">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputConfirmEmail" class="col-xs-2 col-form-label">Confirmar Email</label>
-                    <div class="col-xs-10">
-                        <input type="email" class="form-control" id="inputConfirmEmail" placeholder="Confirmar" ng-model="userCtrl.UpdateUserEmailConfirm">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-xs-2 col-form-label">Contraseña</label>
-                    <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputPassword" name="Password" aria-describedby="passwordHelp" placeholder="Contraseña" ng-model="userCtrl.UpdateUserPassword">
-                        <small id="passwordHelp" class="form-text text-muted">Tiene que tener mínimo 8 caractéres, un número y una mayuscula incluidas al menos</small>
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <label for="inputConfirmPassword" class="col-xs-2 col-form-label">Confirmar Contraseña</label>
-                    <div class="col-xs-10">
-                        <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar" ng-model="userCtrl.UpdateUserPasswordConfirm">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-xs-2 col-form-label">Roles</label>
-                    <div class="col-xs-10" id="UpdateUserRolesCheckboxes">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="UpdateRoles" value="AdminRole">Admin</label>
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="UpdateRoles" value="CashierRole">Cajero</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="ListUserDiv">
-        <h3>Usuarios en el sistema:</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                </tr>
-            </thead>
-            <tbody ng-controller="Users.Controller as userCtrl">
-                <tr ng-repeat="user in userCtrl.users">
-                    <td>{{user.ID}}</td>
-                    <td>{{user.Name}}</td>
-                    <td>{{user.Email}}</td>
-                    <td><span ng-repeat="role in user.Roles">{{role.Name}}<br /></span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="well container" id="ListProviderDiv">
-        <h3>Proveedores en el sistema:</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Comisión</th>
-                    <th>Activo</th>
-                    <th>Campos</th>
-                </tr>
-            </thead>
-            <tbody ng-controller="Providers.Controller as providersCtrl">
-                <tr ng-repeat="prov in providersCtrl.allProviders">
-                    <td>{{prov.ID}}</td>
-                    <td>{{prov.Name}}</td>
-                    <td>{{prov.Commission}}%</td>
-                    <td>{{providersCtrl.PrintYesOrNoAcoordingToBool(prov.Active)}}</td>
-                    <td><button type="button" ng-click="DisplayProviderFieldsOnDialog(prov)" >Ver Campos</button></td>
-                </tr>
-            </tbody>
-        </table>
-            <div class="modal fade" id="ProviderFieldsModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" id="ProviderFieldsModalTitle">Modal Header</h4>
-                        </div>
-                        <div class="modal-body" id="ProviderFieldsModalText">
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-    </div>
-
-    <div class="well container" id="DeleteProviderDiv" ng-controller="Providers.Controller as providersCtrl">
-        <form class="form-horizontal" ng-submit="DeleteProvider()">
-            <fieldset>
-                <legend>Eliminar Proveedor</legend>
-                <div class="form-group container">
-                    <label for="deleteProviderSelect">Elija el Proveedor a eliminar:</label>
-                    <select class="form-control" id="deleteProviderSelect">
-                        <option ng-repeat="prov in providersCtrl.activeProviders" value="{{prov.ID}}">{{prov.ID}}.{{prov.Name}} (Comisión: {{prov.Comission}}%)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button"  ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="CreateProviderDiv" ng-controller="Providers.Controller as providersCtrl">
-        <form class="form-horizontal" ng-submit="CreateProvider()">
-            <fieldset>
-                <legend>Crear Proveedor</legend>
-                <div class="form-group row">
-                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="providersCtrl.NewProviderName" type="text" class="form-control" id="inputName" name="Name" placeholder="Nombre">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputCommission" class="col-xs-2 col-form-label">Comisión (en porcentaje)</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="providersCtrl.NewProviderComission" type="number" class="form-control" id="inputCommission" min="0" max="100" name="Commission" placeholder="Comisión">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputNumberOfFields" class="col-xs-2 col-form-label">Campos del proveedor</label>
-                    <div class="col-xs-10">
-                        <input type="number" ng-model="providersCtrl.NewFieldsNumber" class="form-control" id="inputNumberOfFields" min="0">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-xs-2 col-form-label">Campos</label>
-                    <div class="col-xs-10" ng-repeat="i in GetTargetLengthArray(providersCtrl.NewFieldsNumber)">
-                        <h4>Campo {{i+1}}:</h4>
-                        Tipo:
-                        <select id="NewProviderFieldType{{i}}">
-                            <option value="DateField">Fecha</option>
-                            <option value="NumberField">Numérico</option>
-                            <option value="TextField">Texto</option>
-                        </select>
-                        Nombre:
-                        <input required ng-model="providersCtrl.NewFieldName[i]" type="text" class="form-control" id="inputFieldName" name="Nombre" placeholder="Nombre">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button"  ng-click='CleanForm()'  class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Crear</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="UpdateProviderDiv" ng-controller="Providers.Controller as providersCtrl">
-        <form class="form-horizontal" ng-submit="UpdateProvider()">
-            <fieldset>
-                <legend>Actualizar Proveedor</legend>
-                <div class="form-group row">
-                    <label class="col-xs-2 col-form-label">Elija el Proveedor:</label>
-                    <div class="col-xs-10">
-                        <select class="form-control" id="modifyProviderSelect">
-                            <option ng-repeat="prov in providersCtrl.activeProviders" value="{{prov.ID}}">{{prov.ID}}.{{prov.Name}} (Comisión: {{prov.Comission}}%)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="providersCtrl.UpdateProviderName" type="text" class="form-control" name="Name" placeholder="Nombre">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputCommission" class="col-xs-2 col-form-label">Comisión (en porcentaje)</label>
-                    <div class="col-xs-10">
-                        <input required ng-model="providersCtrl.UpdateProviderComission" type="number" class="form-control" min="0" max="100" name="Commission" placeholder="Comisión">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputNumberOfFields" class="col-xs-2 col-form-label">Campos del proveedor</label>
-                    <div class="col-xs-10">
-                        <input type="number" ng-model="providersCtrl.UpdateFieldsNumber" class="form-control" min="0">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-xs-2 col-form-label">Campos</label>
-                    <div class="col-xs-10" ng-repeat="i in GetTargetLengthArray(providersCtrl.UpdateFieldsNumber)">
-                        <h4>Campo {{i+1}}:</h4>
-                        Tipo:
-                        <select id="UpdateProviderFieldType{{i}}">
-                            <option value="DateField">Fecha</option>
-                            <option value="NumberField">Numérico</option>
-                            <option value="TextField">Texto</option>
-                        </select>
-                        Nombre:
-                        <input required ng-model="providersCtrl.UpdateFieldName[i]" type="text" class="form-control" id="inputFieldName" name="Nombre" placeholder="Nombre">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button"  ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="ListPaymentsDiv">
-        <h3>Pagos en el sistema:</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Medio de Pago</th>
-                    <th>Importe pagado</th>
-                    <th>Cambio</th>
-                    <th>Total del Pago</th>
-                    <th>Recibos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Débito</td>
-                    <td>3000</td>
-                    <td>0</td>
-                    <td>3000</td>
-                    <td><button type="button">Ver Recibos</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="well container" id="CreatePaymentDiv" ng-controller="Payments.Controller as paymentsCtrl">
-        <form class="form-horizontal" ng-submit="CreatePayment()">
-            <fieldset>
-                <legend>Crear Pago</legend>
-                <div class="form-group row">
-                    <label class="col-xs-2 col-form-label">Medio de Pago</label>
-                    <div class="col-xs-10">
-                        <select class="form-control" id="paymentMethodSelect">
-                            <option value="DebitPayMethod">Débito</option>
-                            <option value="CashPayMethod">Efectivo</option>
-                        </select>
-                        <div class="form-group">
-                            <div class='input-group date' id='PayDateDatetimepicker'>
-                                <input type='text' class="form-control" id="SelectPayDate" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPaidWith" class="col-xs-2 col-form-label">Importe pagado</label>
-                    <div class="col-xs-10">
-                        <input required type="number" class="form-control" id="inputPaidWith" ng-model="paymentsCtrl.NewPaymentPaidWith" min="{{paymentsCtrl.NewPaymentTotal}}" name="PaidWith" placeholder="Importe pagado">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputTotal" class="col-xs-2 col-form-label">Total del Pago</label>
-                    <div class="col-xs-10">
-                        <input required readonly type="number" class="form-control" id="inputTotal" name="Total" placeholder="Total del Pago" ng-model="paymentsCtrl.NewPaymentTotal" min="0">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputNumberOfFields" class="col-xs-2 col-form-label">Número de recibos del pago</label>
-                    <div class="col-xs-10">
-                        <input type="number" ng-model="paymentsCtrl.NewPaymentReceiptsNumber" class="form-control" id="inputNumberOfReceipts" min="1">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-xs-2 col-form-label">Recibos</label>
-                    <div ng-repeat="i in GetTargetLengthArray(paymentsCtrl.NewPaymentReceiptsNumber)">
-                        <label class="col-xs-2 col-form-label">Recibo {{i}}:</label>
-                        <div class="col-xs-10">
-                            Proveedor:
-                            <select ng-controller="Providers.Controller as providersCtrl" ng-change="LoadFieldsIntoReceiptFields(i)" id="CreatePaymentReceiptProvider{{i}}">
-                                <option ng-repeat="prov in providersCtrl.activeProviders" value="{{prov}}">{{prov.ID}}. {{prov.Name}} (Comisión: {{prov.Comission}}%)</option>
-                            </select>
-                            Monto:
-                            <input type="number" ng-model="paymentsCtrl.NewPaymentReceiptAmount[i]" ng-change="UpdatePaymentTotal()" min="0" class="form-control" id="inputReceiptAmount" name="Amount" placeholder="Monto">
-                            Campo(s):
-                            <div class="col-xs-10" ng-repeat="field in paymentsCtrl.SelectedProviderFields[i]">
-                                <label for="inputPaidWith" class="col-xs-2 col-form-label">-{{field.Name}}</label>
-                                <div class="col-xs-10">
-                                    <input type="text" class="form-control" required ng-model="field.Data" placeholder="Valor">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Crear</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="well container" id="ReportPerProviderDiv" ng-controller="EarningQueries.Controller as queryCtrl">
-        <h3>Ganancias por Proveedor:</h3>
-        <form ng-submit="GetEarningsPerProvider()">
-            <div class="container">
-                <div class="row container">
-                    <div class='col-md-3 col-md-offset-1'>
-                        <h4>Desde:</h4>
-                        <div class="form-group">
-                            <div class='input-group date' id='FromDatetimepickerPerProvider'>
-                                <input type='text' class="form-control" id="SelectFromDatePerProvider" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='col-md-3 col-md-offset-4'>
-                        <h4>Hasta:</h4>
-                        <div class="form-group">
-                            <div class='input-group date' id='ToDatetimepickerPerProvider'>
-                                <input type='text' class="form-control" id="SelectToDatePerProvider" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Ver</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Ganancia</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(provider, earnings) in queryCtrl.perProviderResults">
-                    <td>{{provider}}</td>
-                    <td>${{earnings}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="well container" id="ReportTotalDiv" ng-controller="EarningQueries.Controller as queryCtrl">
-        <h3>Ganancias Totales:</h3>
-        <form ng-submit="GetTotalEarnings()">
-            <div class="container">
-                <div class="row container">
-                    <div class='col-md-3 col-md-offset-1'>
-                        <h4>Desde:</h4>
-                        <div class="form-group">
-                            <div class='input-group date' id='FromDatetimepickerTotalEarnings'>
-                                <input type='text' class="form-control" id="SelectFromDateTotalEarnings" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='col-md-3 col-md-offset-4'>
-                        <h4>Hasta:</h4>
-                        <div class="form-group">
-                            <div class='input-group date' id='ToDatetimepickerTotalEarnings'>
-                                <input type='text' class="form-control" id="SelectToDateTotalEarnings" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Ver</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <h3>Resultado:</h3>
-        <h4 class="text-center">${{queryCtrl.totalResult}}</h4>
-    </div>
+    <div ng-view></div>
 
     <br /><br />
     <div id="alert_placeholder"></div>

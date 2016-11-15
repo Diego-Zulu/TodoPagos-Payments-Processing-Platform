@@ -1,0 +1,53 @@
+﻿<div class="well container" id="UpdateProviderDiv" data-ng-init="GetProviders(true)">
+    <form class="form-horizontal" ng-submit="UpdateProvider()">
+        <fieldset>
+            <legend>Actualizar Proveedor</legend>
+            <div class="form-group row">
+                <label class="col-xs-2 col-form-label">Elija el Proveedor:</label>
+                <div class="col-xs-10">
+                    <select class="form-control" id="modifyProviderSelect">
+                        <option ng-repeat="prov in ctrl.activeProviders" value="{{prov.ID}}">{{prov.ID}}.{{prov.Name}} (Comisión: {{prov.Comission}}%)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputName" class="col-xs-2 col-form-label">Nombre</label>
+                <div class="col-xs-10">
+                    <input required ng-model="ctrl.UpdateProviderName" type="text" class="form-control" name="Name" placeholder="Nombre">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputCommission" class="col-xs-2 col-form-label">Comisión (en porcentaje)</label>
+                <div class="col-xs-10">
+                    <input required ng-model="ctrl.UpdateProviderComission" type="number" class="form-control" min="0" max="100" name="Commission" placeholder="Comisión">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputNumberOfFields" class="col-xs-2 col-form-label">Campos del proveedor</label>
+                <div class="col-xs-10">
+                    <input type="number" ng-model="ctrl.UpdateFieldsNumber" class="form-control" min="0">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xs-2 col-form-label">Campos</label>
+                <div class="col-xs-10" ng-repeat="i in GetTargetLengthArray(ctrl.UpdateFieldsNumber)">
+                    <h4>Campo {{i+1}}:</h4>
+                    Tipo:
+                    <select id="UpdateProviderFieldType{{i}}">
+                        <option value="DateField">Fecha</option>
+                        <option value="NumberField">Numérico</option>
+                        <option value="TextField">Texto</option>
+                    </select>
+                    Nombre:
+                    <input required ng-model="ctrl.UpdateFieldName[i]" type="text" class="form-control" id="inputFieldName" name="Nombre" placeholder="Nombre">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

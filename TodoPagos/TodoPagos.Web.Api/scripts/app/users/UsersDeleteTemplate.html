@@ -1,0 +1,19 @@
+﻿<div class="well container" id="DeleteUserDiv" data-ng-init="GetAllUsers()">
+    <form class="form-horizontal" ng-submit="DeleteUser()">
+        <fieldset>
+            <legend>Eliminar Usuario</legend>
+            <div class="form-group container">
+                <label for="deleteUserSelect">Elija el usuario a eliminar:</label>
+                <select class="form-control" id="deleteUserSelect">
+                    <option ng-repeat="user in ctrl.users" value="{{user.ID}}">{{user.ID}}.{{user.Name}} ({{user.Email}})</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

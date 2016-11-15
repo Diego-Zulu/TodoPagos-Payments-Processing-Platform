@@ -1,35 +1,3 @@
-#ListUserDiv {
-	display: none
-}
-
-#UpdateUserDiv {
-	display: none
-}
-
-#CreateUserDiv {
-	display: none
-}
-
-#DeleteUserDiv {
-	display: none
-}
-
-#ListClientDiv {
-	display: none
-}
-
-#UpdateClientDiv {
-	display: none
-}
-
-#CreateClientDiv {
-	display: none
-}
-
-#DeleteClientDiv {
-	display: none
-}
-
 #deleteProviderSelect{
 	width: 400px;
 	display: inline-block
@@ -51,22 +19,6 @@
 	display: inline-block
 }
 
-#ListProviderDiv{
-	display: none
-}
-
-#DeleteProviderDiv{
-	display: none
-}
-
-#CreateProviderDiv{
-	display: none
-}
-
-#UpdateProviderDiv{
-	display: none
-}
-
 #inputFieldData{
     width: 51.2%;
 	display: inline-block
@@ -77,28 +29,12 @@
 	display: inline-block
 }
 
-#ListPaymentsDiv{
-	display: none
-}
-
-#CreatePaymentDiv{
-	display: none
-}
-
 .table {
     border-radius: 5px;
     width: 50%;
     margin: 0px auto;
     float: none;
 	text-align: center
-}
-
-#ReportTotalDiv{
-	display: none
-}
-
-#ReportPerProviderDiv{
-	display: none
 }
 
 .form-signin
@@ -135,4 +71,8 @@
 
 body {
 	background-color: #00BCD4
+}
+
+a {
+ cursor: pointer;
 }

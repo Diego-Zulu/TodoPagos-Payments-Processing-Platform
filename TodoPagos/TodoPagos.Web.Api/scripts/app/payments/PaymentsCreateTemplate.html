@@ -1,0 +1,62 @@
+﻿<div class="well container" id="CreatePaymentDiv" ng-controller="Providers.Controller as providersCtrl">
+    <form class="form-horizontal" ng-submit="CreatePayment()">
+        <fieldset>
+            <legend>Crear Pago</legend>
+            <div class="form-group row">
+                <label class="col-xs-2 col-form-label">Medio de Pago</label>
+                <div class="col-xs-10">
+                    <select class="form-control" id="paymentMethodSelect">
+                        <option value="DebitPayMethod">Débito</option>
+                        <option value="CashPayMethod">Efectivo</option>
+                    </select>
+                    <div class="form-group">
+                        <div class='input-group date' id='PayDateDatetimepicker'>
+                            <input type='text' class="form-control" id="SelectPayDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" data-ng-init="GetProviders(true)">
+                <label for="inputPaidWith" class="col-xs-2 col-form-label">Importe pagado</label>
+                <div class="col-xs-10">
+                    <input required type="number" class="form-control" id="inputPaidWith" ng-model="ctrl.NewPaymentPaidWith" min="{{ctrl.NewPaymentTotal}}" name="PaidWith" placeholder="Importe pagado">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputNumberOfFields" class="col-xs-2 col-form-label">Número de recibos del pago</label>
+                <div class="col-xs-10">
+                    <input type="number" ng-model="ctrl.NewPaymentReceiptsNumber" class="form-control" id="inputNumberOfReceipts" min="1">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-xs-2 col-form-label">Recibos</label>
+                <div ng-repeat="i in GetTargetLengthArray(ctrl.NewPaymentReceiptsNumber)">
+                    <label class="col-xs-2 col-form-label">Recibo {{i}}:</label>
+                    <div class="col-xs-10">
+                        Proveedor:      
+                        <select ng-options="prov.Name for prov in providersCtrl.activeProviders"
+                                ng-model="ctrl.selectedProvider[i]" ng-change="LoadFieldsIntoReceiptFields(i)"></select>
+                        Monto:
+                        <input type="number" ng-model="ctrl.NewPaymentReceiptAmount[i]" min="0" class="form-control" id="inputReceiptAmount" name="Amount" placeholder="Monto">
+                        Campo(s):
+                        <div class="col-xs-10" ng-repeat="field in ctrl.SelectedProviderFields[i]">
+                            <label for="inputPaidWith" class="col-xs-2 col-form-label">-{{field.Name (field.Type)}}</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" required ng-model="field.Data" placeholder="Valor">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button type="button" ng-click='CleanForm()' class="btn btn-default">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

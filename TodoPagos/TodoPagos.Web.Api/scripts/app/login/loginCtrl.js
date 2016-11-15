@@ -3,11 +3,14 @@
 
     var todoPagosApp = angular.module('TodoPagos');
 
-    todoPagosApp.controller('Login.Controller', function ($rootScope, $scope, $http, $window) {
+    todoPagosApp.controller('Login.Controller', function ($scope, $http, $window, $location) {
 
         var ctrl = this;
 
-        $rootScope.IsLoggedIn = $window.sessionStorage.token != undefined;
+        $scope.IsLoggedIn = function () {
+
+            return $window.sessionStorage.token !== undefined;
+        }
         
         $scope.Login = function () {
             var info = { grant_type: 'password', username: ctrl.namelogin, password: ctrl.passlogin };
@@ -26,21 +29,21 @@
                 }
             }).success(function (data, status, headers, config) {
                 $window.sessionStorage.token = data.access_token;
-                $rootScope.IsLoggedIn = true;
-                  $('#alert_placeholder').html('<div class="alert alert-info"><a class="close" data-dismiss="alert">×</a><span>Bienvenido</span></div>')
-              })
+                $('#alert_placeholder').html('<div id="alertMessage"  class="alert alert-info"><a class="close" data-dismiss="alert">×</a><span>Bienvenido</span></div>')
+                $location.path("/");
+            })
               .error(function (data, status, headers, config) {
 
                   delete $window.sessionStorage.token;
-                  $rootScope.IsLoggedIn = false;
-                  $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Email o Pass inválida</span></div>')
+                  $('#alert_placeholder').html('<div id="alertMessage"  class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Email o Pass inválida</span></div>')
               });
+            $('#alertMessage').fadeOut(2000, null);
         };
 
         $scope.Logout = function () {
             
             delete $window.sessionStorage.token;
-            $rootScope.IsLoggedIn = false;
+            $location.path("/");
         };
     })
 })();

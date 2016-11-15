@@ -1,0 +1,25 @@
+﻿<div class="well container" id="ListClientDiv" data-ng-init="GetAllClients()">
+    <h3>Clientes en el sistema:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Puntos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="client in ctrl.clients">
+                <td>{{client.ID}}</td>
+                <td>{{client.Name}}</td>
+                <td>{{client.IDCard}}</td>
+                <td>{{client.PhoneNumber}}</td>
+                <td>{{client.Address}}</td>
+                <td>{{client.Points}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,52 @@
+﻿<div class="well container" id="ReportPerProviderDiv">
+    <h3>Ganancias por Proveedor:</h3>
+    <form ng-submit="GetEarningsPerProvider()">
+        <div class="container">
+            <div class="row container">
+                <div class='col-md-3 col-md-offset-1'>
+                    <h4>Desde:</h4>
+                    <div class="form-group">
+                        <div class='input-group date' id='FromDatetimepickerPerProvider'>
+                            <input type='text' class="form-control" id="SelectFromDatePerProvider" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-3 col-md-offset-4'>
+                    <h4>Hasta:</h4>
+                    <div class="form-group">
+                        <div class='input-group date' id='ToDatetimepickerPerProvider'>
+                            <input type='text' class="form-control" id="SelectToDatePerProvider" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Ver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Ganancia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="(provider, earnings) in ctrl.perProviderResults">
+                <td>{{provider}}</td>
+                <td>${{earnings}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

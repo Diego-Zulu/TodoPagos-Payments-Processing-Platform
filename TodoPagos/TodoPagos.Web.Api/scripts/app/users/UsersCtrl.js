@@ -4,17 +4,12 @@
     var todoPagosApp = angular.module('TodoPagos');
 
     todoPagosApp.controller('Users.Controller', function ($http, $scope) {
-
         
         var ctrl = this;
 
-        $scope.$on('GetUsers', function (e) {
-
-            $scope.GetAllUsers();
-        });
-
         $scope.GetAllUsers = function () {
 
+            console.log("prueba");
             $http.get('/api/v1/users')
             .success(function (result) {
                 if (result.length == 0) {
@@ -24,7 +19,8 @@
                 }
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los usuarios. Código: ' + status + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los usuarios. Código: ' + status + '</span></div>')
+                $('#alertMessage').fadeOut(2000, null);
             });
         }
 
@@ -48,16 +44,17 @@
                 })
                 .success(function (result) {
                     $scope.CleanForm();
-                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Usuario ' + ctrl.NewUserEmail + ' creado</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Usuario ' + ctrl.NewUserEmail + ' creado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
                 });
             } else if (ctrl.NewUserPassword == ctrl.NewUserPasswordConfirm) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La contraseña confirmada y la contraseña escrita no coinciden</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La contraseña confirmada y la contraseña escrita no coinciden</span></div>')
             } else {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: El email confirmado y el email escrito no coinciden</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: El email confirmado y el email escrito no coinciden</span></div>')
             }
+            $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.UpdateUser = function () {
@@ -82,16 +79,17 @@
                 .success(function (result) {
                     $scope.CleanForm();
                     $scope.GetAllUsers();
-                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Usuario ' + idOfSelectedUser + ' actualizado</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Usuario ' + idOfSelectedUser + ' actualizado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
                 });
             } else if (ctrl.NewUserPassword == ctrl.NewUserPasswordConfirm) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La contraseña confirmada y la contraseña escrita no coinciden</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La contraseña confirmada y la contraseña escrita no coinciden</span></div>')
             } else {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: El email confirmado y el email escrito no coinciden</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: El email confirmado y el email escrito no coinciden</span></div>')
             }
+            $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.DeleteUser = function () {
@@ -105,12 +103,17 @@
             .success(function (result) {
                 $scope.CleanForm();
                 $scope.GetAllUsers();
-                $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Usuario ' + idOfSelectedUser + ' eliminado</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Usuario ' + idOfSelectedUser + ' eliminado</span></div>')
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
             });
+            $('#alertMessage').fadeOut(2000, null);
         }
 
+        $scope.CleanForm = function () {
+
+            $('form').trigger("reset");
+        };
     })
 })();

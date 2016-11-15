@@ -7,10 +7,6 @@
 
         var ctrl = this;
 
-
-
-        
-
         $scope.deleteProvider = function () {
             $http.delete(ctrl.provider.id).then(function () {
                 $location.path('providers')
@@ -32,7 +28,8 @@
                 }  
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a las ganancias por proveedor. Código: ' + status + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a las ganancias por proveedor. Código: ' + status + '</span></div>')
+                $('#alertMessage').fadeOut(2000, null);
             });
         }
 
@@ -55,8 +52,30 @@
                 ctrl.totalResult = result;
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo las ganancias totales. Código: ' + status + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo las ganancias totales. Código: ' + status + '</span></div>')
+                $('#alertMessage').fadeOut(2000, null);
             });
         }
+
+        $scope.CleanForm = function () {
+
+            $('form').trigger("reset");
+        };
+
+        $('#FromDatetimepickerPerProvider').datetimepicker({
+            defaultDate: new Date()
+        });
+
+        $('#ToDatetimepickerPerProvider').datetimepicker({
+            defaultDate: new Date()
+        });
+
+        $('#FromDatetimepickerTotalEarnings').datetimepicker({
+            defaultDate: new Date()
+        });
+
+        $('#ToDatetimepickerTotalEarnings').datetimepicker({
+            defaultDate: new Date()
+        });
     })
 })();

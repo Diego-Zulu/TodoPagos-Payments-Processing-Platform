@@ -7,11 +7,6 @@
 
         var ctrl = this;
 
-        $scope.$on('GetClients', function (e) {
-
-            $scope.GetAllClients();
-        });
-
         $scope.GetAllClients = function () {
 
             $http.get('/api/v1/clients')
@@ -23,7 +18,8 @@
                 }
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los clientes. Código: ' + status + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a los clientes. Código: ' + status + '</span></div>')
+                $('#alertMessage').fadeOut(2000, null);
             });
         }
 
@@ -42,14 +38,15 @@
             })
             .success(function (result) {
                 $scope.CleanForm();
-                $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + ctrl.idcardnewclient + ' creado</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + ctrl.idcardnewclient + ' creado</span></div>')
             })
             .error(function (data, status) {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
             });
             } else {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La cédula confirmada y la cédula escrita no coinciden</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La cédula confirmada y la cédula escrita no coinciden</span></div>')
             }
+            $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.UpdateClient = function () {
@@ -69,14 +66,15 @@
                 .success(function (result) {
                     $scope.CleanForm();
                     $scope.GetAllClients();
-                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' actualizado</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' actualizado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error '+status+': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
                 });
             } else {
-                $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La cédula confirmada y la cédula escrita no coinciden</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: La cédula confirmada y la cédula escrita no coinciden</span></div>')
             }
+            $('#alertMessage').fadeOut(2000, null);
         }
 
         $scope.DeleteClient = function () {
@@ -90,11 +88,17 @@
                 .success(function (result) {
                     $scope.CleanForm();
                     $scope.GetAllClients();
-                    $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' eliminado</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Cliente ' + idOfSelectedClient + ' eliminado</span></div>')
                 })
                 .error(function (data, status) {
-                    $('#alert_placeholder').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
+                    $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error ' + status + ': ' + data.Message + '</span></div>')
                 });
+                $('#alertMessage').fadeOut(2000, null);
         }
+
+        $scope.CleanForm = function () {
+
+            $('form').trigger("reset");
+        };
     })
 })();

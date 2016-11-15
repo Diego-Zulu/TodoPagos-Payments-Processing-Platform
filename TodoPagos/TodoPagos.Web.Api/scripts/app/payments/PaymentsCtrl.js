@@ -32,12 +32,12 @@
         $scope.DisplayReceiptOnDialog = function (aReceipt) {
 
             var receiptInHtml = "";
-            receiptInHtml += "<h5>Proveedor: " + aReceipt.ReceiptProvider.Name + "(Comisión: " + aReceipt.ReceiptProvider.Commission + "%)</h5>";
-            receiptInHtml += "<h5>Costo: $" + aReceipt.Amount + "</h5>";
-            receiptInHtml += "<h5>Campos completados:</h5>";
+            receiptInHtml += "<h5><strong>Proveedor:</strong> " + aReceipt.ReceiptProvider.Name + "(Comisión: " + aReceipt.ReceiptProvider.Commission + "%)</h5>";
+            receiptInHtml += "<h5><strong>Costo:</strong> $" + aReceipt.Amount + "</h5>";
+            receiptInHtml += "<h5><strong>Campos completados:</strong></h5>";
 
             for (var i = 0; i < aReceipt.CompletedFields.length; i++) {
-                receiptInHtml += "<p>" + (i + 1) + ". " + aReceipt.CompletedFields[i].Name + " (Tipo: " + aReceipt.CompletedFields[i].Type[i] + ") => Dato: " + aReceipt.CompletedFields[i].Data + "</p>";
+                receiptInHtml += "<p>" + (i + 1) + ". " + aReceipt.CompletedFields[i].Name + " (<u>Tipo:</u> " + aReceipt.CompletedFields[i].Type + ") => <u>Dato:</u> " + aReceipt.CompletedFields[i].Data + "</p>";
             }
 
             $("#PaymentReceiptModalTitle").text("Factura de ID " + aReceipt.ID + ":");
@@ -68,7 +68,7 @@
             })
             .success(function (result) {
                 $scope.CleanForm();
-                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Pago por $' + (result.AmountPaid - result.Change) + ' creado</span></div>')
+                $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Pago por $' + parseInt(result.Total) + ' creado. Vuelto: $' + parseInt(result.Change) + '</span></div>')
                 console.log(result);
             })
             .error(function (data, status) {

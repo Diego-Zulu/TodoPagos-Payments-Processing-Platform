@@ -7,25 +7,24 @@
 
         var ctrl = this;
 
-        $scope.deleteProvider = function () {
-            $http.delete(ctrl.provider.id).then(function () {
-                $location.path('providers')
-            }, function (error) {
-
-            })
-        }
-
         $scope.GetEarningsPerProvider = function () {
 
+            console.log("Hola");
             var fromDate = new Date($('#SelectFromDatePerProvider').val()).toISOString().split('.')[0] + "Z";
             var toDate = new Date($('#SelectToDatePerProvider').val()).toISOString().split('.')[0] + "Z";
+
+            console.log("Paso");
             $http.get('/api/v1/query/earnings/earningsPerProvider?from=' + fromDate + "&to=" + toDate)
             .success(function (result) {
-                if (ctrl.PerProviderResultsAreEmpty) {
+                console.log(result);
+                if (ctrl.PerProviderResultsAreEmpty(result)) {
                     ctrl.perProviderResults = { "-Ninguno-": "0" };
                 } else {
                     ctrl.perProviderResults = result;
-                }  
+                }
+                console.log(result);
+                console.log(ctrl.PerProviderResultsAreEmpty(result));
+                
             })
             .error(function (data, status) {
                 $('#alert_placeholder').html('<div id="alertMessage" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>Error: No se pudo traer a las ganancias por proveedor. Código: ' + status + '</span></div>')

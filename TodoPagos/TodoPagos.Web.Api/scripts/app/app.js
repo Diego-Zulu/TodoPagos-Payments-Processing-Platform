@@ -105,13 +105,13 @@
             templateUrl: 'scripts/app/payments/PaymentsCreateTemplate.html'
         })
 
-        .when('/query/earnings/allEarnings', {
+        .when('/query/earnings/earningsPerProvider', {
             controller: 'EarningQueries.Controller',
             controllerAs: 'ctrl',
             templateUrl: 'scripts/app/earningQueries/PerProviderEarningsTemplate.html'
         })
 
-        .when('/query/earnings/earningsPerProvider', {
+        .when('/query/earnings/allEarnings', {
             controller: 'EarningQueries.Controller',
             controllerAs: 'ctrl',
             templateUrl: 'scripts/app/earningQueries/TotalEarningsTemplate.html'

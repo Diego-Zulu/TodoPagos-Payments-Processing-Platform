@@ -11,7 +11,7 @@ namespace TodoPagos.Domain
         public virtual PayMethod PaymentMethod { get; set; }
         public double PaidWith { get; set; }
         public double Change { get; set; }
-        private double PaymentTotal { get; set; }
+        public double Total { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
         public int ID { get; set; }
 
@@ -26,16 +26,16 @@ namespace TodoPagos.Domain
             PaymentMethod = aPayMethod;
             PaidWith = theAmountPaid;
             Receipts = paymentReceipts;
-            PaymentTotal = CalculatePaymentTotal();
-            Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
+            Total = CalculatePaymentTotal();
+            Change = PaymentMethod.PayAndReturnChange(this.Total, this.PaidWith);
         }
 
         public void SetPaidWithAndCalculateChange(double theAmountPaid)
         {
             CheckIfAmountPaidIsPositive(theAmountPaid);
             PaidWith = theAmountPaid;
-            PaymentTotal = CalculatePaymentTotal();
-            Change = PaymentMethod.PayAndReturnChange(this.PaymentTotal, this.PaidWith);
+            Total = CalculatePaymentTotal();
+            Change = PaymentMethod.PayAndReturnChange(this.Total, this.PaidWith);
         }
 
         private double CalculatePaymentTotal()
@@ -104,7 +104,7 @@ namespace TodoPagos.Domain
             try
             {
                 CheckAttributeCorrectness(this.PaymentMethod, this.PaidWith, this.Receipts);
-                CheckThatPaymentTotalIsStillTheSumOfTheAmountsOfAllReceipts(this.PaymentTotal);
+                CheckThatPaymentTotalIsStillTheSumOfTheAmountsOfAllReceipts(this.Total);
                 return true;
             }
             catch (ArgumentException)

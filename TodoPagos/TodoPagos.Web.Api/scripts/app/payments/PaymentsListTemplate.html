@@ -14,10 +14,11 @@
         <tbody>
             <tr ng-repeat="payment in ctrl.payments">
                 <td>{{payment.ID}}</td>
-                <td>{{payment.PayMethod}}</td>
-                <td>{{payment.PaidWith}}</td>
-                <td>{{payment.Change}}</td>
-                <td>{{payment.Total}}</td>
+                <td><span><u>Fecha:</u> {{payment.PaymentMethod.PayDate}}</span><br />
+                    <span><u>Tipo:</u> {{payment.PaymentMethod.Type}}</span></td>
+                <td>${{payment.PaidWith}}</td>
+                <td>${{payment.Change}}</td>
+                <td>${{payment.Total}}</td>
                 <td><p ng-repeat="receipt in payment.Receipts"><button type="button" ng-click="DisplayReceiptOnDialog(receipt)">Ver Recibo ID {{receipt.ID}}</button></p></td>
             </tr>
         </tbody>

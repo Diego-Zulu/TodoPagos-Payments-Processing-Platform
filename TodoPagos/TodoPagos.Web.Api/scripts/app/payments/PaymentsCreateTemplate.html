@@ -32,10 +32,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-xs-2 col-form-label">Recibos</label>
+                <label class="col-xs-2 col-form-label">Recibos</label><br />
                 <div ng-repeat="i in GetTargetLengthArray(ctrl.NewPaymentReceiptsNumber)">
-                    <label class="col-xs-2 col-form-label">Recibo {{i}}:</label>
                     <div class="col-xs-10">
+                        <label>Recibo {{i}}:</label><br />
                         Proveedor:      
                         <select ng-options="prov.Name for prov in providersCtrl.activeProviders"
                                 ng-model="ctrl.selectedProvider[i]" ></select>

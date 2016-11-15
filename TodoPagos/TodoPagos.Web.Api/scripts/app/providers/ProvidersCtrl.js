@@ -65,7 +65,7 @@
             var fieldsInHtml = "";
 
             for (var i = 0; i < aProvider.Fields.length; i++) {
-                fieldsInHtml += "<p>" + (i+1) + ". " + aProvider.Fields[i].Name + " (Tipo: " + aProvider.Fields[i].Type + ")</p>";
+                fieldsInHtml += "<p>" + (i+1) + ". " + aProvider.Fields[i].Name + " (<u>Tipo: </u>" + aProvider.Fields[i].Type + ")</p>";
             }
 
             $("#ProviderFieldsModalTitle").text("Campos de " + aProvider.Name);

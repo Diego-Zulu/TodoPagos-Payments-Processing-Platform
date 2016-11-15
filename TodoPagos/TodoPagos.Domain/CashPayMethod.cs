@@ -14,6 +14,7 @@ namespace TodoPagos.Domain
         {
             CheckIfDateIsNotInTheFuture(date);
             this.PayDate = date;
+            this.Type = "CashPayMethod";
         }
 
         private void CheckIfDateIsNotInTheFuture(DateTime date)

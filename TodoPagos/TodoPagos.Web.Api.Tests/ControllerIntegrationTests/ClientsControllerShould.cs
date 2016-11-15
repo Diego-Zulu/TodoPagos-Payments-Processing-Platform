@@ -26,6 +26,8 @@ namespace TodoPagos.Web.Api.Tests.ControllerIntegrationTests
         [TestInitialize()]
         public void InsertTestsUserInfoForTest()
         {
+
+
             CONTROLLER = new ClientsController(ADMIN_USER_USEREMAIL);
 
             TEST_CLIENTS = new[]

@@ -43,7 +43,7 @@ namespace TodoPagos.AdminForm.Form
             ChangeSecondPanel(new LogUserControl(logStrategy));
         }
 
-        private void btnAvailableProducts_Click(object sender, EventArgs e)
+        private void btnProducts_Click(object sender, EventArgs e)
         {
             ChangeSecondPanel(new AvailableProductsUserControl(unitOfWork));
         }
@@ -51,6 +51,13 @@ namespace TodoPagos.AdminForm.Form
         private void btnProductLoad_Click(object sender, EventArgs e)
         {
             ChangeSecondPanel(new LoadNewProductsUserControl(unitOfWork, logStrategy, signedInUserEmail));
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Está seguro de que desea salir del programa?",
+                "Salir", MessageBoxButtons.OKCancel);
+            if(result == DialogResult.OK) Application.Exit();
         }
     }
 }

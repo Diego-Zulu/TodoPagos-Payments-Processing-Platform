@@ -31,6 +31,19 @@ namespace TodoPagos.AdminForm.Logic
                 unitOfWork.Save();
             }
         }
+        
+        public void DeleteProduct(Product productToBeRemoved)
+        {
+            unitOfWork.ProductsRepository.Delete(productToBeRemoved.ID);
+            unitOfWork.Save();
+        }
+
+        public void ModifyProduct(Product productToBeModified, Product modifiedProduct)
+        {
+            unitOfWork.ProductsRepository.Delete(productToBeModified);
+            unitOfWork.ProductsRepository.Insert(modifiedProduct);
+            unitOfWork.Save();
+        }
 
         private bool AlreadyInRepository(Product productToBeAdded)
         {

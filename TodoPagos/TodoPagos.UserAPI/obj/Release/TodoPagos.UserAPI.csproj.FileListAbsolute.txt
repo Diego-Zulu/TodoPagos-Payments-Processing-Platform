@@ -1,9 +1,0 @@
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Release\UserAPI.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Release\UserAPI.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Release\Domain.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Release\Newtonsoft.Json.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Release\Domain.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\bin\Release\Newtonsoft.Json.xml
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Release\TodoPagos.UserAPI.csprojResolveAssemblyReference.cache
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Release\UserAPI.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.UserAPI\obj\Release\UserAPI.pdb

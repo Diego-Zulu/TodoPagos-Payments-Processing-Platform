@@ -1,0 +1,21 @@
+﻿<div class="well container" id="ListUserDiv" data-ng-init="GetAllUsers()">
+    <h3>Usuarios en el sistema:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in ctrl.users">
+                <td>{{user.ID}}</td>
+                <td>{{user.Name}}</td>
+                <td>{{user.Email}}</td>
+                <td><span ng-repeat="role in user.Roles">{{role.Name}}<br /></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

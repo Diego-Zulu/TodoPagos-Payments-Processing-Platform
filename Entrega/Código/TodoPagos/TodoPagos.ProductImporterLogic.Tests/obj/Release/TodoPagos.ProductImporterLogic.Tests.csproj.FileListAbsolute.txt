@@ -1,0 +1,17 @@
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.Tests.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Release\TodoPagos.ProductImporters.Tests.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Release\TodoPagos.ProductImporters.Tests.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.Tests.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.Tests.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\TodoPagos.ProductImporters.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\bin\Release\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Release\TodoPagos.ProductImporterLogic.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Release\TodoPagos.ProductImporters.Tests.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic.Tests\obj\Release\TodoPagos.ProductImporters.Tests.pdb

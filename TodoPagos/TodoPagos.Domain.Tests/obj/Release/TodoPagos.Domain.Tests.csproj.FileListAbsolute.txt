@@ -1,6 +1,0 @@
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Release\Tests.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Release\Tests.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Release\Domain.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\bin\Release\Domain.pdb
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Release\Tests.dll
-C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.Domain.Tests\obj\Release\Tests.pdb

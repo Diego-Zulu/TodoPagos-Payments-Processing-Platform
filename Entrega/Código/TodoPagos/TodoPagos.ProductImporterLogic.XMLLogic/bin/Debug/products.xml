@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Productos>
+ <Producto Nombre="Manzana">
+ <Descripcion>Roja</Descripcion>
+ <CantidadPuntos>10</CantidadPuntos>
+ <Stock>10</Stock>
+ </Producto>
+</Productos>

@@ -1,0 +1,10 @@
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\bin\Release\TodoPagos.ProductImporters.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\bin\Release\TodoPagos.ProductImporters.pdb
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Release\TodoPagos.ProductImporterLogic.csprojResolveAssemblyReference.cache
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Release\TodoPagos.ProductImporters.dll
+C:\Users\Zulu\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Release\TodoPagos.ProductImporters.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\bin\Release\TodoPagos.ProductImporters.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\bin\Release\TodoPagos.ProductImporters.pdb
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Release\TodoPagos.ProductImporterLogic.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Release\TodoPagos.ProductImporters.dll
+C:\Users\Bruno\Documents\ZuluagaFerrari\TodoPagos\TodoPagos.ProductImporterLogic\obj\Release\TodoPagos.ProductImporters.pdb

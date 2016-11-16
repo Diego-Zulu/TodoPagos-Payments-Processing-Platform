@@ -1,0 +1,44 @@
+﻿<div class="well container" id="ListPaymentsDiv" data-ng-init="GetAllPayments()">
+    <h3>Pagos en el sistema:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Medio de Pago</th>
+                <th>Importe pagado</th>
+                <th>Cambio</th>
+                <th>Total del Pago</th>
+                <th>Recibos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="payment in ctrl.payments">
+                <td>{{payment.ID}}</td>
+                <td><span><u>Fecha:</u> {{payment.PaymentMethod.PayDate}}</span><br />
+                    <span><u>Tipo:</u> {{payment.PaymentMethod.Type}}</span></td>
+                <td>${{payment.PaidWith}}</td>
+                <td>${{payment.Change}}</td>
+                <td>${{payment.Total}}</td>
+                <td><p ng-repeat="receipt in payment.Receipts"><button type="button" ng-click="DisplayReceiptOnDialog(receipt)">Ver Recibo ID {{receipt.ID}}</button></p></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="modal fade" id="PaymentReceiptModal" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="PaymentReceiptModalTitle">Modal Header</h4>
+                </div>
+                <div class="modal-body" id="PaymentReceiptModalText">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
